@@ -86,7 +86,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "js/build_component/" + ({"0":"handy-product-inventory-inquiry","1":"handy-product-order-place-kouri","2":"handy-product-order-receive","3":"handy-product-order-place","4":"handy-product-inventory-tmp-tana-update","5":"handy-product-inventory-return","6":"handy-mitsumury","7":"barcode-scan","8":"handy-vandor-master","9":"handy-product-order-mail","10":"handy-product-order-confirm-kouri","11":"handy-product-online-order-kouri","12":"handy-order-shipment-list","13":"handy-customer-master","14":"admin-super-manage","15":"example-component"}[chunkId]||chunkId) + ".js?id=" + {"0":"e5b37572909da3403434","1":"1c0bebe933b44641567b","2":"0a7ba6ba5c3b4bfb8ae8","3":"44087f47517e7d67bfaa","4":"ab04432fe99046482d49","5":"53c1f862e9bec98a6e29","6":"3c20a1ea0e13f8ed01f4","7":"37660b3c0a5312846fef","8":"964f764f0ee0c3b26ca0","9":"d1458027e97cecc32e81","10":"140be241cc3aed0fb746","11":"c19699cad86d99d882d8","12":"fb4d0e403f2984db6f2b","13":"41cea07791431ca06f23","14":"96642b83ada284522f43","15":"bc0e4a76e132e1aaf7cf"}[chunkId] + "";
+/******/ 		script.src = __webpack_require__.p + "js/build_component/" + ({"0":"handy-product-inventory-inquiry","1":"handy-product-order-place-kouri","2":"handy-vandor-master","3":"handy-product-order-receive","4":"handy-product-order-place","5":"handy-product-inventory-tmp-tana-update","6":"handy-product-inventory-return","7":"handy-mitsumury","8":"handy-customer-master","9":"barcode-scan","10":"handy-product-order-mail","11":"handy-product-order-confirm-kouri","12":"handy-product-online-order-kouri","13":"handy-order-shipment-list","14":"admin-super-manage","15":"example-component"}[chunkId]||chunkId) + ".js?id=" + {"0":"d01749984f0e6284c472","1":"c5bf6b64a178702aff32","2":"cfdfb09447490676ebe0","3":"fa0f389f0a2cc5637d5a","4":"0e089459070459a8e159","5":"5d18aa2bec5904eb24e5","6":"0affd5fa002f93240913","7":"12dd3aa5ee82e31fda10","8":"2149cfc3e9b2559c77a3","9":"f8e7b20d2132f8149bc1","10":"acb2634b7b65578f8fac","11":"562db45f5ca65ebc6f8a","12":"7d892b79094dc406b0d6","13":"8ad1bdb500f8eab34d87","14":"0533808a1cf4a765ddf3","15":"bc0e4a76e132e1aaf7cf"}[chunkId] + "";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -136,7 +136,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "http://localhost/rv3_tonyav1/public/";
+/******/ 	__webpack_require__.p = "https://ryutu-van.dev.jacos.jp/rv3_tonyav1/public/";
 /******/
 /******/ 	// on error function for async loading
 /******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
@@ -6088,6 +6088,89 @@ module.exports = {
 
 })));
 //# sourceMappingURL=bootstrap.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
 
 
 /***/ }),
@@ -49798,27 +49881,27 @@ var handyProductOrderPlaceKouri = function handyProductOrderPlaceKouri() {
 };
 
 var handyProductOrderOnlineOrderKouri = function handyProductOrderOnlineOrderKouri() {
-  return __webpack_require__.e/* import() */(11).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-online-order-kouri.vue"));
+  return __webpack_require__.e/* import() */(12).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-online-order-kouri.vue"));
 };
 
 var handyProductOrdermail = function handyProductOrdermail() {
-  return __webpack_require__.e/* import() */(9).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-order-mail.vue"));
+  return __webpack_require__.e/* import() */(10).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-order-mail.vue"));
 };
 
 var handyProductOrderConfirmKouri = function handyProductOrderConfirmKouri() {
-  return __webpack_require__.e/* import() */(10).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-order-confirm-kouri.vue"));
+  return __webpack_require__.e/* import() */(11).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-order-confirm-kouri.vue"));
 };
 
 var handyProductOrderPlace = function handyProductOrderPlace() {
-  return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-order-place.vue"));
+  return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-order-place.vue"));
 };
 
 var handyProductOrderReceive = function handyProductOrderReceive() {
-  return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-order-receive.vue"));
+  return __webpack_require__.e/* import() */(3).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-order-receive.vue"));
 };
 
 var handyProductInventoryTempTanaUpdate = function handyProductInventoryTempTanaUpdate() {
-  return __webpack_require__.e/* import() */(4).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-inventory-tmp-tana-update.vue"));
+  return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-inventory-tmp-tana-update.vue"));
 };
 
 var handyProductInventoryInquiry = function handyProductInventoryInquiry() {
@@ -49830,7 +49913,7 @@ var handyProductInventoryUpdate = function handyProductInventoryUpdate() {
 };
 
 var handyProductInventoryMitsumry = function handyProductInventoryMitsumry() {
-  return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, "./resources/js/components/handy-mitsumury.vue"));
+  return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, "./resources/js/components/handy-mitsumury.vue"));
 };
 
 var superAdminCustomerSuperManage = function superAdminCustomerSuperManage() {
@@ -49838,23 +49921,23 @@ var superAdminCustomerSuperManage = function superAdminCustomerSuperManage() {
 };
 
 var handyProductInventoryReturn = function handyProductInventoryReturn() {
-  return __webpack_require__.e/* import() */(5).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-inventory-return.vue"));
+  return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-inventory-return.vue"));
 };
 
 var handyOrderShipmentList = function handyOrderShipmentList() {
-  return __webpack_require__.e/* import() */(12).then(__webpack_require__.bind(null, "./resources/js/components/handy-order-shipment-list.vue"));
+  return __webpack_require__.e/* import() */(13).then(__webpack_require__.bind(null, "./resources/js/components/handy-order-shipment-list.vue"));
 };
 
 var handyVendorMaster = function handyVendorMaster() {
-  return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, "./resources/js/components/handy-vandor-master.vue"));
+  return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, "./resources/js/components/handy-vandor-master.vue"));
 };
 
 var handyCustomerMaster = function handyCustomerMaster() {
-  return __webpack_require__.e/* import() */(13).then(__webpack_require__.bind(null, "./resources/js/components/handy-customer-master.vue"));
+  return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, "./resources/js/components/handy-customer-master.vue"));
 };
 
 var barCodeScan = function barCodeScan() {
-  return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, "./resources/js/components/barcode-scan.vue"));
+  return __webpack_require__.e/* import() */(9).then(__webpack_require__.bind(null, "./resources/js/components/barcode-scan.vue"));
 };
 /**
  * Next, we will create a fresh Vue application instance and attach it to
