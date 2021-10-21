@@ -25,17 +25,21 @@
                                 全て
                             </label>
                         </div>
+                        <button @click="addProductModal()"
+                                class="btn btn-success pull-right mr-1 "
+                                style=" position: absolute; top: 5px; right: 65px;padding: 6px 5px;"> 00000
+                        </button>
                         <button v-if="productJans.length > 0" @click="selectSuper(' ')"
                                 class="btn btn-success pull-right mr-1 "
-                                style=" position: absolute; top: 5px; right: 70px;"> メール
+                                style=" position: absolute; top: 5px; right: 115px;padding: 6px 5px;"> メール
                         </button>
-                        <a href="custom-mitsumury"
-                                class="btn btn-info pull-right mr-1 "
-                                style=" position: absolute; top: 5px; right: 0px;"> 00000
+                        <a href="mitsumury"
+                           class="btn btn-info pull-right mr-1 "
+                           style=" position: absolute; top: 5px; right: 0px;"> *****
                         </a>
                     </div>
                     <div id="stock_detail_by_jan_form" class="p_scn_form text-right mt-0">
-                        <div class="input-group m-0 my-1"   >
+                        <div class="input-group m-0 my-1">
                             <span class="text-warning" style="width: 100%; text-align: center;">
                                 枠の中にクリックしてから <br> JANコードスキャンしてください
                             </span>
@@ -92,7 +96,7 @@
                     <div class=" col-centereds col-md-12 col-sm-12 col-sl-12 p-0 row ">
                         <div class="col-sm-6 col-md-3 col-xl-3 image-div" v-for="(product,i) in products"
                              :class="(productJans.indexOf(product)) > -1 ? 'active-img' : ''">
-                            <img :src="'public/backend/images/products/'+product.jan+'.png'"
+                            <img :src="product.image"
                                  class="img-thumbnail custom-img"
                                  alt="Cinque Terre" @click="viewInfoForImage(product,product.img)"
                                  style="cursor: pointer">
@@ -112,7 +116,7 @@
                     <div class="modal-header" style="padding: 5px;justify-content: right">
                         <a class="btn btn-success float-right mr-1" @click="naviShow()"> 採用</a>
                         <a class="btn btn-success float-right mr-2">発注</a>
-                        <a class="btn btn-info float-right" @click="confirmAndHide()">戻る</a>
+                        <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
 
                     </div>
                     <div class="modal-body p-0" style="text-align: center">
@@ -122,7 +126,7 @@
                         </div>
                         <div>
                             <img
-                                :src="'public/backend/images/products/'+ preview_product.jan+'.png'"
+                                :src="preview_product.image"
                                 class="img-thumbnail custom-img-preview" alt="Cinque Terre"
                                 style="cursor: pointer">
                         </div>
@@ -130,9 +134,6 @@
                             <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls">
                                 <thead data-v-c9953dda="">
                                 <tr data-v-c9953dda="">
-                                    <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
-                                        特売価格期限
-                                    </th>
                                     <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
                                         原価
                                     </th>
@@ -149,14 +150,7 @@
                                 </thead>
                                 <tbody data-v-c9953dda="" class="physicaltbody">
                                 <tr data-v-c9953dda="">
-                                    <td data-v-c9953dda="">
-                                        <input data-v-c9953dda="" type="tel" id="special-price"
-                                               v-model="preview_product.sale_selling_price"
-                                               class="form-control  " @click="selectItem($event)"
-                                               @blur="blurAndSave()"
-                                               @keypress="pressEnterAndSave($event,'cost')"
-                                               style="border-radius: 0px; text-align: center; padding: 7px 0px;">
-                                    </td>
+
                                     <td data-v-c9953dda="">
                                         <input data-v-c9953dda="" type="tel" id="cost" @click="selectItem($event)"
                                                class="form-control  " v-model="preview_product.cost"
@@ -175,9 +169,10 @@
                                     </td>
                                     <td data-v-c9953dda="">
                                         <input data-v-c9953dda="" type="tel" id="profit" @click="selectItem($event)"
-                                               class="form-control  " :value="preview_product.sell - preview_product.cost" readonly
+                                               class="form-control  "
+                                               :value="preview_product.sell - preview_product.cost" readonly
                                                style="border-radius: 0px; text-align: center; padding: 7px 0px;">
-<!--                                        v-model="preview_product.profit"-->
+                                        <!--                                        v-model="preview_product.profit"-->
                                         <!--                                               @keypress="pressEnterAndSave($event,'profit_margin')"-->
                                         <!--                                               @keyup="calculatePrice('profit')"-->
                                     </td>
@@ -185,9 +180,98 @@
                                         <input data-v-c9953dda="" type="tel" id="profit_margin"
                                                @click="selectItem($event)"
                                                @blur="blurAndSave()"
-                                               @keypress="pressEnterAndSave($event,'special-price')"
-                                               class="form-control  " v-model="preview_product.profit_margin"
+                                               @keypress="pressEnterAndSave($event,'cost')"
+                                               class="form-control  " v-model="preview_product.gross_profit_margin"
                                                @keyup="calculatePrice('profit_margin')"
+                                               style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <!--                    <div class="modal-footer " style="padding: 6px">-->
+                    <!--                    </div>-->
+                </div>
+            </div>
+        </div>
+        <!--        // mistumury-prodct-add-modal-->
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+             aria-hidden="true" id="mistumury-prodct-add-modal">
+            <div class="modal-dialog modal-lg mt-0">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding: 5px;justify-content: right">
+                        <a class="btn btn-success float-right mr-1" @click="saveNewMistumuryProduct()"> 採用</a>
+                        <a class="btn btn-success float-right mr-2">発注</a>
+                        <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-prodct-add-modal')">戻る</a>
+
+                    </div>
+                    <div class="modal-body p-0" style="text-align: center">
+                        <div
+                            style="font-size: 18px;text-align: left;padding: 5px 10px;background: #c3ff8f80;font-weight: bold;">
+                            <input type="text" v-model="mistumury_product.title" class="form-control">
+                        </div>
+                        <div>
+                            <div class="form-group text-center">
+                                <input type="file" accept="image/*" @change="previewImage" class="form-control-file"
+                                       id="my-file" alt="00">
+                            </div>
+                            <img v-if="preview"
+                                 :src="preview"
+                                 class="img-thumbnail custom-img-preview" alt="Cinque Terre"
+                                 style="cursor: pointer">
+                        </div>
+                        <div>
+                            <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls">
+                                <thead data-v-c9953dda="">
+                                <tr data-v-c9953dda="">
+                                    <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                        原価
+                                    </th>
+                                    <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                        売価
+                                    </th>
+                                    <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                        粗利
+                                    </th>
+                                    <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                        ％
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody data-v-c9953dda="" class="physicaltbody">
+                                <tr data-v-c9953dda="">
+                                    <td data-v-c9953dda="">
+                                        <input data-v-c9953dda="" type="tel" id="cost_" @click="selectItem($event)"
+                                               class="form-control  " v-model="mistumury_product.cost"
+                                               @keypress="pressEnterAndNext($event,'sell_')"
+                                               @keyup="calculateNewProductAddPrice('cost')"
+                                               style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+                                    </td>
+                                    <td data-v-c9953dda="">
+                                        <input data-v-c9953dda="" type="tel" id="sell_" @click="selectItem($event)"
+                                               class="form-control  " v-model="mistumury_product.sell"
+                                               @keypress="pressEnterAndNext($event,'profit_margin_')"
+                                               @keyup="calculateNewProductAddPrice('sell')"
+                                               style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+                                    </td>
+                                    <td data-v-c9953dda="">
+                                        <input data-v-c9953dda="" type="tel" id="profit_" @click="selectItem($event)"
+                                               class="form-control  "
+                                               :value="(mistumury_product.sell && mistumury_product.cost) ? mistumury_product.sell - mistumury_product.cost : ''"
+                                               readonly
+                                               style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+                                        <!--                                        v-model="preview_product.profit"-->
+                                        <!--                                               @keypress="pressEnterAndNext($event,'profit_margin')"-->
+                                        <!--                                               @keyup="calculatePrice('profit')"-->
+                                    </td>
+                                    <td data-v-c9953dda="">
+                                        <input data-v-c9953dda="" type="tel" id="profit_margin_"
+                                               @click="selectItem($event)"
+                                               @keypress="pressEnterAndNext($event,'cost_')"
+                                               class="form-control  " v-model="mistumury_product.profit_margin"
+                                               @keyup="calculateNewProductAddPrice('profit_margin')"
                                                style="border-radius: 0px; text-align: center; padding: 7px 0px;">
                                     </td>
                                 </tr>
@@ -211,6 +295,7 @@
                 </div>
             </div>
         </div>
+
         <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
              aria-hidden="true" id="mistumury-select-super">
             <div class="modal-dialog modal-lg mt-0">
@@ -305,7 +390,7 @@ import {StreamBarcodeReader} from "vue-barcode-reader";
 
 export default {
     props: ['base_url'],
-    name: "handy-mistumury",
+    name: "handy-custom-mistumury",
     data() {
         return {
             jan_code: '',
@@ -325,7 +410,14 @@ export default {
             allSelectedSuper: false,
             productJans: [],
             selectedSuper: [],
-            message: null
+            message: null,
+            mistumury_product: {
+                title : '',
+                cost: 100,
+                sell: 120,
+                profit_margin: 20
+            },
+            preview: null
 
         }
     },
@@ -342,84 +434,10 @@ export default {
     methods: {
         getProducts() {
             let _this = this;
-            // let temp_jan = [
-            //     {name : 'トマト', jan : '20000011'},
-            //     {name : '人参', jan : '20000028'},
-            //     {name : 'パプリカ', jan : '20000035'},
-            //     {name : 'トウモロコシ', jan : '20000042'},
-            //     {name : 'レタス', jan : '20000059'},
-            //     {name : 'きゅうり', jan : '20000066'},
-            //     {name : 'ナス', jan : '20000073'},
-            //     {name : 'ジャガイモ', jan : '20000080'}
-            // ]
-            // _this.products = [];
-            // temp_jan.map(function (temp) {
-            //     let tep = {
-            //         "vendor_item_id": 1,
-            //         "vendor_id": 0,
-            //         "maker_id": 1,
-            //         "customer_id": null,
-            //         "jan": temp.jan,
-            //         "order_class": "basic",
-            //         "cost_price": "120.00",
-            //         "selling_price": "180.00",
-            //         "e_cost_price": "100.00",
-            //         "e_selling_price": "130.00",
-            //         "e_gross_profit": "23.08",
-            //         "e_gross_profit_margin": "30.00",
-            //         "sale_selling_price": "180.00",
-            //         "gross_profit": "33.33",
-            //         "gross_profit_margin": "50.00",
-            //         "sale_cost_price": "0.00",
-            //         "start_date": "2020-01-01",
-            //         "end_date": "2021-12-31",
-            //         "sale_start_date": "2020-01-01",
-            //         "sale_end_date": "2021-12-31",
-            //         "order_point_inputs": "ケース",
-            //         "order_point_case_quantity": 0,
-            //         "order_point_ball_quantity": 0,
-            //         "order_point_unit_quantity": 0,
-            //         "order_point_quantity": 1,
-            //         "order_lot_inputs": "ケース",
-            //         "order_lot_case_quantity": 0,
-            //         "order_lot_ball_quantity": 0,
-            //         "order_lot_unit_quantity": 0,
-            //         "order_lot_quantity": 1,
-            //         "is_special": "0",
-            //         "created_at": "2021-09-17T03:08:43.000000Z",
-            //         "updated_at": "2021-09-21T10:31:51.000000Z",
-            //         "janinfo": {
-            //             "jan_id": 1,
-            //             "maker_id": null,
-            //             "jan": temp.jan,
-            //             "name": temp.name,
-            //             "major_category": null,
-            //             "sub_major_category": null,
-            //             "minor_category": null,
-            //             "case_inputs": 0,
-            //             "ball_inputs": 0,
-            //             "jan_start_date": "2021-09-17 15:08:43",
-            //             "jan_end_date": "2021-09-17 15:08:43",
-            //             "created_at": "2021-09-16T09:08:43.000000Z",
-            //             "updated_at": null
-            //         }
-            //     }
-            //     _this.products.push(tep)
-            // })
-            //
-            // return 0;
-
-
-            axios.get(this.base_url + '/get-all-products')
+            axios.get(this.base_url + '/get-all-custom-mistumury-products')
                 .then(function (res) {
                     let data = res.data;
                     _this.products = data.products;
-                    // _this.products = _this.products.map(function (product) {
-                    //     product.img = product.jan == '4901005500341' ? 'chocolate.jpg' : _this.images[Math.floor(Math.random() * 7)];
-                    //     return product;
-                    // })
-                    // _this.handi_navi = '........';
-                    // $('#handy-navi').show();
                     _this.productJans = [];
                 })
                 .catch(function () {
@@ -463,9 +481,9 @@ export default {
             // $('#handy-navi').show();
         },
         viewInfoForImage(product, img) {
-            product.item_name = product.janinfo.name;
+            product.item_name = product.name;
             // product.img = img;
-            product.profit_margin = product.gross_profit_margin;
+            product.profit_margin = product.profit_margin;
             this.previewProductInfoWithImage(product);
             // setTimeout(function () {
             //     $('#special-price').focus();
@@ -501,9 +519,9 @@ export default {
             // $('#special-price').focus();
             // $('#special-price').select();
         },
-        confirmAndHide() {
-            $('#mistumury-mage-preview').modal('hide')
-            $('#mistumury-select-super').modal('hide')
+        confirmAndHide(type) {
+            $('#' + type).modal('hide')
+            $('#' + type).modal('hide')
         },
         getOrderDataByJan() {
             let _this = this;
@@ -662,16 +680,40 @@ export default {
                     sale_selling_price: parseInt(_this.preview_product.sale_selling_price)
                 }
 
-                axios.post(_this.base_url + '/update_vendor_item_estimate_items', data)
-                    .then(function (response) {
-                        // _this.getOrderDataByJan();
-                        _this.getProducts();
-                        _this.handi_navi = '仕入・販売先マスターへ登録されました';
-                        $('#handy-navi').show()
-                    })
-                    .catch(function (e) {
-                        console.log(e)
-                    })
+                // axios.post(_this.base_url + '/update_custom_estimate_items', data)
+                //     .then(function (response) {
+                //         // _this.getOrderDataByJan();
+                //         _this.getProducts();
+                //         _this.handi_navi = '仕入・販売先マスターへ登録されました';
+                //         $('#handy-navi').show()
+                //     })
+                //     .catch(function (e) {
+                //         console.log(e)
+                //     })
+
+            }
+        },
+        pressEnterAndNext(e, type) {
+            let _this = this;
+            if (e.keyCode == 13) {
+                $('#' + type).focus()
+                $('#' + type).select()
+                // return false;
+                if (parseFloat(_this.preview_product.cost) > parseFloat(_this.preview_product.sell)) {
+                    _this.handi_navi = 'XXXXX';
+                    $('#handy-navi').show()
+                    return false;
+                }
+
+                // return false;
+                let data = {
+                    jan: _this.preview_product.jan,
+                    price: parseFloat(_this.preview_product.cost),
+                    gross_profit_margin: parseFloat(_this.preview_product.profit_margin),
+                    gross_profit: ((_this.preview_product.sell - _this.preview_product.cost) / _this.preview_product.sell * 100).toFixed(2),
+                    selling_price: parseFloat(_this.preview_product.sell),
+                    sale_selling_price: parseInt(_this.preview_product.sale_selling_price)
+                }
 
             }
         },
@@ -680,22 +722,19 @@ export default {
 
             // return false;
 
-
             if (parseFloat(_this.preview_product.cost) > parseFloat(_this.preview_product.sell)) {
                 _this.handi_navi = 'XXXXX';
                 $('#handy-navi').show()
                 return false;
             }
             let data = {
-                jan: _this.preview_product.jan,
-                price: parseFloat(_this.preview_product.cost),
-                gross_profit_margin: parseFloat(_this.preview_product.profit_margin),
-                gross_profit: ((_this.preview_product.sell - _this.preview_product.cost) / _this.preview_product.sell * 100).toFixed(2),
-                selling_price: parseFloat(_this.preview_product.sell),
-                sale_selling_price: parseInt(_this.preview_product.sale_selling_price)
+                id: _this.preview_product.id,
+                cost : parseFloat(_this.preview_product.cost),
+                gross_profit_margin: parseFloat(_this.preview_product.gross_profit_margin),
+                sell : parseFloat(_this.preview_product.sell)
             }
 
-            axios.post(_this.base_url + '/update_vendor_item_estimate_items', data)
+            axios.post(_this.base_url + '/update_custom_estimate_items', data)
                 .then(function (response) {
                     // _this.getOrderDataByJan();
                     _this.getProducts();
@@ -712,26 +751,57 @@ export default {
             let _this = this;
 
             if (type == 'profit_margin') {
-                _this.preview_product.sell = parseFloat(_this.preview_product.cost) + parseFloat((_this.preview_product.cost * _this.preview_product.profit_margin) / 100);
+                _this.preview_product.sell = parseFloat(_this.preview_product.cost) + parseFloat((_this.preview_product.cost * _this.preview_product.gross_profit_margin) / 100);
                 _this.preview_product.sell = _this.preview_product.sell.toFixed(2)
                 // _this.preview_product.profit = (_this.preview_product.sell - _this.preview_product.cost).toFixed(2);
                 _this.preview_product.profit = (((_this.preview_product.sell - _this.preview_product.cost) / _this.preview_product.sell) * 100).toFixed(2);
             } else if (type == 'sell') {
-                _this.preview_product.profit_margin = ((parseFloat(_this.preview_product.sell) - parseFloat(_this.preview_product.cost)) * 100) / _this.preview_product.cost
-                _this.preview_product.profit_margin = _this.preview_product.profit_margin.toFixed(2);
+                _this.preview_product.gross_profit_margin = ((parseFloat(_this.preview_product.sell) - parseFloat(_this.preview_product.cost)) * 100) / _this.preview_product.cost
+                _this.preview_product.gross_profit_margin = _this.preview_product.gross_profit_margin.toFixed(2);
                 // _this.preview_product.profit = (_this.preview_product.sell - _this.preview_product.cost).toFixed(2);
                 _this.preview_product.profit = (((_this.preview_product.sell - _this.preview_product.cost) / _this.preview_product.sell) * 100).toFixed(2);
 
             } else if (type == 'profit') {
                 _this.preview_product.sell = parseFloat(_this.preview_product.cost) + parseFloat($('#profit').val())
-                _this.preview_product.profit_margin = ((parseFloat(_this.preview_product.sell) - parseFloat(_this.preview_product.cost)) * 100) / _this.preview_product.cost;
+                _this.preview_product.gross_profit_margin = ((parseFloat(_this.preview_product.sell) - parseFloat(_this.preview_product.cost)) * 100) / _this.preview_product.cost;
                 _this.preview_product.sell = _this.preview_product.sell.toFixed(2);
-                _this.preview_product.profit_margin = _this.preview_product.profit_margin.toFixed(2);
+                _this.preview_product.gross_profit_margin = _this.preview_product.gross_profit_margin.toFixed(2);
             } else if (type == 'cost') {
-                _this.preview_product.sell = parseFloat(_this.preview_product.cost) + parseFloat((_this.preview_product.cost * _this.preview_product.profit_margin) / 100);
+                _this.preview_product.sell = parseFloat(_this.preview_product.cost) + parseFloat((_this.preview_product.cost * _this.preview_product.gross_profit_margin) / 100);
                 _this.preview_product.sell = _this.preview_product.sell.toFixed(2)
                 // _this.preview_product.profit = (_this.preview_product.sell - _this.preview_product.cost).toFixed(2);
                 _this.preview_product.profit = (((_this.preview_product.sell - _this.preview_product.cost) / _this.preview_product.sell) * 100).toFixed(2);
+
+            }
+
+            // localStorage.setItem('preview_product', JSON.stringify(_this.preview_product));
+
+        },
+        calculateNewProductAddPrice(type) {
+
+            let _this = this;
+
+            if (type == 'profit_margin') {
+                _this.mistumury_product.sell = parseFloat(_this.mistumury_product.cost) + parseFloat((_this.mistumury_product.cost * _this.mistumury_product.profit_margin) / 100);
+                _this.mistumury_product.sell = _this.mistumury_product.sell.toFixed(2)
+                // _this.mistumury_product.profit = (_this.mistumury_product.sell - _this.mistumury_product.cost).toFixed(2);
+                _this.mistumury_product.profit = (((_this.mistumury_product.sell - _this.mistumury_product.cost) / _this.mistumury_product.sell) * 100).toFixed(2);
+            } else if (type == 'sell') {
+                _this.mistumury_product.profit_margin = ((parseFloat(_this.mistumury_product.sell) - parseFloat(_this.mistumury_product.cost)) * 100) / _this.mistumury_product.cost
+                _this.mistumury_product.profit_margin = _this.mistumury_product.profit_margin.toFixed(2);
+                // _this.mistumury_product.profit = (_this.mistumury_product.sell - _this.mistumury_product.cost).toFixed(2);
+                _this.mistumury_product.profit = (((_this.mistumury_product.sell - _this.mistumury_product.cost) / _this.mistumury_product.sell) * 100).toFixed(2);
+
+            } else if (type == 'profit') {
+                _this.mistumury_product.sell = parseFloat(_this.mistumury_product.cost) + parseFloat($('#profit').val())
+                _this.mistumury_product.profit_margin = ((parseFloat(_this.mistumury_product.sell) - parseFloat(_this.mistumury_product.cost)) * 100) / _this.mistumury_product.cost;
+                _this.mistumury_product.sell = _this.mistumury_product.sell.toFixed(2);
+                _this.mistumury_product.profit_margin = _this.mistumury_product.profit_margin.toFixed(2);
+            } else if (type == 'cost') {
+                _this.mistumury_product.sell = parseFloat(_this.mistumury_product.cost) + parseFloat((_this.mistumury_product.cost * _this.mistumury_product.profit_margin) / 100);
+                _this.mistumury_product.sell = _this.mistumury_product.sell.toFixed(2)
+                // _this.mistumury_product.profit = (_this.mistumury_product.sell - _this.mistumury_product.cost).toFixed(2);
+                _this.mistumury_product.profit = (((_this.mistumury_product.sell - _this.mistumury_product.cost) / _this.mistumury_product.sell) * 100).toFixed(2);
 
             }
 
@@ -770,8 +840,8 @@ export default {
         previewProductInfoWithImage(product) {
             let _this = this;
             _this.preview_product = product;
-            _this.maker_id = product.vendor_id;
-            _this.preview_product.title = product.item_name;
+            _this.maker_id = 0;
+            _this.preview_product.title = product.name;
             _this.preview_product.cost = product.cost_price;
             _this.preview_product.sell = product.selling_price;
             // _this.preview_product.profit = product.selling_price - product.cost_price;
@@ -781,8 +851,8 @@ export default {
             // $('#special-price').focus();
             // $('#special-price').select();
             setTimeout(function () {
-                $('#special-price').focus();
-                $('#special-price').select();
+                $('#cost').focus();
+                $('#cost').select();
             }, 700)
         },
         updateVendorItemProperty(vendor, type = null) {
@@ -955,12 +1025,15 @@ export default {
             this.message = message
             $('#mistumury-select-super').modal({backdrop: 'static'})
         },
+        // add product model
+        addProductModal() {
+            $('#mistumury-prodct-add-modal').modal({backdrop: 'static'})
+        },
         //sendtoSuper
         sendtoSuper() {
             let _this = this;
             this.allSelected = false
             this.allSelectedSuper = false
-
 
             let data = {'item_info': this.productJans, 'super_info': this.selectedSuper, 'message': this.message};
             this.handi_navi = '少しお待ちどして下さい';
@@ -972,7 +1045,7 @@ export default {
             // var setApiUrl = (base_url.indexOf('localhost') !== -1 ? '/rv3_tonyav1' : '/rv3_superv1');
             var setApiUrl = '/rv3_superv1';
 
-            axios.post(setApiUrl + '/api/estimation_data', data)
+            axios.post(setApiUrl + '/api/custom-estimation-data', data)
                 .then(function (response) {
                     // _this.getOrderDataByJan();
                     _this.getProducts();
@@ -984,9 +1057,49 @@ export default {
                 })
             this.selectedSuper = [];
             this.productJans = [];
-        }
+        },
+        //
+        previewImage: function (event) {
+            var input = event.target;
+            if (input.files) {
+                var reader = new FileReader();
+                reader.onload = (e) => {
+                    this.preview = e.target.result;
+                }
+                this.mistumury_product.image = input.files[0];
+                reader.readAsDataURL(input.files[0]);
+            }
+        },
 
+        saveNewMistumuryProduct: function (event) {
+            let _this = this;
+            if (this.mistumury_product.title.length <= 0 || this.mistumury_product.cost <= 0 || this.mistumury_product.sell <= 0) {
+                this.handi_navi = '000000';
+                $('#handy-navi').show();
+                return false;
+            }
 
+            let fd = new FormData()
+
+            fd.append('image', _this.mistumury_product.image)
+
+            fd.append('cost', _this.mistumury_product.cost)
+            fd.append('sell', _this.mistumury_product.sell)
+            fd.append('title', _this.mistumury_product.title)
+            fd.append('profit_margin', _this.mistumury_product.profit_margin)
+
+            axios.post(_this.base_url + '/custom-mistumury-products',fd)
+                .then(function (response) {
+                    _this.getProducts();
+                    _this.handi_navi = '仕入・販売先マスターへ登録されました';
+                    $('#handy-navi').show();
+                    $('#mistumury-prodct-add-modal').modal('hide');
+                    _this.mistumury_product.image = null
+                    _this.preview = null
+                    _this.mistumury_product.title = ''
+                    $('#my-file').val('')
+                })
+        },
     },
     watch: {}
 }
@@ -1112,6 +1225,7 @@ table thead tr th, table tbody tr td {
     }
 
 }
+
 @media screen and (max-width: 351px) {
     .image-div {
         width: 50%;
