@@ -189,6 +189,13 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="detail-pro">
+                            {{ preview_product.jan }}
+                        </div>
+                        <div class="detail-pro">
+                            {{ preview_product.created_at }}
+                        </div>
+
 
                     </div>
                     <!--                    <div class="modal-footer " style="padding: 6px">-->
@@ -1106,6 +1113,14 @@ export default {
 </script>
 
 <style scoped>
+
+.detail-pro {
+    font-size: 16px;
+    text-align: left;
+    padding: 5px 10px;
+    background: rgba(255, 229, 250, 0.5);
+    border: 1px solid #d6d6d6;
+}
 
 .active-c {
     background: #b5ffb1;

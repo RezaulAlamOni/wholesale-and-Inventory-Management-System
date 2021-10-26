@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\CustomMisthsumuryProduct;
+use App\vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,7 +24,7 @@ class CustomMisthsumuryProductController extends Controller
 
     public function getAllMistumury()
     {
-        $products = CustomMisthsumuryProduct::all();
+        $products = CustomMisthsumuryProduct::orderBy('created_at','desc')->get();
         return response()->json(['products' => $products]);
     }
 
@@ -48,13 +49,16 @@ class CustomMisthsumuryProductController extends Controller
         $image = $request->image;
         $extension = $image->extension();
         $name = pathinfo($image->getClientOriginalName(),PATHINFO_FILENAME).time().mt_rand();
-//        if (!file_exists('/public')) {
-//            mkdir('/public', 0777, true);
-//        }
+        $vendor = vendor::where('user_id',auth()->id())->first();
+        $jan = rand(1000000000,9999999999);
+        $jan = '20'. $vendor->vendor_id . $jan;
         $image->storeAs('/public', $name .".".$extension);
 
         CustomMisthsumuryProduct::create([
             'name' => $request->title,
+            'jan' => $jan,
+            'vendor_id' => $vendor->vendor_id,
+            'vendor_name' => $vendor->name,
             'cost_price' => $request->cost,
             'selling_price' => $request->sell,
             'gross_profit' => $request->sell - $request->cost,
