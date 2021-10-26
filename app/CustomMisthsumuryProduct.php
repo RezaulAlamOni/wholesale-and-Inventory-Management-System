@@ -20,4 +20,9 @@ class CustomMisthsumuryProduct extends Model
         return '/rv3_tonyav1/'.$this->image;
     }
 
+    protected function getCreatedAtAttribute($value)
+    {
+        return date('d-M-Y', strtotime($value));
+    }
+
 }
