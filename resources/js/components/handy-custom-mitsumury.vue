@@ -209,7 +209,7 @@
             <div class="modal-dialog modal-lg mt-0">
                 <div class="modal-content">
                     <div class="modal-header" style="padding: 5px;justify-content: right">
-                        <a class="btn btn-success float-right mr-1" @click="saveNewMistumuryProduct()"> 保存</a>
+                        <button class="btn btn-success float-right mr-1" id="product-add-" @click="saveNewMistumuryProduct()"> 保存</button>
 <!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
                         <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-prodct-add-modal')">戻る</a>
 
@@ -1079,6 +1079,7 @@ export default {
         },
 
         saveNewMistumuryProduct: function (event) {
+            $('#product-add-').prop('disabled', true);
             let _this = this;
             if (this.mistumury_product.title.length <= 0 || this.mistumury_product.cost <= 0 || this.mistumury_product.sell <= 0) {
                 this.handi_navi = '000000';
@@ -1101,6 +1102,7 @@ export default {
                     _this.handi_navi = '仕入・販売先マスターへ登録されました';
                     $('#handy-navi').show();
                     $('#mistumury-prodct-add-modal').modal('hide');
+                    $('#product-add-').prop('disabled', false);
                     _this.mistumury_product.image = null
                     _this.preview = null
                     _this.mistumury_product.title = ''
