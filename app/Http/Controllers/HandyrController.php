@@ -875,11 +875,13 @@ SELECT SUM(quantity) as quantity,vendor_orders.status as vendor_order_status,ven
         vi.e_selling_price,
         vi.e_gross_profit_margin,
         vi.e_gross_profit,
-        vi.gross_profit_margin as profit_margin
+        vi.gross_profit_margin as profit_margin,
+        custom_misthsumury_products.image
     FROM
     vendor_items AS vi
     LEFT JOIN vendors ON vendors.vendor_id=vi.vendor_id
     LEFT JOIN jans ON vi.jan=jans.jan
+    LEFT JOIN custom_misthsumury_products ON vi.jan=custom_misthsumury_products.jan
     left JOIN stock_items AS si ON si.vendor_item_id= vi.vendor_item_id
     ) AS vi_all
     LEFT JOIN (
