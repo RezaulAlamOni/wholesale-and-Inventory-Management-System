@@ -122,11 +122,11 @@
                     <div class="modal-body p-0" style="text-align: center">
                         <div
                             style="font-size: 18px;text-align: left;padding: 5px 10px;background: #c3ff8f80;font-weight: bold;">
-                            {{ preview_product.title }}
+                            {{ preview_product.item_name }}
                         </div>
                         <div>
                             <img
-                                :src="preview_product.image"
+                                :src="'public/storage/'+preview_product.image"
                                 class="img-thumbnail custom-img-preview" alt="Cinque Terre"
                                 style="cursor: pointer">
                         </div>
@@ -154,18 +154,18 @@
                                     <td data-v-c9953dda="">
                                         <input data-v-c9953dda="" type="tel" id="cost" @click="selectItem($event)"
                                                class="form-control  " v-model="preview_product.cost"
-                                               @blur="blurAndSave()"
-                                               @keypress="pressEnterAndSave($event,'sell')"
                                                @keyup="calculatePrice('cost')"
                                                style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+<!--                                        @blur="blurAndSave()"-->
+<!--                                        @keypress="pressEnterAndSave($event,'sell')"-->
                                     </td>
                                     <td data-v-c9953dda="">
                                         <input data-v-c9953dda="" type="tel" id="sell" @click="selectItem($event)"
                                                class="form-control  " v-model="preview_product.sell"
-                                               @keypress="pressEnterAndSave($event,'profit_margin')"
-                                               @blur="blurAndSave()"
                                                @keyup="calculatePrice('sell')"
                                                style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+<!--                                        @keypress="pressEnterAndSave($event,'profit_margin')"-->
+<!--                                        @blur="blurAndSave()"-->
                                     </td>
                                     <td data-v-c9953dda="">
                                         <input data-v-c9953dda="" type="tel" id="profit" @click="selectItem($event)"
@@ -179,11 +179,12 @@
                                     <td data-v-c9953dda="">
                                         <input data-v-c9953dda="" type="tel" id="profit_margin"
                                                @click="selectItem($event)"
-                                               @blur="blurAndSave()"
-                                               @keypress="pressEnterAndSave($event,'cost')"
                                                class="form-control  " v-model="preview_product.gross_profit_margin"
                                                @keyup="calculatePrice('profit_margin')"
                                                style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+<!--                                        @blur="blurAndSave()"-->
+<!--                                        @keypress="pressEnterAndSave($event,'cost')"-->
+
                                     </td>
                                 </tr>
                                 </tbody>
@@ -209,7 +210,7 @@
             <div class="modal-dialog modal-lg mt-0">
                 <div class="modal-content">
                     <div class="modal-header" style="padding: 5px;justify-content: right">
-                        <a class="btn btn-success float-right mr-1" @click="saveNewMistumuryProduct()"> 保存</a>
+                        <button class="btn btn-success float-right mr-1" id="product-add-" @click="saveNewMistumuryProduct()"> 保存</button>
 <!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
                         <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-prodct-add-modal')">戻る</a>
 
@@ -853,6 +854,7 @@ export default {
             _this.preview_product.sell = product.selling_price;
             // _this.preview_product.profit = product.selling_price - product.cost_price;
             _this.preview_product.profit = (((_this.preview_product.sell - _this.preview_product.cost) / _this.preview_product.sell) * 100).toFixed(2);
+            _this.preview_product.gross_profit_margin =  _this.preview_product.gross_profit_margin ?  _this.preview_product.gross_profit_margin : (((_this.preview_product.sell - _this.preview_product.cost) / _this.preview_product.cost) * 100).toFixed(2);
 
             $('#mistumury-mage-preview').modal({backdrop: 'static'})
             // $('#special-price').focus();
@@ -1079,6 +1081,7 @@ export default {
         },
 
         saveNewMistumuryProduct: function (event) {
+            $('#product-add-').prop('disabled', true);
             let _this = this;
             if (this.mistumury_product.title.length <= 0 || this.mistumury_product.cost <= 0 || this.mistumury_product.sell <= 0) {
                 this.handi_navi = '000000';
@@ -1101,6 +1104,7 @@ export default {
                     _this.handi_navi = '仕入・販売先マスターへ登録されました';
                     $('#handy-navi').show();
                     $('#mistumury-prodct-add-modal').modal('hide');
+                    $('#product-add-').prop('disabled', false);
                     _this.mistumury_product.image = null
                     _this.preview = null
                     _this.mistumury_product.title = ''
