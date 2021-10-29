@@ -293,7 +293,7 @@ class ShipmentCsvController extends Controller
     public function vendor_item_findOrInsert($customer_id,$jan_code,$jan_name,$maker_name,$cost_price,$selling_price){
         $customer_item_info = vendor_item::where('jan',$jan_code)->first();
         if($customer_item_info){
-            return $customer_item_info['customer_item_id'];
+            return $customer_item_info['vendor_item_id'];
         }else{
             $janLenght = strlen($jan_code);
             if($janLenght=='8'){
