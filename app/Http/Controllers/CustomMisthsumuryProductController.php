@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\customer_item;
 use App\CustomMisthsumuryProduct;
 use App\jan;
 use App\vendor;
@@ -81,7 +82,7 @@ class CustomMisthsumuryProductController extends Controller
 
         $vendor_data_ins_array = array(
             'maker_id' => 0,
-            'vendor_id' =>  auth()->id(),
+            'vendor_id' =>  $vendor->vendor_id ,
             'jan' => $jan,
             'cost_price' => $request->cost,
             'sale_cost_price' => $request->sell,
@@ -93,6 +94,18 @@ class CustomMisthsumuryProductController extends Controller
 
         vendor_item::updateOrInsert(['jan' => $jan],$vendor_data_ins_array);
 
+        $cost_price  =  $request->cost+  30;
+        $selling_price =  $request->cost + (( $request->cost * 30) / 100);
+        $customer_data_ins_array = array(
+            'customer_id' => 0,
+            'vendor_id' => $vendor->vendor_id,
+            'jan' => $jan,
+            'cost_price' => $cost_price,
+            'selling_price' => $selling_price,
+            'gross_profit' => (($cost_price * 30) / 100)
+//                'gross_profit' => $item->selling_price - $item->cost_price
+        );
+        customer_item::updateOrInsert(['jan' => $jan], $customer_data_ins_array);
         return response()->json(['status' => 200]);
     }
 
