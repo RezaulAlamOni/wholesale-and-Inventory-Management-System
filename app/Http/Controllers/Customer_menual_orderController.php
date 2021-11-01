@@ -183,7 +183,7 @@ $online_order = collect(\DB::select("
 select all_orders.*,
 makers.maker_name
 from(
-select 
+select
 customer_shipments.confirm_quantity,
 customer_order_details.cost_price,
 customer_order_details.selling_price,
@@ -206,7 +206,7 @@ from customer_orders
 left join stock_items on vendor_items.vendor_item_id = stock_items.vendor_item_id
 left join customer_shipments on customer_shipments.customer_order_detail_id = customer_order_details.customer_order_detail_id
              where customer_orders.customer_id = '".$id."' and customer_orders.customer_shop_id='".$shop_id."' and (customer_orders.status='未出荷' || customer_orders.status='確定済み') and customer_orders.category = 'edi' group by customer_orders.customer_order_id $wh2) as all_orders
-             left join makers on makers.maker_code= all_orders.mk_code group by all_orders.customer_order_id $orderByMakername 
+             left join makers on makers.maker_code= all_orders.mk_code group by all_orders.customer_order_id $orderByMakername
             "));
             $order_array =array();
             if($online_order){
@@ -242,7 +242,7 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
         select all_orders.*,
         makers.maker_name
         from(
-        select 
+        select
         customer_shipments.confirm_quantity,
         customer_order_details.cost_price,
         customer_order_details.selling_price,
@@ -322,15 +322,15 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
     }
     function get_customer_base_manual_order_item(Request $request){
         $shop_list = array();
-        $online_order = array();
+        $order_array = array();
         $id = $request->c_id;
         $jan = $request->jan;
         $order_category = $request->order_category;
-        
+
         if($jan!='' && $id!=null){
-           
+
             if($id>0){
-                
+
                 $cus_item = customer_item::where(['customer_id'=>$id,'jan'=>$jan])->first();
                 if(!$cus_item){
                     $cusItemInfo = customer_item::where(['jan'=>$jan])->first();
@@ -360,7 +360,7 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
            if($id>0){
             $shop_list =customer_shop::where('customer_id',$id)->orderBy('customer_shop_id', 'asc')->get();
 
-            $online_order = collect(\DB::select("select 
+            $online_order = collect(\DB::select("select
             IFNULL(customer_shipments.confirm_quantity,0) as confirm_quantity,
             IFNULL(customer_shipments.confirm_case_quantity,0) as confirm_case_quantity,
             IFNULL(customer_shipments.confirm_ball_quantity,0) as confirm_ball_quantity,
@@ -572,7 +572,7 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
        // $vendoritems_info = vendor_item::where('jan',$jan_code)->first();
         if($result){
             return response()->json(['status' => 402]);
-            
+
         }else{
             $inputs_type = 'ケース';
             $c_quantity = $request->total_quantity;
@@ -598,7 +598,7 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
             $customer_order_demo_detail['customer_order_id']=$customer_order_id;
             $customer_order_detail_id = customer_order_detail::insertGetId($customer_order_demo_detail);
             $stock_info = $this->get_stock_info($jan_code);
-            
+
             $shiptment['customer_id']=$customer_id;
             $shiptment['customer_order_id']=$customer_order_id;
             $shiptment['customer_order_detail_id']=$customer_order_detail_id;
@@ -609,16 +609,16 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
             $shiptment['confirm_unit_quantity']=$request->unit_order_quantity;
 
             $shiptment['confirm_quantity']=$c_quantity;
-            
-            
-            
+
+
+
             if($stock_info){
                 $shiptment['rack_number']=$stock_info->rack_number;
                 if($stock_info->case_quantity>=$request->case_order_quantity && $stock_info->ball_quantity>=$request->ball_order_quantity && $stock_info->unit_quantity>=$request->unit_order_quantity){
                     customer_shipment::insert($shiptment);
                     customer_order::where('customer_order_id',$customer_order_id)->update(['status'=>'確定済み']);
                 }
-                
+
             }
         }
         return response()->json(['status' => 200]);
