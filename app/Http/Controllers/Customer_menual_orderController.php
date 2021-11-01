@@ -165,14 +165,7 @@ class Customer_menual_orderController extends Controller
         $id = $request->customer_id;
         $shop_id = $request->shop_id;
         $voice_text = $request->voice_text;
-        $shop_item_list = customer_item::Join('jans', 'jans.jan', '=', 'customer_items.jan');
-        if($customer_id!=0){
-            $shop_item_list = $shop_item_list->where('customer_items.customer_id',$customer_id);
-        }
-        if (isset($voice_text)){
-            $shop_item_list = $shop_item_list->orderByRaw('jans.name like "%'.$voice_text.'%" desc');
-        }
-        $shop_item_list =$shop_item_list->groupBy('customer_items.jan')->get();
+       
 
 /*csv order list*/
 //$wh = 'ORDER BY all_orders.total_quantity DESC,all_orders.name like "%'.$voice_text.'%" desc,makers.maker_name like "%'.$voice_text.'%" desc';
@@ -216,7 +209,7 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
             }
 /*csv order list*/
 
-        $result = response()->json(['shop_item_list' => $online_order,'order_item'=>$shop_item_list]);
+        $result = response()->json(['shop_item_list' => $online_order]);
         return $result;
     }
     public function get_shop_updated_item_list_by_customer_id(Request $request)

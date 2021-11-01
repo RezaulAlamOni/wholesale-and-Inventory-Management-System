@@ -501,7 +501,7 @@ class ShipmentCsvController extends Controller
                 continue;
                 // return response()->json(['message' => '未登録の販売先コードがあります：'.$value[3],'success'=>0]);
             }
-            $customer_shop_id=1;//$this->customer_shop_search_byname($customer_id,$shp_name,$shp_code);
+            $customer_shop_id=$this->customer_shop_search_byname($customer_id,$shp_name,$shp_code);
             if($customer_shop_id==null){
                 // @unlink($baseUrl);
                 // Session::flash('message', 'shop code do not match：[shop code]'); 
@@ -979,7 +979,7 @@ class ShipmentCsvController extends Controller
         return $customer_info['customer_id'];
     }
     public function customer_shop_search_byname($customer_id,$shop_name,$shop_code){
-        $customer_info = customer_shop::where(['shop_name'=>$shop_name,'shop_no'=>$shop_code,'customer_id'=>$customer_id])->first();
+        $customer_info = customer_shop::where(['shop_name'=>$shop_name])->orwhere(['shop_no'=>$shop_code])->orwhere(['customer_id'=>$customer_id])->first();
       
         if($customer_info){
             return $customer_info['customer_shop_id'];
