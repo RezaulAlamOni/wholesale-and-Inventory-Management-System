@@ -46,6 +46,31 @@ const message_notify_default = {
             { button: '<center><button class="btn btn-primary customer_list_show_popup">販売先別</button></center>' }
         ]
     },
+     customer_master_shop_delete: {
+        message: [
+            { "message": "000000000000" }
+        ],
+        buttons: [
+            { button: '<center><button class="btn btn-primary btn-sm" onclick="close_all_navi_msg()">戻る</button></center>' }
+        ]
+    },
+     customer_master_shop_delete_success: {
+        message: [
+            { "message": "000000000000" }
+        ],
+        buttons: [
+            { button: '<center><button class="btn btn-primary btn-sm" onclick="close_all_navi_msg()">戻る</button></center>' }
+        ]
+    },
+     customer_master_shop_delete_confirm: {
+        message: [
+            { "message": "000000000000" }
+        ],
+        buttons: [
+            { button: '<center><button class="btn btn-primary btn-sm"  onclick="close_all_navi_msg()">戻る</button></center>' },
+            { button: '<center><button class="btn btn-danger btn-sm"  onclick="removeShopConfirm()">0000</button></center>' },
+        ]
+    },
     customer_master_extra: {
         message: [
             { "message": "商品の追加登録ができます。" },
@@ -284,12 +309,12 @@ function show_default_page_notifications() {
             /*view existing data*/
             var returnFrom = localStorage.getItem('returnFrom');
             if(localStorage.getItem('local_shop_id')!=''){
-               
+
                 if(returnFrom=='1'){
                     $('.s_ids_v').val(localStorage.getItem('local_shop_id'));
                     $('.c_ids_v').val(localStorage.getItem('local_customer_id'));
                     $('.jcs_main_hand_title').text(localStorage.getItem('local_page_title'));
-                    
+
                     get_brand_shop_brand_list(localStorage.getItem('local_customer_id'),'','','popup1');
                 }
             }
@@ -302,7 +327,7 @@ function show_default_page_notifications() {
             }
             localStorage.setItem('returnFrom','0');
             /*view existing data*/
-           
+
          break;
         case 'brand-order-detail':
             close_all_navi_msg();

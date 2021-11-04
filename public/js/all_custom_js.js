@@ -5860,6 +5860,10 @@ function get_customer_shop_list(c_id = 0, c_name = ''){
     //var currnt_brand_list= 'コカ・コーラ(Coca-Cola),ポカリスエット,スターバックス,ネスカフェ,アサヒビール,BOSS(ボス),明治乳業,サントリー,カゴメ,ピカイチ野菜くん';
     var currnt_brand_list= '店 A,店 B,店 C,店 D';
     var substr = currnt_brand_list.split(','); // array here
+    nav_width = '280px';
+    display_positionY = '15px';
+    display_positionX = '15px';
+    customer_master_default_nav = view(message_notify_default['customer_master_shop_delete'], def_center_mesg_template);
 
     $.ajax({
         headers: {
@@ -5893,6 +5897,21 @@ function get_customer_shop_list(c_id = 0, c_name = ''){
 }
 
 function removeShop(id,c_id) {
+    localStorage.setItem('customer_info', JSON.stringify({ id : id,c_id : c_id}));
+
+    nav_width = '280px';
+    display_positionY = '15px';
+    display_positionX = '15px';
+    customer_master_default_nav = view(message_notify_default['customer_master_shop_delete_confirm'], def_center_mesg_template);
+
+}
+
+
+function removeShopConfirm() {
+    let customer_info = localStorage.getItem('customer_info');
+    customer_info = JSON.parse(customer_info);
+    let id = customer_info.id;
+    let c_id = customer_info.c_id;
     $.ajax({
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
@@ -5903,6 +5922,11 @@ function removeShop(id,c_id) {
         data: {id: id},
         success: function (response) {
             get_customer_shop_list(c_id);
+            nav_width = '280px';
+            display_positionY = '15px';
+            display_positionX = '15px';
+            customer_master_default_nav = view(message_notify_default['customer_master_shop_delete_success'], def_center_mesg_template);
+
         }
     })
 }
@@ -11550,6 +11574,31 @@ const message_notify_default = {
             { button: '<center><button class="btn btn-primary customer_list_show_popup">販売先別</button></center>' }
         ]
     },
+     customer_master_shop_delete: {
+        message: [
+            { "message": "000000000000" }
+        ],
+        buttons: [
+            { button: '<center><button class="btn btn-primary btn-sm" onclick="close_all_navi_msg()">戻る</button></center>' }
+        ]
+    },
+     customer_master_shop_delete_success: {
+        message: [
+            { "message": "000000000000" }
+        ],
+        buttons: [
+            { button: '<center><button class="btn btn-primary btn-sm" onclick="close_all_navi_msg()">戻る</button></center>' }
+        ]
+    },
+     customer_master_shop_delete_confirm: {
+        message: [
+            { "message": "000000000000" }
+        ],
+        buttons: [
+            { button: '<center><button class="btn btn-primary btn-sm"  onclick="close_all_navi_msg()">戻る</button></center>' },
+            { button: '<center><button class="btn btn-danger btn-sm"  onclick="removeShopConfirm()">0000</button></center>' },
+        ]
+    },
     customer_master_extra: {
         message: [
             { "message": "商品の追加登録ができます。" },
@@ -11788,12 +11837,12 @@ function show_default_page_notifications() {
             /*view existing data*/
             var returnFrom = localStorage.getItem('returnFrom');
             if(localStorage.getItem('local_shop_id')!=''){
-               
+
                 if(returnFrom=='1'){
                     $('.s_ids_v').val(localStorage.getItem('local_shop_id'));
                     $('.c_ids_v').val(localStorage.getItem('local_customer_id'));
                     $('.jcs_main_hand_title').text(localStorage.getItem('local_page_title'));
-                    
+
                     get_brand_shop_brand_list(localStorage.getItem('local_customer_id'),'','','popup1');
                 }
             }
@@ -11806,7 +11855,7 @@ function show_default_page_notifications() {
             }
             localStorage.setItem('returnFrom','0');
             /*view existing data*/
-           
+
          break;
         case 'brand-order-detail':
             close_all_navi_msg();
@@ -11969,6 +12018,7 @@ function close_default_page_navi(page_id) {
             break;
     }
 }
+
 // html div ID
 const def_id = 'jacos_nav';
 var nav_width = '500px';
