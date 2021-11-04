@@ -56,7 +56,7 @@ const message_notify_default = {
     },
      customer_master_shop_delete_success: {
         message: [
-            { "message": "正常に削除されました" }
+            { "message": "削除されました" }
         ],
         buttons: [
             { button: '<center><button class="btn btn-primary btn-sm" onclick="close_all_navi_msg()">戻る</button></center>' }
