@@ -48,7 +48,7 @@ const message_notify_default = {
     },
      customer_master_shop_delete: {
         message: [
-            { "message": "000000000000" }
+            { "message": "ここでアイテムを削除できます。" }
         ],
         buttons: [
             { button: '<center><button class="btn btn-primary btn-sm" onclick="close_all_navi_msg()">戻る</button></center>' }
@@ -56,7 +56,7 @@ const message_notify_default = {
     },
      customer_master_shop_delete_success: {
         message: [
-            { "message": "000000000000" }
+            { "message": "正常に削除されました" }
         ],
         buttons: [
             { button: '<center><button class="btn btn-primary btn-sm" onclick="close_all_navi_msg()">戻る</button></center>' }
@@ -64,11 +64,11 @@ const message_notify_default = {
     },
      customer_master_shop_delete_confirm: {
         message: [
-            { "message": "000000000000" }
+            { "message": "削除しますか？" }
         ],
         buttons: [
             { button: '<center><button class="btn btn-primary btn-sm"  onclick="close_all_navi_msg()">戻る</button></center>' },
-            { button: '<center><button class="btn btn-danger btn-sm"  onclick="removeShopConfirm()">0000</button></center>' },
+            { button: '<center><button class="btn btn-danger btn-sm"  onclick="removeShopConfirm()">削除</button></center>' },
         ]
     },
     customer_master_extra: {
