@@ -76,6 +76,7 @@
                                 <th class="change_table_th_title">販売先名</th>
                                 <th>電話</th>
                                 <th>コード</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody class="customer_list_item">

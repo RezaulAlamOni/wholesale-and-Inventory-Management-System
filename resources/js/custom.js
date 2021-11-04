@@ -1003,7 +1003,13 @@ $(document).ready(function () {
     $(document).delegate('.customer_list_show_popup', 'click', function (e) {
         close_all_navi_msg();
         show_hide_nav_icn(0);
-        get_customer_list();
+        let url = url_search();
+        if (url == 'customer_master') {
+            get_customer_list_for();
+        } else  {
+            get_customer_list();
+        }
+
         $('#customer_message_success').html('');
         $("#add_customer_message").html('');
         $("#update_customer_message_fail").html('');
@@ -2230,6 +2236,14 @@ $(document).ready(function () {
         }
         show_hide_nav_icn(1);
     });
+
+
+    $(document).delegate("#shop-list-", "click", function (e) {
+        // e.preventDefault();
+        // var c_name = $(this).text();
+        // var c_id = $(this).attr('data_customer_id');
+        // get_customer_shop_list(c_id,c_name)
+    })
 
 /*brnd detail*/
 // else if (url_last_element == 'brand-order-detail' || url_last_element == 'brand-order-detail#') {
@@ -3800,6 +3814,17 @@ var isUpdateValue = '';
 
 
 }); /*jquery end */
+
+function url_search() {
+    var currentURL = window.location.href;
+    var url_array = currentURL.split("/");
+    var url_last_element = $(url_array).last()[0];
+    if($.isNumeric(url_last_element)) {
+        url_last_element = url_array[url_array.length-2];
+    }
+    return url_last_element;
+}
+
 function get_shop_list(shop_id = null) {
     $.ajax({
         headers: {
@@ -5069,6 +5094,51 @@ function get_brand_item_list(c_id = 0, c_name = ''){
     $('#customer_shop_list_modal').modal('show');
 }
 
+function get_customer_shop_list(c_id = 0, c_name = ''){
+    var brand_name = '';
+    //var currnt_brand_list= 'コカ・コーラ(Coca-Cola),ポカリスエット,スターバックス,ネスカフェ,アサヒビール,BOSS(ボス),明治乳業,サントリー,カゴメ,ピカイチ野菜くん';
+    var currnt_brand_list= '店 A,店 B,店 C,店 D';
+    var substr = currnt_brand_list.split(','); // array here
+
+    $.ajax({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+        },
+        url: "get_shop_list_by_customer_id",
+        type: "POST",
+        dataType: "JSON",
+        data: {customer_id: c_id},
+        success: function (response) {
+                var htmls = '';
+                for (var i = 0; i < (response.shop_list.length); i++) {
+                    htmls += '<tr class="shopListitem" shop-id="' + response.shop_list[i].customer_shop_id + '" customer-id="' + response.shop_list[i].customer_id + '">';
+                   // htmls += '<td>' + response.shop_details[i].customer_name + '</td>';
+                   htmls += '<td>' + response.shop_list[i].shop_name + '</td>';
+                   htmls += '<td>' + response.shop_list[i].shop_no + '</td>';
+                   htmls += '<td>' + response.shop_list[i].phone + '</td>';
+                    htmls += '<td></td>';
+                    htmls += '</tr>';
+                }
+                htmls +='<tr><td colspan="3">店舗を選んで下さい </td></tr>';
+                $(".customer_shop_list_item").html(htmls);
+
+        }
+    });
+
+    // var p = 1;
+    // for (var k = 0; k < substr.length; k++) {
+    //     brand_name +='<tr class="shopListitem">';
+    //     brand_name +='<td>'+ substr[k] +'</td>';
+    //     brand_name +='<td>12354</td>';
+    //     brand_name += '<td>036587458</td>';
+    //     brand_name +='</tr>';
+    // }
+    // brand_name +='<tr><td colspan="3">店舗を選んで下さい </td></tr>';
+    //$(".customer_shop_list_item").html(brand_name);
+    $('#customer_show_modal').modal('hide');
+    $('#customer_shop_list_modal').modal('show');
+}
+
 function get_brand_shop_brand_list(c_id = 0, c_name = '',voice_text='',display_popup=''){
     close_all_navi_msg();
     var brand_name = '';
@@ -6270,11 +6340,79 @@ function get_customer_list(customer_id = null) {
                     obj
                 ) {
                     htmls +=
-                        '<tr><td data_customer_id="' + obj.customer_id + '" class="filter_by_customer_id">' +
+                        '<tr><td data_customer_id="' + obj.customer_id + '" style="cursor: pointer" class="filter_by_customer_id">' +
                         obj.name +
                         "</td><td>" +
                         obj.phone +
-                        '</td><td>' + obj.partner_code + '</td></tr>';
+                        '</td><td>' + obj.partner_code + '</td>' +
+                        '</tr>';
+                });
+                var last_urls = url_search();
+                if (last_urls != 'customer_master') {
+                    $('.add_new_customer').hide();
+                }
+                $(".customer_list_item").html(htmls);
+            } else {
+                $(".delete_custmer_info").attr(
+                    "data_customer_delete_id",
+                    response.specific_customer_info
+                        .customer_id
+                );
+                $("#customer_id_update").val(
+                    response.specific_customer_info
+                        .customer_id
+                );
+                $("#customer_name_update").val(
+                    response.specific_customer_info
+                        .name
+                );
+                $("#customer_code_update").val(
+                    response.specific_customer_info
+                        .partner_code
+                );
+                $("#customer_phone_update").val(
+                    response.specific_customer_info
+                        .phone
+                );
+            }
+        }
+    });
+}
+
+function get_customer_list_for(customer_id = null) {
+
+    var page_url = url_search();
+    if(page_url=='brand-order' || page_url=='brand-order#'){
+        $('.navigation_message_for_brand').html('<p class="navpnavigation">ここは手書き受注画面です<br>スーパーを選んで下さい</p>');
+    }else{
+        $('.navigation_message_for_brand').html('');
+    }
+
+    $.ajax({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+        },
+        url: "get_customer_list",
+        type: "POST",
+        dataType: "JSON",
+        data: {
+            customer_id: customer_id
+        },
+        success: function (response) {
+            if (customer_id == null) {
+                $(".customer_list_item").html("");
+                var htmls = '';
+                $.each(response.all_customer_list, function (
+                    idx,
+                    obj
+                ) {
+                    htmls +=
+                        '<tr><td data_customer_id="' + obj.customer_id + '" style="cursor: pointer" class="filter_by_customer_id">' +
+                        obj.name +
+                        "</td><td>" +
+                        obj.phone +
+                        '</td><td>' + obj.partner_code + '</td>' +
+                        '<td><a href="#" id="shop-list-" onclick="get_customer_shop_list('+obj.customer_id+')" class="btn btn-info btn-sm">000</a></td></tr>';
                 });
                 var last_urls = url_search();
                 if (last_urls != 'customer_master') {
