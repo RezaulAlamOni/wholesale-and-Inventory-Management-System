@@ -5116,7 +5116,7 @@ function get_customer_shop_list(c_id = 0, c_name = ''){
                    htmls += '<td>' + response.shop_list[i].shop_name + '</td>';
                    htmls += '<td>' + response.shop_list[i].shop_no + '</td>';
                    htmls += '<td>' + response.shop_list[i].phone + '</td>';
-                    htmls += '<td> <a href="javascript:void(0)" onclick="removeShop()" class="">' +
+                    htmls += '<td> <a href="javascript:void(0)" onclick="removeShop('+response.shop_list[i].customer_shop_id+','+response.shop_list[i].customer_id+')" class="">' +
                         '<i class="fa fa-trash fa-2x " style="color: red"></i>' +
                         '</a> </td>';
                     htmls += '</tr>';
@@ -5127,18 +5127,23 @@ function get_customer_shop_list(c_id = 0, c_name = ''){
         }
     });
 
-    // var p = 1;
-    // for (var k = 0; k < substr.length; k++) {
-    //     brand_name +='<tr class="shopListitem">';
-    //     brand_name +='<td>'+ substr[k] +'</td>';
-    //     brand_name +='<td>12354</td>';
-    //     brand_name += '<td>036587458</td>';
-    //     brand_name +='</tr>';
-    // }
-    // brand_name +='<tr><td colspan="3">店舗を選んで下さい </td></tr>';
-    //$(".customer_shop_list_item").html(brand_name);
     $('#customer_show_modal').modal('hide');
     $('#customer_shop_list_modal_').modal('show');
+}
+
+function removeShop(id,c_id) {
+    $.ajax({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+        },
+        url: "customer_master_item",
+        type: "POST",
+        dataType: "JSON",
+        data: {id: id},
+        success: function (response) {
+            get_customer_shop_list(c_id);
+        }
+    })
 }
 
 function closeAndShowCustomer() {
@@ -5146,6 +5151,8 @@ function closeAndShowCustomer() {
     get_customer_list_for()
     $('#customer_show_modal').modal('show');
 }
+
+
 
 function get_brand_shop_brand_list(c_id = 0, c_name = '',voice_text='',display_popup=''){
     close_all_navi_msg();
@@ -6420,7 +6427,7 @@ function get_customer_list_for(customer_id = null) {
                         "</td><td>" +
                         obj.phone +
                         '</td><td>' + obj.partner_code + '</td>' +
-                        '<td><a href="javascript:void(0)" id="shop-list-" onclick="get_customer_shop_list('+obj.customer_id+')" class="btn btn-info btn-sm">000</a></td></tr>';
+                        '<td><a href="javascript:void(0)" id="shop-list-" onclick="get_customer_shop_list('+obj.customer_id+')" class="btn btn-info btn-sm">店名</a></td></tr>';
                 });
                 var last_urls = url_search();
                 if (last_urls != 'customer_master') {

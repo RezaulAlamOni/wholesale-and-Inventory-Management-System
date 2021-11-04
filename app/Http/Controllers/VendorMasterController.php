@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\customer_shop;
 use Illuminate\Http\Request;
 use App\customer_item;
 use App\jan;
@@ -179,6 +180,14 @@ class VendorMasterController extends Controller
 
         $vendor_items_data = $vendor_items_data_temp->get();
         return $vendor_items_data;
+    }
+
+    public function customer_master_item_delete(Request $request)
+    {
+        $id = $request->id;
+        customer_shop::find($id)->delete();
+
+        return response()->json(200);
     }
 
 }

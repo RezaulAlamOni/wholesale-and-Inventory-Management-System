@@ -29,6 +29,7 @@ Route::get('/special_master_item/{id?}', 'SpecialMasterItemController@index');
 Route::get('/vendor_master_item/{id?}', 'VendorMasterController@vendor_master_item');
 Route::get('/customer_master/{id?}', 'VendorMasterController@customerMaster');
 Route::get('/customer_master_item/{id?}', 'VendorMasterController@customer_master_item');
+Route::post('/customer_master_item', 'VendorMasterController@customer_master_item_delete');
 
 
 
