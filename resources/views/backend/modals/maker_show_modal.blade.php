@@ -59,7 +59,8 @@
 
                         <button sup_buyer_type="1" class="btn btn-success pull-right add_new_customer">追加</button>
                         <button type="button" class="btn btn-warning" data-dismiss="modal">{{__('messages.close')}}</button>
-                        <button class="btn btn-primary custom_close_supa pull-right">戻る</button>
+{{--                        <button class="btn btn-primary custom_close_supa pull-right">戻る</button>--}}
+                        <button class="btn btn-primary pull-right" data-dismiss="modal">戻る</button>
                 </ul>
 
             </div>
@@ -641,6 +642,45 @@
                                 <td>2343221</td>
                                 <td>0165685555</td>
                             </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="customer_shop_list_modal_" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="maker_modal_heading">店一覧</h5>
+                <ul class="list-inline custom_header_button">
+{{--                        <button sup_buyer_type="1" class="btn btn-secondary pull-right customer_shop">店舗一覧</button>--}}
+
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">{{__('messages.close')}}</button>
+                        <button class="btn btn-primary pull-right" onclick="closeAndShowCustomer()">戻る</button>
+                </ul>
+            </div>
+            <div class="panel-heading">
+                <div id="customer_message_success"></div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-body">
+                <div class="panel-body buyrslisst_overflow">
+                    <table class="table table-striped table-bordered buyrslisst_overflow">
+                        <thead>
+                            <tr>
+                                <th class="change_table_th_title">店名</th>
+
+                                <th>コード</th>
+                                <th>電話</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="customer_shop_list_item_">
+
                         </tbody>
                     </table>
                 </div>

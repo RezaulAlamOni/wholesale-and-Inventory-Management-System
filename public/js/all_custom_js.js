@@ -5877,11 +5877,13 @@ function get_customer_shop_list(c_id = 0, c_name = ''){
                    htmls += '<td>' + response.shop_list[i].shop_name + '</td>';
                    htmls += '<td>' + response.shop_list[i].shop_no + '</td>';
                    htmls += '<td>' + response.shop_list[i].phone + '</td>';
-                    htmls += '<td></td>';
+                    htmls += '<td> <a href="javascript:void(0)" onclick="removeShop()" class="">' +
+                        '<i class="fa fa-trash fa-2x " style="color: red"></i>' +
+                        '</a> </td>';
                     htmls += '</tr>';
                 }
-                htmls +='<tr><td colspan="3">店舗を選んで下さい </td></tr>';
-                $(".customer_shop_list_item").html(htmls);
+                // htmls +='<tr><td colspan="4">店舗を選んで下さい </td></tr>';
+                $(".customer_shop_list_item_").html(htmls);
 
         }
     });
@@ -5897,7 +5899,13 @@ function get_customer_shop_list(c_id = 0, c_name = ''){
     // brand_name +='<tr><td colspan="3">店舗を選んで下さい </td></tr>';
     //$(".customer_shop_list_item").html(brand_name);
     $('#customer_show_modal').modal('hide');
-    $('#customer_shop_list_modal').modal('show');
+    $('#customer_shop_list_modal_').modal('show');
+}
+
+function closeAndShowCustomer() {
+    $('#customer_shop_list_modal_').modal('hide');
+    get_customer_list_for()
+    $('#customer_show_modal').modal('show');
 }
 
 function get_brand_shop_brand_list(c_id = 0, c_name = '',voice_text='',display_popup=''){
@@ -7173,7 +7181,7 @@ function get_customer_list_for(customer_id = null) {
                         "</td><td>" +
                         obj.phone +
                         '</td><td>' + obj.partner_code + '</td>' +
-                        '<td><a href="#" id="shop-list-" onclick="get_customer_shop_list('+obj.customer_id+')" class="btn btn-info btn-sm">000</a></td></tr>';
+                        '<td><a href="javascript:void(0)" id="shop-list-" onclick="get_customer_shop_list('+obj.customer_id+')" class="btn btn-info btn-sm">000</a></td></tr>';
                 });
                 var last_urls = url_search();
                 if (last_urls != 'customer_master') {
