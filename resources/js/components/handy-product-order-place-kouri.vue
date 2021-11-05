@@ -511,7 +511,7 @@ export default {
                             _this.hideModelAndClearInput()
                         } else {
                             $('#handy-navi').show()
-                            _this.handi_navi = '<li>コウリ注文あり確認してください</li>';
+                            _this.handi_navi = '<li>注文確認してください</li>';
                             $('.loading_image_custom').hide()
                             return false;
                         }

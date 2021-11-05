@@ -79,7 +79,7 @@
 							手書
 						</a></p>
                     <br>
-						<p class="submessg">（受注）<a href="{{Config::get('app.url').'/onlineorder'}}"
+						<p class="submessg">（受注）<a href="{{Config::get('app.url').'/manualOrder'}}"
 							class="btn btn-success btn-sm menualablebtn common_goto_sheet" data_num_link="12"
 							id="size_setting_btn" style="margin-bottom: 0; background: #0c673b !important;">
                                 ｵﾝﾗｲﾝ
