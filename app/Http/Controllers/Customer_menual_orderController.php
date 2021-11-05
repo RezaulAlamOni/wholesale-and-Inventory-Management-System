@@ -16,15 +16,18 @@ use Session;
 use App\Http\Controllers\ShipmentCsvController;
 use App\Http\Controllers\QRGenController;
 use DB;
+
 class Customer_menual_orderController extends Controller
 {
     private $item_srch;
     private $QR_var;
+
     public function __construct()
     {
-        $this->item_srch=new ShipmentCsvController();
-        $this->QR_var=new QRGenController();
+        $this->item_srch = new ShipmentCsvController();
+        $this->QR_var = new QRGenController();
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -35,16 +38,18 @@ class Customer_menual_orderController extends Controller
         $title = "Menual Order";
         $active = 'manualOrder';
         $customer_list = customer::get();
-        return view('backend.customer_menual_order.menual_order', compact('title', 'active','customer_list'));
+        return view('backend.customer_menual_order.menual_order', compact('title', 'active', 'customer_list'));
     }
+
     public function onlineorder()
     {
         $title = "Oline Order";
         $active = 'onlinerder';
         $customer_list = customer::get();
-        return view('backend.customer_menual_order.online_order', compact('title', 'active','customer_list'));
+        return view('backend.customer_menual_order.online_order', compact('title', 'active', 'customer_list'));
     }
-     /**
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return jn info by jan id
@@ -52,94 +57,98 @@ class Customer_menual_orderController extends Controller
     public function get_jn_info_by_jn_code(Request $request)
     {
         $jn_info = [];
-        $jn= $request->jn;
-        $customer_id= $request->customer_id;
-        $jn_info = collect(\DB::select("SELECT jans.name,stock_items.case_quantity,stock_items.ball_quantity,stock_items.unit_quantity,customer_items.jan FROM `customer_items` join jans on jans.jan=customer_items.jan join vendor_items on vendor_items.jan = customer_items.jan left JOIN stock_items on stock_items.vendor_item_id = vendor_items.vendor_item_id WHERE customer_items.jan='".$jn."' and customer_items.customer_id='".$customer_id."'"))->first();
+        $jn = $request->jn;
+        $customer_id = $request->customer_id;
+        $jn_info = collect(\DB::select("SELECT jans.name,stock_items.case_quantity,stock_items.ball_quantity,stock_items.unit_quantity,customer_items.jan FROM `customer_items` join jans on jans.jan=customer_items.jan join vendor_items on vendor_items.jan = customer_items.jan left JOIN stock_items on stock_items.vendor_item_id = vendor_items.vendor_item_id WHERE customer_items.jan='" . $jn . "' and customer_items.customer_id='" . $customer_id . "'"))->first();
 
         $result = response()->json(['jn_info' => $jn_info]);
         return $result;
     }
+
     public function get_jn_info_by_jn_code_list(Request $request)
     {
         $jn_info = [];
-        $customer_id= $request->customer_id;
-        $jn_info = collect(\DB::select("SELECT jans.name,stock_items.case_quantity,stock_items.ball_quantity,stock_items.unit_quantity,customer_items.jan FROM `customer_items` join jans on jans.jan=customer_items.jan join vendor_items on vendor_items.jan = customer_items.jan left JOIN stock_items on stock_items.vendor_item_id = vendor_items.vendor_item_id WHERE customer_items.customer_id='".$customer_id."' group by customer_items.jan"));
+        $customer_id = $request->customer_id;
+        $jn_info = collect(\DB::select("SELECT jans.name,stock_items.case_quantity,stock_items.ball_quantity,stock_items.unit_quantity,customer_items.jan FROM `customer_items` join jans on jans.jan=customer_items.jan join vendor_items on vendor_items.jan = customer_items.jan left JOIN stock_items on stock_items.vendor_item_id = vendor_items.vendor_item_id WHERE customer_items.customer_id='" . $customer_id . "' group by customer_items.jan"));
 
         $result = response()->json(['jn_info' => $jn_info]);
         return $result;
     }
-     /**
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return add menual order
      */
     public function add_menual_order_insert(Request $request)
     {
-        $customer_id= $request->customer_id;
-        $shop_id= $request->shop_id;
-        $voucher_m_number= $request->voucher_m_number;
+        $customer_id = $request->customer_id;
+        $shop_id = $request->shop_id;
+        $voucher_m_number = $request->voucher_m_number;
         $delivery_date = $request->delivery_date;
         $order_type = $request->order_type;
-        $m_o_arr= $request->m_o_arr;
+        $m_o_arr = $request->m_o_arr;
 
-        $customer_order_array=array();
-        $customer_shipment_array=array();
+        $customer_order_array = array();
+        $customer_shipment_array = array();
         $curdate = date('Y-m-d');
-        $customer_info = customer::where('customer_id',$customer_id)->first();
-        $shipment_number=$customer_info->partner_code.'_'.date('Y-m-d',strtotime($curdate)).'_'.$voucher_m_number;
+        $customer_info = customer::where('customer_id', $customer_id)->first();
+        $shipment_number = $customer_info->partner_code . '_' . date('Y-m-d', strtotime($curdate)) . '_' . $voucher_m_number;
         /*add order*/
-        $order_id = customer_order::insertGetId(['customer_id'=>$customer_id,'order_type'=>$order_type,
-            'customer_shop_id'=>$shop_id,'shipment_number'=> $shipment_number,'voucher_number'=>$voucher_m_number,
-            'order_date'=> date('Y-m-d H:i:s'),'shipment_date'=> date('Y-m-d'),
-            'delivery_date'=> date('Y-m-d H:i:s',strtotime($delivery_date))]);
+        $order_id = customer_order::insertGetId(['customer_id' => $customer_id, 'order_type' => $order_type,
+            'customer_shop_id' => $shop_id, 'shipment_number' => $shipment_number, 'voucher_number' => $voucher_m_number,
+            'order_date' => date('Y-m-d H:i:s'), 'shipment_date' => date('Y-m-d'),
+            'delivery_date' => date('Y-m-d H:i:s', strtotime($delivery_date))]);
 
         /*add order*/
         $total_cost_price = 0;
         $total_selling_price = 0;
-        foreach($m_o_arr as $value){
-            $customer_item_id=$this->item_srch->customer_item_search($value[0],$customer_id);
-            $required_info = $this->get_cost_selling_price_customer_patner_code($m_o_arr[0],$customer_id);
+        foreach ($m_o_arr as $value) {
+            $customer_item_id = $this->item_srch->customer_item_search($value[0], $customer_id);
+            $required_info = $this->get_cost_selling_price_customer_patner_code($m_o_arr[0], $customer_id);
             $this->QR_var->folder_create('/app/public/shipment_numbers');
-            $this->QR_var->qr_code_gen($shipment_number,'/app/public/shipment_numbers');
-            $customer_order_demo['customer_item_id']=$customer_item_id;
-            $customer_order_demo['jan']=$value[0];
-            $customer_order_demo['inputs']=$value[1];
-            $customer_order_demo['quantity']=$value[2];
-            $customer_order_demo['cost_price']=$required_info['cost_price'];
-            $customer_order_demo['selling_price']=$required_info['selling_price'];
+            $this->QR_var->qr_code_gen($shipment_number, '/app/public/shipment_numbers');
+            $customer_order_demo['customer_item_id'] = $customer_item_id;
+            $customer_order_demo['jan'] = $value[0];
+            $customer_order_demo['inputs'] = $value[1];
+            $customer_order_demo['quantity'] = $value[2];
+            $customer_order_demo['cost_price'] = $required_info['cost_price'];
+            $customer_order_demo['selling_price'] = $required_info['selling_price'];
             $jans_code = $value[0];
-           customer_order_detail::insert(['customer_item_id'=>$customer_item_id,'customer_order_id'=>$order_id,
-            'jan'=>$jans_code,'inputs'=>$value[1],'quantity'=>$value[2],
-            'cost_price'=>$required_info['cost_price'],
-            'selling_price'=>$required_info['selling_price']]);
+            customer_order_detail::insert(['customer_item_id' => $customer_item_id, 'customer_order_id' => $order_id,
+                'jan' => $jans_code, 'inputs' => $value[1], 'quantity' => $value[2],
+                'cost_price' => $required_info['cost_price'],
+                'selling_price' => $required_info['selling_price']]);
 
-            $customer_shipment_array['customer_id']=$customer_id;
-            $customer_shipment_array['customer_order_id']=$order_id;
-            $customer_shipment_array['shipment_date']=date('Y-m-d');
-            $customer_shipment_array['inputs']=$value[1];
-            $customer_shipment_array['quantity']=$value[2];
+            $customer_shipment_array['customer_id'] = $customer_id;
+            $customer_shipment_array['customer_order_id'] = $order_id;
+            $customer_shipment_array['shipment_date'] = date('Y-m-d');
+            $customer_shipment_array['inputs'] = $value[1];
+            $customer_shipment_array['quantity'] = $value[2];
             customer_shipment::insert($customer_shipment_array);
             $total_cost_price += $required_info['cost_price'];
             $total_selling_price += $required_info['selling_price'];
         }
         //return $customer_order_array;
-        customer_order::where('customer_order_id', '=', $order_id)->update(['cost_price_total'=>$total_cost_price,'selling_price_total'=>$total_selling_price]);
+        customer_order::where('customer_order_id', '=', $order_id)->update(['cost_price_total' => $total_cost_price, 'selling_price_total' => $total_selling_price]);
         // Session::flash('message', 'Menual order completed');
         // Session::flash('class_name', 'alert-success');
         return response()->json(['message' => 'Menual order completed']);
     }
 
-    public function get_cost_selling_price_customer_patner_code($jan_code,$customer_id){
-        $customer_item_info = customer_item::where('customer_id',$customer_id)->where('jan',$jan_code)->first();
-        $vendor_item_info = vendor_item::where('jan',$jan_code)->first();
-        $customer_info = customer::where('customer_id',$customer_id)->first();
+    public function get_cost_selling_price_customer_patner_code($jan_code, $customer_id)
+    {
+        $customer_item_info = customer_item::where('customer_id', $customer_id)->where('jan', $jan_code)->first();
+        $vendor_item_info = vendor_item::where('jan', $jan_code)->first();
+        $customer_info = customer::where('customer_id', $customer_id)->first();
         $arrays = array(
-            'selling_price'=>$customer_item_info['selling_price'],
-            'cost_price'=>$vendor_item_info['cost_price'],
-            'partner_code'=>$customer_info['partner_code']
+            'selling_price' => $customer_item_info['selling_price'],
+            'cost_price' => $vendor_item_info['cost_price'],
+            'partner_code' => $customer_info['partner_code']
         );
         return $arrays;
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -148,31 +157,34 @@ class Customer_menual_orderController extends Controller
     public function get_shop_list_by_customer_id(Request $request)
     {
         $customer_id = $request->customer_id;
-        $shop_list =customer_shop::where('customer_id',$customer_id)->get();
+        $shop_list = customer_shop::where('customer_id', $customer_id)->get();
         $result = response()->json(['shop_list' => $shop_list]);
         return $result;
     }
-    public function update_csv_order_data(Request $request){
+
+    public function update_csv_order_data(Request $request)
+    {
         $row_id = $request->row_id;
         $field_name = $request->field_name;
         $vl = $request->vl;
-        customer_order_detail::where('customer_order_detail_id',$row_id)->update(['update_status'=>'1',$field_name=>$vl]);
+        customer_order_detail::where('customer_order_detail_id', $row_id)->update(['update_status' => '1', $field_name => $vl]);
         return response()->json(['success' => 1]);
     }
+
     public function get_shop_item_list_by_customer_id(Request $request)
     {
         $customer_id = $request->customer_id;
         $id = $request->customer_id;
         $shop_id = $request->shop_id;
         $voice_text = $request->voice_text;
-       
 
-/*csv order list*/
+
+        /*csv order list*/
 //$wh = 'ORDER BY all_orders.total_quantity DESC,all_orders.name like "%'.$voice_text.'%" desc,makers.maker_name like "%'.$voice_text.'%" desc';
-$wh = 'ORDER BY all_orders.total_quantity DESC,all_orders.name like "%'.$voice_text.'%" desc,makers.maker_name like "%'.$voice_text.'%" desc';
-$wh2 = 'ORDER BY jans.name like "%'.$voice_text.'%" DESC';
-$orderByMakername = 'ORDER BY all_orders.name like "%'.$voice_text.'%" DESC, makers.maker_name like "%'.$voice_text.'%" DESC,all_orders.order_frequency_num DESC,all_orders.total_quantity DESC';
-$online_order = collect(\DB::select("
+        $wh = 'ORDER BY all_orders.total_quantity DESC,all_orders.name like "%' . $voice_text . '%" desc,makers.maker_name like "%' . $voice_text . '%" desc';
+        $wh2 = 'ORDER BY jans.name like "%' . $voice_text . '%" DESC';
+        $orderByMakername = 'ORDER BY all_orders.name like "%' . $voice_text . '%" DESC, makers.maker_name like "%' . $voice_text . '%" DESC,all_orders.order_frequency_num DESC,all_orders.total_quantity DESC';
+        $online_order = collect(\DB::select("
 select all_orders.*,
 makers.maker_name
 from(
@@ -198,20 +210,21 @@ from customer_orders
             inner join vendor_items on jans.jan=vendor_items.jan
 left join stock_items on vendor_items.vendor_item_id = stock_items.vendor_item_id
 left join customer_shipments on customer_shipments.customer_order_detail_id = customer_order_details.customer_order_detail_id
-             where customer_orders.customer_id = '".$id."' and customer_orders.customer_shop_id='".$shop_id."' and (customer_orders.status='未出荷' || customer_orders.status='確定済み') and customer_orders.category = 'edi' group by customer_orders.customer_order_id $wh2) as all_orders
+             where customer_orders.customer_id = '" . $id . "' and customer_orders.customer_shop_id='" . $shop_id . "' and (customer_orders.status='未出荷' || customer_orders.status='確定済み') and customer_orders.category = 'edi' group by customer_orders.customer_order_id $wh2) as all_orders
              left join makers on makers.maker_code= all_orders.mk_code group by all_orders.customer_order_id $orderByMakername
             "));
-            $order_array =array();
-            if($online_order){
-                foreach($online_order as $order){
-                    $order_array[$order->jan][]=$order;
-                }
+        $order_array = array();
+        if ($online_order) {
+            foreach ($online_order as $order) {
+                $order_array[$order->jan][] = $order;
             }
-/*csv order list*/
+        }
+        /*csv order list*/
 
         $result = response()->json(['shop_item_list' => $online_order]);
         return $result;
     }
+
     public function get_shop_updated_item_list_by_customer_id(Request $request)
     {
         $customer_id = $request->customer_id;
@@ -219,18 +232,18 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
         $shop_id = $request->shop_id;
         $voice_text = $request->voice_text;
         $shop_item_list = customer_item::Join('jans', 'jans.jan', '=', 'customer_items.jan');
-        if($customer_id!=0){
-            $shop_item_list = $shop_item_list->where('customer_items.customer_id',$customer_id);
+        if ($customer_id != 0) {
+            $shop_item_list = $shop_item_list->where('customer_items.customer_id', $customer_id);
         }
-        if (isset($request->voice_text)){
-           // $shop_item_list = $shop_item_list->orderByRaw('jans.name like %'.$request->voice_text.'%');
-            $shop_item_list = $shop_item_list->orderByRaw('jans.name like "%'.$request->voice_text.'%" desc');
+        if (isset($request->voice_text)) {
+            // $shop_item_list = $shop_item_list->orderByRaw('jans.name like %'.$request->voice_text.'%');
+            $shop_item_list = $shop_item_list->orderByRaw('jans.name like "%' . $request->voice_text . '%" desc');
         }
-        $shop_item_list =$shop_item_list->groupBy('customer_items.jan')->limit(3)->get();
+        $shop_item_list = $shop_item_list->groupBy('customer_items.jan')->limit(3)->get();
         /*csv order list*/
-        $wh = 'ORDER BY all_orders.total_quantity DESC,all_orders.name like "%'.$voice_text.'%" desc,makers.maker_name like "%'.$voice_text.'%" desc';
-        $wh2 = 'ORDER BY jans.name like "%'.$voice_text.'%" desc';
-        $orderByMakername = 'ORDER BY all_orders.name like "%'.$voice_text.'%" desc,makers.maker_name like "%'.$voice_text.'%" DESC,all_orders.order_frequency_num DESC,all_orders.total_quantity DESC';
+        $wh = 'ORDER BY all_orders.total_quantity DESC,all_orders.name like "%' . $voice_text . '%" desc,makers.maker_name like "%' . $voice_text . '%" desc';
+        $wh2 = 'ORDER BY jans.name like "%' . $voice_text . '%" desc';
+        $orderByMakername = 'ORDER BY all_orders.name like "%' . $voice_text . '%" desc,makers.maker_name like "%' . $voice_text . '%" DESC,all_orders.order_frequency_num DESC,all_orders.total_quantity DESC';
         $online_order = collect(\DB::select("
         select all_orders.*,
         makers.maker_name
@@ -257,103 +270,107 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
                     inner join vendor_items on jans.jan=vendor_items.jan
         left join stock_items on vendor_items.vendor_item_id = stock_items.vendor_item_id
         left join customer_shipments on customer_shipments.customer_order_detail_id = customer_order_details.customer_order_detail_id
-                     where customer_orders.customer_id = '".$id."' and customer_orders.customer_shop_id='".$shop_id."' and (customer_orders.status='未出荷' || customer_orders.status='確定済み') and customer_orders.category = 'edi' and customer_order_details.update_status='1' group by customer_orders.customer_order_id $wh2) as all_orders
+                     where customer_orders.customer_id = '" . $id . "' and customer_orders.customer_shop_id='" . $shop_id . "' and (customer_orders.status='未出荷' || customer_orders.status='確定済み') and customer_orders.category = 'edi' and customer_order_details.update_status='1' group by customer_orders.customer_order_id $wh2) as all_orders
                      left join makers on makers.maker_code= all_orders.mk_code group by all_orders.customer_order_id $orderByMakername
                     "));
-                    $order_array =array();
-                    if($online_order){
-                        foreach($online_order as $order){
-                            $order_array[$order->jan][]=$order;
-                        }
-                    }
-/*csv order list*/
-        $result = response()->json(['shop_item_list' =>$online_order,'order_item'=>$shop_item_list]);
+        $order_array = array();
+        if ($online_order) {
+            foreach ($online_order as $order) {
+                $order_array[$order->jan][] = $order;
+            }
+        }
+        /*csv order list*/
+        $result = response()->json(['shop_item_list' => $online_order, 'order_item' => $shop_item_list]);
         return $result;
     }
+
     public function get_customer_janinfo(Request $request)
     {
         $jancode = $request->jancode;
         $customer_id = $request->customer_id;
-        $products =collect(\DB::select("select customer_items.*,stock_items.*,jans.name from customer_items left join jans on jans.jan = customer_items.jan left join vendor_items on vendor_items.jan = customer_items.jan left join stock_items on stock_items.vendor_item_id = vendor_items.vendor_item_id where customer_items.jan='".$jancode."' and customer_items.customer_id='".$customer_id."'"))->first();
+        $products = collect(\DB::select("select customer_items.*,stock_items.*,jans.name from customer_items left join jans on jans.jan = customer_items.jan left join vendor_items on vendor_items.jan = customer_items.jan left join stock_items on stock_items.vendor_item_id = vendor_items.vendor_item_id where customer_items.jan='" . $jancode . "' and customer_items.customer_id='" . $customer_id . "'"))->first();
         $result = response()->json(['products_list' => $products]);
         return $result;
     }
 
-    public function customer_manul_order_insert(Request $request){
+    public function customer_manul_order_insert(Request $request)
+    {
         $customer_id = $request->customer_id;
         $customer_item_id = $request->customer_item_id;
         $delivery_qty = $request->delivery_qty;
         $inputs_type = $request->inputs_type;
         $shipment_qty = $request->shipment_qty;
         $shipment_inputs_type = $request->shipment_inputs_type;
-        $info = collect(\DB::select("select customer_items.jan,customer_items.selling_price,vendor_items.cost_price from customer_items left join vendor_items on vendor_items.jan  = vendor_items.jan where customer_items.customer_item_id='".$customer_item_id."'"))->first();
+        $info = collect(\DB::select("select customer_items.jan,customer_items.selling_price,vendor_items.cost_price from customer_items left join vendor_items on vendor_items.jan  = vendor_items.jan where customer_items.customer_item_id='" . $customer_item_id . "'"))->first();
         $customer_order = array(
-            'customer_id'=>$customer_id,
-            'category'=>'manual',
-            'status'=>'確定済み',
-            'shipment_number'=>rand(),
-            'voucher_number'=>rand(),
-            'order_date'=>date('Y-m-d H:i:s'),
-            'shipment_date'=>date('Y-m-d')
+            'customer_id' => $customer_id,
+            'category' => 'manual',
+            'status' => '確定済み',
+            'shipment_number' => rand(),
+            'voucher_number' => rand(),
+            'order_date' => date('Y-m-d H:i:s'),
+            'shipment_date' => date('Y-m-d')
         );
         $customer_order_id = customer_order::insertGetId($customer_order);
         $c_order_details = array(
-            'customer_order_id'=>$customer_order_id,
-            'customer_item_id'=>$customer_item_id,
-            'jan'=>$info->jan,
-            'inputs'=>$inputs_type,
-            'quantity'=>$delivery_qty,
-            'cost_price'=>$info->cost_price,
-            'selling_price'=>$info->selling_price
+            'customer_order_id' => $customer_order_id,
+            'customer_item_id' => $customer_item_id,
+            'jan' => $info->jan,
+            'inputs' => $inputs_type,
+            'quantity' => $delivery_qty,
+            'cost_price' => $info->cost_price,
+            'selling_price' => $info->selling_price
         );
         $customer_order_detail_id = customer_order_detail::insertGetId($c_order_details);
-        if($shipment_qty!=0 || $shipment_qty!=''){
-            customer_shipment::insert(['customer_id'=>$customer_id,'customer_order_id'=>$customer_order_id,'customer_order_detail_id'=>$customer_order_detail_id,'shipment_date'=>date('Y-m-d'),'inputs'=>$shipment_inputs_type,'confirm_quantity'=>$shipment_qty]);
+        if ($shipment_qty != 0 || $shipment_qty != '') {
+            customer_shipment::insert(['customer_id' => $customer_id, 'customer_order_id' => $customer_order_id, 'customer_order_detail_id' => $customer_order_detail_id, 'shipment_date' => date('Y-m-d'), 'inputs' => $shipment_inputs_type, 'confirm_quantity' => $shipment_qty]);
         }
         $result = response()->json(['message' => 'insert_success']);
         return $result;
     }
-    function get_customer_base_manual_order_item(Request $request){
+
+    function get_customer_base_manual_order_item(Request $request)
+    {
         $shop_list = array();
         $order_array = array();
         $id = $request->c_id;
         $jan = $request->jan;
         $order_category = $request->order_category;
 
-        if($jan!='' && $id!=null){
+        if ($jan != '' && $id != null) {
 
-            if($id>0){
+            if ($id > 0) {
 
-                $cus_item = customer_item::where(['customer_id'=>$id,'jan'=>$jan])->first();
-                if(!$cus_item){
-                    $cusItemInfo = customer_item::where(['jan'=>$jan])->first();
-                    customer_item::insert(['customer_id'=>$id,
-                    'jan'=>$jan,
-                    'vendor_id'=>$cusItemInfo->vendor_id,
-                    'order_class'=>$cusItemInfo->order_class,
-                    'cost_price'=>$cusItemInfo->cost_price,
-                    'selling_price'=>$cusItemInfo->selling_price,
-                    'sale_selling_price'=>$cusItemInfo->sale_selling_price,
-                    'shop_price'=>$cusItemInfo->shop_price,
-                    'gross_profit'=>$cusItemInfo->gross_profit,
-                    'gross_profit_margin'=>$cusItemInfo->gross_profit_margin,
-                    'start_date'=>$cusItemInfo->start_date,
-                    'end_date'=>$cusItemInfo->end_date
+                $cus_item = customer_item::where(['customer_id' => $id, 'jan' => $jan])->first();
+                if (!$cus_item) {
+                    $cusItemInfo = customer_item::where(['jan' => $jan])->first();
+                    customer_item::insert(['customer_id' => $id,
+                        'jan' => $jan,
+                        'vendor_id' => $cusItemInfo->vendor_id,
+                        'order_class' => $cusItemInfo->order_class,
+                        'cost_price' => $cusItemInfo->cost_price,
+                        'selling_price' => $cusItemInfo->selling_price,
+                        'sale_selling_price' => $cusItemInfo->sale_selling_price,
+                        'shop_price' => $cusItemInfo->shop_price,
+                        'gross_profit' => $cusItemInfo->gross_profit,
+                        'gross_profit_margin' => $cusItemInfo->gross_profit_margin,
+                        'start_date' => $cusItemInfo->start_date,
+                        'end_date' => $cusItemInfo->end_date
                     ]);
                 }
             }
         }
         $wh = '';
-        if($jan!=''){
-            $wh = ' and customer_order_details.jan='.$jan.'';
+        if ($jan != '') {
+            $wh = ' and customer_order_details.jan=' . $jan . '';
 
         }
         $manual_orderable = 0;
-       if($id!=null){
-           if($id>0){
-            $shop_list =customer_shop::where('customer_id',$id)->orderBy('customer_shop_id', 'asc')->get();
+        if ($id != null) {
+            if ($id > 0) {
+                $shop_list = customer_shop::where('customer_id', $id)->orderBy('customer_shop_id', 'asc')->get();
 
-            $online_order = collect(\DB::select("select
+                $online_order = collect(\DB::select("select
             IFNULL(customer_shipments.confirm_quantity,0) as confirm_quantity,
             IFNULL(customer_shipments.confirm_case_quantity,0) as confirm_case_quantity,
             IFNULL(customer_shipments.confirm_ball_quantity,0) as confirm_ball_quantity,
@@ -363,37 +380,38 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
             inner join vendor_items on jans.jan=vendor_items.jan
 left join stock_items on vendor_items.vendor_item_id = stock_items.vendor_item_id
 left join customer_shipments on customer_shipments.customer_order_detail_id = customer_order_details.customer_order_detail_id
-             where customer_orders.customer_id = '".$id."' and (customer_orders.status='未出荷' || customer_orders.status='確定済み') and customer_orders.category = '".$order_category."' $wh ORDER BY customer_orders.customer_shop_id ASC
+             where customer_orders.customer_id = '" . $id . "' and (customer_orders.status='未出荷' || customer_orders.status='確定済み') and customer_orders.category = '" . $order_category . "' $wh ORDER BY customer_orders.customer_shop_id ASC
             "));
-            $order_array =array();
-            if($online_order){
-                foreach($online_order as $order){
-                    $order_array[$order->jan][]=$order;
+                $order_array = array();
+                if ($online_order) {
+                    foreach ($online_order as $order) {
+                        $order_array[$order->jan][] = $order;
+                    }
                 }
-            }
-            if($shop_list){
+                if ($shop_list) {
 
-                if($jan!='' && empty($order_array)){
+                    if ($jan != '' && empty($order_array)) {
 
                         $manual_orderable = 1;
-                        $order_array = collect(\DB::select("select jans.jan,jans.name from customer_items inner join jans on jans.jan=customer_items.jan where customer_items.jan='".$jan."' and customer_items.customer_id='".$id."'"));
+                        $order_array = collect(\DB::select("select jans.jan,jans.name from customer_items inner join jans on jans.jan=customer_items.jan where customer_items.jan='" . $jan . "' and customer_items.customer_id='" . $id . "'"));
 
+                    }
+                    return $result = response()->json(['shop_list' => $shop_list, 'success' => 1, 'manual_orderable' => $manual_orderable, 'online_order' => $order_array]);
+                } else {
+                    $result = response()->json(['shop_list' => $shop_list, 'success' => 0, 'manual_orderable' => $manual_orderable, 'online_order' => $order_array]);
                 }
-                return $result = response()->json(['shop_list' => $shop_list,'success'=>1,'manual_orderable'=>$manual_orderable,'online_order'=>$order_array]);
-            }else{
-                $result = response()->json(['shop_list' => $shop_list,'success'=>0,'manual_orderable'=>$manual_orderable,'online_order'=>$order_array]);
+
+            } else {
+                $result = response()->json(['shop_list' => $shop_list, 'success' => 0, 'manual_orderable' => $manual_orderable, 'online_order' => $order_array]);
             }
+        } else {
+            $result = response()->json(['shop_list' => $shop_list, 'success' => 0, 'manual_orderable' => $manual_orderable, 'online_order' => $order_array]);
+        }
 
-           }else{
-            $result = response()->json(['shop_list' => $shop_list,'success'=>0,'manual_orderable'=>$manual_orderable,'online_order'=>$order_array]);
-           }
-       }else{
-        $result = response()->json(['shop_list' => $shop_list,'success'=>0,'manual_orderable'=>$manual_orderable,'online_order'=>$order_array]);
-       }
-
-       return $result;
+        return $result;
 
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -407,7 +425,7 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -418,7 +436,7 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -429,7 +447,7 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -440,8 +458,8 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -452,7 +470,7 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -460,156 +478,162 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
         //
     }
 
-    public function getCustomerOrderInfoByJan(Request $request){
+    public function getCustomerOrderInfoByJan(Request $request)
+    {
         $value = '確定済み';
         $jan_code = $request->jan_code;
-       $result = customer_order_detail::where('jan',$jan_code)->with(['vendor_item','jan','customer_order','customer_shipment'])
-       ->whereHas('customer_order', function($q) use($value) {
-        // Query the name field in status table
-        $q->where('status', '=', $value); // '=' is optional
- })
-       ->whereHas('customer_shipment', function($q) use($value) {
-        // Query the name field in status table
-        $q->whereNotNull('rack_number'); // '=' is optional
- })
-       ->first();
-       if($result){
-            return response()->json(['success' => 1,'result'=>$result]);
-       }else{
-            return response()->json(['success' => 0,'result'=>$result]);
-       }
+        $result = customer_order_detail::where('jan', $jan_code)->with(['vendor_item', 'jan', 'customer_order', 'customer_shipment'])
+            ->whereHas('customer_order', function ($q) use ($value) {
+                // Query the name field in status table
+                $q->where('status', '=', $value); // '=' is optional
+            })
+            ->whereHas('customer_shipment', function ($q) use ($value) {
+                // Query the name field in status table
+                $q->whereNotNull('rack_number'); // '=' is optional
+            })
+            ->first();
+        if ($result) {
+            return response()->json(['success' => 1, 'result' => $result]);
+        } else {
+            return response()->json(['success' => 0, 'result' => $result]);
+        }
     }
 
-    public function getCustomerOrderInfoByJanForHandy(Request $request){
+    public function getCustomerOrderInfoByJanForHandy(Request $request)
+    {
         $value = '確定済み';
         $jan_code = $request->jan_code;
-        if (!vendor_item::where('jan', $jan_code)->first()){
+        if (!vendor_item::where('jan', $jan_code)->first()) {
             return response()->json(['status' => 401]);
         }
-       $result = customer_order_detail::where('jan',$jan_code)->with(['vendor_item','jan','customer_order','customer_shipment'])
-       //->whereHas('customer_order', function($q) use($value) {
-        // Query the name field in status table
-      //  $q->where('status', '=', $value); // '=' is optional
- //})
-       //->whereHas('customer_shipment', function($q) use($value) {
-        // Query the name field in status table
-       // $q->whereNotNull('rack_number'); // '=' is optional
- //})
- ->orderBy('customer_order_detail_id', 'DESC')->first();
-       if($result){
-            return response()->json(['status' => 200,'data'=>$result]);
-       }else{
+        $result = customer_order_detail::where('jan', $jan_code)->with(['vendor_item', 'jan', 'customer_order', 'customer_shipment'])
+            //->whereHas('customer_order', function($q) use($value) {
+            // Query the name field in status table
+            //  $q->where('status', '=', $value); // '=' is optional
+            //})
+            //->whereHas('customer_shipment', function($q) use($value) {
+            // Query the name field in status table
+            // $q->whereNotNull('rack_number'); // '=' is optional
+            //})
+            ->orderBy('customer_order_detail_id', 'DESC')->first();
+        if ($result) {
+            return response()->json(['status' => 200, 'data' => $result]);
+        } else {
             $result = vendor_item::where('jan', $jan_code)->with('jan')->first();
-            return response()->json(['status' => 402,'data'=>$result]);
-       }
+            return response()->json(['status' => 402, 'data' => $result]);
+        }
     }
 
-    public function getCustomerOrderConfirmByJanForHandy(Request $request){
+    public function getCustomerOrderConfirmByJanForHandy(Request $request)
+    {
         $value = '確定済み';
         $jan_code = $request->jan_code;
-        if (!vendor_item::where('jan', $jan_code)->first()){
+        if (!vendor_item::where('jan', $jan_code)->first()) {
             return response()->json(['status' => 401]);
         }
-        $result = customer_order_detail::where('jan',$jan_code)->with(['vendor_item','jan','customer_order','customer_shipment'])
-            ->whereHas('customer_order', function($q) use($value) {
-            $q->where('status', '=', $value); // '=' is optional
-        })
-       //->whereHas('customer_shipment', function($q) use($value) {
-        // Query the name field in status table
-       // $q->whereNotNull('rack_number'); // '=' is optional
- //})
- ->orderBy('customer_order_detail_id', 'DESC')->first();
-       if($result){
-            return response()->json(['status' => 200,'data'=>$result]);
-       }else{
+        $result = customer_order_detail::where('jan', $jan_code)->with(['vendor_item', 'jan', 'customer_order', 'customer_shipment'])
+            ->whereHas('customer_order', function ($q) use ($value) {
+                $q->where('status', '=', $value); // '=' is optional
+            })
+            //->whereHas('customer_shipment', function($q) use($value) {
+            // Query the name field in status table
+            // $q->whereNotNull('rack_number'); // '=' is optional
+            //})
+            ->orderBy('customer_order_detail_id', 'DESC')->first();
+        if ($result) {
+            return response()->json(['status' => 200, 'data' => $result]);
+        } else {
             $result = vendor_item::where('jan', $jan_code)->with('jan')->first();
-            return response()->json(['status' => 402,'data'=>$result]);
-       }
+            return response()->json(['status' => 402, 'data' => $result]);
+        }
     }
 
-    public function get_stock_info($jan_code){
+    public function get_stock_info($jan_code)
+    {
         $data = array();
         $stock_info = collect(\DB::select("select stock_items.*,(SELECT SUM(customer_shipments.confirm_quantity) as confirm_qty
-        FROM customer_order_details INNER JOIN customer_shipments ON customer_shipments.customer_order_detail_id=customer_order_details.customer_order_detail_id INNER JOIN customer_orders on customer_orders.customer_order_id=customer_order_details.customer_order_id where customer_orders.status='確定済み' and customer_order_details.jan='".$jan_code."') conf_qty
-      from jans inner join vendor_items on jans.jan=vendor_items.jan inner join stock_items on vendor_items.vendor_item_id = stock_items.vendor_item_id where jans.jan = '".$jan_code."'"))->first();
-        if($stock_info){
+        FROM customer_order_details INNER JOIN customer_shipments ON customer_shipments.customer_order_detail_id=customer_order_details.customer_order_detail_id INNER JOIN customer_orders on customer_orders.customer_order_id=customer_order_details.customer_order_id where customer_orders.status='確定済み' and customer_order_details.jan='" . $jan_code . "') conf_qty
+      from jans inner join vendor_items on jans.jan=vendor_items.jan inner join stock_items on vendor_items.vendor_item_id = stock_items.vendor_item_id where jans.jan = '" . $jan_code . "'"))->first();
+        if ($stock_info) {
             $data = $stock_info;
         }
         return $data;
     }
 
-    public function get_stock_info_detail($jan_code){
+    public function get_stock_info_detail($jan_code)
+    {
         $data = array();
-        $stock_info = collect(\DB::select("select * from jans inner join vendor_items on jans.jan=vendor_items.jan inner join stock_items on vendor_items.vendor_item_id = stock_items.vendor_item_id where jans.jan = '".$jan_code."'"))->first();
-        if($stock_info){
+        $stock_info = collect(\DB::select("select * from jans inner join vendor_items on jans.jan=vendor_items.jan inner join stock_items on vendor_items.vendor_item_id = stock_items.vendor_item_id where jans.jan = '" . $jan_code . "'"))->first();
+        if ($stock_info) {
             $data = $stock_info;
         }
         return $data;
     }
 
-    public function kouri_order_insert(Request $request){
+    public function kouri_order_insert(Request $request)
+    {
         $value = '';
- $customer_id = $request->customer_id;
+        $customer_id = $request->customer_id;
+        $customer_shop_id = $request->customer_shop_id;
 
-       // $customerItemInfo = customer_item::where('jan', $request->jan_code)->where('customer_id',$request->customer_id)->with('jan')->first();
+        // $customerItemInfo = customer_item::where('jan', $request->jan_code)->where('customer_id',$request->customer_id)->with('jan')->first();
         $vendoritems_info = vendor_item::where('jan', $request->jan_code)->with('jan')->first();
-        $result = customer_order_detail::where('jan',$request->jan_code)->with(['jan','customer_order','customer_shipment'])
-       ->whereHas('customer_order', function($q) use($customer_id) {
-       $q->where('customer_id', $customer_id); // '=' is optional
-       $q->where('status', '確定済み'); // '=' is optional
-       $q->orWhere('status', '未出荷'); // '=' is optional
- })
- ->orderBy('customer_order_detail_id', 'DESC')->first();
+        $result = customer_order_detail::where('jan', $request->jan_code)->with(['jan', 'customer_order', 'customer_shipment'])
+            ->whereHas('customer_order', function ($q) use ($customer_id) {
+                $q->where('customer_id', $customer_id); // '=' is optional
+                $q->where('status', '確定済み'); // '=' is optional
+                $q->orWhere('status', '未出荷'); // '=' is optional
+            })
+            ->orderBy('customer_order_detail_id', 'DESC')->first();
         $jan_code = $request->jan_code;
         //$items_info = customer_item::join('customer_shops','customer_shops.customer_id','=','customer_items.customer_id')->where('customer_items.jan',$jan_code)->where('customer_items.customer_id',$customer_id)->first();
-       // $vendoritems_info = vendor_item::where('jan',$jan_code)->first();
-        if($result){
+        // $vendoritems_info = vendor_item::where('jan',$jan_code)->first();
+        if ($result) {
             return response()->json(['status' => 402]);
 
-        }else{
+        } else {
             $inputs_type = 'ケース';
             $c_quantity = $request->total_quantity;
-            $customer_order_demo['customer_id']=$customer_id;
-            $customer_order_demo['customer_shop_id']=1;//$items_info->customer_shop_id;
-            $customer_order_demo['shipment_number']=rand();
-            $customer_order_demo['category']='manual';
-            $customer_order_demo['voucher_number']=rand();
-            $customer_order_demo['order_date']= date('Y-m-d H:i:s');
-            $customer_order_demo['shipment_date']= date('Y-m-d');
-            $customer_order_demo['delivery_date']= date('Y-m-d H:i:s');
+            $customer_order_demo['customer_id'] = $customer_id;
+            $customer_order_demo['customer_shop_id'] = $customer_shop_id;
+            $customer_order_demo['shipment_number'] = rand();
+            $customer_order_demo['category'] = 'manual';
+            $customer_order_demo['voucher_number'] = rand();
+            $customer_order_demo['order_date'] = date('Y-m-d H:i:s');
+            $customer_order_demo['shipment_date'] = date('Y-m-d');
+            $customer_order_demo['delivery_date'] = date('Y-m-d H:i:s');
 
-            $customer_order_demo_detail['customer_item_id']=$vendoritems_info->vendor_item_id;//vendor_item_id
-            $customer_order_demo_detail['jan']=$jan_code;
-            $customer_order_demo_detail['inputs']=$inputs_type;
-            $customer_order_demo_detail['quantity']=$c_quantity;
-            $customer_order_demo_detail['order_case_quantity']=$request->case_order_quantity;
-            $customer_order_demo_detail['order_ball_quantity']=$request->ball_order_quantity;
-            $customer_order_demo_detail['order_unit_quantity']=$request->unit_order_quantity;
-            $customer_order_demo_detail['cost_price']=$vendoritems_info->cost_price;
-            $customer_order_demo_detail['selling_price']=$vendoritems_info->selling_price;
+            $customer_order_demo_detail['customer_item_id'] = $vendoritems_info->vendor_item_id;//vendor_item_id
+            $customer_order_demo_detail['jan'] = $jan_code;
+            $customer_order_demo_detail['inputs'] = $inputs_type;
+            $customer_order_demo_detail['quantity'] = $c_quantity;
+            $customer_order_demo_detail['order_case_quantity'] = $request->case_order_quantity;
+            $customer_order_demo_detail['order_ball_quantity'] = $request->ball_order_quantity;
+            $customer_order_demo_detail['order_unit_quantity'] = $request->unit_order_quantity;
+            $customer_order_demo_detail['cost_price'] = $vendoritems_info->cost_price;
+            $customer_order_demo_detail['selling_price'] = $vendoritems_info->selling_price;
             $customer_order_id = customer_order::insertGetId($customer_order_demo);
-            $customer_order_demo_detail['customer_order_id']=$customer_order_id;
+            $customer_order_demo_detail['customer_order_id'] = $customer_order_id;
             $customer_order_detail_id = customer_order_detail::insertGetId($customer_order_demo_detail);
             $stock_info = $this->get_stock_info($jan_code);
 
-            $shiptment['customer_id']=$customer_id;
-            $shiptment['customer_order_id']=$customer_order_id;
-            $shiptment['customer_order_detail_id']=$customer_order_detail_id;
-            $shiptment['shipment_date']=date('Y-m-d H:i:s');
-            $shiptment['inputs']=$inputs_type;
-            $shiptment['confirm_case_quantity']=$request->case_order_quantity;
-            $shiptment['confirm_ball_quantity']=$request->ball_order_quantity;
-            $shiptment['confirm_unit_quantity']=$request->unit_order_quantity;
+            $shiptment['customer_id'] = $customer_id;
+            $shiptment['customer_order_id'] = $customer_order_id;
+            $shiptment['customer_order_detail_id'] = $customer_order_detail_id;
+            $shiptment['shipment_date'] = date('Y-m-d H:i:s');
+            $shiptment['inputs'] = $inputs_type;
+            $shiptment['confirm_case_quantity'] = $request->case_order_quantity;
+            $shiptment['confirm_ball_quantity'] = $request->ball_order_quantity;
+            $shiptment['confirm_unit_quantity'] = $request->unit_order_quantity;
 
-            $shiptment['confirm_quantity']=$c_quantity;
+            $shiptment['confirm_quantity'] = $c_quantity;
 
 
-
-            if($stock_info){
-                $shiptment['rack_number']=$stock_info->rack_number;
-                if($stock_info->case_quantity>=$request->case_order_quantity && $stock_info->ball_quantity>=$request->ball_order_quantity && $stock_info->unit_quantity>=$request->unit_order_quantity){
+            if ($stock_info) {
+                $shiptment['rack_number'] = $stock_info->rack_number;
+                if ($stock_info->case_quantity >= $request->case_order_quantity && $stock_info->ball_quantity >= $request->ball_order_quantity && $stock_info->unit_quantity >= $request->unit_order_quantity) {
                     customer_shipment::insert($shiptment);
-                    customer_order::where('customer_order_id',$customer_order_id)->update(['status'=>'確定済み']);
+                    customer_order::where('customer_order_id', $customer_order_id)->update(['status' => '確定済み']);
                 }
 
             }

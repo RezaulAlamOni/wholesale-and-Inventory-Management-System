@@ -491,6 +491,7 @@ export default {
                 'unit_order_quantity': _this.bara_order,
                 'total_quantity': _this.total_quantity,
                 'customer_id': _this.customer_id,
+                'customer_shop_id': _this.customer_shop_id,
                 'jan_code': _this.jan_code,
             };
             $('.loading_image_custom').show()
