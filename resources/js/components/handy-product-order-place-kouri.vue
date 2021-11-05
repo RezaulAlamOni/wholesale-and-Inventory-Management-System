@@ -68,13 +68,21 @@
                                                 </p>
                                             </div>
                                             <div class="form-group">
-                                                        <select class="form-control" id="sel1" v-model="customer_id">
-                                                            <option value="null">小売を選択</option>
-                                                            <option v-for="customer in customers" :value="customer.id">
-                                                                {{ customer.text }}
-                                                            </option>
-                                                        </select>
-                                                    </div>
+                                                <select class="form-control" id="sel1" v-model="customer_id">
+                                                    <option value="null">小売を選択</option>
+                                                    <option v-for="customer in customers" :value="customer.id">
+                                                        {{ customer.text }}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <select class="form-control" id="sel1" v-model="customer_shop_id">
+                                                    <option value="null">00000</option>
+                                                    <option v-for="shop in customer_shops" :value="shop.customer_shop_id">
+                                                        {{ shop.shop_name }}
+                                                    </option>
+                                                </select>
+                                            </div>
                                             <div class="form-group" style="margin-bottom: 0">
                                                 <div class="col-md-12 col-xs-12 padding_0">
                                                     <table class="table table-bordered physical_handy_tabls">
@@ -247,9 +255,9 @@ export default {
         return {
             jan_code: '',
             order_data: [],
-            case_inputs:'',
-            ball_inputs:'',
-            item_name:'',
+            case_inputs: '',
+            ball_inputs: '',
+            item_name: '',
             get_last_order_info: [],
             case_order: 0,
             boll_order: 0,
@@ -258,6 +266,8 @@ export default {
             input_type: '',
             vendors: [],
             customers: [],
+            customer_shops: [],
+            customer_shop_id : null,
             product_name: '',
             vendor_id: null,
             customer_id: null,
@@ -301,28 +311,28 @@ export default {
             }
             $('.loading_image_custom').show()
             _this.loader = 1
-            axios.post(this.base_url + '/kouri-order-info-for-handy',{'jan_code': _this.jan_code})
+            axios.post(this.base_url + '/kouri-order-info-for-handy', {'jan_code': _this.jan_code})
                 .then(function (res) {
                     //_this.resetField();
 
-                   // false;
-                        _this.getCustomerList();
+                    // false;
+                    _this.getCustomerList();
                     if (res.data.status == 200) {
 
                         _this.order_data = res.data.data;
-                         res = res.data.data;
+                        res = res.data.data;
                         //_this.input_type = _this.order_data.order_lot_inputs;
                         console.log(res);
                         //if(Object.keys(res.get_last_order_info).length>0){
-                        _this.case_order = (res.order_case_quantity==null?0:res.order_case_quantity);//_this.order_data.order_lot_case_quantity;
-                        _this.boll_order = (res.order_ball_quantity==null?0:res.order_ball_quantity);//_this.order_data.order_lot_ball_quantity;
-                        _this.bara_order = (res.order_unit_quantity==null?0:res.order_unit_quantity);//_this.order_data.order_lot_unit_quantity;
+                        _this.case_order = (res.order_case_quantity == null ? 0 : res.order_case_quantity);//_this.order_data.order_lot_case_quantity;
+                        _this.boll_order = (res.order_ball_quantity == null ? 0 : res.order_ball_quantity);//_this.order_data.order_lot_ball_quantity;
+                        _this.bara_order = (res.order_unit_quantity == null ? 0 : res.order_unit_quantity);//_this.order_data.order_lot_unit_quantity;
 
                         _this.customer_id = res.customer_order.customer_id;
 
-                        _this.case_inputs=res.jan.case_inputs
-                        _this.ball_inputs=res.jan.ball_inputs
-                        _this.item_name=res.jan.name
+                        _this.case_inputs = res.jan.case_inputs
+                        _this.ball_inputs = res.jan.ball_inputs
+                        _this.item_name = res.jan.name
                         //}
 
                         _this.calculateTotalQuantity();
@@ -343,12 +353,12 @@ export default {
                         _this.bara_order = 0;//(res.order_unit_quantity==null?0:res.order_unit_quantity);//_this.order_data.order_lot_unit_quantity;
 
                         //_this.customer_id = res.customer_order.customer_id;
-                         res = res.data.data;
+                        res = res.data.data;
 
-                        _this.case_inputs=res.jan.case_inputs;
-                        _this.ball_inputs=res.jan.ball_inputs;
-                        _this.item_name=res.jan.name;
-                         setTimeout(function () {
+                        _this.case_inputs = res.jan.case_inputs;
+                        _this.ball_inputs = res.jan.ball_inputs;
+                        _this.item_name = res.jan.name;
+                        setTimeout(function () {
                             $('.case_order').focus();
                             $('.case_order').select();
                         }, 1000)
@@ -359,7 +369,7 @@ export default {
                             $('#stock-order-show-by-jan').modal({backdrop: 'static', keyboard: false})
                             $('.loading_image_custom').hide()
                         }
-                         console.log(res);
+                        console.log(res);
                     } else if (res.data.status == 401) {
                         _this.handi_navi = '<li>0000000000000</li>';
                         $('#handy-navi').show()
@@ -380,7 +390,7 @@ export default {
 
                 })
                 .finally(function () {
-                   // _this.jan_code = ''
+                    // _this.jan_code = ''
                     _this.loader = 0
                 })
         },
@@ -435,7 +445,7 @@ export default {
             if (this.loader == 1) {
                 return false;
             }
-            if (this.jan_code.length >= 13 || this.jan_code.length==8) {
+            if (this.jan_code.length >= 13 || this.jan_code.length == 8) {
                 this.getOrderDataByJan()
             }
             if (e.keyCode == 13) {
@@ -448,25 +458,25 @@ export default {
         },
         orderPlace() {
             let _this = this;
-            if(_this.customer_id==null){
-                 $('#handy-navi').show()
+            if (_this.customer_id == null) {
+                $('#handy-navi').show()
                 _this.handi_navi = '<li>0000000</li>';
                 return false;
             }
-            if(_this.total_quantity<=0){
-                 $('#handy-navi').show()
+            if (_this.total_quantity <= 0) {
+                $('#handy-navi').show()
                 _this.handi_navi = '<li>0000000</li>';
                 return false;
             }
-           console.log(_this.ball_order);
-         var data_post ={
-                    'case_order_quantity': _this.case_order,
-                    "ball_order_quantity": _this.boll_order,
-                    'unit_order_quantity': _this.bara_order,
-                    'total_quantity': _this.total_quantity,
-                    'customer_id': _this.customer_id,
-                    'jan_code': _this.jan_code,
-                    };
+            console.log(_this.ball_order);
+            var data_post = {
+                'case_order_quantity': _this.case_order,
+                "ball_order_quantity": _this.boll_order,
+                'unit_order_quantity': _this.bara_order,
+                'total_quantity': _this.total_quantity,
+                'customer_id': _this.customer_id,
+                'jan_code': _this.jan_code,
+            };
             $('.loading_image_custom').show()
             if (_this.loader == 1) {
                 return false
@@ -477,13 +487,13 @@ export default {
                 // return false
                 axios.post(this.base_url + '/kouri_order_insert', data_post)
                     .then(function (res) {
-                        if(res.data.status==200){
-                        $('#handy-navi').show()
-                        _this.handi_navi = '<li>発注が完了しました。次のJANコードスキャンして【次へ】押してください。</li>';
+                        if (res.data.status == 200) {
+                            $('#handy-navi').show()
+                            _this.handi_navi = '<li>発注が完了しました。次のJANコードスキャンして【次へ】押してください。</li>';
 
-                        _this.hideModelAndClearInput()
-                        }else{
-                             $('#handy-navi').show()
+                            _this.hideModelAndClearInput()
+                        } else {
+                            $('#handy-navi').show()
                             _this.handi_navi = '<li>コウリ注文あり確認してください</li>';
                             $('.loading_image_custom').hide()
                             return false;
@@ -511,9 +521,9 @@ export default {
                 this.boll_order = 0;
             }
         },
-        enterEvent(e,type){
+        enterEvent(e, type) {
             if (e.keyCode == 13) {
-                this.pressEnterAndSave(e,type);
+                this.pressEnterAndSave(e, type);
             }
         },
         pressEnterAndSave(e, type) {
@@ -586,7 +596,7 @@ export default {
                             let sale_start_date = '2020-01-01';
                             let sale_end_date = '2021-12-31';
                             let data = {
-                                maker_id:response.data.maker_id,
+                                maker_id: response.data.maker_id,
                                 vendor_id: vendor_id,
                                 jan_code: jan_code,
                                 item_name: item_name,
