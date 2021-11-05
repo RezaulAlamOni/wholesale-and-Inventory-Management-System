@@ -68,7 +68,7 @@
                                                 </p>
                                             </div>
                                             <div class="form-group">
-                                                <select class="form-control" id="sel1" v-model="customer_id">
+                                                <select class="form-control" id="sel1" v-model="customer_id" @change="getCustomerShopList()">
                                                     <option value="null">小売を選択</option>
                                                     <option v-for="customer in customers" :value="customer.id">
                                                         {{ customer.text }}
@@ -298,6 +298,22 @@ export default {
                 .then(function (response) {
                     // console.log(response.data)
                     _this.customers = response.data.results;
+                    if (_this.customer_id) {
+                        _this.getCustomerShopList();
+                    }
+                    // $('#select_tonya').modal({backdrop: 'static', keyboard: false})
+                })
+                .catch(function (e) {
+
+                })
+        },
+        //get customer shop list
+        getCustomerShopList(){
+            let _this = this;
+            axios.post(_this.base_url + '/get_shop_list_by_customer_id',{customer_id: _this.customer_id})
+                .then(function (response) {
+                    // console.log(response.data)
+                    _this.customer_shops= response.data.shop_list;
                     // $('#select_tonya').modal({backdrop: 'static', keyboard: false})
                 })
                 .catch(function (e) {
