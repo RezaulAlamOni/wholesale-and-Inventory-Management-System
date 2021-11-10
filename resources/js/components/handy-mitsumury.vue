@@ -25,9 +25,13 @@
                                 全て
                             </label>
                         </div>
+                        <button @click="addProductModal()"
+                                class="btn btn-success pull-right mr-1 "
+                                style=" position: absolute; top: 5px; right: 100px;padding: 6px 5px;"> 追加
+                        </button>
                         <button v-if="productJans.length > 0" @click="selectSuper(' ')"
                                 class="btn btn-success pull-right mr-1 "
-                                style=" position: absolute; top: 5px; right: 100px;"> メール
+                                style=" position: absolute; top: 5px; right: 139px;"> メール
                         </button>
                         <a href="custom-mitsumury"
                                 class="btn btn-info pull-right mr-1 "
@@ -112,7 +116,7 @@
                     <div class="modal-header" style="padding: 5px;justify-content: right">
                         <a class="btn btn-success float-right mr-1" @click="naviShow()"> 保存</a>
 <!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
-                        <a class="btn btn-info float-right" @click="confirmAndHide()">戻る</a>
+                        <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
 
                     </div>
                     <div class="modal-body p-0" style="text-align: center">
@@ -219,7 +223,7 @@
                         <button class="btn btn-success mr-2" @click="sendtoSuper()"
                                 :disabled="(productJans.length > 0 && selectedSuper.length > 0 ) ? false : true">送信
                         </button>
-                        <a class="btn btn-info float-right" @click="confirmAndHide()">戻る</a>
+                        <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-select-super')">戻る</a>
                     </div>
                     <div class="modal-body p-0" style="text-align: center">
                         <div
@@ -272,7 +276,104 @@
             </div>
         </div>
 
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+             aria-hidden="true" id="mistumury-prodct-add-modal">
+            <div class="modal-dialog modal-lg mt-0">
+                <div class="modal-content">
+                    <div class="modal-header" style="padding: 5px;justify-content: right">
+                        <button class="btn btn-success float-right mr-1" id="product-add-" @click="saveNewMistumuryProduct()"> 保存</button>
+                        <!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
+                        <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-prodct-add-modal')">戻る</a>
 
+                    </div>
+                    <div class="modal-body p-0" style="text-align: center">
+                        <div
+                            style="font-size: 18px;text-align: left;padding: 5px 10px;background: #c3ff8f80;font-weight: bold;">
+                            <input type="text" v-model="mistumury_product.title" class="form-control">
+                        </div>
+                        <div>
+                            <div class="form-group text-center">
+                                <input type="file" accept="image/*" @change="previewImage" class="form-control-file"
+                                       id="my-file" alt="00">
+                            </div>
+                            <img v-if="preview"
+                                 :src="preview"
+                                 class="img-thumbnail custom-img-preview" alt="Cinque Terre"
+                                 style="cursor: pointer">
+                        </div>
+                        <div>
+                            <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls">
+                                <thead data-v-c9953dda="">
+                                <tr data-v-c9953dda="">
+                                    <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                        原価
+                                    </th>
+                                    <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                        売価
+                                    </th>
+                                    <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                        粗利
+                                    </th>
+                                    <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                        ％
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody data-v-c9953dda="" class="physicaltbody">
+                                <tr data-v-c9953dda="">
+                                    <td data-v-c9953dda="">
+                                        <input data-v-c9953dda="" type="tel" id="cost_" @click="selectItem($event)"
+                                               class="form-control  " v-model="mistumury_product.cost"
+                                               @keypress="pressEnterAndNext($event,'sell_')"
+                                               @keyup="calculateNewProductAddPrice('cost')"
+                                               style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+                                    </td>
+                                    <td data-v-c9953dda="">
+                                        <input data-v-c9953dda="" type="tel" id="sell_" @click="selectItem($event)"
+                                               class="form-control  " v-model="mistumury_product.sell"
+                                               @keypress="pressEnterAndNext($event,'profit_margin_')"
+                                               @keyup="calculateNewProductAddPrice('sell')"
+                                               style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+                                    </td>
+                                    <td data-v-c9953dda="">
+                                        <input data-v-c9953dda="" type="tel" id="profit_" @click="selectItem($event)"
+                                               class="form-control  "
+                                               :value="(mistumury_product.sell && mistumury_product.cost) ? mistumury_product.sell - mistumury_product.cost : ''"
+                                               readonly
+                                               style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+                                        <!--                                        v-model="preview_product.profit"-->
+                                        <!--                                               @keypress="pressEnterAndNext($event,'profit_margin')"-->
+                                        <!--                                               @keyup="calculatePrice('profit')"-->
+                                    </td>
+                                    <td data-v-c9953dda="">
+                                        <input data-v-c9953dda="" type="tel" id="profit_margin_"
+                                               @click="selectItem($event)"
+                                               @keypress="pressEnterAndNext($event,'cost_')"
+                                               class="form-control  " v-model="mistumury_product.profit_margin"
+                                               @keyup="calculateNewProductAddPrice('profit_margin')"
+                                               style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-group" style="display: none">
+                            <select class="form-control" id="vendprs" v-model="maker_id"
+                                    @change="updateVendorData()">
+                                <option value="0">問屋を選択</option>
+                                <option v-for="vendor in vendors" :value="vendor.id">
+                                    {{ vendor.text }}
+                                </option>
+                            </select>
+                        </div>
+
+
+                    </div>
+                    <!--                    <div class="modal-footer " style="padding: 6px">-->
+                    <!--                    </div>-->
+                </div>
+            </div>
+        </div>
         <div class="jn nav_disp-w" style="z-index: 9999;width: 270px; right: 15px; bottom: 15px;"
              id="handy-navi">
             <div class="card card-warning jn_old_popup " style="padding: 6px">
@@ -325,7 +426,14 @@ export default {
             allSelectedSuper: false,
             productJans: [],
             selectedSuper: [],
-            message: null
+            message: null,
+            mistumury_product: {
+                title : '',
+                cost: 100,
+                sell: 120,
+                profit_margin: 20
+            },
+            preview: null
 
         }
     },
@@ -501,9 +609,9 @@ export default {
             // $('#special-price').focus();
             // $('#special-price').select();
         },
-        confirmAndHide() {
-            $('#mistumury-mage-preview').modal('hide')
-            $('#mistumury-select-super').modal('hide')
+        confirmAndHide(type) {
+            $('#' + type).modal('hide')
+            $('#' + type).modal('hide')
         },
         getOrderDataByJan() {
             let _this = this;
@@ -984,7 +1092,55 @@ export default {
                 })
             this.selectedSuper = [];
             this.productJans = [];
-        }
+        },
+        //
+        addProductModal() {
+            $('#mistumury-prodct-add-modal').modal({backdrop: 'static'})
+        },
+        previewImage: function (event) {
+            var input = event.target;
+            if (input.files) {
+                var reader = new FileReader();
+                reader.onload = (e) => {
+                    this.preview = e.target.result;
+                }
+                this.mistumury_product.image = input.files[0];
+                reader.readAsDataURL(input.files[0]);
+            }
+        },
+
+        saveNewMistumuryProduct: function (event) {
+            $('#product-add-').prop('disabled', true);
+            let _this = this;
+            if (this.mistumury_product.title.length <= 0 || this.mistumury_product.cost <= 0 || this.mistumury_product.sell <= 0) {
+                this.handi_navi = '000000';
+                $('#handy-navi').show();
+                return false;
+            }
+
+            let fd = new FormData()
+
+            fd.append('image', _this.mistumury_product.image)
+
+            fd.append('cost', _this.mistumury_product.cost)
+            fd.append('sell', _this.mistumury_product.sell)
+            fd.append('title', _this.mistumury_product.title)
+            fd.append('profit_margin', _this.mistumury_product.profit_margin)
+
+            axios.post(_this.base_url + '/custom-mistumury-products',fd)
+                .then(function (response) {
+                    _this.getProducts();
+                    _this.handi_navi = '仕入・販売先マスターへ登録されました';
+                    $('#handy-navi').show();
+                    $('#mistumury-prodct-add-modal').modal('hide');
+                    $('#product-add-').prop('disabled', false);
+                    _this.mistumury_product.image = null
+                    _this.preview = null
+                    _this.mistumury_product.title = ''
+                    $('#my-file').val('')
+                    window.location.href = _this.base_url +'/custom-mitsumury';
+                })
+        },
 
 
     },

@@ -312,7 +312,7 @@
                         <button class="btn btn-success mr-2" @click="sendtoSuper()"
                                 :disabled="(productJans.length > 0 && selectedSuper.length > 0 ) ? false : true">送信
                         </button>
-                        <a class="btn btn-info float-right" @click="confirmAndHide()">戻る</a>
+                        <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-select-super')">戻る</a>
                     </div>
                     <div class="modal-body p-0" style="text-align: center">
                         <div
