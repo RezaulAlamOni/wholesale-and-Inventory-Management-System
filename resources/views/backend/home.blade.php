@@ -82,8 +82,8 @@
 						<p class="submessg">（受注）<a href="{{Config::get('app.url').'/manualOrder'}}"
 							class="btn btn-success btn-sm menualablebtn common_goto_sheet" data_num_link="12"
 							id="size_setting_btn" style="margin-bottom: 0; background: #0c673b !important;">
-                                ｵﾝﾗｲﾝ
-						</a></p>
+                                ｵﾝﾗｲﾝ 確定
+                            </a></p>
 						<!-- <h4 class="btom_content_home" style="padding-top:55px">③000000000</h4> -->
 				</div>
 
