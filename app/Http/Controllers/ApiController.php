@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\customer_shop;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
@@ -50,7 +51,7 @@ class ApiController extends Controller
             curl_setopt($ch,CURLOPT_TIMEOUT, 500);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
             $response = curl_exec($ch);
-            
+
             curl_close ($ch);
             $api_data = \json_decode($response);
             // echo '<pre>';
@@ -60,5 +61,10 @@ class ApiController extends Controller
 
     }
 
-
+    public function getCustomerShops(Request $request)
+    {
+        $id = $request->id;
+        $shops = customer_shop::query()->where('customer_id',$id)->get();
+        return response()->json(['shops' => $shops]);
+    }
 }

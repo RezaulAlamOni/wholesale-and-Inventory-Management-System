@@ -20,4 +20,6 @@ Route::post('/haccuListsendtomailportal', 'API\SendMailPortalController@haccuLis
 Route::post('/estimation_data', 'Eestimate_itemController@store');
 Route::post('/save-customer-data', 'CustomerShopController@saveCustomerData');
 Route::post('/orders', 'API\OrderController@insertOrderFromSuper');
+Route::get('/customer-shops/{id}',[\App\Http\Controllers\ApiController::class,'getCustomerShops']);
+
 
