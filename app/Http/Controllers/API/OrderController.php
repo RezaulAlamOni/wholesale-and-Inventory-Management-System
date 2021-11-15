@@ -19,6 +19,7 @@ class OrderController extends Controller
         $orders_ = json_decode($orders);
         foreach ($orders_ as $order) {
 
+            $shop_id = $order->shop_id;
             $customer_id = $order->vendor_id;
             $jan_code = $order->item_ifo->jan;
             $case_order_quantity = $order->order_case_quantity;
@@ -51,7 +52,7 @@ class OrderController extends Controller
             $total_quantity = $unit_order_quantity + ($ball_order_quantity * $janInfo->ball_inputs) + ($case_order_quantity * $janInfo->case_inputs);
             $c_quantity = $total_quantity;
             $customer_order_demo['customer_id'] = $customer_id;
-            $customer_order_demo['customer_shop_id'] = 1;
+            $customer_order_demo['customer_shop_id'] = $shop_id;
             $customer_order_demo['shipment_number'] = rand();
             $customer_order_demo['category'] = 'manual';
             $customer_order_demo['voucher_number'] = rand();
