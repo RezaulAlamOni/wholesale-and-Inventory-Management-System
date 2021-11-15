@@ -608,6 +608,7 @@
             width: 100%;
             overflow: hidden;
             border: 5px solid #000;
+            padding-bottom: 100px;
         }
 
         #manual_order_table_entry .table th,

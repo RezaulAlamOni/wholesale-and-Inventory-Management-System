@@ -380,7 +380,7 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
             inner join vendor_items on jans.jan=vendor_items.jan
 left join stock_items on vendor_items.vendor_item_id = stock_items.vendor_item_id
 left join customer_shipments on customer_shipments.customer_order_detail_id = customer_order_details.customer_order_detail_id
-             where customer_orders.customer_id = '" . $id . "' and (customer_orders.status='未出荷' || customer_orders.status='確定済み') and customer_orders.category = '" . $order_category . "' $wh ORDER BY customer_orders.customer_shop_id ASC
+             where customer_orders.customer_id = '" . $id . "' and (customer_orders.status='未出荷' || customer_orders.status='確定済み') and customer_orders.category = '" . $order_category . "' $wh ORDER BY  customer_shipments.created_at DESC ,customer_orders.customer_shop_id ASC
             "));
                 $order_array = array();
                 if ($online_order) {
