@@ -24,6 +24,8 @@
         <ul class="bottom_page_btn_list_jacos list-inline">
             <li><a href="{{Config::get('app.url').'/brand-order'}}" class="btn btn-lg btn-info"> 手書</a></li>
             <li><a href="{{Config::get('app.url').'/onlineorder'}}" class="btn btn-lg btn-warning">オンライン受注</a></li>
+            <li><a href="{{Config::get('app.url').'/manualOrder'}}" class="btn btn-lg btn-primary">採用リスト</a></li>
+            <li><a href="#" class="btn btn-lg btn-success">確定リスト</a></li>
             <!-- <li><a href="{{Config::get('app.url').'manualOrder'}}" class="btn btn-lg btn-warning">手書受注</a></li> -->
             <li><a href="#" delete_st="0" class="btn btn-lg btn-danger delete_entry">行削除</a></li>
             <li><button class="btn btn-lg customer_list_show_popup btn-primary">販売先</button></li>
