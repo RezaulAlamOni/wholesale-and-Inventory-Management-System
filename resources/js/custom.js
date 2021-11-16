@@ -4739,7 +4739,7 @@ function get_manual_order_item(c_id = 0, c_name = '') {
             if (response.success != 0) {
                 shop_count = response.shop_list.length;
                 for (var k = 0; k < shop_count; k++) {
-                    shop_name += '<th colspan="3" style="width:auto;text-align: center; border-right: 3px solid #ddd;">' + response.shop_list[k].shop_name + '</th>';
+                    shop_name += '<th colspan="3" style="width:auto;text-align: center; border-right: 3px solid #ddd;">' + response.shop_list[k].shop_name + '</th><th rowspan="2" style="min-width: 70px; width: 76px;">出荷</th>';
                 }
 
                 for (var j = 0; j < shop_count; j++) {
@@ -4748,7 +4748,7 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                     <th style="width:auto;text-align: center; border-right: 3px solid #ddd;">ﾊﾞﾗ</th>`;
                 }
             }
-            var total_shop = shop_count * 3;
+            var total_shop = shop_count * 4;
             total_shop = total_shop + 5;
             for (var m = 0; m < total_shop; m++) {
                 shop_col_info += '<col>';
@@ -4939,6 +4939,8 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                 htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="ケース" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + case_qty + '"></td>';
                                 htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="ボール" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + ball_qty + '"></td>';
                                 htmls += '<td style="border-right: 3px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="バラ" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + unit_qty + '"></td>';
+                                htmls += '<td class="quantitysendtosuper" rowspan="2" style="text-align: center; nowrap><button class="btn btn-primary manualshipmentaction" data-shop-id="' + response.shop_list[n].customer_shop_id + '" data-order-detail-id="'+online_order[i].customer_order_detail_id+'" >出荷</button></td>';
+
                             }
                             sumation_arr[online_order[i].customer_order_detail_id] = [case_total, ball_total, unit_total];
 
