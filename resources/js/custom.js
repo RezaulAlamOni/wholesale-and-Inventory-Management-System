@@ -4825,6 +4825,8 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                 htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="ケース" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + case_qty + '"></td>';
                                 htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="ボール" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + ball_qty + '"></td>';
                                 htmls += '<td style="border-right: 3px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="バラ" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + unit_qty + '"></td>';
+                                htmls += '<td class="quantitysendtosuper" rowspan="2" style="text-align: center; nowrap><button class="btn btn-primary manualshipmentaction" data-shop-id="' + response.shop_list[n].customer_shop_id + '" data-order-detail-id="'+online_order[0].customer_order_detail_id+'" >出荷</button></td>';
+
                             }
                             sumation_arr[online_order[0].customer_order_detail_id] = [case_total, ball_total, unit_total];
 
