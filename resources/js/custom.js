@@ -3815,6 +3815,18 @@ var isUpdateValue = '';
     $(document).delegate('.manualshipmentaction', 'click', function (e) {
         e.preventDefault();
         var page = url_search();
+        //case_confirm_order_qty_
+       
+        var shipment_order_detail_id = $(this).attr('data-order-detail-id');
+        var shop_id = $(this).attr('data-shop-id');
+        var confirm_case_quantity = $(this).closest('tr').find('td .case_confirm_order_qty_'+shop_id).val();
+        var confirm_ball_quantity = $(this).closest('tr').find('td .ball_confirm_order_qty_'+shop_id).val();
+        var confirm_unit_quantity = $(this).closest('tr').find('td .unit_confirm_order_qty_'+shop_id).val();
+        console.log('shop_id'+shop_id);
+        console.log('shipment_order_detail_id'+shipment_order_detail_id);
+        console.log('confirm_case_quantity'+confirm_case_quantity);
+        console.log('confirm_ball_quantity'+confirm_ball_quantity);
+        console.log('confirm_unit_quantity'+confirm_unit_quantity);
         if (page == 'manualOrder') {
             var c_name = $('.jcs_main_hand_title').text();
             var c_id = $('.c_ids_v').val();
@@ -3826,7 +3838,7 @@ var isUpdateValue = '';
                         message: [
                             {message: c_name + 'に出荷しますか？ '}
                         ],
-                        buttons: [{button: '<center><a href="javascript:manual_order_shipment_exection()" class="btn btn-primary btn-lg">はい</a><a href="javascript:close_default_page_navi(808)" class="btn btn-danger btn-lg">いいえ</a></center>'}]
+                        buttons: [{button: '<center><a href="javascript:manual_order_shipment_exection('+confirm_case_quantity+','+confirm_ball_quantity+','+confirm_unit_quantity+','+shipment_order_detail_id+','+shop_id+','+c_name+','+c_id+')" class="btn btn-primary btn-lg">はい</a><a href="javascript:close_default_page_navi(808)" class="btn btn-danger btn-lg">いいえ</a></center>'}]
                     }
                 }
 
@@ -4771,7 +4783,7 @@ function get_manual_order_item(c_id = 0, c_name = '') {
             if (response.success != 0) {
                 shop_count = response.shop_list.length;
                 for (var k = 0; k < shop_count; k++) {
-                    shop_name += '<th colspan="3" style="width:auto;text-align: center; border-right: 3px solid #ddd;">' + response.shop_list[k].shop_name + '</th><th rowspan="2" style="min-width: 70px; width: 76px;">出荷</th>';
+                    shop_name += '<th colspan="3" style="width:auto;text-align: center; border-right: 3px solid #ddd;">' + response.shop_list[k].shop_name + '</th><th rowspan="2" style="min-width: 130px; width: 130px;">出荷</th>';
                 }
 
                 for (var j = 0; j < shop_count; j++) {
@@ -4789,7 +4801,7 @@ function get_manual_order_item(c_id = 0, c_name = '') {
             /*custome header content*/
             htm += `<tr>
 							<th rowspan="2" style="min-width: 370px; text-align: center; vertical-align: middle;" nowrap>商品名</th>
-							<th rowspan="2" style="min-width: 70px; width: 76px;"></th>
+							<th rowspan="2" style="min-width: 100px; width: 100px;"></th>
 							<th colspan="3" style="width:auto; border-right: 3px solid #ddd; text-align: center; vertical-align:middle;" nowrap>全体</th>`;
             htm += shop_name;
             htm += '</tr>';
@@ -4854,9 +4866,9 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                         unit_total += unit_qty;
                                     //}
                                 }
-                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="ケース" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + case_qty + '"></td>';
-                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="ボール" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + ball_qty + '"></td>';
-                                htmls += '<td style="border-right: 3px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="バラ" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + unit_qty + '"></td>';
+                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="ケース" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty case_order_qty_'+response.shop_list[n].customer_shop_id + '" value="' + case_qty + '"></td>';
+                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="ボール" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty ball_order_qty_'+response.shop_list[n].customer_shop_id + '" value="' + ball_qty + '"></td>';
+                                htmls += '<td style="border-right: 3px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="バラ" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty unit_order_qty_'+response.shop_list[n].customer_shop_id + '" value="' + unit_qty + '"></td>';
                                 htmls += '<td class="quantitysendtosuper" rowspan="2" style="text-align: center; padding:0!important;" nowrap><button class="btn btn-primary manualshipmentaction" data-shop-id="' + response.shop_list[n].customer_shop_id + '" data-order-detail-id="'+online_order[0].customer_order_detail_id+'">出荷</button></td>';
 
                             }
@@ -4918,9 +4930,9 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                         }
                                 }
 
-                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_case_suffcient + '"><input type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + case_qty_confirm + '"></td>';
-                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_ball_suffcient + '"><input type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + ball_qty_confirm + '"></td>';
-                                htmls += '<td style="border-right: 3px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_unit_suffcient + '"><input type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + unit_qty_confirm + '"></td>';
+                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_case_suffcient + '"><input type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty case_confirm_order_qty_'+response.shop_list[p].customer_shop_id + '" value="' + case_qty_confirm + '"></td>';
+                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_ball_suffcient + '"><input type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty ball_confirm_order_qty_'+response.shop_list[p].customer_shop_id + '" value="' + ball_qty_confirm + '"></td>';
+                                htmls += '<td style="border-right: 3px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_unit_suffcient + '"><input type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty unit_confirm_order_qty_'+response.shop_list[p].customer_shop_id + '" value="' + unit_qty_confirm + '"></td>';
                             }
                             sumation_confirm_arr[online_order[0].customer_order_detail_id] = [case_confirm_total, ball_confirm_total, unit_confirm_total];
                         }
