@@ -616,7 +616,9 @@
             white-space: normal;
             font-size: 20px;
         }
-
+        #manual_order_table_entry .table td {
+            padding: 0 5px !important;
+        }
         #manual_order_table_entry .table col {
             width: 150px;
         }
@@ -636,7 +638,7 @@
         }
 
         #manual_order_table_entry .table col:nth-child(n+4) {
-            width: 100px;
+            width: 90px;
             padding: 0 5px;
         }
 

@@ -3819,9 +3819,9 @@ var isUpdateValue = '';
        
         var shipment_order_detail_id = $(this).attr('data-order-detail-id');
         var shop_id = $(this).attr('data-shop-id');
-        var confirm_case_quantity = $(this).parent('tr').next('tr').find('td .case_confirm_order_qty_'+shop_id).val();
-        var confirm_ball_quantity = $(this).parent('tr').next('tr').find('td .ball_confirm_order_qty_'+shop_id).val();
-        var confirm_unit_quantity = $(this).parent('tr').next('tr').find('td .unit_confirm_order_qty_'+shop_id).val();
+        var confirm_case_quantity = $(this).parent('tr').next('tr').children('td').find('.case_confirm_order_qty_'+shop_id).val();
+        var confirm_ball_quantity = $(this).parent('tr').next('tr').children('td').find('.ball_confirm_order_qty_'+shop_id).val();
+        var confirm_unit_quantity = $(this).parent('tr').next('tr').children('td').find('.unit_confirm_order_qty_'+shop_id).val();
         console.log('shop_id'+shop_id);
         console.log('shipment_order_detail_id'+shipment_order_detail_id);
         console.log('confirm_case_quantity'+confirm_case_quantity);
@@ -3868,6 +3868,50 @@ function manual_order_shipment_exection(confirm_case_quantity,
         console.log('confirm_unit_quantity'+confirm_unit_quantity);
         console.log('c_id'+c_id);
     console.log('action will be here');
+    /*
+    let data = {
+        jan_code: _this.jan_code,
+        pname: order_itemData.jan.name,
+        c_quantity: c_quantity,
+        customer_id: order_itemData.customer_shipment.customer_id,
+        customer_item_id: order_itemData.customer_item_id,
+        customer_order_id: order_itemData.customer_shipment.customer_order_id,
+        customer_order_detail_id: order_itemData.customer_shipment.customer_order_detail_id,
+        inputs_type: order_itemData.customer_shipment.inputs,
+        confirm_case_quantity: order_itemData.customer_shipment.confirm_case_quantity,
+        confirm_ball_quantity: order_itemData.customer_shipment.confirm_ball_quantity,
+        confirm_unit_quantity: order_itemData.customer_shipment.confirm_unit_quantity,
+        customer_shipment_id: order_itemData.customer_shipment.customer_shipment_id,
+        rack_number: order_itemData.customer_shipment.rack_number,
+        total_quantity_vls:total_quantity_vls,
+        total_quantity_vls_price:total_quantity_vls_price
+
+    };
+    axios.post(this.base_url + '/shipment_arival_insert_handy_shipmentorder_to_super', data)
+    .then(function (res) {
+        console.log(res);
+        if (res.data.message == 'stock_over_qty') {
+            console.log('stock over');
+             //_this.handi_navi = '<li>在庫量不足。</li>';
+             //$('#handy-navi').show()
+            //return false;
+        } else {
+            console.log('stock done');
+           // _this.handi_navi = '<li>出荷が完了しました。次のJANコードスキャンして【次へ】押してください。</li>';
+            //$('#handy-navi').show();
+
+           // _this.hideModelAndClearInput();
+           // $('#jan_input').focus();
+        }
+
+
+    })
+    .then(function (er) {
+
+    })
+    .finally(function () {
+    })
+*/
     close_all_navi_msg();
         show_hide_nav_icn(1);
 }
