@@ -3819,11 +3819,17 @@ var isUpdateValue = '';
        
         var shipment_order_detail_id = $(this).attr('data-order-detail-id');
         var shop_id = $(this).attr('data-shop-id');
-        var confirm_case_quantity = $(this).parent('tr').next('tr').children('td').find('.case_confirm_order_qty_'+shop_id).val();
-        var confirm_ball_quantity = $(this).parent('tr').next('tr').children('td').find('.ball_confirm_order_qty_'+shop_id).val();
-        var confirm_unit_quantity = $(this).parent('tr').next('tr').children('td').find('.unit_confirm_order_qty_'+shop_id).val();
+        var jan_code = $(this).closest('tr').attr('data_jan');
+        var reck_code = $(this).closest('tr').next('tr').children('td').find('.case_confirm_order_qty_'+shop_id).attr('data_reck_code');
+        var customer_shipment_id = $(this).closest('tr').next('tr').children('td').find('.case_confirm_order_qty_'+shop_id).attr('data_customer_shipment_id');
+        var confirm_case_quantity = $(this).closest('tr').next('tr').children('td').find('.case_confirm_order_qty_'+shop_id).val();
+        var confirm_ball_quantity = $(this).closest('tr').next('tr').children('td').find('.ball_confirm_order_qty_'+shop_id).val();
+        var confirm_unit_quantity = $(this).closest('tr').next('tr').children('td').find('.unit_confirm_order_qty_'+shop_id).val();
+        console.log('jan_code'+jan_code);
+        console.log('reck_code'+reck_code);
         console.log('shop_id'+shop_id);
         console.log('shipment_order_detail_id'+shipment_order_detail_id);
+        console.log('customer_shipment_id'+customer_shipment_id);
         console.log('confirm_case_quantity'+confirm_case_quantity);
         console.log('confirm_ball_quantity'+confirm_ball_quantity);
         console.log('confirm_unit_quantity'+confirm_unit_quantity);
@@ -3838,7 +3844,7 @@ var isUpdateValue = '';
                         message: [
                             {message: c_name + 'に出荷しますか？ '}
                         ],
-                        buttons: [{button: '<center><a href="javascript:manual_order_shipment_exection('+confirm_case_quantity+','+confirm_ball_quantity+','+confirm_unit_quantity+','+shipment_order_detail_id+','+shop_id+','+c_name+','+c_id+')" class="btn btn-primary btn-lg">はい</a><a href="javascript:close_default_page_navi(808)" class="btn btn-danger btn-lg">いいえ</a></center>'}]
+                        buttons: [{button: '<center><a href="javascript:manual_order_shipment_exection('+confirm_case_quantity+','+confirm_ball_quantity+','+confirm_unit_quantity+','+shipment_order_detail_id+','+shop_id+','+c_id+','+jan_code+','+reck_code+','+customer_shipment_id+')" class="btn btn-primary btn-lg">はい</a><a href="javascript:close_default_page_navi(808)" class="btn btn-danger btn-lg">いいえ</a></center>'}]
                     }
                 }
 
@@ -3859,8 +3865,7 @@ function manual_order_shipment_exection(confirm_case_quantity,
     confirm_unit_quantity,
     shipment_order_detail_id,
     shop_id,
-    c_name,
-    c_id){
+    c_id,jan_code,reck_code,customer_shipment_id){
         console.log('shop_id'+shop_id);
         console.log('shipment_order_detail_id'+shipment_order_detail_id);
         console.log('confirm_case_quantity'+confirm_case_quantity);
@@ -4945,6 +4950,8 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                 var case_qty = '';
                                 var ball_qty = '';
                                 var unit_qty = '';
+                                var reck_code = '';
+                                var customer_shipment_id = '';
                                 var case_qty_confirm = '';
                                 var ball_qty_confirm = '';
                                 var unit_qty_confirm = '';
@@ -4958,6 +4965,8 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                 if (typeof idx_conf != "undefined") {
 
                                         case_qty = online_order[idx_conf].order_case_quantity;
+                                        reck_code = online_order[idx_conf].rack_number;
+                                        customer_shipment_id = online_order[idx_conf].customer_shipment_id;
 
                                         if (online_order[idx_conf].confirm_case_quantity !== 0) {
                                             case_qty_confirm = online_order[idx_conf].confirm_case_quantity;
@@ -4986,9 +4995,9 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                         }
                                 }
 
-                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_case_suffcient + '"><input type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty case_confirm_order_qty_'+response.shop_list[p].customer_shop_id + '" value="' + case_qty_confirm + '"></td>';
-                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_ball_suffcient + '"><input type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty ball_confirm_order_qty_'+response.shop_list[p].customer_shop_id + '" value="' + ball_qty_confirm + '"></td>';
-                                htmls += '<td style="border-right: 3px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_unit_suffcient + '"><input type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty unit_confirm_order_qty_'+response.shop_list[p].customer_shop_id + '" value="' + unit_qty_confirm + '"></td>';
+                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_case_suffcient + '"><input type="tel" data_reck_code="'+reck_code + '" data_customer_shipment_id="'+customer_shipment_id+'" class="form-control cmn_o_d_qty sum_of_o_d_qty case_confirm_order_qty_'+response.shop_list[p].customer_shop_id + '" value="' + case_qty_confirm + '"></td>';
+                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_ball_suffcient + '"><input type="tel" data_reck_code="'+reck_code + '" data_customer_shipment_id="'+customer_shipment_id+'" class="form-control cmn_o_d_qty sum_of_o_d_qty ball_confirm_order_qty_'+response.shop_list[p].customer_shop_id + '" value="' + ball_qty_confirm + '"></td>';
+                                htmls += '<td style="border-right: 3px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_unit_suffcient + '"><input type="tel" data_reck_code="'+reck_code + '" data_customer_shipment_id="'+customer_shipment_id+'" class="form-control cmn_o_d_qty sum_of_o_d_qty unit_confirm_order_qty_'+response.shop_list[p].customer_shop_id + '" value="' + unit_qty_confirm + '"></td>';
                             }
                             sumation_confirm_arr[online_order[0].customer_order_detail_id] = [case_confirm_total, ball_confirm_total, unit_confirm_total];
                         }
@@ -5059,6 +5068,8 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                 var case_qty = '';
                                 var ball_qty = '';
                                 var unit_qty = '';
+                                var reck_code = '';
+                                var customer_shipment_id = '';
                                 var case_qty_confirm = '';
                                 var ball_qty_confirm = '';
                                 var unit_qty_confirm = '';
@@ -5066,6 +5077,8 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                 var class_ball_suffcient = '';
                                 var class_unit_suffcient = '';
                                 if (response.shop_list[p].customer_shop_id == online_order[i].customer_shop_id) {
+                                    reck_code = online_order[i].rack_number;
+                                    customer_shipment_id = online_order[i].customer_shipment_id;
 
                                     case_qty_confirm = online_order[i].confirm_case_quantity;
                                     case_qty = online_order[i].order_case_quantity;
@@ -5107,9 +5120,9 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                     }*/
                                 }
 
-                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_case_suffcient + '"><input type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + case_qty_confirm + '"></td>';
-                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_ball_suffcient + '"><input type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + ball_qty_confirm + '"></td>';
-                                htmls += '<td style="border-right: 3px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_unit_suffcient + '"><input type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + unit_qty_confirm + '"></td>';
+                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_case_suffcient + '"><input type="tel" data_reck_code="'+reck_code+'" data_customer_shipment_id="'+customer_shipment_id+'" class="form-control case_confirm_order_qty_'+response.shop_list[p].customer_shop_id + '" cmn_o_d_qty sum_of_o_d_qty" value="' + case_qty_confirm + '"></td>';
+                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_ball_suffcient + '"><input type="tel" data_reck_code="'+reck_code+'" data_customer_shipment_id="'+customer_shipment_id+'" class="form-control ball_confirm_order_qty_'+response.shop_list[p].customer_shop_id + '" cmn_o_d_qty sum_of_o_d_qty" value="' + ball_qty_confirm + '"></td>';
+                                htmls += '<td style="border-right: 3px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_unit_suffcient + '"><input type="tel" data_reck_code="'+reck_code+'" data_customer_shipment_id="'+customer_shipment_id+'" class="form-control unit_confirm_order_qty_'+response.shop_list[p].customer_shop_id + '" cmn_o_d_qty sum_of_o_d_qty" value="' + unit_qty_confirm + '"></td>';
                             }
                             sumation_confirm_arr[online_order[i].customer_order_detail_id] = [case_confirm_total, ball_confirm_total, unit_confirm_total];
                         }

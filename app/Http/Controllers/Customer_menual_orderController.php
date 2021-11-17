@@ -375,6 +375,8 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
             IFNULL(customer_shipments.confirm_case_quantity,0) as confirm_case_quantity,
             IFNULL(customer_shipments.confirm_ball_quantity,0) as confirm_ball_quantity,
             IFNULL(customer_shipments.confirm_unit_quantity,0) as confirm_unit_quantity,
+            customer_shipments.rack_number,
+            customer_shipments.customer_shipment_id,
             customer_order_details.*,customer_orders.*,stock_items.case_quantity, stock_items.ball_quantity, stock_items.unit_quantity,jans.name from customer_orders inner join customer_order_details on customer_orders.customer_order_id = customer_order_details.customer_order_id
             inner join jans on jans.jan = customer_order_details.jan
             inner join vendor_items on jans.jan=vendor_items.jan
