@@ -626,11 +626,18 @@
         }
 
         #manual_order_table_entry .table col:nth-child(2) {
-            width: 70px;
+            width: 120px;
+            padding: 0 5px;
         }
 
         #manual_order_table_entry .table col:nth-child(n+3) {
             width: 50px;
+            padding: 0 5px;
+        }
+
+        #manual_order_table_entry .table col:nth-child(n+4) {
+            width: 100px;
+            padding: 0 5px;
         }
 
 /*brandOrder*/

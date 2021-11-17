@@ -3819,9 +3819,9 @@ var isUpdateValue = '';
        
         var shipment_order_detail_id = $(this).attr('data-order-detail-id');
         var shop_id = $(this).attr('data-shop-id');
-        var confirm_case_quantity = $(this).closest('tr').find('td .case_confirm_order_qty_'+shop_id).val();
-        var confirm_ball_quantity = $(this).closest('tr').find('td .ball_confirm_order_qty_'+shop_id).val();
-        var confirm_unit_quantity = $(this).closest('tr').find('td .unit_confirm_order_qty_'+shop_id).val();
+        var confirm_case_quantity = $(this).parent('tr').next('tr').find('td .case_confirm_order_qty_'+shop_id).val();
+        var confirm_ball_quantity = $(this).parent('tr').next('tr').find('td .ball_confirm_order_qty_'+shop_id).val();
+        var confirm_unit_quantity = $(this).parent('tr').next('tr').find('td .unit_confirm_order_qty_'+shop_id).val();
         console.log('shop_id'+shop_id);
         console.log('shipment_order_detail_id'+shipment_order_detail_id);
         console.log('confirm_case_quantity'+confirm_case_quantity);
@@ -3854,7 +3854,19 @@ var isUpdateValue = '';
         }
     });
 }); /*jquery end */
-function manual_order_shipment_exection(){
+function manual_order_shipment_exection(confirm_case_quantity,
+    confirm_ball_quantity,
+    confirm_unit_quantity,
+    shipment_order_detail_id,
+    shop_id,
+    c_name,
+    c_id){
+        console.log('shop_id'+shop_id);
+        console.log('shipment_order_detail_id'+shipment_order_detail_id);
+        console.log('confirm_case_quantity'+confirm_case_quantity);
+        console.log('confirm_ball_quantity'+confirm_ball_quantity);
+        console.log('confirm_unit_quantity'+confirm_unit_quantity);
+        console.log('c_id'+c_id);
     console.log('action will be here');
     close_all_navi_msg();
         show_hide_nav_icn(1);
