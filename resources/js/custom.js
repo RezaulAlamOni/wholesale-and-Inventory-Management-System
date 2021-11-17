@@ -3888,7 +3888,7 @@ function manual_order_shipment_exection(confirm_case_quantity,
         confirm_ball_quantity: confirm_ball_quantity,
         confirm_unit_quantity: confirm_unit_quantity,
         customer_shipment_id: customer_shipment_id,
-        rack_number: reck_number,
+        rack_number: reck_code,
         total_quantity_vls:'',
         total_quantity_vls_price:''
 
