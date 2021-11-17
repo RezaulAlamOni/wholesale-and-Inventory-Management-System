@@ -3866,6 +3866,7 @@ function manual_order_shipment_exection(confirm_case_quantity,
     shipment_order_detail_id,
     shop_id,
     c_id,jan_code,reck_code,customer_shipment_id){
+       
         console.log('shop_id'+shop_id);
         console.log('shipment_order_detail_id'+shipment_order_detail_id);
         console.log('confirm_case_quantity'+confirm_case_quantity);
@@ -3873,52 +3874,55 @@ function manual_order_shipment_exection(confirm_case_quantity,
         console.log('confirm_unit_quantity'+confirm_unit_quantity);
         console.log('c_id'+c_id);
     console.log('action will be here');
-    /*
+    
     let data = {
-        jan_code: _this.jan_code,
-        pname: order_itemData.jan.name,
-        c_quantity: c_quantity,
-        customer_id: order_itemData.customer_shipment.customer_id,
-        customer_item_id: order_itemData.customer_item_id,
-        customer_order_id: order_itemData.customer_shipment.customer_order_id,
-        customer_order_detail_id: order_itemData.customer_shipment.customer_order_detail_id,
-        inputs_type: order_itemData.customer_shipment.inputs,
-        confirm_case_quantity: order_itemData.customer_shipment.confirm_case_quantity,
-        confirm_ball_quantity: order_itemData.customer_shipment.confirm_ball_quantity,
-        confirm_unit_quantity: order_itemData.customer_shipment.confirm_unit_quantity,
-        customer_shipment_id: order_itemData.customer_shipment.customer_shipment_id,
-        rack_number: order_itemData.customer_shipment.rack_number,
-        total_quantity_vls:total_quantity_vls,
-        total_quantity_vls_price:total_quantity_vls_price
+        jan_code: jan_code,
+        pname: '',
+        c_quantity: '',
+        customer_id: c_id,
+        customer_item_id: '',
+        customer_order_id: '',
+        customer_order_detail_id: shipment_order_detail_id,
+        inputs_type: '',
+        confirm_case_quantity: confirm_case_quantity,
+        confirm_ball_quantity: confirm_ball_quantity,
+        confirm_unit_quantity: confirm_unit_quantity,
+        customer_shipment_id: customer_shipment_id,
+        rack_number: reck_number,
+        total_quantity_vls:'',
+        total_quantity_vls_price:''
 
     };
-    axios.post(this.base_url + '/shipment_arival_insert_handy_shipmentorder_to_super', data)
-    .then(function (res) {
-        console.log(res);
-        if (res.data.message == 'stock_over_qty') {
-            console.log('stock over');
-             //_this.handi_navi = '<li>在庫量不足。</li>';
-             //$('#handy-navi').show()
-            //return false;
-        } else {
-            console.log('stock done');
-           // _this.handi_navi = '<li>出荷が完了しました。次のJANコードスキャンして【次へ】押してください。</li>';
-            //$('#handy-navi').show();
+    //axios.post(this.base_url + '/shipment_arival_insert_handy_shipmentorder_to_super', data)
+    $.ajax({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+        },
+        url: "shipment_arival_insert_handy_shipmentorder_to_super",
+        type: "POST",
+        dataType: "JSON",
+        data: data,
+        success: function (response) {
+            // console.log(response.shop_details.length);
+            get_manual_order_item();
+            close_all_navi_msg();
+            show_hide_nav_icn(0);
+            const manual_order_shipment_succ = {
+                manual_orders_shipment_exec_succ: {
+                    message: [
+                        {message: '000000000000000000'}
+                    ],
+                    buttons: [{button: '<center><a href="javascript:close_default_page_navi(808)" class="btn btn-danger btn-lg">いいえ</a></center>'}]
+                }
+            }
 
-           // _this.hideModelAndClearInput();
-           // $('#jan_input').focus();
+            nav_width = '390px';
+            display_positionX = '15px';
+            display_positionY = '15px';
+            manual_order_exe_step_1 = view(manual_order_shipment_succ['manual_orders_shipment_exec_succ'], def_center_mesg_template);
         }
-
-
-    })
-    .then(function (er) {
-
-    })
-    .finally(function () {
-    })
-*/
-    close_all_navi_msg();
-        show_hide_nav_icn(1);
+    });
+   
 }
 function url_search() {
     var currentURL = window.location.href;
