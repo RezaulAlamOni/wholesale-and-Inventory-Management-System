@@ -3818,6 +3818,7 @@ var isUpdateValue = '';
         //case_confirm_order_qty_
        
         var shipment_order_detail_id = $(this).attr('data-order-detail-id');
+        var customer_order_id = $(this).attr('data-order-id');
         var shop_id = $(this).attr('data-shop-id');
         var jan_code = $(this).closest('tr').attr('data_jan');
         var reck_code = $(this).closest('tr').next('tr').children('td').find('.case_confirm_order_qty_'+shop_id).attr('data_reck_code');
@@ -3844,7 +3845,7 @@ var isUpdateValue = '';
                         message: [
                             {message: c_name + 'に出荷しますか？ '}
                         ],
-                        buttons: [{button: '<center><a href="javascript:manual_order_shipment_exection('+confirm_case_quantity+','+confirm_ball_quantity+','+confirm_unit_quantity+','+shipment_order_detail_id+','+shop_id+','+c_id+','+jan_code+','+reck_code+','+customer_shipment_id+')" class="btn btn-primary btn-lg">はい</a><a href="javascript:close_default_page_navi(808)" class="btn btn-danger btn-lg">いいえ</a></center>'}]
+                        buttons: [{button: '<center><a href="javascript:manual_order_shipment_exection('+confirm_case_quantity+','+confirm_ball_quantity+','+confirm_unit_quantity+','+shipment_order_detail_id+','+shop_id+','+c_id+','+jan_code+','+reck_code+','+customer_shipment_id+','+customer_order_id+')" class="btn btn-primary btn-lg">はい</a><a href="javascript:close_default_page_navi(808)" class="btn btn-danger btn-lg">いいえ</a></center>'}]
                     }
                 }
 
@@ -3865,7 +3866,7 @@ function manual_order_shipment_exection(confirm_case_quantity,
     confirm_unit_quantity,
     shipment_order_detail_id,
     shop_id,
-    c_id,jan_code,reck_code,customer_shipment_id){
+    c_id,jan_code,reck_code,customer_shipment_id,customer_order_id){
        
         console.log('shop_id'+shop_id);
         console.log('shipment_order_detail_id'+shipment_order_detail_id);
@@ -3881,7 +3882,7 @@ function manual_order_shipment_exection(confirm_case_quantity,
         c_quantity: '',
         customer_id: c_id,
         customer_item_id: '',
-        customer_order_id: '',
+        customer_order_id: customer_order_id,
         customer_order_detail_id: shipment_order_detail_id,
         inputs_type: '',
         confirm_case_quantity: confirm_case_quantity,
@@ -4909,6 +4910,7 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                 var case_qty = '';
                                 var ball_qty = '';
                                 var unit_qty = '';
+                                var customer_order_id = '';
 
 
                                 var idx = $.map(online_order, function (item, i) {
@@ -4920,6 +4922,7 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                 if (typeof idx != "undefined") {
                                     //if (online_order[idx].inputs == 'ケース') {
                                         case_qty = online_order[idx].order_case_quantity;
+                                        customer_order_id = online_order[idx].customer_order_id;
                                         case_total += case_qty;
 
                                     //} else if (online_order[idx].inputs == 'ボール') {
@@ -4934,7 +4937,7 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                 htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="ケース" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty case_order_qty_'+response.shop_list[n].customer_shop_id + '" value="' + case_qty + '"></td>';
                                 htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="ボール" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty ball_order_qty_'+response.shop_list[n].customer_shop_id + '" value="' + ball_qty + '"></td>';
                                 htmls += '<td style="border-right: 3px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="バラ" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty unit_order_qty_'+response.shop_list[n].customer_shop_id + '" value="' + unit_qty + '"></td>';
-                                htmls += '<td class="quantitysendtosuper" rowspan="2" style="text-align: center; padding:0!important;" nowrap><button class="btn btn-primary manualshipmentaction" data-shop-id="' + response.shop_list[n].customer_shop_id + '" data-order-detail-id="'+online_order[0].customer_order_detail_id+'">出荷</button></td>';
+                                htmls += '<td class="quantitysendtosuper" rowspan="2" style="text-align: center; padding:0!important;" nowrap><button class="btn btn-primary manualshipmentaction" data-shop-id="' + response.shop_list[n].customer_shop_id + '" data-order-detail-id="'+online_order[0].customer_order_detail_id+'" data-order-id="'+customer_order_id+'">出荷</button></td>';
 
                             }
                             sumation_arr[online_order[0].customer_order_detail_id] = [case_total, ball_total, unit_total];
@@ -5037,11 +5040,14 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                 var case_qty = '';
                                 var ball_qty = '';
                                 var unit_qty = '';
+                                var customer_order_id = '';
 
 
                                 if (response.shop_list[n].customer_shop_id == online_order[i].customer_shop_id) {
 
                                     case_qty = online_order[i].order_case_quantity;
+                                    customer_order_id = online_order[i].customer_order_id;
+
                                     case_total += case_qty;
 
                                     ball_qty = online_order[i].order_ball_quantity;
@@ -5054,7 +5060,7 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                 htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="ケース" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + case_qty + '"></td>';
                                 htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="ボール" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + ball_qty + '"></td>';
                                 htmls += '<td style="border-right: 3px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="バラ" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + unit_qty + '"></td>';
-                                htmls += '<td class="quantitysendtosuper" rowspan="2" style="text-align: center; padding:0!important;" nowrap><button class="btn btn-primary manualshipmentaction" data-shop-id="' + response.shop_list[n].customer_shop_id + '" data-order-detail-id="'+online_order[i].customer_order_detail_id+'" >出荷</button></td>';
+                                htmls += '<td class="quantitysendtosuper" rowspan="2" style="text-align: center; padding:0!important;" nowrap><button class="btn btn-primary manualshipmentaction" data-shop-id="' + response.shop_list[n].customer_shop_id + '" data-order-detail-id="'+online_order[i].customer_order_detail_id+'" data-order-id="'+customer_order_id+'">出荷</button></td>';
 
                             }
                             sumation_arr[online_order[i].customer_order_detail_id] = [case_total, ball_total, unit_total];
