@@ -3838,13 +3838,24 @@ var isUpdateValue = '';
         customer_shipment_id = (customer_shipment_id=='null'?0:customer_shipment_id);
         customer_shipment_id = (typeof customer_shipment_id=='null'?0:customer_shipment_id);
         customer_shipment_id = (typeof customer_shipment_id=='undefined'?0:customer_shipment_id);
+        confirm_case_quantity=(confirm_case_quantity==''?0:confirm_case_quantity);
+        confirm_ball_quantity=(confirm_ball_quantity==''?0:confirm_ball_quantity);
+        confirm_unit_quantity=(confirm_unit_quantity==''?0:confirm_unit_quantity);
+
+        confirm_case_quantity=(typeof confirm_case_quantity=='undefined'?0:confirm_case_quantity);
+        confirm_ball_quantity=(typeof confirm_ball_quantity=='undefined'?0:confirm_ball_quantity);
+        confirm_unit_quantity=(typeof confirm_unit_quantity=='undefined'?0:confirm_unit_quantity);
+
+        confirm_case_quantity=(typeof confirm_case_quantity=='null'?0:confirm_case_quantity);
+        confirm_ball_quantity=(typeof confirm_ball_quantity=='null'?0:confirm_ball_quantity);
+        confirm_unit_quantity=(typeof confirm_unit_quantity=='null'?0:confirm_unit_quantity);
         if(customer_shipment_id==0){
             close_all_navi_msg();
             show_hide_nav_icn(0);
             const manual_order_shipment = {
                 manual_orders_shipment_exec: {
                     message: [
-                        {message:'出荷できません？'}
+                        {message:'出荷できません'}
                     ],
                     buttons: [{button: '<center><a href="javascript:close_default_page_navi(808)" class="btn btn-primary rsalrtconfirms btn-lg">確認</a></center>'}]
                 }
