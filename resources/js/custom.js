@@ -3834,7 +3834,30 @@ var isUpdateValue = '';
         console.log('confirm_case_quantity'+confirm_case_quantity);
         console.log('confirm_ball_quantity'+confirm_ball_quantity);
         console.log('confirm_unit_quantity'+confirm_unit_quantity);
-        if (page == 'manualOrder') {
+        customer_shipment_id = (customer_shipment_id==''?0:customer_shipment_id);
+        customer_shipment_id = (customer_shipment_id=='null'?0:customer_shipment_id);
+        customer_shipment_id = (typeof customer_shipment_id=='null'?0:customer_shipment_id);
+        customer_shipment_id = (typeof customer_shipment_id=='undefined'?0:customer_shipment_id);
+        if(customer_shipment_id==0){
+            close_all_navi_msg();
+            show_hide_nav_icn(0);
+            const manual_order_shipment = {
+                manual_orders_shipment_exec: {
+                    message: [
+                        {message:'出荷できません？'}
+                    ],
+                    buttons: [{button: '<center><a href="javascript:close_default_page_navi(808)" class="btn btn-primary rsalrtconfirms btn-lg">確認</a></center>'}]
+                }
+            }
+
+            nav_width = '390px';
+            display_positionX = '15px';
+            display_positionY = '15px';
+            manual_order_exe_step_1 = view(manual_order_shipment['manual_orders_shipment_exec'], def_center_mesg_template);
+            return false;
+        }
+        
+        if (page == 'manualOrder' || page == 'onlineorder') {
             var c_name = $('.jcs_main_hand_title').text();
             var c_id = $('.c_ids_v').val();
             if (c_id != 0) {
@@ -3913,7 +3936,7 @@ function manual_order_shipment_exection(confirm_case_quantity,
                     message: [
                         {message: '000000000000000000'}
                     ],
-                    buttons: [{button: '<center><a href="javascript:close_default_page_navi(808)" class="btn btn-danger btn-lg">いいえ</a></center>'}]
+                    buttons: [{button: '<center><a href="javascript:close_default_page_navi(808)" class="btn btn-primary rsalrtconfirms btn-lg">確認</a></center>'}]
                 }
             }
 
@@ -5002,9 +5025,9 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                         }
                                 }
 
-                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_case_suffcient + '"><input type="tel" data_reck_code="'+reck_code + '" data_customer_shipment_id="'+customer_shipment_id+'" class="form-control cmn_o_d_qty sum_of_o_d_qty case_confirm_order_qty_'+response.shop_list[p].customer_shop_id + '" value="' + case_qty_confirm + '"></td>';
-                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_ball_suffcient + '"><input type="tel" data_reck_code="'+reck_code + '" data_customer_shipment_id="'+customer_shipment_id+'" class="form-control cmn_o_d_qty sum_of_o_d_qty ball_confirm_order_qty_'+response.shop_list[p].customer_shop_id + '" value="' + ball_qty_confirm + '"></td>';
-                                htmls += '<td style="border-right: 3px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_unit_suffcient + '"><input type="tel" data_reck_code="'+reck_code + '" data_customer_shipment_id="'+customer_shipment_id+'" class="form-control cmn_o_d_qty sum_of_o_d_qty unit_confirm_order_qty_'+response.shop_list[p].customer_shop_id + '" value="' + unit_qty_confirm + '"></td>';
+                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_case_suffcient + '"><input type="tel" data_reck_code="'+reck_code + '" data_customer_shipment_id="'+customer_shipment_id+'" class="form-control cmn_o_d_qty sum_of_o_d_qty case_confirm_order_qty_'+response.shop_list[p].customer_shop_id + '" value="' + case_qty_confirm + '" readonly></td>';
+                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_ball_suffcient + '"><input type="tel" data_reck_code="'+reck_code + '" data_customer_shipment_id="'+customer_shipment_id+'" class="form-control cmn_o_d_qty sum_of_o_d_qty ball_confirm_order_qty_'+response.shop_list[p].customer_shop_id + '" value="' + ball_qty_confirm + '" readonly></td>';
+                                htmls += '<td style="border-right: 3px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_unit_suffcient + '"><input type="tel" data_reck_code="'+reck_code + '" data_customer_shipment_id="'+customer_shipment_id+'" class="form-control cmn_o_d_qty sum_of_o_d_qty unit_confirm_order_qty_'+response.shop_list[p].customer_shop_id + '" value="' + unit_qty_confirm + '" readonly></td>';
                             }
                             sumation_confirm_arr[online_order[0].customer_order_detail_id] = [case_confirm_total, ball_confirm_total, unit_confirm_total];
                         }
@@ -5130,9 +5153,9 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                     }*/
                                 }
 
-                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_case_suffcient + '"><input type="tel" data_reck_code="'+reck_code+'" data_customer_shipment_id="'+customer_shipment_id+'" class="form-control case_confirm_order_qty_'+response.shop_list[p].customer_shop_id + '" cmn_o_d_qty sum_of_o_d_qty" value="' + case_qty_confirm + '"></td>';
-                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_ball_suffcient + '"><input type="tel" data_reck_code="'+reck_code+'" data_customer_shipment_id="'+customer_shipment_id+'" class="form-control ball_confirm_order_qty_'+response.shop_list[p].customer_shop_id + '" cmn_o_d_qty sum_of_o_d_qty" value="' + ball_qty_confirm + '"></td>';
-                                htmls += '<td style="border-right: 3px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_unit_suffcient + '"><input type="tel" data_reck_code="'+reck_code+'" data_customer_shipment_id="'+customer_shipment_id+'" class="form-control unit_confirm_order_qty_'+response.shop_list[p].customer_shop_id + '" cmn_o_d_qty sum_of_o_d_qty" value="' + unit_qty_confirm + '"></td>';
+                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_case_suffcient + '"><input type="tel" data_reck_code="'+reck_code+'" data_customer_shipment_id="'+customer_shipment_id+'" class="form-control case_confirm_order_qty_'+response.shop_list[p].customer_shop_id + ' cmn_o_d_qty sum_of_o_d_qty" value="' + case_qty_confirm + '" readonly></td>';
+                                htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_ball_suffcient + '"><input type="tel" data_reck_code="'+reck_code+'" data_customer_shipment_id="'+customer_shipment_id+'" class="form-control ball_confirm_order_qty_'+response.shop_list[p].customer_shop_id + ' cmn_o_d_qty sum_of_o_d_qty" value="' + ball_qty_confirm + '" readonly></td>';
+                                htmls += '<td style="border-right: 3px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_unit_suffcient + '"><input type="tel" data_reck_code="'+reck_code+'" data_customer_shipment_id="'+customer_shipment_id+'" class="form-control unit_confirm_order_qty_'+response.shop_list[p].customer_shop_id + ' cmn_o_d_qty sum_of_o_d_qty" value="' + unit_qty_confirm + '" readonly></td>';
                             }
                             sumation_confirm_arr[online_order[i].customer_order_detail_id] = [case_confirm_total, ball_confirm_total, unit_confirm_total];
                         }
