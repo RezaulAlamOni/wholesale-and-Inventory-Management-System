@@ -5657,6 +5657,7 @@ for(var k=0;k<response.shop_item_list.length;k++){
                     brand_name += '<td style="text-align: right;width:10%"></td>';
                     brand_name += '<td style="text-align: right;width:10%"></td>';
                     brand_name += '<td style="text-align: right;width:10%"></td>';
+                    brand_name += '<td style="text-align: right;width:10%"></td>';
                 }
                 brand_name +='</tr>';
             }
@@ -5746,6 +5747,7 @@ var shop_id = $('.s_ids_v').val();
 
                 }else{
                     brand_name += '<td style="text-align: left; width:40%"></td>';
+                    brand_name += '<td style="text-align: right;width:10%"></td>';
                     brand_name += '<td style="text-align: right;width:10%"></td>';
                     brand_name += '<td style="text-align: right;width:10%"></td>';
                     brand_name += '<td style="text-align: right;width:10%"></td>';
