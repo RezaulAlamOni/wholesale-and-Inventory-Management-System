@@ -215,8 +215,8 @@ Route::group(['middleware'=>'MyMiddleWire'],function(){
 
 
 //	brand order
-    Route::get('/customer-order-list/{id?}', 'BrandController@customerOrder')->name('customer-order');
-    Route::get('/customer-order-confirm-list/{id?}', 'BrandController@customerOrderConfirm')->name('customer-order-confirm');
+    Route::get('/customer-order/{id?}', 'BrandController@customerOrder')->name('customer-order');
+    Route::get('/customer-order-confirm/{id?}', 'BrandController@customerOrderConfirm')->name('customer-order-confirm');
     Route::get('/brand-order/{id?}', 'BrandController@index')->name('brand');
     Route::get('/brand-order-detail/{id?}/{shop_id?}', 'BrandController@brand_details')->name('brand');
 

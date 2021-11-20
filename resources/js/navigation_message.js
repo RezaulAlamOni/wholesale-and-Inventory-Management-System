@@ -378,7 +378,7 @@ function show_default_page_notifications() {
             /*view existing data*/
 
          break;
-        case 'customer-order-detail':
+        case 'customer-order-confirm':
             close_all_navi_msg();
             show_hide_nav_icn(0);
             console.log(localStorage.getItem('local_shop_id'));

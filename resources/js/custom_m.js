@@ -301,7 +301,7 @@ $(document).ready(function () {
             show_hide_nav_icn(1);
             // console.log('divs out click');
         }
-    if(page_url=='brand-order' || page_url=='brand-order#'){
+    if(page_url=='brand-order' || page_url=='brand-order#' || page_url=='customer-order' || page_url=='customer-order#'){
         
           
         if (!hide_enter_outside_brand.is(e.target) && hide_enter_outside_brand.has(e.target).length === 0 && (is_id_1!='undefined' && is_id_1!=null)) {
