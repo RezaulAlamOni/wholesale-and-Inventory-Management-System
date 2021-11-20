@@ -678,8 +678,8 @@
 #brand_order_table_entry .table col:nth-child(n+3) {
     width: 50px;
 }
-#brand_order_table_entry .table th:nth-child(6),
-#brand_order_table_entry .table td:nth-child(6) {
+#brand_order_table_entry .table th:nth-child(7),
+#brand_order_table_entry .table td:nth-child(7) {
     border-left: 7px double #000 !important;
 }
 /*brandOrder*/
