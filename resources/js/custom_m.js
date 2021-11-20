@@ -447,8 +447,12 @@ $(document).ready(function () {
         $('.s_ids_name').val(shpname);
         if(page_url=='brand-order' || page_url=='brand-order#' ){
             get_brand_shop_brand_list(cId_val,cus_name,'','popup1');
-        }else{
+        } else if(page_url=='brand-order-detail' || page_url=='brand-order-detail#'){
             get_brand_updated_item_list(cId_val,cus_name);
+        }else if(page_url=='customer-order' || page_url=='customer-order#' ){
+            get_customerOrderListByShop(cId_val,cus_name,'','popup1');
+        } else if(page_url=='customer-order-confirm' || page_url=='customer-order-confirm#'){
+            get_customerOrderConfirmListByShop(cId_val,cus_name);
         }
         
     });
