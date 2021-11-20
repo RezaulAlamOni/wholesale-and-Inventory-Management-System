@@ -63,6 +63,56 @@ class BrandController extends Controller
 
         return view('backend.brand-order-detail', compact('title', 'active','brands','all_customer_list','specific_customer_info'));
     }
+
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function customerOrder()
+    {
+        $title = "Customer Order";
+        $active = 'customer-order';
+        $all_customer_list=customer::where('is_deleted', 0)->get();
+
+        $brands = [
+            'コカ・コーラ(Coca-Cola)',
+            'ポカリスエット',
+            'スターバックス',
+            'ネスカフェ',
+            'アサヒビール',
+            'BOSS(ボス)',
+            '明治乳業',
+            'サントリー',
+            'カゴメ',
+            'ピカイチ野菜くん'
+        ];
+
+
+        return view('backend.customer_order.customer-order', compact('title', 'active','brands','all_customer_list'));
+    }
+    public function customerOrderConfirm()
+    {
+        $title = "Customer Order confirm";
+        $active = 'customer-order-confirm';
+        $all_customer_list=customer::where('is_deleted', 0)->get();
+
+        $brands = [
+            'コカ・コーラ(Coca-Cola)',
+            'ポカリスエット',
+            'スターバックス',
+            'ネスカフェ',
+            'アサヒビール',
+            'BOSS(ボス)',
+            '明治乳業',
+            'サントリー',
+            'カゴメ',
+            'ピカイチ野菜くん'
+        ];
+
+
+        return view('backend.customer_order.customer-order-confirm', compact('title', 'active','brands','all_customer_list'));
+    }
     /**
      * Show the form for creating a new resource.
      *

@@ -2231,7 +2231,12 @@ $(document).ready(function () {
             $('.jcs_main_hand_title').text(c_name);
             $('.jcs_main_hand_title').attr('data_page_num',2);
             get_brand_item_list(c_id, c_name);
-        }  else {
+        } else if (url_last_element == 'customer-order' || url_last_element == 'customer-order#' || url_last_element == 'customer-order-confirm' || url_last_element == 'customer-order-confirm#') {
+            $('.c_ids_v').val(c_id);
+            $('.jcs_main_hand_title').text(c_name);
+            $('.jcs_main_hand_title').attr('data_page_num',2);
+            get_brand_item_list(c_id, c_name);
+        } else {
             view_customer_master_by_customer_id(c_id, c_name);
         }
         show_hide_nav_icn(1);
@@ -5525,6 +5530,220 @@ var shop_id = $('.s_ids_v').val();
                     brand_name += '<td style="text-align: right;width:10%"><input type="tel" value="'+ smallArray[i].selling_price +'" class="form-control brndOrderInputQty"></td>';
                     brand_name += '<td style="text-align: right;width:10%"><input type="tel" value="'+ smallArray[i].cost_price +'" class="form-control brndOrderInputQty"></td>';
                     brand_name += '<td style="text-align: right;width:10%">'+ smallArray[i].order_frequency_num +'</td>';
+                }else{
+                    brand_name += '<td style="text-align: left; width:40%"></td>';
+                    brand_name += '<td style="text-align: right;width:10%"></td>';
+                    brand_name += '<td style="text-align: right;width:10%"></td>';
+                    brand_name += '<td style="text-align: right;width:10%"></td>';
+                    brand_name += '<td style="text-align: right;width:10%"></td>';
+                }
+                brand_name +='</tr>';
+            }
+            $(".brand_order_updated_tble").html(brand_name);
+            $('#customer_shop_list_modal').modal('hide');
+            nav_list['jn_0'].show();
+            show_hide_nav_icn(0);
+    }
+});
+
+
+
+}
+
+
+function get_customerOrderListByShop(c_id = 0, c_name = '',voice_text='',display_popup=''){
+    close_all_navi_msg();
+    var brand_name = '';
+    var currnt_brand_list= 'コカ・コーラ(Coca-Cola),ポカリスエット,スターバックス,ネスカフェ,アサヒビール,BOSS(ボス),明治乳業,サントリー,カゴメ,ピカイチ野菜くん';
+   // var currnt_brand_list= '店 A,店 B,店 C,店 D';
+    if(voice_text!='' && voice_text=='サントリー'){
+        voice_text = voice_text.replace("ー", "");
+    }
+    if(voice_text!='' && voice_text=='サントリ-'){
+        voice_text = voice_text.replace("-", "");
+    }
+    var shop_id = $('.s_ids_v').val();
+    var pageTitleText = $('.jcs_main_hand_title').text();
+
+    /*
+            console.log(localStorage.getItem('local_customer_id'));
+            $('.s_ids_v').val(localStorage.getItem('local_shop_id'));
+            $('.c_ids_v').val(localStorage.getItem('local_customer_id'));
+            $('.jcs_main_hand_title').text(localStorage.getItem('local_page_title'));
+    */
+    localStorage.setItem('local_shop_id', shop_id);
+    localStorage.setItem('local_customer_id', c_id);
+    localStorage.setItem('local_page_title', pageTitleText);
+   $.ajax({
+    headers: {
+        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+    },
+    url: "get_shop_item_list_by_customer_id_by_status",
+    type: "POST",
+    dataType: "JSON",
+    data: {customer_id: c_id,voice_text:voice_text,shop_id:shop_id},
+    success: function (response) {
+            var brand_name = '';
+            var p = 1;
+            var numberOfOrder = 100;
+
+            /*make array two arrays*/
+            var half_length = Math.ceil(response.shop_item_list.length / 2);
+//var leftSide = arrayName.splice(0,half_length);
+var arrays1 = [];
+var arrays2 = [];
+// if(voice_text==''){
+//              arrays1 = response.shop_item_list.slice(0,Math.ceil(response.shop_item_list.length / 2));
+//              arrays2 = response.shop_item_list.slice(Math.ceil(response.shop_item_list.length / 2),response.shop_item_list.length);
+//         }else{
+//             for(var k=0;k<response.shop_item_list.length;k++){
+//                 if ( k % 2 == 0) {
+//                     arrays1.push(response.shop_item_list[k]);
+//                 }else{
+//                     arrays2.push(response.shop_item_list[k]);
+//                 }
+
+//             }
+//         }
+for(var k=0;k<response.shop_item_list.length;k++){
+    if ( k % 2 == 0) {
+        arrays1.push(response.shop_item_list[k]);
+    }else{
+        arrays2.push(response.shop_item_list[k]);
+    }
+}
+
+                var largeArray=arrays1;
+                var smallArray=arrays2;
+
+            var rightBarorderFrequency = 100-largeArray.length;
+            for (var i = 0; i < (largeArray.length); i++) {
+                var searchTextFound1 = 'searchTextNotFound';
+                var searchTextFound2 = 'searchTextNotFound';
+                var updatedColorLg = (largeArray[i].update_status=="1"?'updated_yes_off':'updated_no');
+
+                if(voice_text!=''){
+                    if(largeArray[i].name.indexOf(voice_text) != -1 || largeArray[i].maker_name.indexOf(voice_text) != -1){
+                        searchTextFound1 = 'searchTextFound';
+                    }
+                }
+                brand_name +='<tr class="shopBrandListitem customerOrderItemList">';
+               // brand_name +='<td  width="100px" style="text-align: center;">'+ p++ +'</td>';
+                //brand_name += '<td style="text-align: left;"><a href="'+base_url+'/brand-order-detail/'+p+'">' + substr[k] + '</a></td>';
+                brand_name += '<td class="'+searchTextFound1+'" style="text-align: left; width:40%">' + largeArray[i].name + '</td>';
+                brand_name += '<td class="'+updatedColorLg+'" style="text-align: right;width:10%"><input type="tel" row_id="'+largeArray[i].customer_order_detail_id+'" field_name="last_qty" value="'+ largeArray[i].last_qty +'" class="form-control brndOrderInputQty"></td>';
+                brand_name += '<td style="text-align: right;width:10%"><input type="tel" row_id="'+largeArray[i].customer_order_detail_id+'" field_name="selling_price" value="'+  largeArray[i].selling_price  +'" class="form-control brndOrderInputQty"></td>';
+                brand_name += '<td style="text-align: right;width:10%"><input type="tel" row_id="'+largeArray[i].customer_order_detail_id+'" field_name="cost_price" value="'+  largeArray[i].cost_price  +'" class="form-control brndOrderInputQty"></td>';
+                brand_name += '<td style="text-align: right;width:10%">'+ largeArray[i].order_frequency_num +'</td>';
+                brand_name += '<td style="text-align: center;width:10%"><button class="btn btn-primary customerOrderKakutei">確定</button></td>';
+
+                if(i<smallArray.length){
+                    if(voice_text!=''){
+                        if(smallArray[i].name.indexOf(voice_text) != -1 || smallArray[i].maker_name.indexOf(voice_text) != -1){
+                            searchTextFound2 = 'searchTextFound';
+                        }
+                    }
+                    var updatedColorSm = (smallArray[i].update_status=="1"?'updated_yes_off':'updated_no');
+                    brand_name += '<td class="'+searchTextFound2+'" style="text-align: left; width:40%">' + smallArray[i].name + '</td>';
+                    brand_name += '<td class="'+updatedColorSm+'" style="text-align: right;width:10%"><input type="tel" row_id="'+smallArray[i].customer_order_detail_id+'" field_name="last_qty" value="'+ smallArray[i].last_qty +'" class="form-control brndOrderInputQty"></td>';
+                    brand_name += '<td style="text-align: right;width:10%"><input type="tel" row_id="'+smallArray[i].customer_order_detail_id+'" field_name="selling_price" value="'+ smallArray[i].selling_price +'" class="form-control brndOrderInputQty"></td>';
+                    brand_name += '<td style="text-align: right;width:10%"><input type="tel" row_id="'+smallArray[i].customer_order_detail_id+'" field_name="cost_price" value="'+ smallArray[i].cost_price +'" class="form-control brndOrderInputQty"></td>';
+                    brand_name += '<td style="text-align: right;width:10%">'+ smallArray[i].order_frequency_num +'</td>';
+                brand_name += '<td style="text-align: center;width:10%"><button class="btn btn-primary customerOrderKakutei">確定</button></td>';
+
+                }else{
+                    brand_name += '<td style="text-align: left; width:40%"></td>';
+                    brand_name += '<td style="text-align: right;width:10%"></td>';
+                    brand_name += '<td style="text-align: right;width:10%"></td>';
+                    brand_name += '<td style="text-align: right;width:10%"></td>';
+                    brand_name += '<td style="text-align: right;width:10%"></td>';
+                }
+                brand_name +='</tr>';
+            }
+            $(".brand_order_tble").html(brand_name);
+            if(display_popup=='popup1'){
+
+                nav_list['jn_0'].show();
+            }else{
+                nav_list['jn_0'].hide();
+            }
+
+            $('#customer_shop_list_modal').modal('hide');
+            show_hide_nav_icn(0);
+
+    }
+});
+
+
+
+}
+
+// brand order
+//brand updatedItemList
+function get_customerOrderConfirmListByShop(c_id = 0, c_name = '',voice_text=''){
+    var brand_name = '';
+    var currnt_brand_list= 'コカ・コーラ(Coca-Cola),ポカリスエット,スターバックス,ネスカフェ,アサヒビール,BOSS(ボス),明治乳業,サントリー,カゴメ,ピカイチ野菜くん';
+   // var currnt_brand_list= '店 A,店 B,店 C,店 D';
+   if(voice_text!='' && voice_text=='サントリー'){
+    voice_text = voice_text.replace("ー", "");
+}
+var shop_id = $('.s_ids_v').val();
+   $.ajax({
+    headers: {
+        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+    },
+    url: "get_shop_updated_item_list_by_customer_id_by_status",
+    type: "POST",
+    dataType: "JSON",
+    data: {customer_id: c_id,voice_text:voice_text,shop_id:shop_id},
+    success: function (response) {
+            var brand_name = '';
+            var p = 1;
+            var numberOfOrder = 100;
+            var arrays1=[];
+            var arrays2=[];
+            for(var k=0;k<response.shop_item_list.length;k++){
+                if ( k % 2 == 0) {
+                    arrays1.push(response.shop_item_list[k]);
+                }else{
+                    arrays2.push(response.shop_item_list[k]);
+                }
+            }
+            var largeArray=arrays1;
+            var smallArray=arrays2;
+            var rightBarorderFrequency = 100-largeArray.length;
+            for (var i = 0; i < (largeArray.length); i++) {
+                var searchTextFound1 = 'searchTextNotFound';
+                var searchTextFound2 = 'searchTextNotFound';
+                if(voice_text!=''){
+                    if(largeArray[i].name.indexOf(voice_text) != -1){
+                        searchTextFound1 = 'searchTextFound';
+                    }
+                }
+                brand_name +='<tr class="shopBrandListitem customerOrderConfirmItemList">';
+               // brand_name +='<td  width="100px" style="text-align: center;">'+ p++ +'</td>';
+                //brand_name += '<td style="text-align: left;"><a href="'+base_url+'/brand-order-detail/'+p+'">' + substr[k] + '</a></td>';
+                brand_name += '<td class="'+searchTextFound1+'" style="text-align: left; width:40%">' + largeArray[i].name + '</td>';
+                brand_name += '<td style="text-align: right;width:10%"><input type="tel" value="'+ largeArray[i].last_qty +'" class="form-control brndOrderInputQty"></td>';
+                brand_name += '<td style="text-align: right;width:10%"><input type="tel" value="'+ largeArray[i].selling_price +'" class="form-control brndOrderInputQty"></td>';
+                brand_name += '<td style="text-align: right;width:10%"><input type="tel" value="'+ largeArray[i].cost_price +'" class="form-control brndOrderInputQty"></td>';
+                brand_name += '<td style="text-align: right;width:10%">'+ largeArray[i].order_frequency_num +'</td>';
+                brand_name += '<td style="text-align: center;width:10%"><button class="btn btn-primary customerOrderShuka">出荷</button></td>';
+
+
+                if(i<smallArray.length){
+                    if(voice_text!=''){
+                        if(smallArray[i].name.indexOf(voice_text) != -1){
+                            searchTextFound2 = 'searchTextFound';
+                        }
+                    }
+                    brand_name += '<td class="'+searchTextFound2+'" style="text-align: left; width:40%">' + smallArray[i].name + '</td>';
+                    brand_name += '<td style="text-align: right;width:10%"><input type="tel" value="'+ smallArray[i].last_qty +'" class="form-control brndOrderInputQty"></td>';
+                    brand_name += '<td style="text-align: right;width:10%"><input type="tel" value="'+ smallArray[i].selling_price +'" class="form-control brndOrderInputQty"></td>';
+                    brand_name += '<td style="text-align: right;width:10%"><input type="tel" value="'+ smallArray[i].cost_price +'" class="form-control brndOrderInputQty"></td>';
+                    brand_name += '<td style="text-align: right;width:10%">'+ smallArray[i].order_frequency_num +'</td>';
+                brand_name += '<td style="text-align: center;width:10%"><button class="btn btn-primary customerOrderShuka">出荷</button></td>';
+
                 }else{
                     brand_name += '<td style="text-align: left; width:40%"></td>';
                     brand_name += '<td style="text-align: right;width:10%"></td>';

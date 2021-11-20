@@ -215,6 +215,8 @@ Route::group(['middleware'=>'MyMiddleWire'],function(){
 
 
 //	brand order
+    Route::get('/customer-order-list/{id?}', 'BrandController@customerOrder')->name('customer-order');
+    Route::get('/customer-order-confirm-list/{id?}', 'BrandController@customerOrderConfirm')->name('customer-order-confirm');
     Route::get('/brand-order/{id?}', 'BrandController@index')->name('brand');
     Route::get('/brand-order-detail/{id?}/{shop_id?}', 'BrandController@brand_details')->name('brand');
 
@@ -249,6 +251,8 @@ Route::group(['middleware'=>'MyMiddleWire'],function(){
 	Route::post('/get_shop_list_by_customer_id', 'Customer_menual_orderController@get_shop_list_by_customer_id');
 	Route::post('/get_shop_item_list_by_customer_id', 'Customer_menual_orderController@get_shop_item_list_by_customer_id');
 	Route::post('/get_shop_updated_item_list_by_customer_id', 'Customer_menual_orderController@get_shop_updated_item_list_by_customer_id');
+	Route::post('/get_shop_item_list_by_customer_id_by_status', 'Customer_menual_orderController@get_shop_item_list_by_customer_id_by_status');
+	Route::post('/get_shop_updated_item_list_by_customer_id_by_status', 'Customer_menual_orderController@get_shop_updated_item_list_by_customer_id_by_status');
 	Route::post('/get_jn_info_by_jn_code', 'Customer_menual_orderController@get_jn_info_by_jn_code');
 	Route::post('/shop_store', 'CustomerShopController@store');
 	Route::post('/item_search_by_name', 'VendorController@item_search_by_name');
