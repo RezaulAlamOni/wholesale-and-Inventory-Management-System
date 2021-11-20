@@ -44,7 +44,7 @@
                         </li> 
                         <!--<li><a href="#" id="left" class="btn btn-info btn-lg scroll_to_right">左へ移動</a></li>
                         <li><a href="#" id="right" class="btn btn-primary btn-lg scroll_to_left">右へ移動</a></li>-->
-                        <li><a href="{{config('app.url').'/brand-order'}}" class="btn btn-info backToBrandOrder btn-lg pull-right ">戻る</a></li>
+                        <li><a href="{{config('app.url').'/customer-order'}}" class="btn btn-info backToBrandOrder btn-lg pull-right ">戻る</a></li>
 
                     </ul>
 
@@ -103,11 +103,13 @@
                             <th width="10%">売価</th>
                             <th width="10%">原価</th>
                             <th width="10%" style="padding:0">頻度順</th>
+                            <th width="10%">出荷</th>
                             <th width="40%">品名・メーカー・規格</th>
                             <th width="10%" style="padding:0">数量</th>
                             <th width="10%">売価</th>
                             <th width="10%">原価</th>
                             <th width="10%">頻度順</th>
+                            <th width="10%">出荷</th>
                         </tr>
 
                         </thead>

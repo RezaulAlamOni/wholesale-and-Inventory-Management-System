@@ -5635,7 +5635,7 @@ for(var k=0;k<response.shop_item_list.length;k++){
                 brand_name += '<td style="text-align: right;width:10%"><input type="tel" row_id="'+largeArray[i].customer_order_detail_id+'" field_name="selling_price" value="'+  largeArray[i].selling_price  +'" class="form-control brndOrderInputQty"></td>';
                 brand_name += '<td style="text-align: right;width:10%"><input type="tel" row_id="'+largeArray[i].customer_order_detail_id+'" field_name="cost_price" value="'+  largeArray[i].cost_price  +'" class="form-control brndOrderInputQty"></td>';
                 brand_name += '<td style="text-align: right;width:10%">'+ largeArray[i].order_frequency_num +'</td>';
-                brand_name += '<td style="text-align: center;width:10%"><button class="btn btn-primary customerOrderKakutei">確定</button></td>';
+                brand_name += '<td style="text-align: center;width:10%;padding:0;"><button class="btn btn-primary customerOrderKakutei">確定</button></td>';
 
                 if(i<smallArray.length){
                     if(voice_text!=''){
@@ -5649,7 +5649,7 @@ for(var k=0;k<response.shop_item_list.length;k++){
                     brand_name += '<td style="text-align: right;width:10%"><input type="tel" row_id="'+smallArray[i].customer_order_detail_id+'" field_name="selling_price" value="'+ smallArray[i].selling_price +'" class="form-control brndOrderInputQty"></td>';
                     brand_name += '<td style="text-align: right;width:10%"><input type="tel" row_id="'+smallArray[i].customer_order_detail_id+'" field_name="cost_price" value="'+ smallArray[i].cost_price +'" class="form-control brndOrderInputQty"></td>';
                     brand_name += '<td style="text-align: right;width:10%">'+ smallArray[i].order_frequency_num +'</td>';
-                brand_name += '<td style="text-align: center;width:10%"><button class="btn btn-primary customerOrderKakutei">確定</button></td>';
+                brand_name += '<td style="text-align: center;width:10%;padding:0;"><button class="btn btn-primary customerOrderKakutei">確定</button></td>';
 
                 }else{
                     brand_name += '<td style="text-align: left; width:40%"></td>';
@@ -5728,7 +5728,7 @@ var shop_id = $('.s_ids_v').val();
                 brand_name += '<td style="text-align: right;width:10%"><input type="tel" value="'+ largeArray[i].selling_price +'" class="form-control brndOrderInputQty"></td>';
                 brand_name += '<td style="text-align: right;width:10%"><input type="tel" value="'+ largeArray[i].cost_price +'" class="form-control brndOrderInputQty"></td>';
                 brand_name += '<td style="text-align: right;width:10%">'+ largeArray[i].order_frequency_num +'</td>';
-                brand_name += '<td style="text-align: center;width:10%"><button class="btn btn-primary customerOrderShuka">出荷</button></td>';
+                brand_name += '<td style="text-align: center;width:10%;padding:0;"><button class="btn btn-primary customerOrderShuka">出荷</button></td>';
 
 
                 if(i<smallArray.length){
@@ -5742,7 +5742,7 @@ var shop_id = $('.s_ids_v').val();
                     brand_name += '<td style="text-align: right;width:10%"><input type="tel" value="'+ smallArray[i].selling_price +'" class="form-control brndOrderInputQty"></td>';
                     brand_name += '<td style="text-align: right;width:10%"><input type="tel" value="'+ smallArray[i].cost_price +'" class="form-control brndOrderInputQty"></td>';
                     brand_name += '<td style="text-align: right;width:10%">'+ smallArray[i].order_frequency_num +'</td>';
-                brand_name += '<td style="text-align: center;width:10%"><button class="btn btn-primary customerOrderShuka">出荷</button></td>';
+                brand_name += '<td style="text-align: center;width:10%;padding:0;"><button class="btn btn-primary customerOrderShuka">出荷</button></td>';
 
                 }else{
                     brand_name += '<td style="text-align: left; width:40%"></td>';
