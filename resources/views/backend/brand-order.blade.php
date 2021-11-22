@@ -11,7 +11,7 @@
         <div class="page-header row no-gutters py-1">
             <div class="col-md-5 col-sm-5 mb-0 text-left">
                 <div class="btn-group jcs_grp">
-                    <button type="button" class="btn btn-success">手書き受注</button>
+                    <button type="button" class="btn btn-success"> ＦＡＸ・手書受注画面</button>
                     <button type="button" class="btn btn-default deflt_design_adjust">
                         <input type="tel" style="ime-mode: disabled;float:left;border:1px solid #ddd;" data-type="jan"
                                class="form-control jan_inpts_ jan_inpts_online_order_ brand-order-search" placeholder="ＪＡＮまたはインストア入力">
@@ -42,7 +42,7 @@
                         <li><a href="{{config('app.url').'/brand-order-detail'}}" class="btn btn-success btn-lg">入力完了リスト</a></li>
                         <li>
                             <button class="btn customer_list_show_popup btn-warning btn-lg">店舗</button>
-                        </li> 
+                        </li>
                         <!--<li><a href="#" id="left" class="btn btn-info btn-lg scroll_to_right">左へ移動</a></li>
                         <li><a href="#" id="right" class="btn btn-primary btn-lg scroll_to_left">右へ移動</a></li>-->
                         <li><button class="btn customBackBtn btn-info btn-lg pull-right ">戻る</button></li>
@@ -55,7 +55,7 @@
             <!-- <div class="col-md-12 col-sm-5 mb-0 text-left">
                  <div style="display: flex">
                     <p class="shps_byrsplrs">販売先名<span data_page_num="0" class="jcs_main_hand_title"></span>殿 </p>
-                   <bar-code-scan base_url="{{config('app.url')}}" page="brand-order"></bar-code-scan> 
+                   <bar-code-scan base_url="{{config('app.url')}}" page="brand-order"></bar-code-scan>
                 </div>
             </div> -->
         </div>
@@ -129,7 +129,7 @@
                         </tbody>
                     </table>
                 </div>
-                
+
             </div>
         </div>
 

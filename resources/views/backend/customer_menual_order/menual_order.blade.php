@@ -11,7 +11,7 @@
         <div class="page-header row no-gutters py-1">
             <div class="col-md-5 col-sm-5 mb-0 text-left">
                 <div class="btn-group jcs_grp">
-                    <button type="button" class="btn btn-success">ＦＡＸ・手書受注画面</button>
+                    <button type="button" class="btn btn-success">手書き受注</button>
                     <button type="button" class="btn btn-default deflt_design_adjust">
                         <input type="tel" style="ime-mode: disabled;float:left;border:1px solid #ddd;"
                                class="form-control jan_inpts jan_inpts_online_order" placeholder="ＪＡＮまたはインストア入力">

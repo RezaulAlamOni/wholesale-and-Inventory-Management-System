@@ -137,6 +137,14 @@
         .searchTextFound{
             background:#F3F885 !important;
         }
+         
+        .customerOrderItemList {
+            background: #F3F885 !important;
+        }
+
+        .customerOrderConfirmItemList {
+            background: #99eaff !important;
+        }
         #shipment_js_message img{
             position: absolute;
             margin: 0 auto;
@@ -729,7 +737,9 @@
             white-space: normal;
             font-size: 20px;
         }
-
+        #manual_order_table_entry .table td {
+            padding: 0 5px !important;
+        }
         #manual_order_table_entry .table col {
             width: 150px;
         }
@@ -739,11 +749,18 @@
         }
 
         #manual_order_table_entry .table col:nth-child(2) {
-            width: 70px;
+            width: 120px;
+            padding: 0 5px;
         }
 
         #manual_order_table_entry .table col:nth-child(n+3) {
             width: 50px;
+            padding: 0 5px;
+        }
+
+        #manual_order_table_entry .table col:nth-child(n+4) {
+            width: 90px;
+            padding: 0 5px;
         }
 
 /*brandOrder*/
@@ -774,8 +791,8 @@
 #brand_order_table_entry .table col:nth-child(n+3) {
     width: 50px;
 }
-#brand_order_table_entry .table th:nth-child(6),
-#brand_order_table_entry .table td:nth-child(6) {
+#brand_order_table_entry .table th:nth-child(7),
+#brand_order_table_entry .table td:nth-child(7) {
     border-left: 7px double #000 !important;
 }
 /*brandOrder*/
