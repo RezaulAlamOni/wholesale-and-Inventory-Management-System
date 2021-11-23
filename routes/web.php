@@ -244,8 +244,9 @@ Route::group(['middleware'=>'MyMiddleWire'],function(){
 
 	Route::post('/get_shop_list', 'CustomerShopController@getShopList');
 
-	Route::get('/manualOrder', 'Customer_menual_orderController@index')->name('manualOrder');
-	Route::get('/onlineorder', 'Customer_menual_orderController@onlineorder');
+    Route::get('/manualOrder', 'Customer_menual_orderController@index')->name('manualOrder');
+    Route::get('/manual-order-create', 'Customer_menual_orderController@manualOrderCreate')->name('manualOrderCreate');
+    Route::get('/onlineorder', 'Customer_menual_orderController@onlineorder');
 	Route::post('/get_customer_base_manual_order_item', 'Customer_menual_orderController@get_customer_base_manual_order_item');
 	Route::post('/update_csv_order_data', 'Customer_menual_orderController@update_csv_order_data');
 	Route::post('/get_shop_list_by_customer_id', 'Customer_menual_orderController@get_shop_list_by_customer_id');

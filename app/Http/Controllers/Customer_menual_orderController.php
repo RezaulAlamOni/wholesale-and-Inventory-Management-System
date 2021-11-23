@@ -41,6 +41,14 @@ class Customer_menual_orderController extends Controller
         return view('backend.customer_menual_order.menual_order', compact('title', 'active', 'customer_list'));
     }
 
+    public function manualOrderCreate()
+    {
+        $title = "Menual Order";
+        $active = 'manualOrder';
+        $customer_list = customer::get();
+        return view('backend.customer_menual_order.menual_order_creatbe', compact('title', 'active', 'customer_list'));
+    }
+
     public function onlineorder()
     {
         $title = "Oline Order";
