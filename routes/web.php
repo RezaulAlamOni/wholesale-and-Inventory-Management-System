@@ -218,7 +218,7 @@ Route::group(['middleware'=>'MyMiddleWire'],function(){
     Route::get('/customer-order/{id?}', 'BrandController@customerOrder')->name('customer-order');
     Route::get('/customer-order-confirm/{id?}', 'BrandController@customerOrderConfirm')->name('customer-order-confirm');
     Route::get('/brand-order/{id?}', 'BrandController@index')->name('brand');
-    Route::get('/brand-order-detail/{id?}/{shop_id?}', 'BrandController@brand_details')->name('brand');
+    Route::get('/brand-order-detail/{id?}/{shop_id?}', 'BrandController@brand_details')->name('brand-order-details');
 
 
 	/* shimpent order */
@@ -244,7 +244,7 @@ Route::group(['middleware'=>'MyMiddleWire'],function(){
 
 	Route::post('/get_shop_list', 'CustomerShopController@getShopList');
 
-	Route::get('/manualOrder', 'Customer_menual_orderController@index');
+	Route::get('/manualOrder', 'Customer_menual_orderController@index')->name('manualOrder');
 	Route::get('/onlineorder', 'Customer_menual_orderController@onlineorder');
 	Route::post('/get_customer_base_manual_order_item', 'Customer_menual_orderController@get_customer_base_manual_order_item');
 	Route::post('/update_csv_order_data', 'Customer_menual_orderController@update_csv_order_data');

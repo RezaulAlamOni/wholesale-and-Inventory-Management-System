@@ -72,7 +72,7 @@
                             <th style="font-size: 24px;vertical-align: top !important;width: 100px"><p style="color:red;">B</p> 出荷 <br>増加</th>
                             <th style="font-size: 24px;vertical-align: top !important;width: 100px"><p style="color:red;">C</p> 入金<br>減少</th>
                             <th style="font-size: 24px;vertical-align: top !important;width: 100px;border-right: 4px double #044f90;"><p style="color:red; ">D</p>
-                                t新規残高<br>(売掛金) <br>新残
+                                新規残高<br>(売掛金) <br>新残
                             </th>
                             <th style="font-size: 24px;;width: 300px;">メモ</th>
                         </tr>

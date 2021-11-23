@@ -11,14 +11,15 @@
         <div class="page-header row no-gutters py-1">
             <div class="col-md-5 col-sm-5 mb-0 text-left">
                 <div class="btn-group jcs_grp">
-                    <button type="button" class="btn btn-success"> ＦＡＸ・手書受注画面</button>
+                    <button type="button" class="btn btn-success">ＦＡＸ・手書受注画面</button>
                     <button type="button" class="btn btn-default deflt_design_adjust">
                         <input type="tel" style="ime-mode: disabled;float:left;border:1px solid #ddd;" data-type="jan"
                                class="form-control jan_inpts_ jan_inpts_online_order_ brand-order-search" placeholder="ＪＡＮまたはインストア入力">
                     </button>
 
                     <button type="button" class="btn btn-info"><a class="page_manage custom_online_order"
-                                                                  style="color:#fff" href="manualOrder">手書</a></button>
+                                                                  style="color:#fff" href="#">オンライン</a></button>
+{{--                    manualOrder--}}
 
                 </div>
                 <p class="hmdate" style="margin-bottom:10px;">納品日　<?php echo date("m", time());?>月<?php echo date("d", time());?>日</p>
