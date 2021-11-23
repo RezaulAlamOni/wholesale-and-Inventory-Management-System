@@ -30,6 +30,7 @@
 
     {{-- <script async defer src="https://buttons.github.io/buttons.js"></script> --}}
     @include('backend.layouts.js_variable')
+    @yield('style')
 </head>
 
 <body>

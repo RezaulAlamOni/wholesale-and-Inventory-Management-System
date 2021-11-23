@@ -9,7 +9,7 @@
                                 受注
                             </span>
                         <!-- <button id="handy_shipment_item_insert" class="btn btn-primary pull-right" style="float:right"> 送信</button>&nbsp;-->
-                        <a :href="base_url+'/android_home'" class="btn btn-primary pull-right"
+                        <a :href="base_url+'/android_home'" id="back-to-home" class="btn btn-primary pull-right"
                            style="float:right"> メニュー</a>
 
                     </div>

@@ -2,6 +2,18 @@
 @section('title')
     <title>Shipment Page</title>
 @endsection
+@section('style')
+    <style>
+        /*setTimeout(function () {*/
+        /*    $('#back-to-home').hide()*/
+        /*},500)*/
+
+        #back-to-home {
+            display: none;
+        }
+
+    </style>
+@endsection
 
 @section('content')
     @include('backend.flash_message.flash_message')
@@ -19,7 +31,7 @@
 
                     <button type="button" class="btn btn-info"><a class="page_manage custom_online_order"
                                                                   style="color:#fff" href="#">手書</a>
-<!--                        onlineorder-->
+                        <!--                        onlineorder-->
                     </button>
 
                 </div>
@@ -43,7 +55,8 @@
                         </li>
                         <li><a href="#" id="left" class="btn btn-info btn-lg scroll_to_right">左へ移動</a></li>
                         <li><a href="#" id="right" class="btn btn-primary btn-lg scroll_to_left mt-1">右へ移動</a></li>
-                        <li><a href="javascript:history.back();" class="btn btn-info btn-lg pull-right mt-1 ">戻る</a></li>
+                        <li><a href="javascript:history.back();" class="btn btn-info btn-lg pull-right mt-1 ">戻る</a>
+                        </li>
                     </ul>
 
 
@@ -53,8 +66,9 @@
         <!-- End Page Header -->
         <!-- Small Stats Blocks -->
 
-    <handy-product-order-kouri base_url="{{config('app.url')}}"></handy-product-order-kouri>
+        <handy-product-order-kouri base_url="{{config('app.url')}}"></handy-product-order-kouri>
 
 
     </div>
+
 @endsection
