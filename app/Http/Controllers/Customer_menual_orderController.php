@@ -702,8 +702,9 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
         // $customerItemInfo = customer_item::where('jan', $request->jan_code)->where('customer_id',$request->customer_id)->with('jan')->first();
         $vendoritems_info = vendor_item::where('jan', $request->jan_code)->with('jan')->first();
         $result = customer_order_detail::where('jan', $request->jan_code)->with(['jan', 'customer_order', 'customer_shipment'])
-            ->whereHas('customer_order', function ($q) use ($customer_id) {
+            ->whereHas('customer_order', function ($q) use ($customer_id,$customer_shop_id) {
                 $q->where('customer_id', $customer_id); // '=' is optional
+                $q->where('customer_shop_id', $customer_shop_id); // '=' is optional
                 $q->where('status', '確定済み'); // '=' is optional
                 $q->orWhere('status', '未出荷'); // '=' is optional
             })
