@@ -4022,7 +4022,7 @@ function fn_confirmOrderShipment(customer_order_id){
         }
     });
 }
-function fn_order_shipment_exection(customer_order_id,customer_shipment_id){
+function fn_order_shipment_exection(customer_shipment_id,customer_order_id){
     console.log(customer_order_id);
     $.ajax({
         headers: {
