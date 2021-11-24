@@ -446,6 +446,75 @@ class ShipmentCsvController extends Controller
             return $customer_item_id;
         }
     }
+    public function confirm_customer_shipment_order_done(Request $request){
+        $customer_order_id = $request->customer_order_id;
+        $customer_shipment_id = $request->customer_shipment_id;
+        
+        $is_exist_customer_order = customer_order_detail::join('customer_orders','customer_order_details.customer_order_id','=','customer_orders.customer_order_id')->join('customer_shipments','customer_shipments.customer_order_id','=','customer_orders.customer_order_id')->where('customer_orders.customer_order_id',$customer_order_id)->where('customer_shipments.customer_shipment_id',$customer_shipment_id)->first();
+       if($is_exist_customer_order){
+        $newQty = $is_exist_customer_order->quantity;
+        $jan_code = $is_exist_customer_order->jan;
+        $inputs_type = $is_exist_customer_order->inputs;
+        $customer_id = $is_exist_customer_order->customer_id;
+        $c_quantity = $is_exist_customer_order->confirm_quantity;
+        $customer_id = $is_exist_customer_order->customer_id;
+        $customer_item_id = $is_exist_customer_order->customer_item_id;
+        $customer_order_id = $is_exist_customer_order->customer_order_id;
+        $customer_order_detail_id = $is_exist_customer_order->customer_order_detail_id;
+        $inputs_type = $is_exist_customer_order->inputs_type;
+        $customer_shipment_id = $is_exist_customer_order->customer_shipment_id;
+        $rack_number = $is_exist_customer_order->rack_number;
+        $confirm_case_quantity = $is_exist_customer_order->confirm_case_quantity;
+        $confirm_ball_quantity = $is_exist_customer_order->confirm_ball_quantity;
+        $confirm_unit_quantity = $is_exist_customer_order->confirm_unit_quantity;
+
+        /*decrease stock quantity*/
+        $stock_info = collect(\DB::select("select * from stock_items inner join vendor_items on stock_items.vendor_item_id=vendor_items.vendor_item_id inner join jans on jans.jan = vendor_items.jan where vendor_items.jan = '" . $jan_code . "' and stock_items.rack_number='" . $rack_number . "'"))->first();
+        if ($stock_info) {
+            $stock_items = array();
+                if ($confirm_case_quantity > $stock_info->case_quantity) {
+                    return $result = response()->json(['message' => 'stock_over_qty']);
+                }
+                if ($confirm_ball_quantity > $stock_info->ball_quantity) {
+                    return $result = response()->json(['message' => 'stock_over_qty']);
+                }
+                if ($confirm_unit_quantity > $stock_info->unit_quantity) {
+                    return $result = response()->json(['message' => 'stock_over_qty']);
+                }
+                $vl_c = $stock_info->case_quantity - $confirm_case_quantity;
+                $vl_c = ($vl_c < 0 ? 0 : $vl_c);
+                $stock_items['case_quantity'] = $vl_c;
+
+                $vl_b = $stock_info->ball_quantity - $confirm_ball_quantity;
+                $vl_b = ($vl_b < 0 ? 0 : $vl_b);
+                $stock_items['ball_quantity'] = $vl_b;
+
+                $vl_u = $stock_info->unit_quantity - $confirm_unit_quantity;
+                $vl_u = ($vl_u < 0 ? 0 : $vl_u);
+                $stock_items['unit_quantity'] = $vl_u;
+            stock_item::where(['vendor_item_id' => $stock_info->vendor_item_id, 'rack_number' => $rack_number])->update($stock_items);
+            customer_shipment::where('customer_shipment_id', $request->customer_shipment_id)->update(['quantity' => $is_exist_customer_order->confirm_quantity, 'reload_status' => '1']);
+            customer_order::where('customer_order_id', $request->customer_order_id)->update(['status' => '出荷済み']);
+            $total_quantity_vls_price = $confirm_unit_quantity*$is_exist_customer_order->selling_price;
+            $insert_invoice = array(
+                'invoice_amount' => $total_quantity_vls_price,
+                'customer_id' => $is_exist_customer_order->customer_id,
+                'customer_shipment_id' => $request->customer_shipment_id,
+                'invoice_date' => date('Y-m-d'),
+            );
+
+            customer_invoice::insert($insert_invoice);
+        } else {
+            return $result = response()->json(['message' => 'stock_over_qty']);
+        }
+        }else{
+            return $result = response()->json(['message' => 'stock_over_qty']);
+        }
+        return $result = response()->json(['message' => 'success']);
+
+
+
+    }
     public function confirm_customer_shipment_order(Request $request){
         $customer_order_id = $request->customer_order_id;
         

@@ -218,6 +218,7 @@ Route::group(['middleware'=>'MyMiddleWire'],function(){
     Route::get('/customer-order/{id?}', 'BrandController@customerOrder')->name('customer-order');
     Route::get('/customer-order-confirm/{id?}', 'BrandController@customerOrderConfirm')->name('customer-order-confirm');
     Route::post('/confirm_customer_shipment_order', 'ShipmentCsvController@confirm_customer_shipment_order');
+    Route::post('/confirm_customer_shipment_order_done', 'ShipmentCsvController@confirm_customer_shipment_order_done');
     Route::get('/brand-order/{id?}', 'BrandController@index')->name('brand');
     Route::get('/brand-order-detail/{id?}/{shop_id?}', 'BrandController@brand_details')->name('brand-order-details');
 
