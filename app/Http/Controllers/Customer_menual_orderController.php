@@ -706,9 +706,10 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
                 $q->where('customer_id', $customer_id); // '=' is optional
                 $q->where('customer_shop_id', $customer_shop_id); // '=' is optional
                 $q->where('status', '確定済み'); // '=' is optional
-                $q->orWhere('status', '未出荷'); // '=' is optional
+//                $q->orWhere('status', '未出荷'); // '=' is optional
             })
             ->orderBy('customer_order_detail_id', 'DESC')->first();
+
         $jan_code = $request->jan_code;
         //$items_info = customer_item::join('customer_shops','customer_shops.customer_id','=','customer_items.customer_id')->where('customer_items.jan',$jan_code)->where('customer_items.customer_id',$customer_id)->first();
         // $vendoritems_info = vendor_item::where('jan',$jan_code)->first();
