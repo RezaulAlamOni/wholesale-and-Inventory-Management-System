@@ -450,9 +450,8 @@ class ShipmentCsvController extends Controller
         $customer_order_id = $request->customer_order_id;
         $customer_shipment_id = $request->customer_shipment_id;
         
-        $is_exist_customer_order = customer_order_detail::join('customer_orders','customer_order_details.customer_order_id','=','customer_orders.customer_order_id')->join('customer_shipments','customer_shipments.customer_order_id','=','customer_orders.customer_order_id')->where('customer_orders.customer_order_id',$customer_order_id)->where('customer_shipments.customer_shipment_id',$customer_shipment_id)->first();
+        $is_exist_customer_order = customer_shipment::join('customer_orders','customer_shipments.customer_order_id','=','customer_orders.customer_order_id')->join('customer_order_details','customer_orders.customer_order_id','=','customer_order_details.customer_order_id')->where('customer_orders.customer_order_id',$customer_order_id)->where('customer_shipments.customer_shipment_id',$customer_shipment_id)->first();
        if($is_exist_customer_order){
-           print_r($is_exist_customer_order);exit;
         $newQty = $is_exist_customer_order->quantity;
         $jan_code = $is_exist_customer_order->jan;
         $inputs_type = $is_exist_customer_order->inputs;
