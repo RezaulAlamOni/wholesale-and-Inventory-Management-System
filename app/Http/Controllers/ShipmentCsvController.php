@@ -467,7 +467,7 @@ class ShipmentCsvController extends Controller
         $confirm_case_quantity = $is_exist_customer_order->confirm_case_quantity;
         $confirm_ball_quantity = $is_exist_customer_order->confirm_ball_quantity;
         $confirm_unit_quantity = $is_exist_customer_order->confirm_unit_quantity;
-echo 'debug';exit;
+
         /*decrease stock quantity*/
         $stock_info = collect(\DB::select("select * from stock_items inner join vendor_items on stock_items.vendor_item_id=vendor_items.vendor_item_id inner join jans on jans.jan = vendor_items.jan where vendor_items.jan = '" . $jan_code . "' and stock_items.rack_number='" . $rack_number . "'"))->first();
         if ($stock_info) {
@@ -492,6 +492,7 @@ echo 'debug';exit;
                 $vl_u = $stock_info->unit_quantity - $confirm_unit_quantity;
                 $vl_u = ($vl_u < 0 ? 0 : $vl_u);
                 $stock_items['unit_quantity'] = $vl_u;
+                echo 'debug';exit;
             stock_item::where(['vendor_item_id' => $stock_info->vendor_item_id, 'rack_number' => $rack_number])->update($stock_items);
             customer_shipment::where('customer_shipment_id', $request->customer_shipment_id)->update(['quantity' => $is_exist_customer_order->confirm_quantity, 'reload_status' => '1']);
             customer_order::where('customer_order_id', $is_exist_customer_order->customer_order_id)->update(['status' => '出荷済み']);
