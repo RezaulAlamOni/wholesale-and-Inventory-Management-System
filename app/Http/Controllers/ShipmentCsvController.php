@@ -452,6 +452,7 @@ class ShipmentCsvController extends Controller
         
         $is_exist_customer_order = customer_order_detail::join('customer_orders','customer_order_details.customer_order_id','=','customer_orders.customer_order_id')->join('customer_shipments','customer_shipments.customer_order_id','=','customer_orders.customer_order_id')->where('customer_orders.customer_order_id',$customer_order_id)->where('customer_shipments.customer_shipment_id',$customer_shipment_id)->first();
        if($is_exist_customer_order){
+           print_r($is_exist_customer_order);exit;
         $newQty = $is_exist_customer_order->quantity;
         $jan_code = $is_exist_customer_order->jan;
         $inputs_type = $is_exist_customer_order->inputs;
@@ -505,10 +506,10 @@ class ShipmentCsvController extends Controller
 
             customer_invoice::insert($insert_invoice);
         } else {
-            return $result = response()->json(['message' => 'stock_over_qty']);
+            return $result = response()->json(['message' => 'stock_over_qty','error_type'=>'insufcient_stock']);
         }
         }else{
-            return $result = response()->json(['message' => 'stock_over_qty']);
+            return $result = response()->json(['message' => 'stock_over_qty','error_type'=>'shipment_not_found']);
         }
         return $result = response()->json(['message' => 'success']);
 
