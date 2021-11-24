@@ -3899,7 +3899,155 @@ var isUpdateValue = '';
             console.log('it will work from manual page');
         }
     });
+
+    $(document).delegate(".customerOrderKakutei", "click", function (e) {
+
+        var customer_order_id = $(this).attr('customer-order-id');
+        var rowtrs = $(this);
+        const temps_messagesssssss = {
+
+            bran_item_list_input_message: {
+                message: [
+                    {message: '0000000'},
+                ],
+                buttons: [
+                    {button: '<center><a href="javascript:fn_confirmOrderShipment('+customer_order_id+','+rowtrs+')" class="btn btn-primary">はい</a><a href="javascript:close_default_page_navi(5000)" class="btn btn-primary">いいえ</a></center>'}
+                ]
+            },
+        }
+        nav_width = '300px';
+        display_positionX = '15px';
+        display_positionY = '15px';
+        // def_center_mesg_template
+        success_nav = view(temps_messagesssssss['bran_item_list_input_message'], def_center_mesg_template_brand);
+        show_hide_nav_icn(0);
+       
+    });
+   
+    $(document).delegate('.customerOrderShuka', 'click', function (e) {
+        e.preventDefault();
+        var page = url_search();
+        //case_confirm_order_qty_
+       
+        var shipment_order_detail_id = $(this).attr('data-order-detail-id');
+        var customer_order_id = $(this).attr('data-order-id');
+        var shop_id = $(this).attr('data-shop-id');
+        var jan_code = $(this).closest('tr').attr('data_jan');
+        var reck_code = $(this).closest('tr').next('tr').children('td').find('.case_confirm_order_qty_'+shop_id).attr('data_reck_code');
+        var customer_shipment_id = $(this).closest('tr').next('tr').children('td').find('.case_confirm_order_qty_'+shop_id).attr('data_customer_shipment_id');
+        var confirm_case_quantity = $(this).closest('tr').next('tr').children('td').find('.case_confirm_order_qty_'+shop_id).val();
+        var confirm_ball_quantity = $(this).closest('tr').next('tr').children('td').find('.ball_confirm_order_qty_'+shop_id).val();
+        var confirm_unit_quantity = $(this).closest('tr').next('tr').children('td').find('.unit_confirm_order_qty_'+shop_id).val();
+        console.log('jan_code'+jan_code);
+        console.log('reck_code'+reck_code);
+        console.log('shop_id'+shop_id);
+        console.log('shipment_order_detail_id'+shipment_order_detail_id);
+        console.log('customer_shipment_id'+customer_shipment_id);
+        console.log('confirm_case_quantity'+confirm_case_quantity);
+        console.log('confirm_ball_quantity'+confirm_ball_quantity);
+        console.log('confirm_unit_quantity'+confirm_unit_quantity);
+        customer_shipment_id = (customer_shipment_id==''?0:customer_shipment_id);
+        customer_shipment_id = (customer_shipment_id=='null'?0:customer_shipment_id);
+        customer_shipment_id = (typeof customer_shipment_id=='null'?0:customer_shipment_id);
+        customer_shipment_id = (typeof customer_shipment_id=='undefined'?0:customer_shipment_id);
+        confirm_case_quantity=(confirm_case_quantity==''?0:confirm_case_quantity);
+        confirm_ball_quantity=(confirm_ball_quantity==''?0:confirm_ball_quantity);
+        confirm_unit_quantity=(confirm_unit_quantity==''?0:confirm_unit_quantity);
+
+        confirm_case_quantity=(typeof confirm_case_quantity=='undefined'?0:confirm_case_quantity);
+        confirm_ball_quantity=(typeof confirm_ball_quantity=='undefined'?0:confirm_ball_quantity);
+        confirm_unit_quantity=(typeof confirm_unit_quantity=='undefined'?0:confirm_unit_quantity);
+
+        confirm_case_quantity=(typeof confirm_case_quantity=='null'?0:confirm_case_quantity);
+        confirm_ball_quantity=(typeof confirm_ball_quantity=='null'?0:confirm_ball_quantity);
+        confirm_unit_quantity=(typeof confirm_unit_quantity=='null'?0:confirm_unit_quantity);
+        if(customer_shipment_id==0){
+            close_all_navi_msg();
+            show_hide_nav_icn(0);
+            const manual_order_shipment = {
+                manual_orders_shipment_exec: {
+                    message: [
+                        {message:'出荷できません'}
+                    ],
+                    buttons: [{button: '<center><a href="javascript:close_default_page_navi(808)" class="btn btn-primary rsalrtconfirms btn-lg">確認</a></center>'}]
+                }
+            }
+
+            nav_width = '390px';
+            display_positionX = '15px';
+            display_positionY = '15px';
+            manual_order_exe_step_1 = view(manual_order_shipment['manual_orders_shipment_exec'], def_center_mesg_template);
+            return false;
+        }
+        
+        if (page == 'manualOrder' || page == 'onlineorder') {
+            var c_name = $('.jcs_main_hand_title').text();
+            var c_id = $('.c_ids_v').val();
+            if (c_id != 0) {
+                close_all_navi_msg();
+                show_hide_nav_icn(0);
+                const manual_order_shipment = {
+                    manual_orders_shipment_exec: {
+                        message: [
+                            {message: c_name + 'に出荷しますか？ '}
+                        ],
+                        buttons: [{button: '<center><a href="javascript:manual_order_shipment_exection('+confirm_case_quantity+','+confirm_ball_quantity+','+confirm_unit_quantity+','+shipment_order_detail_id+','+shop_id+','+c_id+','+jan_code+','+reck_code+','+customer_shipment_id+','+customer_order_id+')" class="btn btn-primary btn-lg">はい</a><a href="javascript:close_default_page_navi(808)" class="btn btn-danger btn-lg">いいえ</a></center>'}]
+                    }
+                }
+
+                nav_width = '390px';
+                display_positionX = '15px';
+                display_positionY = '15px';
+                manual_order_exe_step_1 = view(manual_order_shipment['manual_orders_shipment_exec'], def_center_mesg_template);
+            } else {
+                alert('please select a super');
+            }
+        } else {
+            console.log('it will work from manual page');
+        }
+    });
 }); /*jquery end */
+function fn_confirmOrderShipment(customer_order_id,rowtrs){
+    console.log(customer_order_id);
+    $.ajax({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+        },
+        url: "confirm_customer_shipment_order",
+        type: "POST",
+        dataType: "JSON",
+        data: {customer_order_id:customer_order_id},
+        success: function (response) {
+            if(response.success==1){
+                rowtrs.css('background','red');
+                rowtrs.attr('disabled',true);
+                var messagessv = '00000000';
+            }else{
+                rowtrs.css('background','');
+                rowtrs.attr('disabled',false);
+                var messagessv = 'XXXXXXXXXX';
+
+            }
+
+            close_all_navi_msg();
+            show_hide_nav_icn(0);
+                const customer_csv_order_shipment = {
+                    csv_orders_shipment_exec: {
+                        message: [
+                            {message: messagessv}
+                        ],
+                        buttons: [{button: '<center><a href="javascript:close_default_page_navi(808)" class="btn btn-primary rsalrtconfirms btn-lg">確認</a></center>'}]
+                    }
+                }
+
+                nav_width = '390px';
+                display_positionX = '15px';
+                display_positionY = '15px';
+                manual_order_exe_step_1 = view(customer_csv_order_shipment['csv_orders_shipment_exec'], def_center_mesg_template);
+
+        }
+    });
+}
 function manual_order_shipment_exection(confirm_case_quantity,
     confirm_ball_quantity,
     confirm_unit_quantity,
@@ -5635,7 +5783,7 @@ for(var k=0;k<response.shop_item_list.length;k++){
                 brand_name += '<td style="text-align: right;width:10%"><input type="tel" row_id="'+largeArray[i].customer_order_detail_id+'" field_name="selling_price" value="'+  largeArray[i].selling_price  +'" class="form-control brndOrderInputQty"></td>';
                 brand_name += '<td style="text-align: right;width:10%"><input type="tel" row_id="'+largeArray[i].customer_order_detail_id+'" field_name="cost_price" value="'+  largeArray[i].cost_price  +'" class="form-control brndOrderInputQty"></td>';
                 brand_name += '<td style="text-align: right;width:10%">'+ largeArray[i].order_frequency_num +'</td>';
-                brand_name += '<td style="text-align: center;width:10%;padding:0;"><button class="btn btn-primary customerOrderKakutei">確定</button></td>';
+                brand_name += '<td style="text-align: center;width:10%;padding:0;"><button class="btn btn-primary customerOrderKakutei" data-customer-order-id="'+largeArray[i].customer_order_id+'">確定</button></td>';
 
                 if(i<smallArray.length){
                     if(voice_text!=''){
@@ -5649,7 +5797,7 @@ for(var k=0;k<response.shop_item_list.length;k++){
                     brand_name += '<td style="text-align: right;width:10%"><input type="tel" row_id="'+smallArray[i].customer_order_detail_id+'" field_name="selling_price" value="'+ smallArray[i].selling_price +'" class="form-control brndOrderInputQty"></td>';
                     brand_name += '<td style="text-align: right;width:10%"><input type="tel" row_id="'+smallArray[i].customer_order_detail_id+'" field_name="cost_price" value="'+ smallArray[i].cost_price +'" class="form-control brndOrderInputQty"></td>';
                     brand_name += '<td style="text-align: right;width:10%">'+ smallArray[i].order_frequency_num +'</td>';
-                brand_name += '<td style="text-align: center;width:10%;padding:0;"><button class="btn btn-primary customerOrderKakutei">確定</button></td>';
+                brand_name += '<td style="text-align: center;width:10%;padding:0;"><button class="btn btn-primary customerOrderKakutei" data-customer-order-id="'+smallArray[i].customer_order_id+'">確定</button></td>';
 
                 }else{
                     brand_name += '<td style="text-align: left; width:40%"></td>';
@@ -5729,7 +5877,7 @@ var shop_id = $('.s_ids_v').val();
                 brand_name += '<td style="text-align: right;width:10%"><input type="tel" value="'+ largeArray[i].selling_price +'" class="form-control brndOrderInputQty"></td>';
                 brand_name += '<td style="text-align: right;width:10%"><input type="tel" value="'+ largeArray[i].cost_price +'" class="form-control brndOrderInputQty"></td>';
                 brand_name += '<td style="text-align: right;width:10%">'+ largeArray[i].order_frequency_num +'</td>';
-                brand_name += '<td style="text-align: center;width:10%;padding:0;"><button class="btn btn-primary customerOrderShuka">出荷</button></td>';
+                brand_name += '<td style="text-align: center;width:10%;padding:0;"><button class="btn btn-primary customerOrderShuka" data-customer-order-id="'+largeArray[i].customer_order_id+'" data-customer-shipment-id="'+largeArray[i].customer_shipment_id+'">出荷</button></td>';
 
 
                 if(i<smallArray.length){
@@ -5743,7 +5891,7 @@ var shop_id = $('.s_ids_v').val();
                     brand_name += '<td style="text-align: right;width:10%"><input type="tel" value="'+ smallArray[i].selling_price +'" class="form-control brndOrderInputQty"></td>';
                     brand_name += '<td style="text-align: right;width:10%"><input type="tel" value="'+ smallArray[i].cost_price +'" class="form-control brndOrderInputQty"></td>';
                     brand_name += '<td style="text-align: right;width:10%">'+ smallArray[i].order_frequency_num +'</td>';
-                brand_name += '<td style="text-align: center;width:10%;padding:0;"><button class="btn btn-primary customerOrderShuka">出荷</button></td>';
+                brand_name += '<td style="text-align: center;width:10%;padding:0;"><button class="btn btn-primary customerOrderShuka" data-customer-order-id="'+smallArray[i].customer_order_id+'" data-customer-shipment-id="'+smallArray[i].customer_shipment_id+'">出荷</button></td>';
 
                 }else{
                     brand_name += '<td style="text-align: left; width:40%"></td>';

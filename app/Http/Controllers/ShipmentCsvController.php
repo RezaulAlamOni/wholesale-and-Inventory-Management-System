@@ -446,6 +446,39 @@ class ShipmentCsvController extends Controller
             return $customer_item_id;
         }
     }
+    public function confirm_customer_shipment_order(Request $request){
+        $customer_order_id = $request->customer_order_id;
+        
+        $is_exist_customer_order = customer_order_detail::join('customer_orders','customer_order_details.customer_order_id','=','customer_orders.customer_order_id')->where('customer_orders.customer_order_id',$customer_order_id)->first();
+        $newQty = $is_exist_customer_order->quantity;
+        $jan_code = $is_exist_customer_order->jan;
+        $inputs_type = $is_exist_customer_order->inputs;
+        $customer_id = $is_exist_customer_order->customer_id;
+        $stock_info = $this->get_stock_info($jan_code);
+
+        if($stock_info){
+            if($stock_info->unit_quantity>=$newQty){
+                customer_shipment::insert([
+                    'rack_number'=>$stock_info->rack_number,
+                    'customer_id'=>$customer_id,
+                    'shipment_date'=>date('Y-m-d H:i:s'),
+                    'inputs'=>$inputs_type,
+                    'confirm_quantity'=>$newQty,
+                    'confirm_case_quantity'=>0,
+                    'confirm_ball_quantity'=>0,
+                    'confirm_unit_quantity'=>$newQty,
+                    'customer_order_detail_id'=>$is_exist_customer_order->customer_order_id,
+                    'customer_order_id'=>$is_exist_customer_order->customer_order_id
+                ]);
+                customer_order::where('customer_order_id',$is_exist_customer_order->customer_order_id)->update(['status'=>'確定済み']);
+        return response()->json(['message' => '確定が確認されました','success'=>1]);
+
+            }
+            
+        }
+        return response()->json(['message' => '確定は確認されていません','success'=>0]);
+
+    }
 /*required function list*/
     public function ShipmentCsvInsert_brand(Request $request){
         ini_set('memory_limit', '-1');
