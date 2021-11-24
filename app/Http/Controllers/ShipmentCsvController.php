@@ -467,7 +467,7 @@ class ShipmentCsvController extends Controller
         $confirm_case_quantity = $is_exist_customer_order->confirm_case_quantity;
         $confirm_ball_quantity = $is_exist_customer_order->confirm_ball_quantity;
         $confirm_unit_quantity = $is_exist_customer_order->confirm_unit_quantity;
-
+echo 'debug';exit;
         /*decrease stock quantity*/
         $stock_info = collect(\DB::select("select * from stock_items inner join vendor_items on stock_items.vendor_item_id=vendor_items.vendor_item_id inner join jans on jans.jan = vendor_items.jan where vendor_items.jan = '" . $jan_code . "' and stock_items.rack_number='" . $rack_number . "'"))->first();
         if ($stock_info) {
