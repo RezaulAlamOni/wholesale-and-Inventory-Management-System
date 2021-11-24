@@ -494,8 +494,9 @@ class ShipmentCsvController extends Controller
                 $stock_items['unit_quantity'] = $vl_u;
             stock_item::where(['vendor_item_id' => $stock_info->vendor_item_id, 'rack_number' => $rack_number])->update($stock_items);
             customer_shipment::where('customer_shipment_id', $request->customer_shipment_id)->update(['quantity' => $is_exist_customer_order->confirm_quantity, 'reload_status' => '1']);
-            customer_order::where('customer_order_id', $request->customer_order_id)->update(['status' => '出荷済み']);
+            customer_order::where('customer_order_id', $is_exist_customer_order->customer_order_id)->update(['status' => '出荷済み']);
             $total_quantity_vls_price = $confirm_unit_quantity*$is_exist_customer_order->selling_price;
+            
             $insert_invoice = array(
                 'invoice_amount' => $total_quantity_vls_price,
                 'customer_id' => $is_exist_customer_order->customer_id,
