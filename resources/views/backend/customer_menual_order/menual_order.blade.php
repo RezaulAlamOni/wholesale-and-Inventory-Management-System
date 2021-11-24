@@ -26,11 +26,6 @@
                 <p class="hmdate">納品日　<?php echo date("m", time());?>月<?php echo date("d", time());?>日</p>
 
 
-                <div style="display: flex">
-                    <p class="shps_byrsplrs">販売先名<span class="jcs_main_hand_title"></span>殿</p>
-                    <bar-code-scan base_url="{{config('app.url')}}" page="manual"></bar-code-scan>
-                </div>
-
             </div>
             <div class="col-md-7 col-sm-7 mb-0 text-right">
                 <input type="hidden" value="0" class="c_ids_v">
@@ -40,7 +35,7 @@
                         <li><a href="#" delete_st="0" class="btn btn-danger btn-lg delete_entry">行削除</a></li>
                         <li><a href="home" class="btn btn-danger btn-lg">業務選択</a></li>
                         <li><a href="shipment" class="btn btn-warning btn-lg">履歴</a></li>
-                        <li><a href="{{ route('manualOrderCreate') }}" class="btn btn-info btn-lg">手書 受注</a></li>
+
                         <li>
                             <button class="btn btn-warning manual_order_exe btn-lg">完了</button>
                         </li>
@@ -54,6 +49,11 @@
 
 
                 </div>
+            </div>
+            <div style="display: flex" class="col-md-12 ">
+                <p class="shps_byrsplrs">販売先名<span class="jcs_main_hand_title"></span>殿</p>
+                <bar-code-scan base_url="{{config('app.url')}}" page="manual"></bar-code-scan>
+                <a href="{{ route('manualOrderCreate') }}" class="btn btn-info btn-lg">手書 受注</a>
             </div>
         </div>
         <!-- End Page Header -->
