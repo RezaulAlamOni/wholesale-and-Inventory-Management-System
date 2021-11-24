@@ -15,6 +15,7 @@ use App\customer_order_detail;
 use App\customer_shipment;
 
 use App\customer_item;
+use App\stock_item;
 use App\vendor_item;
 use App\User;
 use Session;
@@ -492,10 +493,11 @@ class ShipmentCsvController extends Controller
                 $vl_u = $stock_info->unit_quantity - $confirm_unit_quantity;
                 $vl_u = ($vl_u < 0 ? 0 : $vl_u);
                 $stock_items['unit_quantity'] = $vl_u;
-                echo 'debug';exit;
+                
             stock_item::where(['vendor_item_id' => $stock_info->vendor_item_id, 'rack_number' => $rack_number])->update($stock_items);
             customer_shipment::where('customer_shipment_id', $request->customer_shipment_id)->update(['quantity' => $is_exist_customer_order->confirm_quantity, 'reload_status' => '1']);
             customer_order::where('customer_order_id', $is_exist_customer_order->customer_order_id)->update(['status' => '出荷済み']);
+           
             $total_quantity_vls_price = $confirm_unit_quantity*$is_exist_customer_order->selling_price;
             
             $insert_invoice = array(
