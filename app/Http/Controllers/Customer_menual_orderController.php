@@ -370,6 +370,7 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
         from(
         select
         customer_shipments.confirm_quantity,
+        customer_shipments.customer_shipment_id,
         customer_order_details.cost_price,
         customer_order_details.selling_price,
         customer_order_details.inputs,
