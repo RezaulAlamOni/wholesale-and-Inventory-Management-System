@@ -452,6 +452,7 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
 
     function get_customer_base_manual_order_item(Request $request)
     {
+//        dd($request->all());
         $shop_list = array();
         $order_array = array();
         $id = $request->c_id;

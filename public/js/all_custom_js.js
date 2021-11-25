@@ -5965,6 +5965,14 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                         } else if (unit_qty != '') {
                                             class_unit_suffcient = 'insufcients_stocks';
                                         }
+
+                                    case_qty_confirm =  case_qty_confirm == 0 ? online_order[idx_conf].case_quantity : online_order[idx_conf].confirm_case_quantity;
+
+                                    ball_qty_confirm =  ball_qty_confirm == 0 ? online_order[idx_conf].ball_quantity : online_order[idx_conf].confirm_ball_quantity;
+
+                                    unit_qty_confirm = unit_qty_confirm == 0 ? online_order[idx_conf].unit_quantity : online_order[idx_conf].confirm_unit_quantity;
+
+
                                 }
 
                                 htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty ' + class_case_suffcient + '"><input type="tel" data_reck_code="'+reck_code + '" data_customer_shipment_id="'+customer_shipment_id+'" class="form-control cmn_o_d_qty sum_of_o_d_qty case_confirm_order_qty_'+response.shop_list[p].customer_shop_id + '" value="' + case_qty_confirm + '" readonly></td>';
@@ -6059,16 +6067,21 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                     case_qty = online_order[i].order_case_quantity;
                                     class_case_suffcient = (case_qty > case_qty_confirm ? 'insufcients_stocks' : 'sufcients_stocks');
                                     case_confirm_total += case_qty_confirm;
+                                    case_qty_confirm =  case_qty_confirm == 0 ? online_order[i].case_quantity : online_order[i].confirm_case_quantity;
 
                                     ball_qty = online_order[i].order_ball_quantity;
                                     ball_qty_confirm = online_order[i].confirm_ball_quantity;
                                     class_ball_suffcient = (ball_qty > ball_qty_confirm ? 'insufcients_stocks' : 'sufcients_stocks');
                                     ball_confirm_total += ball_qty_confirm;
+                                    ball_qty_confirm =  ball_qty_confirm == 0 ? online_order[i].ball_quantity : online_order[i].confirm_ball_quantity;
+
 
                                     unit_qty = online_order[i].order_unit_quantity;
                                     unit_qty_confirm = online_order[i].confirm_unit_quantity;
                                     class_unit_suffcient = (unit_qty > unit_qty_confirm ? 'insufcients_stocks' : 'sufcients_stocks');
                                     unit_confirm_total += unit_qty_confirm;
+                                    unit_qty_confirm = unit_qty_confirm == 0 ? online_order[i].unit_quantity : online_order[i].confirm_unit_quantity;
+
 
                                     /*
                                     if (online_order[i].inputs == 'ケース') {
