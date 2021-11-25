@@ -551,6 +551,9 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
         $customer_orders_ = $customer_orders_->get();
 
         foreach ($customer_orders_ as $item) {
+            if (!$item->order_details->vendor_item->stocks){
+               return false;
+            }
             if ($item->order_details->order_case_quantity <= $item->order_details->vendor_item->stocks->case_quantity
                 && $item->order_details->order_ball_quantity <= $item->order_details->vendor_item->stocks->ball_quantity
                 && $item->order_details->order_unit_quantity <= $item->order_details->vendor_item->stocks->unit_quantity
