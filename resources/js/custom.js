@@ -5205,11 +5205,11 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                             class_unit_suffcient = 'insufcients_stocks';
                                         }
 
-                                    case_qty_confirm =  case_qty_confirm == 0 ? online_order[idx_conf].case_quantity : online_order[idx_conf].confirm_case_quantity;
+                                    case_qty_confirm =  case_qty_confirm == 0 ? (online_order[idx_conf].case_quantity ? online_order[idx_conf].case_quantity : 0) : online_order[idx_conf].confirm_case_quantity;
 
-                                    ball_qty_confirm =  ball_qty_confirm == 0 ? online_order[idx_conf].ball_quantity : online_order[idx_conf].confirm_ball_quantity;
+                                    ball_qty_confirm =  ball_qty_confirm == 0 ? (online_order[idx_conf].ball_quantity ? online_order[idx_conf].ball_quantity : 0) : online_order[idx_conf].confirm_ball_quantity;
 
-                                    unit_qty_confirm = unit_qty_confirm == 0 ? online_order[idx_conf].unit_quantity : online_order[idx_conf].confirm_unit_quantity;
+                                    unit_qty_confirm = unit_qty_confirm == 0 ? (online_order[idx_conf].unit_quantity ? online_order[idx_conf].unit_quantity : 0) : online_order[idx_conf].confirm_unit_quantity;
 
 
                                 }

@@ -458,6 +458,8 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
         $id = $request->c_id;
         $jan = $request->jan;
         $order_category = $request->order_category;
+        // update inventory
+        $this->updateShipmentIfInventoryUpdated($id,$order_category); // customer_id
 
         if ($jan != '' && $id != null) {
 
@@ -521,7 +523,7 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
                         $order_array = collect(\DB::select("select jans.jan,jans.name from customer_items inner join jans on jans.jan=customer_items.jan where customer_items.jan='" . $jan . "' and customer_items.customer_id='" . $id . "'"));
 
                     }
-                    return $result = response()->json(['shop_list' => $shop_list, 'success' => 1, 'manual_orderable' => $manual_orderable, 'online_order' => $order_array]);
+                    $result = response()->json(['shop_list' => $shop_list, 'success' => 1, 'manual_orderable' => $manual_orderable, 'online_order' => $order_array]);
                 } else {
                     $result = response()->json(['shop_list' => $shop_list, 'success' => 0, 'manual_orderable' => $manual_orderable, 'online_order' => $order_array]);
                 }
@@ -533,9 +535,51 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
             $result = response()->json(['shop_list' => $shop_list, 'success' => 0, 'manual_orderable' => $manual_orderable, 'online_order' => $order_array]);
         }
 
+
         return $result;
 
     }
+
+    // update shipment if inventory is updated
+    public function updateShipmentIfInventoryUpdated($c_id = null, $order_category = 'manual')
+    {
+        $customer_orders_ = customer_order::with(['order_details'])
+            ->where(['customer_id'=> $c_id,'status' => '未出荷','category' => $order_category]);
+        if ($c_id) {
+            $customer_orders_ = $customer_orders_->where(['customer_id' => $c_id]);
+        }
+        $customer_orders_ = $customer_orders_->get();
+
+        foreach ($customer_orders_ as $item) {
+            if ($item->order_details->order_case_quantity <= $item->order_details->vendor_item->stocks->case_quantity
+                && $item->order_details->order_ball_quantity <= $item->order_details->vendor_item->stocks->ball_quantity
+                && $item->order_details->order_unit_quantity <= $item->order_details->vendor_item->stocks->unit_quantity
+            ){
+                $c_quantity = $item->order_details->order_case_quantity * $item->order_details->jans->case_inputs
+                    + $item->order_details->order_ball_quantity * $item->order_details->jans->case_inputs
+                    + $item->order_details->order_unit_quantity;
+
+                $inputs_type = 'ケース';
+                $shiptment['customer_id'] = $c_id;
+                $shiptment['customer_order_id'] = $item->customer_order_id;
+                $shiptment['customer_order_detail_id'] = $item->order_details->customer_order_detail_id;
+                $shiptment['shipment_date'] = date('Y-m-d H:i:s');
+                $shiptment['inputs'] = $inputs_type;
+                $shiptment['confirm_case_quantity'] = $item->order_details->order_case_quantity;
+                $shiptment['confirm_ball_quantity'] = $item->order_details->order_ball_quantity;
+                $shiptment['confirm_unit_quantity'] = $item->order_details->order_unit_quantity;
+
+                $shiptment['confirm_quantity'] = $c_quantity;
+
+                $shiptment['rack_number'] = $item->order_details->vendor_item->stocks->rack_number;
+
+                customer_shipment::insert($shiptment);
+                customer_order::where('customer_order_id', $item->customer_order_id)->update(['status' => '確定済み']);
+
+            }
+        }
+    }
+
 
     /**
      * Show the form for creating a new resource.

@@ -14,10 +14,14 @@ class customer_order_detail extends Model
     {
         return $this->belongsTo(jan::class, 'jan','jan');
     }
-   
+    public function jans()
+    {
+        return $this->belongsTo(jan::class, 'jan','jan');
+    }
+
     public function vendor_item()
     {
-        return $this->belongsTo(vendor_item::class, 'jan','jan');
+        return $this->belongsTo(vendor_item::class, 'jan','jan')->with('stocks');
     }
     public function customer_order()
     {
@@ -27,4 +31,5 @@ class customer_order_detail extends Model
     {
         return $this->belongsTo(customer_shipment::class, 'customer_order_detail_id','customer_order_detail_id');
     }
+
 }

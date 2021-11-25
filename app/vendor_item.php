@@ -17,4 +17,11 @@ class vendor_item extends Model
     {
         return $this->belongsTo(jan::class, 'jan','jan');
     }
+
+    public function stocks()
+    {
+        return $this->belongsTo(stock_item::class, 'vendor_item_id','vendor_item_id');
+    }
+
+
 }
