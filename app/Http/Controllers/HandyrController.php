@@ -2291,6 +2291,11 @@ WHERE DATE(co.shipment_date) = CURDATE()
         }
         Log::info(['inventory'=>'Update inventory By user '.auth()->id(),'jan' => $stock_item_info->jan]);
 
+        $customer_manual_order = new Customer_menual_orderController();
+        $customer_manual_order->updateShipmentIfInventoryUpdated();
+
+
+
         return $result = response()->json(['message' => 'success']);
     }
 
