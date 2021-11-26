@@ -459,7 +459,7 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
         $jan = $request->jan;
         $order_category = $request->order_category;
         // update inventory
-        return $this->updateShipmentIfInventoryUpdated($id,$order_category); // customer_id
+        $this->updateShipmentIfInventoryUpdated($id,$order_category); // customer_id
 
         if ($jan != '' && $id != null) {
 
@@ -544,7 +544,8 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
     public function updateShipmentIfInventoryUpdated($c_id = null, $order_category = 'manual')
     {
         $customer_orders_ = customer_order::with(['order_details'])
-            ->where(['status' => '未出荷','category' => $order_category]);
+            ->where(['category' => $order_category]);
+//        'status' => '未出荷',
         if ($c_id) {
             $customer_orders_ = $customer_orders_->where(['customer_id' => $c_id]);
         }
