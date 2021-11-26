@@ -459,7 +459,7 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
         $jan = $request->jan;
         $order_category = $request->order_category;
         // update inventory
-        $this->updateShipmentIfInventoryUpdated($id,$order_category); // customer_id
+        return $this->updateShipmentIfInventoryUpdated($id,$order_category); // customer_id
 
         if ($jan != '' && $id != null) {
 
@@ -544,7 +544,7 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
     public function updateShipmentIfInventoryUpdated($c_id = null, $order_category = 'manual')
     {
         $customer_orders_ = customer_order::with(['order_details'])
-            ->where(['customer_id'=> $c_id,'status' => '未出荷','category' => $order_category]);
+            ->where(['status' => '未出荷','category' => $order_category]);
         if ($c_id) {
             $customer_orders_ = $customer_orders_->where(['customer_id' => $c_id]);
         }
@@ -579,8 +579,37 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
                 customer_shipment::insert($shiptment);
                 customer_order::where('customer_order_id', $item->customer_order_id)->update(['status' => '確定済み']);
 
+            } elseif ($item->order_details->order_case_quantity > $item->order_details->vendor_item->stocks->case_quantity
+                || $item->order_details->order_ball_quantity > $item->order_details->vendor_item->stocks->ball_quantity
+                || $item->order_details->order_unit_quantity > $item->order_details->vendor_item->stocks->unit_quantity
+            ){
+//                            return response()->json($item);
+                if ($item->order_details->customer_shipment) {
+                    customer_shipment::where('customer_shipment_id',$item->order_details->customer_shipment->customer_shipment_id)->delete();
+                    customer_order::where('customer_order_id', $item->customer_order_id)->update(['status' => '未出荷']);
+
+                }
+
             }
         }
+
+//        $customer_orders_ = customer_order::with(['order_details'])
+//            ->where(['category' => $order_category,'customer_id' => $c_id,'status' => '確定済み'])->get();
+//        foreach ($customer_orders_ as $item) {
+//            return response()->json($customer_orders_);
+//            if (!$item->order_details->vendor_item->stocks){
+//                return false;
+//            }
+//            if ($item->order_details->order_case_quantity > $item->order_details->vendor_item->stocks->case_quantity
+//                || $item->order_details->order_ball_quantity > $item->order_details->vendor_item->stocks->ball_quantity
+//                || $item->order_details->order_unit_quantity > $item->order_details->vendor_item->stocks->unit_quantity
+//            ){
+////                            return response()->json($item);
+//                dd(customer_shipment::where('customer_shipment_id',$item->order_details->customer_shipment->customer_shipment_id)->delete());
+//                customer_order::where('customer_order_id', $item->customer_order_id)->update(['status' => '未出荷']);
+//
+//            }
+//        }
     }
 
 

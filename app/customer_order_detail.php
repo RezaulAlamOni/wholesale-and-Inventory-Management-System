@@ -25,7 +25,8 @@ class customer_order_detail extends Model
     }
     public function customer_order()
     {
-        return $this->belongsTo(customer_order::class, 'customer_order_id','customer_order_id');
+        return $this->belongsTo(customer_order::class, 'customer_order_id','customer_order_id')
+            ->with(['customer_shop','customer']);
     }
     public function customer_shipment()
     {
