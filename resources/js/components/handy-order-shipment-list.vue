@@ -86,11 +86,11 @@
                                             </div>
                                             <div class="form-group"
                                                  style="border-radius: 5px; margin-top: 5px !important; margin-bottom: 5px;">
-                                                <input type="text" class="form-control" :value="order_data.customer_order.customer.name" style="font-size: 18px !important;">
+                                                <input readonly type="text" class="form-control" :value="order_data.customer_order.customer.name" style="font-size: 18px !important;">
                                             </div>
                                             <div class="form-group"
                                                  style="border-radius: 5px; margin-top: 5px !important; margin-bottom: 5px;">
-                                                <input type="text" class="form-control" :value="order_data.customer_order.customer_shop.shop_name" style="font-size: 18px !important;">
+                                                <input readonly type="text" class="form-control" :value="order_data.customer_order.customer_shop.shop_name" style="font-size: 18px !important;">
                                             </div>
                                             <div class="form-group" style="margin-bottom: 0">
                                                 <div class="col-md-12 col-xs-12 padding_0">
