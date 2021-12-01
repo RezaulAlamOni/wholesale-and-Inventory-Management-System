@@ -33,6 +33,11 @@
                                                placeholder="JANコードスキャン（13桁）" autofocus>
                                     </div>
                                 </div>
+                                <button type="button" @click="getBarCodeScan()"
+                                        class="pr-0 ml-1 btn custom-btn btn-primary text-right show_inline search-button"
+                                        style="padding:0;float: left;width: 70px !important;">
+                                    <i class="fa fa-barcode" style="font-size: 40px"></i>
+                                </button>
                                 <button type="button" v-on:click="getOrderDataByJan()"
                                         class="btn custom-btn btn-primary pull-right text-right show_inline">
                                     次へ
@@ -243,12 +248,39 @@
                 </div>
             </div>
         </div>
+
+        <!--        bar code scan modal   -->
+        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+             aria-hidden="true" id="bar-code-scan-area">
+            <div class="modal-dialog modal-lg mt-0">
+                <div class="modal-content">
+                    <div class="modal-body p-0">
+                        <div class="main-content-container container-fluid pt-2">
+                            <StreamBarcodeReader v-if="barCodeScan" @decode="onDecode"
+                                                 @loaded="onLoad()"></StreamBarcodeReader>
+
+                            <button type="button" @click="getBarCodeScan()"
+                                    style="float: right;margin: 5px 0;width: 95px !important;"
+                                    class="btn custom-btn btn-primary pull-right text-right show_inline">
+                                次へ
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
     </section>
 
 </template>
 
 <script>
+import TextRecognition from "./text-recognition";
+import {StreamBarcodeReader} from "vue-barcode-reader";
 export default {
+    components: {TextRecognition, StreamBarcodeReader},
     props: ['base_url'],
     name: "handy-product-order-place-kouri",
     data() {
@@ -274,6 +306,7 @@ export default {
             vendor_item_id: null,
             maker_id: null,
             loader: 0,
+            barCodeScan: 0,
             total_quantity: 0,
             handi_navi: ''
         }
@@ -695,7 +728,33 @@ export default {
         },
         calculateTotalQuantity() {
             this.total_quantity = parseInt(this.bara_order) + parseInt(this.boll_order) * parseInt(this.ball_inputs) + parseInt(this.case_order) * parseInt(this.case_inputs)
-        }
+        },
+        alertForIos() {
+            this.jan_code = ""
+            this.handi_navi = '' + this.base_url + '<li>キーボードの 【<img src="/public/backend/images/mic.png" height="18px" alt=""> 】マイクロフォンを押して音声検索してください。</li>' + '';
+            $('#handy-navi').show()
+            setTimeout(function () {
+                // $('#jan_input').focus()
+
+            }, 120)
+            this.jan_code = ""
+
+        },
+        getBarCodeScan() {
+            this.barCodeScan = this.barCodeScan ? 0 : 1;
+            this.barCodeScan ? $('#bar-code-scan-area').modal({backdrop: 'static', keyboard: false}) : $('#bar-code-scan-area').modal('hide');
+        },
+        onDecode(result) {
+            console.log(result)
+            this.getBarCodeScan();
+            this.jan_code=result;
+            $('#handy-navi').hide()
+            this.getOrderDataByJan()
+        },
+        onLoad(){
+            $('#handy-navi').show()
+            this.handi_navi = '<li>********。</li>';
+        },
     },
     watch: {
         // jan_code: function (val) {
