@@ -218,12 +218,13 @@
                     <div class="modal-body p-0" style="text-align: center">
                         <div
                             style="font-size: 18px;text-align: left;padding: 5px 10px;background: #c3ff8f80;font-weight: bold;">
-                            <input type="text" v-model="mistumury_product.title" class="form-control">
+                            <input type="text" v-model="mistumury_product.title" class="form-control" placeholder="商品名を入力してください">
                         </div>
                         <div>
                             <div class="form-group text-center">
-                                <input type="file" accept="image/*" @change="previewImage" class="form-control-file"
+                                <input type="file" accept="image/*"  @change="previewImage" class="form-control-file hide"
                                        id="my-file" alt="00">
+                                <button class="btn btn-info" id="click-file" @click="clickAddFile()">ファイルを選択</button>
                             </div>
                             <img v-if="preview"
                                  :src="preview"
@@ -1037,6 +1038,7 @@ export default {
         // add product model
         addProductModal() {
             $('#mistumury-prodct-add-modal').modal({backdrop: 'static'})
+            $('#click-file').show()
         },
         //sendtoSuper
         sendtoSuper() {
@@ -1078,13 +1080,15 @@ export default {
                 this.mistumury_product.image = input.files[0];
                 reader.readAsDataURL(input.files[0]);
             }
+            $('#click-file').hide()
         },
 
         saveNewMistumuryProduct: function (event) {
             $('#product-add-').prop('disabled', true);
             let _this = this;
             if (this.mistumury_product.title.length <= 0 || this.mistumury_product.cost <= 0 || this.mistumury_product.sell <= 0) {
-                this.handi_navi = '000000';
+                this.handi_navi = '商品名を入力してください';
+                $('#product-add-').prop('disabled', false);
                 $('#handy-navi').show();
                 return false;
             }
@@ -1111,6 +1115,10 @@ export default {
                     $('#my-file').val('')
                 })
         },
+
+        clickAddFile() {
+            $('#my-file').click()
+        }
     },
     watch: {}
 }

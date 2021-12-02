@@ -86,7 +86,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "js/build_component/" + ({"0":"handy-product-inventory-inquiry","1":"handy-product-order-place-kouri","2":"handy-mitsumury","3":"handy-vandor-master","4":"handy-product-order-receive","5":"handy-product-order-place","6":"handy-product-inventory-tmp-tana-update","7":"handy-product-inventory-return","8":"handy-customer-master","9":"barcode-scan","10":"handy-product-order-mail","11":"handy-product-order-confirm-kouri","12":"handy-product-online-order-kouri","13":"handy-order-shipment-list","14":"admin-super-manage","15":"example-component"}[chunkId]||chunkId) + ".js?id=" + {"0":"26b0834659fb8dcce76f","1":"44ec84a61557eea5a9d5","2":"b812a07a7abfb243b146","3":"966ac6e95b1c0498d211","4":"06ca118c41e2dfc2db71","5":"44087f47517e7d67bfaa","6":"252f24e43b0489c972f7","7":"4061e4a19b11763e731f","8":"8d5acb02a1111a352891","9":"37660b3c0a5312846fef","10":"fbefd0b706cc4e928328","11":"dfc1f2dd5694051f0bde","12":"58e2dd3ab0fa40aa9bc3","13":"20eb1d1eb4796ebffef7","14":"96642b83ada284522f43","15":"bc0e4a76e132e1aaf7cf"}[chunkId] + "";
+/******/ 		script.src = __webpack_require__.p + "js/build_component/" + ({"0":"handy-product-inventory-inquiry","1":"handy-product-order-place-kouri","2":"handy-mitsumury","3":"handy-vandor-master","4":"handy-product-order-receive","5":"handy-product-order-place","6":"handy-product-order-confirm-kouri","7":"handy-product-inventory-tmp-tana-update","8":"handy-product-inventory-return","9":"handy-order-shipment-list","10":"handy-customer-master","11":"barcode-scan","12":"handy-product-order-mail","13":"handy-product-online-order-kouri","14":"admin-super-manage","15":"example-component"}[chunkId]||chunkId) + ".js?id=" + {"0":"26b0834659fb8dcce76f","1":"8b7247fa468dee96f9b1","2":"f63faf37666320ad458a","3":"966ac6e95b1c0498d211","4":"06ca118c41e2dfc2db71","5":"44087f47517e7d67bfaa","6":"7aaabfa603204c35240e","7":"252f24e43b0489c972f7","8":"4061e4a19b11763e731f","9":"15c3e09291b830a24467","10":"8d5acb02a1111a352891","11":"37660b3c0a5312846fef","12":"fbefd0b706cc4e928328","13":"0b6a5a4d0efce1cd2d0f","14":"96642b83ada284522f43","15":"bc0e4a76e132e1aaf7cf"}[chunkId] + "";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -49798,15 +49798,15 @@ var handyProductOrderPlaceKouri = function handyProductOrderPlaceKouri() {
 };
 
 var handyProductOrderOnlineOrderKouri = function handyProductOrderOnlineOrderKouri() {
-  return __webpack_require__.e/* import() */(12).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-online-order-kouri.vue"));
+  return __webpack_require__.e/* import() */(13).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-online-order-kouri.vue"));
 };
 
 var handyProductOrdermail = function handyProductOrdermail() {
-  return __webpack_require__.e/* import() */(10).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-order-mail.vue"));
+  return __webpack_require__.e/* import() */(12).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-order-mail.vue"));
 };
 
 var handyProductOrderConfirmKouri = function handyProductOrderConfirmKouri() {
-  return __webpack_require__.e/* import() */(11).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-order-confirm-kouri.vue"));
+  return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-order-confirm-kouri.vue"));
 };
 
 var handyProductOrderPlace = function handyProductOrderPlace() {
@@ -49818,7 +49818,7 @@ var handyProductOrderReceive = function handyProductOrderReceive() {
 };
 
 var handyProductInventoryTempTanaUpdate = function handyProductInventoryTempTanaUpdate() {
-  return __webpack_require__.e/* import() */(6).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-inventory-tmp-tana-update.vue"));
+  return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-inventory-tmp-tana-update.vue"));
 };
 
 var handyProductInventoryInquiry = function handyProductInventoryInquiry() {
@@ -49842,11 +49842,11 @@ var superAdminCustomerSuperManage = function superAdminCustomerSuperManage() {
 };
 
 var handyProductInventoryReturn = function handyProductInventoryReturn() {
-  return __webpack_require__.e/* import() */(7).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-inventory-return.vue"));
+  return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, "./resources/js/components/handy-product-inventory-return.vue"));
 };
 
 var handyOrderShipmentList = function handyOrderShipmentList() {
-  return __webpack_require__.e/* import() */(13).then(__webpack_require__.bind(null, "./resources/js/components/handy-order-shipment-list.vue"));
+  return __webpack_require__.e/* import() */(9).then(__webpack_require__.bind(null, "./resources/js/components/handy-order-shipment-list.vue"));
 };
 
 var handyVendorMaster = function handyVendorMaster() {
@@ -49854,11 +49854,11 @@ var handyVendorMaster = function handyVendorMaster() {
 };
 
 var handyCustomerMaster = function handyCustomerMaster() {
-  return __webpack_require__.e/* import() */(8).then(__webpack_require__.bind(null, "./resources/js/components/handy-customer-master.vue"));
+  return __webpack_require__.e/* import() */(10).then(__webpack_require__.bind(null, "./resources/js/components/handy-customer-master.vue"));
 };
 
 var barCodeScan = function barCodeScan() {
-  return __webpack_require__.e/* import() */(9).then(__webpack_require__.bind(null, "./resources/js/components/barcode-scan.vue"));
+  return __webpack_require__.e/* import() */(11).then(__webpack_require__.bind(null, "./resources/js/components/barcode-scan.vue"));
 };
 /**
  * Next, we will create a fresh Vue application instance and attach it to
