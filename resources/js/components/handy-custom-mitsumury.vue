@@ -114,6 +114,7 @@
             <div class="modal-dialog modal-lg mt-0">
                 <div class="modal-content">
                     <div class="modal-header" style="padding: 5px;justify-content: right">
+                        <a class="btn btn-danger float-right mr-1" @click="deleteMistunury(preview_product)"> 保存</a>
                         <a class="btn btn-success float-right mr-1" @click="naviShow()"> 保存</a>
 <!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
                         <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
@@ -126,7 +127,7 @@
                         </div>
                         <div>
                             <img
-                                :src="'public/storage/'+preview_product.image"
+                                :src="''+preview_product.image"
                                 class="img-thumbnail custom-img-preview" alt="Cinque Terre"
                                 style="cursor: pointer">
                         </div>
@@ -1113,6 +1114,17 @@ export default {
                     _this.preview = null
                     _this.mistumury_product.title = ''
                     $('#my-file').val('')
+                })
+        },
+
+        deleteMistunury: function (product) {
+            let _this = this;
+
+            axios.post(_this.base_url + '/custom-mistumury-products-delete', {jan : product.jan})
+                .then(function (response) {
+                    _this.getProducts();
+                    _this.handi_navi = '000000';
+                    $('#mistumury-mage-preview').modal('hide')
                 })
         },
 

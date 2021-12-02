@@ -109,6 +109,16 @@ class CustomMisthsumuryProductController extends Controller
         return response()->json(['status' => 200]);
     }
 
+    public function delete(Request $request)
+    {
+        $jan = $request->jan;
+        CustomMisthsumuryProduct::where('jan' , $jan)->delete();
+        jan::where('jan' , $jan);
+        vendor_item::where('jan' , $jan)->delete();
+        customer_item::where('jan' , $jan)->delete();
+        return response()->json(['status' => 200]);
+    }
+
     /**
      * Display the specified resource.
      *
