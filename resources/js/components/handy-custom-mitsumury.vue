@@ -228,8 +228,8 @@
                             <div class="form-group text-center">
                                 <input type="file" :accept="open_camera ? 'image/*;capture=camera' : 'image/*'"  @change="previewImage" class="form-control-file hide"
                                        id="my-file" alt="00">
-                                <button class="btn btn-info" id="click-file" @click="clickAddFile(0)">ファイルを選択</button>
-                                <button class="btn btn-primary" id="open-camera" @click="clickAddFile(1)">ファイルを選択</button>
+                                <button class="btn btn-info" id="click-file" @click="clickAddFile(0)">画像を選ぶ</button>
+                                <button class="btn btn-primary" id="open-camera" @click="clickAddFile(1)">写真を撮る</button>
                             </div>
                             <img v-if="preview"
                                  :src="preview"
@@ -1138,7 +1138,9 @@ export default {
 
         clickAddFile(type) {
             this.open_camera = type;
-            $('#my-file').click()
+            setTimeout(function () {
+                $('#my-file').click()
+            },200)
         }
     },
     watch: {}
