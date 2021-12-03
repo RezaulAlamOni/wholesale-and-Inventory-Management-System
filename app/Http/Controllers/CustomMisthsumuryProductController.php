@@ -111,11 +111,14 @@ class CustomMisthsumuryProductController extends Controller
 
     public function delete(Request $request)
     {
-        $jan = $request->jan;
-        CustomMisthsumuryProduct::where('jan' , $jan)->delete();
-        jan::where('jan' , $jan);
-        vendor_item::where('jan' , $jan)->delete();
-        customer_item::where('jan' , $jan)->delete();
+        $jans = $request->jan;
+        foreach ($jans as $jan) {
+            CustomMisthsumuryProduct::where('jan' , $jan)->delete();
+            jan::where('jan' , $jan);
+            vendor_item::where('jan' , $jan)->delete();
+            customer_item::where('jan' , $jan)->delete();
+        }
+
         return response()->json(['status' => 200]);
     }
 

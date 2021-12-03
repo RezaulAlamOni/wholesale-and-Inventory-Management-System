@@ -31,8 +31,11 @@
                         </button>
                         <button v-if="productJans.length > 0" @click="selectSuper(' ')"
                                 class="btn btn-success pull-right mr-1 "
-                                style=" position: absolute; top: 5px; right: 115px;padding: 6px 5px;"> メール
+                                style=" position: absolute; top: 5px; right: 110px;padding: 6px 5px;"> メール
                         </button>
+                        <a class="btn btn-danger float-right mr-" v-if="productJans.length > 0" @click="deleteMistunury(null)"
+                           style=" position: absolute; top: 5px; right: 170px;padding: 6px 5px;"
+                        > 保存</a>
                         <a href="mitsumury"
                            class="btn btn-info pull-right mr-1 "
                            style=" position: absolute; top: 5px; right: 0px;"> 戻る
@@ -1119,8 +1122,9 @@ export default {
 
         deleteMistunury: function (product) {
             let _this = this;
+            let jans = product ? [product.jan] : _this.productJans
 
-            axios.post(_this.base_url + '/custom-mistumury-products-delete', {jan : product.jan})
+            axios.post(_this.base_url + '/custom-mistumury-products-delete', {jan : jans})
                 .then(function (response) {
                     _this.getProducts();
                     _this.handi_navi = '000000';
