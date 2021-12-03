@@ -226,9 +226,10 @@
                         </div>
                         <div>
                             <div class="form-group text-center">
-                                <input type="file" accept="image/*;capture=camera"  @change="previewImage" class="form-control-file hide"
+                                <input type="file" :accept="open_camera ? 'image/*;capture=camera' : 'image/*'"  @change="previewImage" class="form-control-file hide"
                                        id="my-file" alt="00">
-                                <button class="btn btn-info" id="click-file" @click="clickAddFile()">ファイルを選択</button>
+                                <button class="btn btn-info" id="click-file" @click="clickAddFile(0)">ファイルを選択</button>
+                                <button class="btn btn-primary" id="open-camera" @click="clickAddFile(1)">ファイルを選択</button>
                             </div>
                             <img v-if="preview"
                                  :src="preview"
@@ -430,7 +431,8 @@ export default {
                 sell: 120,
                 profit_margin: 20
             },
-            preview: null
+            preview: null,
+            open_camera : 0
 
         }
     },
@@ -1043,6 +1045,7 @@ export default {
         addProductModal() {
             $('#mistumury-prodct-add-modal').modal({backdrop: 'static'})
             $('#click-file').show()
+            $('#open-camera').show()
         },
         //sendtoSuper
         sendtoSuper() {
@@ -1085,6 +1088,7 @@ export default {
                 reader.readAsDataURL(input.files[0]);
             }
             $('#click-file').hide()
+            $('#open-camera').hide()
         },
 
         saveNewMistumuryProduct: function (event) {
@@ -1132,7 +1136,8 @@ export default {
                 })
         },
 
-        clickAddFile() {
+        clickAddFile(type) {
+            this.open_camera = type;
             $('#my-file').click()
         }
     },
