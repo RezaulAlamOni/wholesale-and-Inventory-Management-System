@@ -226,7 +226,7 @@
                         </div>
                         <div>
                             <div class="form-group text-center">
-                                <input type="file" accept="image/*"  @change="previewImage" class="form-control-file hide"
+                                <input type="file" accept="image/*;capture=camera"  @change="previewImage" class="form-control-file hide"
                                        id="my-file" alt="00">
                                 <button class="btn btn-info" id="click-file" @click="clickAddFile()">ファイルを選択</button>
                             </div>
