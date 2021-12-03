@@ -35,7 +35,7 @@
                         </button>
                         <a class="btn btn-danger float-right mr-" v-if="productJans.length > 0" @click="deleteMistunury(null)"
                            style=" position: absolute; top: 5px; right: 170px;padding: 6px 5px;"
-                        > 保存</a>
+                        > 削除</a>
                         <a href="mitsumury"
                            class="btn btn-info pull-right mr-1 "
                            style=" position: absolute; top: 5px; right: 0px;"> 戻る
@@ -117,7 +117,7 @@
             <div class="modal-dialog modal-lg mt-0">
                 <div class="modal-content">
                     <div class="modal-header" style="padding: 5px;justify-content: right">
-                        <a class="btn btn-danger float-right mr-1" @click="deleteMistunury(preview_product)"> 保存</a>
+                        <a class="btn btn-danger float-right mr-1" @click="deleteMistunury(preview_product)">削除</a>
                         <a class="btn btn-success float-right mr-1" @click="naviShow()"> 保存</a>
 <!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
                         <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
@@ -1126,9 +1126,34 @@ export default {
 
         deleteMistunury: function (product) {
             let _this = this;
-            let jans = product ? [product.jan] : _this.productJans
+            this.handi_navi = '<span style="font-size: 20px"> 削除しますか？ </span> ' +
+                '<a href="javascript:void(0)" class="btn btn-danger btn-sm" id="delete-product" >はい　</a>' +
+                '<a href="#" class="btn btn-info btn-sm" onclick="$(\'#handy-navi\').hide()">いいえ</a>';
+            $('#handy-navi').show();
+
+            setTimeout(function () {
+                $('#delete-product').on('click',function () {
+                    _this.deleteProduct();
+                })
+            },1000)
+
+            _this.productJans = product ? [product] : _this.productJans
+            return 1;
 
             axios.post(_this.base_url + '/custom-mistumury-products-delete', {jan : jans})
+                .then(function (response) {
+                    _this.getProducts();
+                    _this.handi_navi = '000000';
+                    $('#mistumury-mage-preview').modal('hide')
+                })
+        },
+
+        deleteProduct : function () {
+            let _this = this;
+            let data = _this.productJans.map(function (pr) {
+                return pr.jan
+            })
+            axios.post(_this.base_url + '/custom-mistumury-products-delete', {jan : data})
                 .then(function (response) {
                     _this.getProducts();
                     _this.handi_navi = '000000';
