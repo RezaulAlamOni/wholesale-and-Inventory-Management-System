@@ -30,10 +30,11 @@
                                 style=" position: absolute; top: 5px; right: 65px;padding: 6px 5px;"> 追加
                         </button>
                         <button v-if="productJans.length > 0" @click="selectSuper(' ')"
-                                class="btn btn-success pull-right mr-1 "
-                                style=" position: absolute; top: 5px; right: 110px;padding: 6px 5px;"> メール
+                                class="btn btn-success pull-right mr-1 " id="show-super-list"
+                                style="position: absolute; top: 5px; right: 110px;padding: 6px 5px;"> メール
                         </button>
-                        <a class="btn btn-danger float-right mr-" v-if="productJans.length > 0" @click="deleteMistunury(null)"
+                        <a class="btn btn-danger float-right mr-" v-if="productJans.length > 0"
+                           @click="deleteMistunury(null)"
                            style=" position: absolute; top: 5px; right: 170px;padding: 6px 5px;"
                         > 削除</a>
                         <a href="mitsumury"
@@ -103,7 +104,7 @@
                                  class="img-thumbnail custom-img"
                                  alt="Cinque Terre" @click="viewInfoForImage(product,product.img)"
                                  style="cursor: pointer">
-                            <input class="form-check-input form-check-input_" type="checkbox" v-model="productJans"
+                            <input class="form-check-input form-check-input_" type="checkbox" :id="'check_by_'+product.jan" v-model="productJans"
                                    :value="product">
                         </div>
 
@@ -119,7 +120,7 @@
                     <div class="modal-header" style="padding: 5px;justify-content: right">
                         <a class="btn btn-danger float-right mr-1" @click="deleteMistunury(preview_product)">削除</a>
                         <a class="btn btn-success float-right mr-1" @click="naviShow()"> 保存</a>
-<!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
+                        <!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
                         <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
 
                     </div>
@@ -160,16 +161,16 @@
                                                class="form-control  " v-model="preview_product.cost"
                                                @keyup="calculatePrice('cost')"
                                                style="border-radius: 0px; text-align: center; padding: 7px 0px;">
-<!--                                        @blur="blurAndSave()"-->
-<!--                                        @keypress="pressEnterAndSave($event,'sell')"-->
+                                        <!--                                        @blur="blurAndSave()"-->
+                                        <!--                                        @keypress="pressEnterAndSave($event,'sell')"-->
                                     </td>
                                     <td data-v-c9953dda="">
                                         <input data-v-c9953dda="" type="tel" id="sell" @click="selectItem($event)"
                                                class="form-control  " v-model="preview_product.sell"
                                                @keyup="calculatePrice('sell')"
                                                style="border-radius: 0px; text-align: center; padding: 7px 0px;">
-<!--                                        @keypress="pressEnterAndSave($event,'profit_margin')"-->
-<!--                                        @blur="blurAndSave()"-->
+                                        <!--                                        @keypress="pressEnterAndSave($event,'profit_margin')"-->
+                                        <!--                                        @blur="blurAndSave()"-->
                                     </td>
                                     <td data-v-c9953dda="">
                                         <input data-v-c9953dda="" type="tel" id="profit" @click="selectItem($event)"
@@ -186,8 +187,8 @@
                                                class="form-control  " v-model="preview_product.gross_profit_margin"
                                                @keyup="calculatePrice('profit_margin')"
                                                style="border-radius: 0px; text-align: center; padding: 7px 0px;">
-<!--                                        @blur="blurAndSave()"-->
-<!--                                        @keypress="pressEnterAndSave($event,'cost')"-->
+                                        <!--                                        @blur="blurAndSave()"-->
+                                        <!--                                        @keypress="pressEnterAndSave($event,'cost')"-->
 
                                     </td>
                                 </tr>
@@ -214,19 +215,26 @@
             <div class="modal-dialog modal-lg mt-0">
                 <div class="modal-content">
                     <div class="modal-header" style="padding: 5px;justify-content: right">
-                        <button class="btn btn-success float-right mr-1" id="product-add-" @click="saveNewMistumuryProduct()"> 保存</button>
-<!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
+                        <button class="btn btn-success float-right mr-1" id="product-add--"
+                                @click="saveNewMistumuryProduct($event,1)"> 保存と送信
+                        </button>
+                        <button class="btn btn-success float-right mr-1" id="product-add-"
+                                @click="saveNewMistumuryProduct($event)"> 保存
+                        </button>
+                        <!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
                         <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-prodct-add-modal')">戻る</a>
 
                     </div>
                     <div class="modal-body p-0" style="text-align: center">
                         <div
                             style="font-size: 18px;text-align: left;padding: 5px 10px;background: #c3ff8f80;font-weight: bold;">
-                            <input type="text" v-model="mistumury_product.title" class="form-control" placeholder="商品名を入力してください">
+                            <input type="text" v-model="mistumury_product.title" class="form-control"
+                                   placeholder="商品名を入力してください">
                         </div>
                         <div>
                             <div class="form-group text-center">
-                                <input type="file" :accept="open_camera ? 'image/*;capture=camera' : 'image/*'"  @change="previewImage" class="form-control-file hide"
+                                <input type="file" :accept="open_camera ? 'image/*;capture=camera' : 'image/*'"
+                                       @change="previewImage" class="form-control-file hide"
                                        id="my-file" alt="00">
                                 <button class="btn btn-info" id="click-file" @click="clickAddFile(0)">画像を選ぶ</button>
                                 <button class="btn btn-primary" id="open-camera" @click="clickAddFile(1)">写真を撮る</button>
@@ -426,13 +434,13 @@ export default {
             selectedSuper: [],
             message: null,
             mistumury_product: {
-                title : '',
+                title: '',
                 cost: 100,
                 sell: 120,
                 profit_margin: 20
             },
             preview: null,
-            open_camera : 0
+            open_camera: 0
 
         }
     },
@@ -744,9 +752,9 @@ export default {
             }
             let data = {
                 id: _this.preview_product.id,
-                cost : parseFloat(_this.preview_product.cost),
+                cost: parseFloat(_this.preview_product.cost),
                 gross_profit_margin: parseFloat(_this.preview_product.gross_profit_margin),
-                sell : parseFloat(_this.preview_product.sell)
+                sell: parseFloat(_this.preview_product.sell)
             }
 
             axios.post(_this.base_url + '/update_custom_estimate_items', data)
@@ -861,7 +869,7 @@ export default {
             _this.preview_product.sell = product.selling_price;
             // _this.preview_product.profit = product.selling_price - product.cost_price;
             _this.preview_product.profit = (((_this.preview_product.sell - _this.preview_product.cost) / _this.preview_product.sell) * 100).toFixed(2);
-            _this.preview_product.gross_profit_margin =  _this.preview_product.gross_profit_margin ?  _this.preview_product.gross_profit_margin : (((_this.preview_product.sell - _this.preview_product.cost) / _this.preview_product.cost) * 100).toFixed(2);
+            _this.preview_product.gross_profit_margin = _this.preview_product.gross_profit_margin ? _this.preview_product.gross_profit_margin : (((_this.preview_product.sell - _this.preview_product.cost) / _this.preview_product.cost) * 100).toFixed(2);
 
             $('#mistumury-mage-preview').modal({backdrop: 'static'})
             // $('#special-price').focus();
@@ -1091,12 +1099,17 @@ export default {
             $('#open-camera').hide()
         },
 
-        saveNewMistumuryProduct: function (event) {
-            $('#product-add-').prop('disabled', true);
+        saveNewMistumuryProduct: function (event, i = null) {
+            if (i == 1) {
+                $('#product-add--').prop('disabled', true);
+            } else {
+                $('#product-add-').prop('disabled', true);
+            }
             let _this = this;
             if (this.mistumury_product.title.length <= 0 || this.mistumury_product.cost <= 0 || this.mistumury_product.sell <= 0) {
                 this.handi_navi = '商品名を入力してください';
                 $('#product-add-').prop('disabled', false);
+                $('#product-add--   ').prop('disabled', false);
                 $('#handy-navi').show();
                 return false;
             }
@@ -1110,17 +1123,29 @@ export default {
             fd.append('title', _this.mistumury_product.title)
             fd.append('profit_margin', _this.mistumury_product.profit_margin)
 
-            axios.post(_this.base_url + '/custom-mistumury-products',fd)
+            axios.post(_this.base_url + '/custom-mistumury-products', fd)
                 .then(function (response) {
                     _this.getProducts();
                     _this.handi_navi = '仕入・販売先マスターへ登録されました';
                     $('#handy-navi').show();
                     $('#mistumury-prodct-add-modal').modal('hide');
                     $('#product-add-').prop('disabled', false);
+                    $('#product-add--').prop('disabled', false);
                     _this.mistumury_product.image = null
                     _this.preview = null
                     _this.mistumury_product.title = ''
                     $('#my-file').val('')
+                    setTimeout(function () {
+                        if (i == 1) {
+                            $('#check_by_'+response.data.jan).click()
+                            setTimeout(function () {
+                                if (_this.productJans.length > 0) {
+                                    $('#show-super-list').click()
+                                }
+                            },500)
+
+                        }
+                    },1000)
                 })
         },
 
@@ -1132,15 +1157,15 @@ export default {
             $('#handy-navi').show();
 
             setTimeout(function () {
-                $('#delete-product').on('click',function () {
+                $('#delete-product').on('click', function () {
                     _this.deleteProduct();
                 })
-            },1000)
+            }, 1000)
 
             _this.productJans = product ? [product] : _this.productJans
             return 1;
 
-            axios.post(_this.base_url + '/custom-mistumury-products-delete', {jan : jans})
+            axios.post(_this.base_url + '/custom-mistumury-products-delete', {jan: jans})
                 .then(function (response) {
                     _this.getProducts();
                     _this.handi_navi = '000000';
@@ -1148,12 +1173,12 @@ export default {
                 })
         },
 
-        deleteProduct : function () {
+        deleteProduct: function () {
             let _this = this;
             let data = _this.productJans.map(function (pr) {
                 return pr.jan
             })
-            axios.post(_this.base_url + '/custom-mistumury-products-delete', {jan : data})
+            axios.post(_this.base_url + '/custom-mistumury-products-delete', {jan: data})
                 .then(function (response) {
                     _this.getProducts();
                     _this.handi_navi = '000000';
@@ -1165,7 +1190,7 @@ export default {
             this.open_camera = type;
             setTimeout(function () {
                 $('#my-file').click()
-            },200)
+            }, 200)
         }
     },
     watch: {}

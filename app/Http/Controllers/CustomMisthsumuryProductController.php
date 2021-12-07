@@ -106,7 +106,7 @@ class CustomMisthsumuryProductController extends Controller
 //                'gross_profit' => $item->selling_price - $item->cost_price
         );
         customer_item::updateOrInsert(['jan' => $jan], $customer_data_ins_array);
-        return response()->json(['status' => 200]);
+        return response()->json(['status' => 200,'jan' => $jan]);
     }
 
     public function delete(Request $request)
