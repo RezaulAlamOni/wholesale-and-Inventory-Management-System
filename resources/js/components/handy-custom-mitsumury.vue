@@ -1102,8 +1102,10 @@ export default {
         saveNewMistumuryProduct: function (event, i = null) {
             if (i == 1) {
                 $('#product-add--').prop('disabled', true);
+                $('#product-add-').prop('disabled', true);
             } else {
                 $('#product-add-').prop('disabled', true);
+                $('#product-add--').prop('disabled', true);
             }
             let _this = this;
             if (this.mistumury_product.title.length <= 0 || this.mistumury_product.cost <= 0 || this.mistumury_product.sell <= 0) {
