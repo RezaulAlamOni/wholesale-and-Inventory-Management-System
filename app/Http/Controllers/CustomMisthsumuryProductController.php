@@ -8,7 +8,10 @@ use App\jan;
 use App\vendor;
 use App\vendor_item;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+
 
 class CustomMisthsumuryProductController extends Controller
 {
@@ -55,7 +58,23 @@ class CustomMisthsumuryProductController extends Controller
         $vendor = vendor::where('user_id',auth()->id())->first();
         $jan = rand(1000000000,9999999999);
         $jan = '20'. $vendor->vendor_id . $jan;
-        $image->storeAs('/public', $name .".".$extension);
+//        $image->storeAs('/public', $name .".".$extension);
+        $fileNameToStore = $name .".".$extension;
+        $file = $request->file('image');
+
+        $resize = Image::make($file)->resize(400, null, function ($constraint) {
+            $constraint->aspectRatio();
+        })->encode('jpg');
+
+        // Create hash value
+        $hash = md5($resize->__toString());
+
+        // Prepare qualified image name
+        $image = $hash."jpg";
+
+        // Put image to storage
+        $save = Storage::put("public/{$fileNameToStore}", $resize->__toString());
+
 
         CustomMisthsumuryProduct::create([
             'name' => $request->title,
@@ -113,10 +132,16 @@ class CustomMisthsumuryProductController extends Controller
     {
         $jans = $request->jan;
         foreach ($jans as $jan) {
+            $custom_product = CustomMisthsumuryProduct::where('jan' , $jan)->first();
+            $path = base_path().'/'.$custom_product->image;
+
             CustomMisthsumuryProduct::where('jan' , $jan)->delete();
             jan::where('jan' , $jan);
             vendor_item::where('jan' , $jan)->delete();
             customer_item::where('jan' , $jan)->delete();
+            if(File::exists($path)) {
+                File::delete($path);
+            }
         }
 
         return response()->json(['status' => 200]);
