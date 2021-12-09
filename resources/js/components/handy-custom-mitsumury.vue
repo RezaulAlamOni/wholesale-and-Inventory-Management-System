@@ -504,6 +504,10 @@ export default {
             // $('#handy-navi').show();
         },
         viewInfoForImage(product, img) {
+
+            $('#check_by_'+product.jan).click();
+
+            return 0;
             product.item_name = product.name;
             // product.img = img;
             product.profit_margin = product.profit_margin;
