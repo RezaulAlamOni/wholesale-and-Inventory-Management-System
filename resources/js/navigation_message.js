@@ -423,11 +423,13 @@ function show_default_page_notifications() {
             }
             break;
         case 'manualOrder':
+            $('#for-manual-order-confirm').hide()
             var sample_nav33 = view(message_notify_default['manualOrder2'], def_old_nav_template_without_return_btn, function() {
                 console.log('page nav');
             })
             break;
         case 'manualOrder?type=shipment':
+            $('#for-manual-shipment').hide()
             var sample_nav33 = view(message_notify_default['manualOrder2'], def_old_nav_template_without_return_btn, function() {
                 console.log('page nav');
             })

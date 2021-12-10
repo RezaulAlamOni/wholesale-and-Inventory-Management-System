@@ -54,6 +54,9 @@
                 <p class="shps_byrsplrs">販売先名<span class="jcs_main_hand_title"></span>殿</p>
                 <bar-code-scan base_url="{{config('app.url')}}" page="manual"></bar-code-scan>
                 <a href="{{ route('manualOrderCreate') }}" class="btn btn-info btn-lg">手書 受注</a>
+
+                <a href="{{ route('manualOrder',['type' => 'shipment']) }}" id="for-manual-shipment" class="ml-2 btn btn-primary btn-lg float-right">出荷</a>
+                <a href="{{ route('manualOrder') }}" id="for-manual-order-confirm" class="ml-2 btn btn-primary btn-lg float-right">出荷 確定情報</a>
             </div>
         </div>
         <!-- End Page Header -->
