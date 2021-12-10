@@ -1229,6 +1229,7 @@ table thead tr th, table tbody tr td {
     position: absolute;
     top: 0;
     right: 0;
+    display: none;
 }
 
 .custom-img {
