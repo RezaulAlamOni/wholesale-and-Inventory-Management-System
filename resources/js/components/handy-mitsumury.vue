@@ -99,6 +99,7 @@
                             <img :src="'public/backend/images/products/'+product.jan+'.png'"
                                  class="img-thumbnail custom-img"
                                  alt="Cinque Terre" @click="viewInfoForImage(product,product.img)"
+                                 @dblclick="viewInfoForImage(product,product.img,1)"
                                  style="cursor: pointer">
                             <input class="form-check-input form-check-input_" type="checkbox" :id="product.jan" v-model="productJans"
                                    :value="product">
@@ -573,9 +574,11 @@ export default {
             // this.handi_navi = '---------';
             // $('#handy-navi').show();
         },
-        viewInfoForImage(product, img) {
-            $('#'+product.jan).click();
-            return 0;
+        viewInfoForImage(product, img, i = 0) {
+            if (i === 0) {
+                $('#'+product.jan).click();
+                return 0;
+            }
             product.item_name = product.janinfo.name;
             // product.img = img;
             product.profit_margin = product.gross_profit_margin;
