@@ -80,7 +80,7 @@ $(document).ready(function () {
         if (url_last_element == 'shipment') {
             setInterval(check_is_reload_required, 200000);
         }
-    } else if (url_last_element == 'manualOrder' || url_last_element == 'manualorder') {
+    } else if (url_last_element == 'manualOrder' || url_last_element == 'manualorder' || url_last_element == 'manualOrder?type=shipment') {
         get_manual_order_item(0, 0);
     } else if (url_last_element == 'onlineorder') {
         get_manual_order_item(0, 0);
@@ -2218,7 +2218,7 @@ $(document).ready(function () {
             $('#customer_show_modal').modal('hide');
             get_management_shipment_data_list(customer_id, shipment_start_date, shipment_end_date, mesg_status = 0);
             return false;
-        } else if (url_last_element == 'manualOrder' || url_last_element == 'manualorder') {
+        } else if (url_last_element == 'manualOrder' || url_last_element == 'manualorder' || url_last_element == 'manualOrder?type=shipment') {
             $('.c_ids_v').val(c_id);
             $('.jcs_main_hand_title').text(c_name);
             get_manual_order_item(c_id, c_name);
@@ -3873,7 +3873,7 @@ var isUpdateValue = '';
             return false;
         }
 
-        if (page == 'manualOrder' || page == 'onlineorder') {
+        if (page == 'manualOrder' || page == 'onlineorder' || page  == 'manualOrder?type=shipment') {
             var c_name = $('.jcs_main_hand_title').text();
             var c_id = $('.c_ids_v').val();
             if (c_id != 0) {
@@ -5051,8 +5051,11 @@ function get_manual_order_item(c_id = 0, c_name = '') {
             if (response.success != 0) {
                 shop_count = response.shop_list.length;
                 for (var k = 0; k < shop_count; k++) {
-                    // shop_name += '<th colspan="3" style="width:auto;text-align: center; border-right: 3px solid #ddd;">' + response.shop_list[k].shop_name + '</th><th rowspan="2" style="min-width: 130px; width: 130px;">出荷</th>';
-                    shop_name += '<th colspan="3" style="width:auto;text-align: center; border-right: 3px solid #ddd;">' + response.shop_list[k].shop_name + '</th>';
+                    if (page_url == 'manualOrder?type=shipment') {
+                        shop_name += '<th colspan="3" style="width:auto;text-align: center; border-right: 3px solid #ddd;">' + response.shop_list[k].shop_name + '</th><th rowspan="2" style="min-width: 130px; width: 130px;">出荷</th>';
+                    } else {
+                        shop_name += '<th colspan="3" style="width:auto;text-align: center; border-right: 3px solid #ddd;">' + response.shop_list[k].shop_name + '</th>';
+                    }
                 }
 
                 for (var j = 0; j < shop_count; j++) {
@@ -5140,7 +5143,9 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                 htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="ケース" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty case_order_qty_'+response.shop_list[n].customer_shop_id + '" value="' + case_qty + '"></td>';
                                 htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="ボール" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty ball_order_qty_'+response.shop_list[n].customer_shop_id + '" value="' + ball_qty + '"></td>';
                                 htmls += '<td style="border-right: 3px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="バラ" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty unit_order_qty_'+response.shop_list[n].customer_shop_id + '" value="' + unit_qty + '"></td>';
-                                // htmls += '<td class="quantitysendtosuper" rowspan="2" style="text-align: center; padding:0!important;" nowrap><button class="btn btn-primary manualshipmentaction" data-shop-id="' + response.shop_list[n].customer_shop_id + '" data-order-detail-id="'+online_order[0].customer_order_detail_id+'" data-order-id="'+customer_order_id+'">出荷</button></td>';
+                                if (page_url == 'manualOrder?type=shipment') {
+                                    htmls += '<td class="quantitysendtosuper" rowspan="2" style="text-align: center; padding:0!important;" nowrap><button class="btn btn-primary manualshipmentaction" data-shop-id="' + response.shop_list[n].customer_shop_id + '" data-order-detail-id="'+online_order[0].customer_order_detail_id+'" data-order-id="'+customer_order_id+'">出荷</button></td>';
+                                }
                                 // htmls += '<td class="quantitysendtosuper" rowspan="2" style="text-align: center; padding:0!important;" nowrap><button class="btn btn-primary manualshipmentaction" data-shop-id="' + response.shop_list[n].customer_shop_id + '" data-order-detail-id="'+online_order[0].customer_order_detail_id+'" data-order-id="'+customer_order_id+'">出荷</button></td>';
 
                             }
@@ -5272,7 +5277,9 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                 htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="ケース" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + case_qty + '"></td>';
                                 htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="ボール" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + ball_qty + '"></td>';
                                 htmls += '<td style="border-right: 3px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="バラ" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + unit_qty + '"></td>';
-                                htmls += '<td class="quantitysendtosuper" rowspan="2" style="text-align: center; padding:0!important;" nowrap><button class="btn btn-primary manualshipmentaction" data-shop-id="' + response.shop_list[n].customer_shop_id + '" data-order-detail-id="'+online_order[i].customer_order_detail_id+'" data-order-id="'+customer_order_id+'">出荷</button></td>';
+                                if (page_url == 'manualOrder?type=shipment') {
+                                    htmls += '<td class="quantitysendtosuper" rowspan="2" style="text-align: center; padding:0!important;" nowrap><button class="btn btn-primary manualshipmentaction" data-shop-id="' + response.shop_list[n].customer_shop_id + '" data-order-detail-id="'+online_order[i].customer_order_detail_id+'" data-order-id="'+customer_order_id+'">出荷</button></td>';
+                                }
 
                             }
                             sumation_arr[online_order[i].customer_order_detail_id] = [case_total, ball_total, unit_total];

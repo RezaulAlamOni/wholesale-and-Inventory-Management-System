@@ -841,7 +841,7 @@ $(document).ready(function () {
         if (url_last_element == 'shipment') {
             setInterval(check_is_reload_required, 200000);
         }
-    } else if (url_last_element == 'manualOrder' || url_last_element == 'manualorder') {
+    } else if (url_last_element == 'manualOrder' || url_last_element == 'manualorder' || url_last_element == 'manualOrder?type=shipment') {
         get_manual_order_item(0, 0);
     } else if (url_last_element == 'onlineorder') {
         get_manual_order_item(0, 0);
@@ -2979,7 +2979,7 @@ $(document).ready(function () {
             $('#customer_show_modal').modal('hide');
             get_management_shipment_data_list(customer_id, shipment_start_date, shipment_end_date, mesg_status = 0);
             return false;
-        } else if (url_last_element == 'manualOrder' || url_last_element == 'manualorder') {
+        } else if (url_last_element == 'manualOrder' || url_last_element == 'manualorder' || url_last_element == 'manualOrder?type=shipment') {
             $('.c_ids_v').val(c_id);
             $('.jcs_main_hand_title').text(c_name);
             get_manual_order_item(c_id, c_name);
@@ -4634,7 +4634,7 @@ var isUpdateValue = '';
             return false;
         }
 
-        if (page == 'manualOrder' || page == 'onlineorder') {
+        if (page == 'manualOrder' || page == 'onlineorder' || page  == 'manualOrder?type=shipment') {
             var c_name = $('.jcs_main_hand_title').text();
             var c_id = $('.c_ids_v').val();
             if (c_id != 0) {
@@ -5812,8 +5812,11 @@ function get_manual_order_item(c_id = 0, c_name = '') {
             if (response.success != 0) {
                 shop_count = response.shop_list.length;
                 for (var k = 0; k < shop_count; k++) {
-                    // shop_name += '<th colspan="3" style="width:auto;text-align: center; border-right: 3px solid #ddd;">' + response.shop_list[k].shop_name + '</th><th rowspan="2" style="min-width: 130px; width: 130px;">出荷</th>';
-                    shop_name += '<th colspan="3" style="width:auto;text-align: center; border-right: 3px solid #ddd;">' + response.shop_list[k].shop_name + '</th>';
+                    if (page_url == 'manualOrder?type=shipment') {
+                        shop_name += '<th colspan="3" style="width:auto;text-align: center; border-right: 3px solid #ddd;">' + response.shop_list[k].shop_name + '</th><th rowspan="2" style="min-width: 130px; width: 130px;">出荷</th>';
+                    } else {
+                        shop_name += '<th colspan="3" style="width:auto;text-align: center; border-right: 3px solid #ddd;">' + response.shop_list[k].shop_name + '</th>';
+                    }
                 }
 
                 for (var j = 0; j < shop_count; j++) {
@@ -5901,7 +5904,9 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                 htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="ケース" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty case_order_qty_'+response.shop_list[n].customer_shop_id + '" value="' + case_qty + '"></td>';
                                 htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="ボール" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty ball_order_qty_'+response.shop_list[n].customer_shop_id + '" value="' + ball_qty + '"></td>';
                                 htmls += '<td style="border-right: 3px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="バラ" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty unit_order_qty_'+response.shop_list[n].customer_shop_id + '" value="' + unit_qty + '"></td>';
-                                // htmls += '<td class="quantitysendtosuper" rowspan="2" style="text-align: center; padding:0!important;" nowrap><button class="btn btn-primary manualshipmentaction" data-shop-id="' + response.shop_list[n].customer_shop_id + '" data-order-detail-id="'+online_order[0].customer_order_detail_id+'" data-order-id="'+customer_order_id+'">出荷</button></td>';
+                                if (page_url == 'manualOrder?type=shipment') {
+                                    htmls += '<td class="quantitysendtosuper" rowspan="2" style="text-align: center; padding:0!important;" nowrap><button class="btn btn-primary manualshipmentaction" data-shop-id="' + response.shop_list[n].customer_shop_id + '" data-order-detail-id="'+online_order[0].customer_order_detail_id+'" data-order-id="'+customer_order_id+'">出荷</button></td>';
+                                }
                                 // htmls += '<td class="quantitysendtosuper" rowspan="2" style="text-align: center; padding:0!important;" nowrap><button class="btn btn-primary manualshipmentaction" data-shop-id="' + response.shop_list[n].customer_shop_id + '" data-order-detail-id="'+online_order[0].customer_order_detail_id+'" data-order-id="'+customer_order_id+'">出荷</button></td>';
 
                             }
@@ -6033,7 +6038,9 @@ function get_manual_order_item(c_id = 0, c_name = '') {
                                 htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="ケース" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + case_qty + '"></td>';
                                 htmls += '<td style="border-right: 1px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="ボール" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + ball_qty + '"></td>';
                                 htmls += '<td style="border-right: 3px solid #ddd;" data_stock_total="" class="smOfordrqty"><input data_input_type="バラ" data_shop_id="' + response.shop_list[n].customer_shop_id + '" type="tel" class="form-control cmn_o_d_qty sum_of_o_d_qty" value="' + unit_qty + '"></td>';
-                                htmls += '<td class="quantitysendtosuper" rowspan="2" style="text-align: center; padding:0!important;" nowrap><button class="btn btn-primary manualshipmentaction" data-shop-id="' + response.shop_list[n].customer_shop_id + '" data-order-detail-id="'+online_order[i].customer_order_detail_id+'" data-order-id="'+customer_order_id+'">出荷</button></td>';
+                                if (page_url == 'manualOrder?type=shipment') {
+                                    htmls += '<td class="quantitysendtosuper" rowspan="2" style="text-align: center; padding:0!important;" nowrap><button class="btn btn-primary manualshipmentaction" data-shop-id="' + response.shop_list[n].customer_shop_id + '" data-order-detail-id="'+online_order[i].customer_order_detail_id+'" data-order-id="'+customer_order_id+'">出荷</button></td>';
+                                }
 
                             }
                             sumation_arr[online_order[i].customer_order_detail_id] = [case_total, ball_total, unit_total];
@@ -8082,7 +8089,7 @@ const temporary_message = {
     },
 }
 $(document).ready(function () {
-   
+
     /*haccu list*/
     var vndorList = [];
     var clr = [];
@@ -8091,7 +8098,7 @@ $(document).ready(function () {
         var vendor_id = $(this).attr('data_vendor_id');
 
         if (jQuery.inArray(vendor_id, vndorList) != -1) {
-          
+
             $(this).css('background-color', clr[l - 1]);
         } else {
             vndorList.push($(this).attr('data_vendor_id'));
@@ -8183,19 +8190,19 @@ $(document).ready(function () {
         // console.log(hide_enter_outside);
         // console.log('divs');
        if (!hide_enter_outside.is(e.target) && hide_enter_outside.has(e.target).length === 0 && is_id_1 == 'jn_0') {
-           
+
             close_all_navi_msg();
             show_hide_nav_icn(1);
             // console.log('divs out click');
         }
     if(page_url=='brand-order' || page_url=='brand-order#' || page_url=='customer-order' || page_url=='customer-order#'){
-        
-          
+
+
         if (!hide_enter_outside_brand.is(e.target) && hide_enter_outside_brand.has(e.target).length === 0 && (is_id_1!='undefined' && is_id_1!=null)) {
-           
+
             var hsClas = $('#'+is_id_1).closest('jn_popup');
             if(hsClas.hasClass('jn_brand')){
-               
+
             }else{
                 // close_all_navi_msg();
                 // show_hide_nav_icn(1);
@@ -8293,7 +8300,7 @@ $(document).ready(function () {
             get_brand_item_list(c_id, c_name);
         }else if(page_slug_check==2){
 
-            
+
             get_customer_list();
             $('#customer_message_success').html('');
             $("#add_customer_message").html('');
@@ -8341,7 +8348,7 @@ $(document).ready(function () {
         } else if(page_url=='customer-order-confirm' || page_url=='customer-order-confirm#'){
             get_customerOrderConfirmListByShop(cId_val,cus_name);
         }
-        
+
     });
     $('.backToBrandOrder').click(function(e){
         e.preventDefault();
@@ -8475,7 +8482,7 @@ $(document).ready(function () {
     $(document).delegate('.manual_order_exe', 'click', function (e) {
         e.preventDefault();
         var page = url_search();
-        if (page == 'manualOrder') {
+        if (page == 'manualOrder' || page == 'manualOrder?type=shipment') {
             var c_name = $('.jcs_main_hand_title').text();
             var c_id = $('.c_ids_v').val();
             if (c_id != 0) {
@@ -9042,8 +9049,8 @@ $(document).ready(function () {
                 proftAmount = parseInt(proftAmount);
                 gross_profit_margin = ((proftAmount * cost_price) / 100);
                 gross_profit = (gross_profit_margin/selling_price)*100;
-               
-                
+
+
                 gross_profit_margin = gross_profit_margin.toFixed(2);
                 selling_price = selling_price.toFixed(2);
                 gross_profit = gross_profit.toFixed(2);
@@ -9512,7 +9519,7 @@ $(document).ready(function () {
 
 
                 }
-              
+
             }
         });
         // nav_width = '340px';
@@ -9621,7 +9628,7 @@ $(document).ready(function () {
                     }
 
                 }
-               
+
             }
         });
         // nav_width = '340px';
@@ -9768,7 +9775,7 @@ $(document).ready(function () {
             } else {
                 var price = sale_saleing_price;
             }
-          
+
             var row = $('tr[customer_item_id="' + item_id + '"]');
             row.find('td:nth-child(9)').html('');
             row.find('td:nth-child(9)').text(price);
@@ -9865,7 +9872,7 @@ $(document).ready(function () {
                     ball_qty: td_ball,
                     item_name: row_p_name
                 };
-            
+
                 $.ajax({
                     headers: {
                         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
@@ -10088,7 +10095,7 @@ $(document).ready(function () {
             ball_qty: td_ball,
             item_name: row_p_name
         };
-       
+
         $.ajax({
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
@@ -10635,9 +10642,9 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.jn_info) {
                     var cust_opt = '<option value="">商品を選択してください</option>';
-                    
+
                     for (var i = 0; i < response.jn_info.length; i++) {
-                       
+
                         cust_opt += '<option value="' + response.jn_info[i].jan + '">(' + response.jn_info[i].jan + ')' + response.jn_info[i].name + '</option>';
                     }
 
@@ -10791,7 +10798,7 @@ $(document).ready(function () {
                 $('.voucher_m_number').val('');
                 $('.delivery_date').val('');
                 success_message('m_order_message', 'alert-success', '手書き受注が正常に行われました');
-              
+
             }
         });
 
@@ -10953,7 +10960,7 @@ $(document).ready(function () {
                         error_message('flash_message', 'alert-warning', 'この商品は既に登録済みです。');
 
                     } else {
-                    
+
                         if (response.vendor_id != 0) {
                             $('.v_nmes_selects').val(response.vendor_id);
                             $('.selectpicker').selectpicker('refresh');
@@ -11329,7 +11336,7 @@ $(document).ready(function () {
             contentType: false, // tell jQuery not to set contentType
             dataType: "JSON",
             success: function (response) {
-                
+
                 if (response.success != 1) {
                     const tempmsg = {
                         csv_import: {
@@ -11385,7 +11392,7 @@ $(document).ready(function () {
             contentType: false, // tell jQuery not to set contentType
             dataType: "JSON",
             success: function (response) {
-                
+
                 if (response.success != 1) {
                     const tempmsg = {
                         csv_import: {
@@ -11406,7 +11413,7 @@ $(document).ready(function () {
 
             },
             error: function (request, status, error) {
-                
+
                 location.reload();
             }
         });
@@ -11521,7 +11528,7 @@ function shipment_popup_data() {
         url: "receive_order_data",
         dataType: "JSON",
         success: function (response) {
-           
+
             var html = '';
             if (response.length > 0) {
                 for (var i = 0; i < response.length; i++) {
@@ -11553,7 +11560,7 @@ function received_popup_data() {
         data: {vendor_id: vendor_id},
         dataType: "JSON",
         success: function (response) {
-           
+
             var html = '';
             if (response.length > 0) {
                 for (var i = 0; i < response.length; i++) {
@@ -11613,7 +11620,7 @@ function gross_profit_calculations() {
             }
 
         }
-       
+
         cost_pt = parseInt(cost_pt);
         sale_pt = parseInt(sale_pt);
 
@@ -11702,7 +11709,7 @@ function sortTable_brand_ordertable(table_bodys, jan_code, coll_num) {
 
     rows.sort(function (a, b) {
         var A = $(a).children('td').eq(coll_num).text();
-       
+
         if (A == jan_code) {
             is_exist = 1;
             return -1;
@@ -11713,7 +11720,7 @@ function sortTable_brand_ordertable(table_bodys, jan_code, coll_num) {
         $('.' + table_bodys).append(row);
     });
 
-   
+
 
 
     close_all_navi_msg();
@@ -11745,7 +11752,7 @@ function jan_list_search_by_name(name) {
             type: '1'
         },
         success: function (response) {
-           
+
             var msgHtml = '';
             var btn = '';
             var mathod = "getProductFromJanMasterByName('" + name + "')";
@@ -11795,7 +11802,7 @@ function jan_list_search_by_name_from_master(name) {
         },
         success: function (response) {
             close_all_navi_msg();
-        
+
             var msgHtml = '';
             var btn = '';
             if (response.api_data.return==1 && response.api_data.data.product_list.length>0) {
@@ -11853,7 +11860,7 @@ function selectFromNameList(value,name='') {
             $('.recive_order_page_jn').trigger('blur')
         }, 200)
     }else if(page_url=='brand-order' || page_url=='brand-order#'){
-        
+
         sortTable_brand_ordertable('brand_order_tble', name, 0);
     }else{
 
@@ -11919,7 +11926,7 @@ function management_sheet_date_confirmations(action_type) {
     var dateFroms = new Date(from_year, from_month, from_day); //Year, Month, Date
 
     var dateTos = new Date(to_year, to_month, to_day); //Year, Month, Date
-    
+
     var csrf_token = $('meta[name="csrf-token"]').attr('content');
     const temporary_message_custms = {
         vendor_managementsheetnavi_3: {
@@ -11978,7 +11985,7 @@ function manual_order_exe2() {
         }
 
     });
-    
+
 
     var customer_id = $('.c_ids_v').val();
     var manual_order_status = $('.customer_manual_order_status').val();
@@ -12515,6 +12522,11 @@ function show_default_page_notifications() {
             }
             break;
         case 'manualOrder':
+            var sample_nav33 = view(message_notify_default['manualOrder2'], def_old_nav_template_without_return_btn, function() {
+                console.log('page nav');
+            })
+            break;
+        case 'manualOrder?type=shipment':
             var sample_nav33 = view(message_notify_default['manualOrder2'], def_old_nav_template_without_return_btn, function() {
                 console.log('page nav');
             })
