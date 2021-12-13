@@ -248,9 +248,9 @@
                                 <tbody data-v-c9953dda="" class="physicaltbody">
 
                                 <tr :class="(selectedSuper.indexOf(vendor.id) > -1) ? 'active-c' : ''"
-                                    v-for="vendor in vendors" style="border-bottom: 1px solid gray">
+                                    v-for="vendor in vendors" style="border-bottom: 1px solid gray" @click="clickAndCheck(vendor.id)">
                                     <td style="width: 50px;padding: 10px;border: none !important;">
-                                        <input class="form-check-input m-0" type="checkbox" v-model="selectedSuper"
+                                        <input class="form-check-input m-0 hide" :id="vendor.id" type="checkbox" v-model="selectedSuper"
                                                :value="vendor.id">
                                     </td>
                                     <td style="padding: 10px;;border: none !important;">{{ vendor.text }}</td>
@@ -1164,6 +1164,10 @@ export default {
                 $('#my-file').click()
             },200)
 
+        },
+        // for checkbox clcik
+        clickAndCheck(id) {
+            $('#'+id).click();
         }
 
     },
