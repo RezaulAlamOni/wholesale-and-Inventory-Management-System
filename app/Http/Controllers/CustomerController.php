@@ -22,10 +22,10 @@ class CustomerController extends Controller
         $customer_id=$request->customer_id;
         $result='';
         if($customer_id!=null){
-            $specific_customer_info=customer::where('customer_id',$customer_id)->first();
+            $specific_customer_info=customer::where('customer_id',$customer_id)->with('shops')->first();
             $result = response()->json(['specific_customer_info' => $specific_customer_info]);
         }else{
-            $all_customer_list=customer::where('is_deleted', 0)->get();
+            $all_customer_list=customer::where('is_deleted', 0)->with('shops')->get();
             $result = response()->json(['all_customer_list' => $all_customer_list]);
         }
         return $result;

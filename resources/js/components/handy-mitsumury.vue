@@ -34,12 +34,12 @@
                                 style=" position: absolute; top: 5px; right: 139px;"> メール
                         </button>
                         <a href="custom-mitsumury"
-                                class="btn btn-info pull-right mr-1 "
-                                style=" position: absolute; top: 5px; right: 0px;padding: 6px"> 見積追加ページ
+                           class="btn btn-info pull-right mr-1 "
+                           style=" position: absolute; top: 5px; right: 0px;padding: 6px"> 見積追加ページ
                         </a>
                     </div>
                     <div id="stock_detail_by_jan_form" class="p_scn_form text-right mt-0">
-                        <div class="input-group m-0 my-1"   >
+                        <div class="input-group m-0 my-1">
                             <span class="text-warning" style="width: 100%; text-align: center;">
                                 枠の中にクリックしてから <br> JANコードスキャンしてください
                             </span>
@@ -101,7 +101,8 @@
                                  alt="Cinque Terre" @click="viewInfoForImage(product,product.img)"
                                  @dblclick="viewInfoForImage(product,product.img,1)"
                                  style="cursor: pointer">
-                            <input class="form-check-input form-check-input_" type="checkbox" :id="product.jan" v-model="productJans"
+                            <input class="form-check-input form-check-input_" type="checkbox" :id="product.jan"
+                                   v-model="productJans"
                                    :value="product">
                         </div>
 
@@ -116,7 +117,7 @@
                 <div class="modal-content">
                     <div class="modal-header" style="padding: 5px;justify-content: right">
                         <a class="btn btn-success float-right mr-1" @click="naviShow()"> 保存</a>
-<!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
+                        <!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
                         <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
 
                     </div>
@@ -180,9 +181,10 @@
                                     </td>
                                     <td data-v-c9953dda="">
                                         <input data-v-c9953dda="" type="tel" id="profit" @click="selectItem($event)"
-                                               class="form-control  " :value="preview_product.sell - preview_product.cost" readonly
+                                               class="form-control  "
+                                               :value="preview_product.sell - preview_product.cost" readonly
                                                style="border-radius: 0px; text-align: center; padding: 7px 0px;">
-<!--                                        v-model="preview_product.profit"-->
+                                        <!--                                        v-model="preview_product.profit"-->
                                         <!--                                               @keypress="pressEnterAndSave($event,'profit_margin')"-->
                                         <!--                                               @keyup="calculatePrice('profit')"-->
                                     </td>
@@ -246,15 +248,33 @@
                                 </tr>
                                 </thead>
                                 <tbody data-v-c9953dda="" class="physicaltbody">
+                                <template v-for="vendor in vendors">
+                                    <tr :class="(selectedSuper.indexOf(vendor.customer_id) > -1) ? 'active-c' : ''"
+                                        style="border-bottom: 1px solid gray"
+                                        @click="clickAndCheck(vendor.customer_id)">
+                                        <td style="width: 50px;padding: 10px;border: none !important;">
+                                            <input class="form-check-input m-0 hide" :id="vendor.customer_id" type="checkbox"
+                                                   v-model="selectedSuper"
+                                                   :value="vendor.customer_id">
+                                        </td>
+                                        <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
+                                    </tr>
 
-                                <tr :class="(selectedSuper.indexOf(vendor.id) > -1) ? 'active-c' : ''"
-                                    v-for="vendor in vendors" style="border-bottom: 1px solid gray" @click="clickAndCheck(vendor.id)">
-                                    <td style="width: 50px;padding: 10px;border: none !important;">
-                                        <input class="form-check-input m-0 hide" :id="vendor.id" type="checkbox" v-model="selectedSuper"
-                                               :value="vendor.id">
-                                    </td>
-                                    <td style="padding: 10px;;border: none !important;">{{ vendor.text }}</td>
-                                </tr>
+                                    <tr v-if="selectedSuper.indexOf(vendor.customer_id) > -1">
+                                        <td colspan="2">
+                                            <table data-v-c9953dda="" class="table table-borderless physical_handy_tabls">
+                                                <tr style="border-bottom: 1px solid gray" v-for="shop in vendor.shops"
+                                                    :class="(checkExist(shop.customer_shop_id)) ? 'active-c' : ''"
+                                                    @click="selectSuperShop(vendor.customer_id,shop.customer_shop_id)">
+                                                    <td style="border: none !important;padding: 10px"></td>
+                                                    <td style="border: none !important;padding: 10px"></td>
+                                                    <td style="padding: 10px;;border: none !important;">{{ shop.shop_name }}</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </template>
+
                                 </tbody>
 
                             </table>
@@ -282,7 +302,9 @@
             <div class="modal-dialog modal-lg mt-0">
                 <div class="modal-content">
                     <div class="modal-header" style="padding: 5px;justify-content: right">
-                        <button class="btn btn-success float-right mr-1" id="product-add-" @click="saveNewMistumuryProduct()"> 保存</button>
+                        <button class="btn btn-success float-right mr-1" id="product-add-"
+                                @click="saveNewMistumuryProduct()"> 保存
+                        </button>
                         <!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
                         <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-prodct-add-modal')">戻る</a>
 
@@ -290,11 +312,13 @@
                     <div class="modal-body p-0" style="text-align: center">
                         <div
                             style="font-size: 18px;text-align: left;padding: 5px 10px;background: #c3ff8f80;font-weight: bold;">
-                            <input type="text" v-model="mistumury_product.title" class="form-control" name="title" placeholder="商品名を入力してください" autofocus>
+                            <input type="text" v-model="mistumury_product.title" class="form-control" name="title"
+                                   placeholder="商品名を入力してください" autofocus>
                         </div>
                         <div>
                             <div class="form-group text-center">
-                                <input type="file" :accept="open_camera ? 'image/*;capture=camera' : 'image/*'"  @change="previewImage" class="form-control-file hide"
+                                <input type="file" :accept="open_camera ? 'image/*;capture=camera' : 'image/*'"
+                                       @change="previewImage" class="form-control-file hide"
                                        id="my-file" alt="00">
                                 <button class="btn btn-info" id="click-file" @click="clickAddFile(0)">画像を選ぶ</button>
                                 <button class="btn btn-primary" id="open-camera" @click="clickAddFile(1)">写真を撮る</button>
@@ -412,7 +436,7 @@ export default {
     name: "handy-mistumury",
     data() {
         return {
-            open_camera : 0,
+            open_camera: 0,
             jan_code: '',
             order_data: [],
             select_status: 0,
@@ -432,12 +456,14 @@ export default {
             selectedSuper: [],
             message: null,
             mistumury_product: {
-                title : '',
+                title: '',
                 cost: 100,
                 sell: 120,
                 profit_margin: 20
             },
-            preview: null
+            preview: null,
+            selectedSuperShops : [],
+            check : null
 
         }
     },
@@ -576,7 +602,7 @@ export default {
         },
         viewInfoForImage(product, img, i = 0) {
             if (i === 0) {
-                $('#'+product.jan).click();
+                $('#' + product.jan).click();
                 return 0;
             }
             product.item_name = product.janinfo.name;
@@ -873,10 +899,10 @@ export default {
         },
         getVendorList() {
             let _this = this;
-            axios.get(_this.base_url + '/get_all_customer_list_for_select2')
+            axios.post(_this.base_url + '/get_customer_list')
                 .then(function (response) {
                     // console.log(response.data)
-                    _this.vendors = response.data.results;
+                    _this.vendors = response.data.all_customer_list;
                     // $('#select_tonya').modal({backdrop: 'static', keyboard: false})
                 })
                 .catch(function (e) {
@@ -1060,7 +1086,7 @@ export default {
             this.selectedSuper = [];
             if (!_this.allSelectedSuper) {
                 _this.vendors.map(function (ven) {
-                    _this.selectedSuper.push(ven.id)
+                    _this.selectedSuper.push(ven.customer_id)
                 })
             }
 
@@ -1143,7 +1169,7 @@ export default {
             fd.append('title', _this.mistumury_product.title)
             fd.append('profit_margin', _this.mistumury_product.profit_margin)
 
-            axios.post(_this.base_url + '/custom-mistumury-products',fd)
+            axios.post(_this.base_url + '/custom-mistumury-products', fd)
                 .then(function (response) {
                     _this.getProducts();
                     _this.handi_navi = '仕入・販売先マスターへ登録されました';
@@ -1154,7 +1180,7 @@ export default {
                     _this.preview = null
                     _this.mistumury_product.title = ''
                     $('#my-file').val('')
-                    window.location.href = _this.base_url +'/custom-mitsumury';
+                    window.location.href = _this.base_url + '/custom-mitsumury';
                 })
         },
 
@@ -1162,12 +1188,54 @@ export default {
             this.open_camera = type;
             setTimeout(function () {
                 $('#my-file').click()
-            },200)
+            }, 200)
 
         },
         // for checkbox clcik
         clickAndCheck(id) {
-            $('#'+id).click();
+            $('#' + id).click();
+            let _this = this;
+            _this.check = null;
+            this.selectedSuperShops.map(function (p,key) {
+                if (p.c_id == id ){
+                    _this.check = key;
+                }
+                console.log(p.c_id ,id,key,p)
+            })
+
+            if (_this.check == null) {
+                this.selectedSuperShops.push({c_id : id, s_ids : []})
+            } else {
+                this.selectedSuperShops.splice(_this.check,1)
+            }
+        },
+
+        selectSuperShop(customer_id,shop_id) {
+            let _this = this;
+            this.selectedSuperShops.map(function (p,key) {
+                if (p.c_id == customer_id ){
+                    if (p.s_ids.indexOf(shop_id) > -1) {
+                        p.s_ids.splice(p.s_ids.indexOf(shop_id),1)
+                    } else  {
+                        p.s_ids.push(shop_id)
+                    }
+                }
+                console.log(key,p)
+            })
+
+
+
+
+        },
+
+        checkExist(id) {
+            var check = 0;
+            this.selectedSuperShops.map(function (p,key) {
+                if (p.s_ids.indexOf(id) > -1) {
+                    check = 1;
+                }
+            })
+            return check;
         }
 
     },
@@ -1296,6 +1364,7 @@ table thead tr th, table tbody tr td {
     }
 
 }
+
 @media screen and (max-width: 351px) {
     .image-div {
         width: 50%;
