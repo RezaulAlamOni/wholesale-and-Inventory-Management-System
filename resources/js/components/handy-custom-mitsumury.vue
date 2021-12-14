@@ -350,14 +350,42 @@
                                 </thead>
                                 <tbody data-v-c9953dda="" class="physicaltbody">
 
-                                <tr :class="(selectedSuper.indexOf(vendor.id) > -1) ? 'active-c' : ''"
-                                    v-for="vendor in vendors" style="border-bottom: 1px solid gray">
-                                    <td style="width: 50px;padding: 10px;border: none !important;">
-                                        <input class="form-check-input m-0" type="checkbox" v-model="selectedSuper"
-                                               :value="vendor.id">
-                                    </td>
-                                    <td style="padding: 10px;;border: none !important;">{{ vendor.text }}</td>
-                                </tr>
+<!--                                <tr :class="(selectedSuper.indexOf(vendor.id) > -1) ? 'active-c' : ''"-->
+<!--                                    v-for="vendor in vendors" style="border-bottom: 1px solid gray">-->
+<!--                                    <td style="width: 50px;padding: 10px;border: none !important;">-->
+<!--                                        <input class="form-check-input m-0" type="checkbox" v-model="selectedSuper"-->
+<!--                                               :value="vendor.id">-->
+<!--                                    </td>-->
+<!--                                    <td style="padding: 10px;;border: none !important;">{{ vendor.text }}</td>-->
+<!--                                </tr>-->
+
+                                <template v-for="vendor in vendors">
+                                    <tr :class="(selectedSuper.indexOf(vendor.customer_id) > -1) ? 'active-c' : ''"
+                                        style="border-bottom: 1px solid gray"
+                                        @click="clickAndCheck(vendor.customer_id)">
+                                        <td style="width: 50px;padding: 10px;border: none !important;">
+                                            <input class="form-check-input m-0 hide" :id="vendor.customer_id" type="checkbox"
+                                                   v-model="selectedSuper"
+                                                   :value="vendor.customer_id">
+                                        </td>
+                                        <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
+                                    </tr>
+
+                                    <tr v-if="selectedSuper.indexOf(vendor.customer_id) > -1">
+                                        <td colspan="2">
+                                            <table data-v-c9953dda="" class="table table-borderless physical_handy_tabls">
+                                                <tr style="border-bottom: 1px solid gray" v-for="shop in vendor.shops"
+                                                    :class="(checkExist(shop.customer_shop_id)) ? 'active-c' : ''"
+                                                    @click="selectSuperShop(vendor.customer_id,shop.customer_shop_id)">
+                                                    <td style="border: none !important;padding: 10px"></td>
+                                                    <td style="border: none !important;padding: 10px"></td>
+                                                    <td style="padding: 10px;;border: none !important;">{{ shop.shop_name }}</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </template>
+
                                 </tbody>
 
                             </table>
@@ -441,7 +469,9 @@ export default {
                 profit_margin: 20
             },
             preview: null,
-            open_camera: 0
+            open_camera: 0,
+            selectedSuperShops : [],
+            check : null
 
         }
     },
@@ -506,7 +536,7 @@ export default {
         },
         viewInfoForImage(product, img ,i = 0) {
             if (i === 0) {
-                $('#'+product.jan).click();
+                $('#check_by_'+product.jan).click();
                 return 0;
             }
             product.item_name = product.name;
@@ -855,10 +885,10 @@ export default {
         },
         getVendorList() {
             let _this = this;
-            axios.get(_this.base_url + '/get_all_customer_list_for_select2')
+            axios.post(_this.base_url + '/get_customer_list')
                 .then(function (response) {
                     // console.log(response.data)
-                    _this.vendors = response.data.results;
+                     _this.vendors = response.data.all_customer_list;
                     // $('#select_tonya').modal({backdrop: 'static', keyboard: false})
                 })
                 .catch(function (e) {
@@ -1041,9 +1071,14 @@ export default {
         selectAllSuper() {
             let _this = this;
             this.selectedSuper = [];
+            this.selectedSuperShops = [];
             if (!_this.allSelectedSuper) {
                 _this.vendors.map(function (ven) {
-                    _this.selectedSuper.push(ven.id)
+                    _this.selectedSuper.push(ven.customer_id)
+                    _this.selectedSuperShops.push({c_id : ven.customer_id, s_ids : ven.shops.map(function (sp) {
+                            return sp.customer_shop_id;
+                        })
+                    })
                 })
             }
 
@@ -1198,7 +1233,54 @@ export default {
             setTimeout(function () {
                 $('#my-file').click()
             }, 200)
-        }
+        },
+
+        selectSuperShop(customer_id,shop_id) {
+            let _this = this;
+            this.selectedSuperShops.map(function (p,key) {
+                if (p.c_id == customer_id ){
+                    if (p.s_ids.indexOf(shop_id) > -1) {
+                        p.s_ids.splice(p.s_ids.indexOf(shop_id),1)
+                    } else  {
+                        p.s_ids.push(shop_id)
+                    }
+                }
+                console.log(key,p)
+            })
+
+
+
+
+        },
+
+        checkExist(id) {
+            var check = 0;
+            this.selectedSuperShops.map(function (p,key) {
+                if (p.s_ids.indexOf(id) > -1) {
+                    check = 1;
+                }
+            })
+            return check;
+        },
+
+        // for checkbox clcik
+        clickAndCheck(id) {
+            $('#' + id).click();
+            let _this = this;
+            _this.check = null;
+            this.selectedSuperShops.map(function (p,key) {
+                if (p.c_id == id ){
+                    _this.check = key;
+                }
+                console.log(p.c_id ,id,key,p)
+            })
+
+            if (_this.check == null) {
+                this.selectedSuperShops.push({c_id : id, s_ids : []})
+            } else {
+                this.selectedSuperShops.splice(_this.check,1)
+            }
+        },
     },
     watch: {}
 }
