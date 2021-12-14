@@ -1084,11 +1084,17 @@ export default {
         selectAllSuper() {
             let _this = this;
             this.selectedSuper = [];
+            _this.selectedSuperShops = [];
             if (!_this.allSelectedSuper) {
                 _this.vendors.map(function (ven) {
                     _this.selectedSuper.push(ven.customer_id)
+                    _this.selectedSuperShops.push({c_id : ven.customer_id, s_ids : ven.shops.map(function (sp) {
+                            return sp.customer_shop_id;
+                        })
+                    })
                 })
             }
+
 
 
         },
