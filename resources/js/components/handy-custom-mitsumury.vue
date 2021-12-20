@@ -2,6 +2,11 @@
     <section>
         <div class="main-content-container container-fluid px-4">
             <!-- Small Stats Blocks -->
+<!--            voice input    -->
+            <vue-speech lang="ja-JP" :resume="speech_start" style="display: none" @onTranscriptionEnd="getText"/>
+<!--            voice input  end   -->
+
+
             <div class="row">
                 <div class="well" style="border: 3px solid #428bca;">
                     <div class="header col-md-12 col-xs-12" style="font-size: 18px; padding: 10px;">
@@ -158,7 +163,7 @@
                                 <tr data-v-c9953dda="">
 
                                     <td data-v-c9953dda="">
-                                        <input data-v-c9953dda="" type="tel" id="cost" @click="selectItem($event)"
+                                        <input data-v-c9953dda="" type="tel" id="cost" @click="selectItem($event,'cost')"
                                                class="form-control  " v-model="preview_product.cost"
                                                @keyup="calculatePrice('cost')"
                                                style="border-radius: 0px; text-align: center; padding: 7px 0px;">
@@ -166,7 +171,7 @@
                                         <!--                                        @keypress="pressEnterAndSave($event,'sell')"-->
                                     </td>
                                     <td data-v-c9953dda="">
-                                        <input data-v-c9953dda="" type="tel" id="sell" @click="selectItem($event)"
+                                        <input data-v-c9953dda="" type="tel" id="sell" @click="selectItem($event,'sell')"
                                                class="form-control  " v-model="preview_product.sell"
                                                @keyup="calculatePrice('sell')"
                                                style="border-radius: 0px; text-align: center; padding: 7px 0px;">
@@ -174,7 +179,7 @@
                                         <!--                                        @blur="blurAndSave()"-->
                                     </td>
                                     <td data-v-c9953dda="">
-                                        <input data-v-c9953dda="" type="tel" id="profit" @click="selectItem($event)"
+                                        <input data-v-c9953dda="" type="tel" id="profit" @click="selectItem($event,'profit')"
                                                class="form-control  "
                                                :value="preview_product.sell - preview_product.cost" readonly
                                                style="border-radius: 0px; text-align: center; padding: 7px 0px;">
@@ -184,7 +189,7 @@
                                     </td>
                                     <td data-v-c9953dda="">
                                         <input data-v-c9953dda="" type="tel" id="profit_margin"
-                                               @click="selectItem($event)"
+                                               @click="selectItem($event,'profit_margin')"
                                                class="form-control  " v-model="preview_product.gross_profit_margin"
                                                @keyup="calculatePrice('profit_margin')"
                                                style="border-radius: 0px; text-align: center; padding: 7px 0px;">
@@ -444,6 +449,7 @@ export default {
     name: "handy-custom-mistumury",
     data() {
         return {
+            speech_start : 0,
             jan_code: '',
             order_data: [],
             select_status: 0,
@@ -471,7 +477,8 @@ export default {
             preview: null,
             open_camera: 0,
             selectedSuperShops : [],
-            check : null
+            check : null,
+            selected_input : '',
 
         }
     },
@@ -543,39 +550,7 @@ export default {
             // product.img = img;
             product.profit_margin = product.profit_margin;
             this.previewProductInfoWithImage(product);
-            // setTimeout(function () {
-            //     $('#special-price').focus();
-            //     $('#special-price').select();
-            // },200)
             return true;
-            // let _this = this;
-            // let preview_product = localStorage.getItem('preview_product');
-            // if (preview_product) {
-            //     _this.preview_product = JSON.parse(preview_product);
-            // } else {
-            //     _this.preview_product = {
-            //         title : 'ふるさと納税 那智勝浦町 和歌山魚鶴仕込の魚切身詰め合わせセット',
-            //         cost : 120,
-            //         sell : 144,
-            //         profit : 0,
-            //         profit_margin : 0,
-            //         special_price: 0
-            //     }
-            // }
-            // _this.preview_product.profit = _this.preview_product.sell - _this.preview_product.cost
-            // _this.preview_product.profit_margin = (((_this.preview_product.sell - _this.preview_product.cost)/ _this.preview_product.cost)*100).toFixed(2)
-            //
-            // localStorage.setItem('preview_product', JSON.stringify(_this.preview_product));
-            // if (img_type != 100) {
-            //     // this.handi_navi = '*******';
-            //     // $('#handy-navi').show();
-            //     return false;
-            // }
-            // // this.handi_navi = '*******';
-            // // $('#handy-navi').show();
-            // $('#mistumury-mage-preview').modal({backdrop: 'static'})
-            // $('#special-price').focus();
-            // $('#special-price').select();
         },
         confirmAndHide(type) {
             $('#' + type).modal('hide')
@@ -702,8 +677,10 @@ export default {
 
 
         },
-        selectItem(e) {
+        selectItem(e,selected_id) {
             e.target.select()
+            this.startSpeech();
+            this.selected_input = selected_id;
         },
         pressEnterAndSave(e, type) {
             let _this = this;
@@ -912,7 +889,9 @@ export default {
             setTimeout(function () {
                 $('#cost').focus();
                 $('#cost').select();
+                _this.startSpeech();
             }, 700)
+
         },
         updateVendorItemProperty(vendor, type = null) {
             let _this = this;
@@ -1280,6 +1259,38 @@ export default {
             } else {
                 this.selectedSuperShops.splice(_this.check,1)
             }
+        },
+        // voice input
+        placeValueToInputField(text){
+            let _this = this;
+            setTimeout(function () {
+                if (_this.speech_start && !isNaN(text)) {
+                    if (_this.selected_input == "cost") {
+                        _this.preview_product.cost = text;
+                    } else if (_this.selected_input == "sell") {
+                        _this.preview_product.sell = text;
+                    } else if (_this.selected_input == "profit_margin") {
+                        _this.preview_product.gross_profit_margin = text;
+                    }
+
+                    if (_this.selected_input != "profit") {
+                        _this.blurAndSave();
+                        _this.calculatePrice(_this.selected_input);
+                    }
+                    _this.speech_start = 0;
+                    _this.product = null;
+                    _this.selected_input = '';
+                }
+            },50)
+        },
+        getText({lastSentence, transcription}) {
+            let _this = this;
+            _this.placeValueToInputField(lastSentence);
+
+        },
+        startSpeech() {
+            let _this = this
+            _this.speech_start = (_this.speech_start === 0) ? 1 : 0;
         },
     },
     watch: {}
