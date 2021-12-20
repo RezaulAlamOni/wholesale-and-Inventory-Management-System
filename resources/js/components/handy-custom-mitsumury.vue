@@ -890,6 +890,7 @@ export default {
                 $('#cost').focus();
                 $('#cost').select();
                 _this.startSpeech();
+                _this.selected_input = 'cost';
             }, 700)
 
         },
@@ -1263,8 +1264,9 @@ export default {
         // voice input
         placeValueToInputField(text){
             let _this = this;
+            text = parseInt(text);
             setTimeout(function () {
-                if (_this.speech_start && !isNaN(text)) {
+                if (_this.speech_start && text != NaN && text > 0) {
                     if (_this.selected_input == "cost") {
                         _this.preview_product.cost = text;
                     } else if (_this.selected_input == "sell") {
@@ -1272,14 +1274,16 @@ export default {
                     } else if (_this.selected_input == "profit_margin") {
                         _this.preview_product.gross_profit_margin = text;
                     }
-
+                    console.log(text)
                     if (_this.selected_input != "profit") {
-                        _this.blurAndSave();
                         _this.calculatePrice(_this.selected_input);
+                        _this.blurAndSave();
                     }
                     _this.speech_start = 0;
                     _this.product = null;
                     _this.selected_input = '';
+                } else {
+                    console.log(text)
                 }
             },50)
         },
