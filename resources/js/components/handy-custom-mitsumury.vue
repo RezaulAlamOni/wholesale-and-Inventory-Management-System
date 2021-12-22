@@ -14,12 +14,12 @@
                         <!-- <button id="handy_shipment_item_insert" class="btn btn-primary pull-right" style="float:right"> 送信</button>&nbsp;-->
                         <a :href="base_url+'/android_home'" class="btn btn-primary pull-right top-button"
                            style="float:right">メニュー</a>
-                        <a href="javascript:void(0)" class="btn btn-success pull-right mr-1 top-button"
-                           style="float:right"> 発注</a>
+<!--                        <a href="javascript:void(0)" class="btn btn-success pull-right mr-1 top-button"-->
+<!--                           style="float:right"> 発注</a>-->
                         <!--                        <a href="javascript:void(0)" class="btn btn-success pull-right mr-1 top-button"-->
                         <!--                           style="float:right"> 採用</a>-->
-                        <a href="javascript:void(0)" class="btn btn-success pull-right mr-1 top-button"
-                           style="float:right"> 詳細</a>
+<!--                        <a href="javascript:void(0)" class="btn btn-success pull-right mr-1 top-button"-->
+<!--                           style="float:right"> 詳細</a>-->
 
                     </div>
                     <div style="font-size: 18px; padding: 5px 0px 2px 5px;position: relative">
@@ -30,22 +30,27 @@
                                 全て
                             </label>
                         </div>
-                        <button @click="addProductModal()"
-                                class="btn btn-success pull-right mr-1 "
-                                style=" position: absolute; top: 5px; right: 65px;padding: 6px 5px;"> 追加
-                        </button>
+
                         <button v-if="productJans.length > 0" @click="selectSuper(' ')"
                                 class="btn btn-success pull-right mr-1 " id="show-super-list"
-                                style="position: absolute; top: 5px; right: 110px;padding: 6px 5px;"> メール
+                                style="position: absolute; top: 5px; right: 60px;padding: 5px 10px; font-size: 18px;"> メール
                         </button>
                         <a class="btn btn-danger float-right mr-" v-if="productJans.length > 0"
                            @click="deleteMistunury(null)"
-                           style=" position: absolute; top: 5px; right: 170px;padding: 6px 5px;"
+                           style=" position: absolute; top: 5px; right: 147px;padding: 5px 10px; font-size: 18px;"
                         > 削除</a>
                         <a href="mitsumury"
                            class="btn btn-info pull-right mr-1 "
-                           style=" position: absolute; top: 5px; right: 0px;"> 戻る
+                           style=" position: absolute; top: 5px; right: 0px;padding: 5px 10px; font-size: 18px;"> 戻る
                         </a>
+                        <button @click="addProductModal(1)" v-if="productJans.length <= 0"
+                                class="btn btn-primary pull-right mr-1 " id="show-super-list_"
+                                style="padding: 5px 10px; font-size: 18px; margin: 5px;float: right"> 写真を撮る
+                        </button>
+                        <button @click="addProductModal(0)" v-if="productJans.length <= 0"
+                                class="btn btn-info pull-right mr-1 "
+                                style="padding: 5px 10px; font-size: 18px; margin: 5px;float: right"> 画像を選ぶ
+                        </button>
                     </div>
                     <div id="stock_detail_by_jan_form" class="p_scn_form text-right mt-0">
                         <div class="input-group m-0 my-1">
@@ -1070,10 +1075,13 @@ export default {
             $('#mistumury-select-super').modal({backdrop: 'static'})
         },
         // add product model
-        addProductModal() {
-            $('#mistumury-prodct-add-modal').modal({backdrop: 'static'})
-            $('#click-file').show()
-            $('#open-camera').show()
+        addProductModal(type) {
+            this.clickAddFile(type)
+            setTimeout(function () {
+                $('#mistumury-prodct-add-modal').modal({backdrop: 'static'})
+                $('#click-file').show()
+                $('#open-camera').show()
+            },2000)
         },
         //sendtoSuper
         sendtoSuper() {
