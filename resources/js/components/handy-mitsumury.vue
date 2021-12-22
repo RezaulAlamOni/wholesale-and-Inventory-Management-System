@@ -25,18 +25,27 @@
                                 全て
                             </label>
                         </div>
-                        <button @click="addProductModal()"
-                                class="btn btn-success pull-right mr-1 "
-                                style=" position: absolute; top: 5px; right: 100px;padding: 6px 5px;"> 追加
-                        </button>
+<!--                        <button @click="addProductModal()"-->
+<!--                                class="btn btn-success pull-right mr-1 "-->
+<!--                                style=" position: absolute; top: 5px; right: 100px;padding: 6px 5px;"> 追加-->
+<!--                        </button>-->
                         <button v-if="productJans.length > 0" @click="selectSuper(' ')"
                                 class="btn btn-success pull-right mr-1 "
-                                style=" position: absolute; top: 5px; right: 139px;"> メール
+                                style=" position: absolute; top: 5px; right: 135px;font-size: 16px"> メール
                         </button>
                         <a href="custom-mitsumury"
                            class="btn btn-info pull-right mr-1 "
-                           style=" position: absolute; top: 5px; right: 0px;padding: 6px"> 見積追加ページ
+                           style=" position: absolute; top: 5px; right: 0px;padding: 6px;font-size: 16px"> 見積追加ページ
                         </a>
+
+                        <button @click="addProductModal(1)" v-if="productJans.length <= 0"
+                                class="btn btn-primary pull-right mr-1 " id="show-super-list_"
+                                style="padding: 5px 10px; font-size: 18px; margin: 5px;float: right"> 写真を撮る
+                        </button>
+                        <button @click="addProductModal(0)" v-if="productJans.length <= 0"
+                                class="btn btn-info pull-right mr-1 "
+                                style="padding: 5px 10px; font-size: 18px; margin: 5px;float: right"> 画像を選ぶ
+                        </button>
                     </div>
                     <div id="stock_detail_by_jan_form" class="p_scn_form text-right mt-0">
                         <div class="input-group m-0 my-1">
@@ -1134,12 +1143,14 @@ export default {
             this.productJans = [];
         },
         //
-        addProductModal() {
-
-            $('#mistumury-prodct-add-modal').modal({backdrop: 'static'})
-            $('#click-file').show()
-            $('#open-camera').show()
-            $('input[name=title]').focus();
+        addProductModal(type) {
+            this.clickAddFile(type)
+            setTimeout(function () {
+                $('#mistumury-prodct-add-modal').modal({backdrop: 'static'})
+                $('#click-file').show()
+                $('#open-camera').show()
+                $('input[name=title]').focus();
+            },2000)
         },
         previewImage: function (event) {
             var input = event.target;
