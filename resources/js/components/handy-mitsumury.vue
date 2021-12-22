@@ -9,12 +9,12 @@
                         <!-- <button id="handy_shipment_item_insert" class="btn btn-primary pull-right" style="float:right"> 送信</button>&nbsp;-->
                         <a :href="base_url+'/android_home'" class="btn btn-primary pull-right top-button"
                            style="float:right">メニュー</a>
-                        <a href="javascript:void(0)" class="btn btn-success pull-right mr-1 top-button"
-                           style="float:right"> 発注</a>
+<!--                        <a href="javascript:void(0)" class="btn btn-success pull-right mr-1 top-button"-->
+<!--                           style="float:right"> 発注</a>-->
                         <!--                        <a href="javascript:void(0)" class="btn btn-success pull-right mr-1 top-button"-->
                         <!--                           style="float:right"> 採用</a>-->
-                        <a href="javascript:void(0)" class="btn btn-success pull-right mr-1 top-button"
-                           style="float:right"> 詳細</a>
+<!--                        <a href="javascript:void(0)" class="btn btn-success pull-right mr-1 top-button"-->
+<!--                           style="float:right"> 詳細</a>-->
 
                     </div>
                     <div style="font-size: 18px; padding: 5px 0px 2px 5px;position: relative">
