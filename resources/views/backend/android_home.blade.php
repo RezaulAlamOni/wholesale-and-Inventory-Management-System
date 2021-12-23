@@ -28,7 +28,7 @@
                 <div class="row marginboths">
                     <div class="col-6 handy_btn_aria handy_btn_left">
                         <!-- <a class="btn btn-default" id="wholesale_handy" href="handy_quotation"> -->
-                        <a style="padding: 15px 5px;" class="btn btn-default tourokobtn" id="wholesale_handy" href="{{ route('mitsumury') }}"> <!--inventoryentrybyhandy-->
+                        <a style="padding: 15px 5px;" class="btn btn-default tourokobtn" id="wholesale_handy" href="{{ route('custom.mitsumury') }}"> <!--inventoryentrybyhandy-->
                             <div class="numbering_col" style="padding: 0; margin: 0;">1</div>
                             <!-- <div class="col-md-11 text-center" style="padding: 0; margin: 0;line-height:35px;">見積り</div> -->
                             <div class="col-md-11 text-center btnText oneLine" style="padding: 0; margin: 0;line-height:35px;">
@@ -79,7 +79,7 @@
                             買掛
                             </div>
                         </a>
-                       
+
                         <a  href="{{Config::get('app.url').'/stock_details_by_handy'}}" style="padding: 15px 5px;background:#F0FFFF;" class="btn btn-default">
                             <div class="numbering_col" style="padding: 0; margin: 0;">15</div>
                             <div class="col-md-11 text-center btnText oneLine" style="padding: 0; margin: 0;line-height:35px;">
@@ -95,7 +95,7 @@
                         </a>-->
 
 
-                        
+
                     </div>
 
                     <div class="col-6 handy_btn_aria handy_btn_right">
@@ -141,7 +141,7 @@
                             売掛
                             </div>
                         </a>
-                        
+
                         <a id="" style="width: 100%;background:#F0FFFF;" class="btn btn-default" href="{{ route('inventory.return') }}">
                             <div class="numbering_col" style="padding: 0; margin: 0;">14</div>
                             <div class="col-md-11 text-center btnText twoLine" style="padding: 0; margin: 0;line-height:35px;">
@@ -157,10 +157,10 @@
                         </a>
 
 
-                       
 
 
-                        
+
+
 
                     </div>
                 </div>

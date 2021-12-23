@@ -33,81 +33,81 @@
 
                         <button v-if="productJans.length > 0" @click="selectSuper(' ')"
                                 class="btn btn-success pull-right mr-1 " id="show-super-list"
-                                style="position: absolute; top: 5px; right: 60px;padding: 5px 10px; font-size: 18px;"> メール
+                                style="position: absolute; top: 5px; right: 0px;padding: 5px 10px; font-size: 18px;"> メール
                         </button>
                         <a class="btn btn-danger float-right mr-" v-if="productJans.length > 0"
                            @click="deleteMistunury(null)"
-                           style=" position: absolute; top: 5px; right: 147px;padding: 5px 10px; font-size: 18px;"
+                           style=" position: absolute; top: 5px; right: 87px;padding: 5px 10px; font-size: 18px;"
                         > 削除</a>
-                        <a href="mitsumury"
-                           class="btn btn-info pull-right mr-1 "
-                           style=" position: absolute; top: 5px; right: 0px;padding: 5px 10px; font-size: 18px;"> 戻る
-                        </a>
+<!--                        <a href="mitsumury"-->
+<!--                           class="btn btn-info pull-right mr-1 "-->
+<!--                           style=" position: absolute; top: 5px; right: 0px;padding: 5px 10px; font-size: 18px;"> 戻る-->
+<!--                        </a>-->
                         <button @click="addProductModal(1)" v-if="productJans.length <= 0"
                                 class="btn btn-primary pull-right mr-1 " id="show-super-list_"
-                                style="padding: 5px 10px; font-size: 18px; margin: 5px;float: right"> 写真を撮る
+                                style="position: absolute; top: 5px; right: 0px;padding: 5px 10px; font-size: 18px; float: right"> 写真を撮る
                         </button>
                         <button @click="addProductModal(0)" v-if="productJans.length <= 0"
                                 class="btn btn-info pull-right mr-1 "
-                                style="padding: 5px 10px; font-size: 18px; margin: 5px;float: right"> 画像を選ぶ
+                                style="position: absolute; top: 5px; right: 115px;padding: 5px 10px; font-size: 18px;float: right"> 画像を選ぶ
                         </button>
                     </div>
-                    <div id="stock_detail_by_jan_form" class="p_scn_form text-right mt-0">
-                        <div class="input-group m-0 my-1">
-                            <span class="text-warning" style="width: 100%; text-align: center;">
-                                枠の中にクリックしてから <br> JANコードスキャンしてください
-                            </span>
-                            <input type="tel" class="form-control" placeholder="JANコードスキャン（13桁）"
-                                   style="border-radius: 0px;padding: 5px;font-size: 16px;" autofocus
-                                   v-model="jan_code" id="jan_"
-                                   name="scan_by_jan_for_stock_detail"
-                                   v-on:keyup="checkAndGetData($event)"
-                                   @blur="checkAndGetData($event)"
-                                   @paste="checkAndGetData($event)"
-                                   @input="checkAndGetData($event)"
-                                   aria-label="Recipient's username" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">次へ</button>
-                            </div>
-                        </div>
-                        <div class="form-group m-0">
+<!--                    <div id="stock_detail_by_jan_form" class="p_scn_form text-right mt-0">-->
+<!--                        <div class="input-group m-0 my-1">-->
+<!--                            <span class="text-warning" style="width: 100%; text-align: center;">-->
+<!--                                枠の中にクリックしてから <br> JANコードスキャンしてください-->
+<!--                            </span>-->
+<!--                            <input type="tel" class="form-control" placeholder="JANコードスキャン（13桁）"-->
+<!--                                   style="border-radius: 0px;padding: 5px;font-size: 16px;" autofocus-->
+<!--                                   v-model="jan_code" id="jan_"-->
+<!--                                   name="scan_by_jan_for_stock_detail"-->
+<!--                                   v-on:keyup="checkAndGetData($event)"-->
+<!--                                   @blur="checkAndGetData($event)"-->
+<!--                                   @paste="checkAndGetData($event)"-->
+<!--                                   @input="checkAndGetData($event)"-->
+<!--                                   aria-label="Recipient's username" aria-describedby="basic-addon2">-->
+<!--                            <div class="input-group-append">-->
+<!--                                <button class="btn btn-primary" type="button">次へ</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="form-group m-0">-->
 
-                            <!--                            <input type="tel" id="jan_input" class="form-control custom-input"-->
-                            <!--                                   v-model="jan_code"-->
-                            <!--                                   style="padding: 5px 10px !important;height: 45px !important; margin: 5px 0 !important;"-->
-                            <!--                                   name="scan_by_jan_for_stock_detail"-->
-                            <!--                                   v-on:keyup="checkAndGetData($event)"-->
-                            <!--                                   @blur="checkAndGetData($event)"-->
-                            <!--                                   @paste="checkAndGetData($event)"-->
-                            <!--                                   @input="checkAndGetData($event)"-->
-                            <!--                                   placeholder="JANコードスキャン（13桁）" autofocus>-->
-
-
-                            <!--                                    <button type="button" @click="alertForIos" onclick="$('#jan_input').focus()"-->
-                            <!--                                            class="hide btn custom-btn btn-primary text-right show_inline search-button-ios "-->
-                            <!--                                            style="float: left;width: 100px">-->
-                            <!--                                        音声-->
-                            <!--                                    </button>-->
-                            <!--                                    <text-recognition :base_url="base_url"-->
-                            <!--                                                      @getSearchData="getSearchData"-->
-                            <!--                                                      @clearInput="clearInput"></text-recognition>-->
-
-                            <!--                                    <button type="button" @click="getBarCodeScan()"-->
-                            <!--                                            class="pr-0 ml-1 btn custom-btn btn-primary text-right show_inline search-button"-->
-                            <!--                                            style="padding:0;float: left;width: 70px !important;">-->
-                            <!--                                        <i class="fa fa-barcode" style="font-size: 40px"></i>-->
-                            <!--                                    </button>-->
-                            <!--                            <button type="button" v-on:click="getOrderDataByJan()"-->
-                            <!--                                    style="margin: 0px;width: 80px !important; height: 40px;height: 30px !important;line-height: 18px !important;font-size: 18px !important;"-->
-                            <!--                                    class="btn custom-btn btn-primary pull-right text-right show_inline">-->
-                            <!--                                次へ-->
-                            <!--                            </button>-->
-                        </div>
+<!--                            &lt;!&ndash;                            <input type="tel" id="jan_input" class="form-control custom-input"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                   v-model="jan_code"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                   style="padding: 5px 10px !important;height: 45px !important; margin: 5px 0 !important;"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                   name="scan_by_jan_for_stock_detail"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                   v-on:keyup="checkAndGetData($event)"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                   @blur="checkAndGetData($event)"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                   @paste="checkAndGetData($event)"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                   @input="checkAndGetData($event)"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                   placeholder="JANコードスキャン（13桁）" autofocus>&ndash;&gt;-->
 
 
-                    </div>
+<!--                            &lt;!&ndash;                                    <button type="button" @click="alertForIos" onclick="$('#jan_input').focus()"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                            class="hide btn custom-btn btn-primary text-right show_inline search-button-ios "&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                            style="float: left;width: 100px">&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                        音声&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                    </button>&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                    <text-recognition :base_url="base_url"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                                      @getSearchData="getSearchData"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                                      @clearInput="clearInput"></text-recognition>&ndash;&gt;-->
 
-                    <div class=" col-centereds col-md-12 col-sm-12 col-sl-12 p-0 row ">
+<!--                            &lt;!&ndash;                                    <button type="button" @click="getBarCodeScan()"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                            class="pr-0 ml-1 btn custom-btn btn-primary text-right show_inline search-button"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                            style="padding:0;float: left;width: 70px !important;">&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                        <i class="fa fa-barcode" style="font-size: 40px"></i>&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                    </button>&ndash;&gt;-->
+<!--                            &lt;!&ndash;                            <button type="button" v-on:click="getOrderDataByJan()"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                    style="margin: 0px;width: 80px !important; height: 40px;height: 30px !important;line-height: 18px !important;font-size: 18px !important;"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                    class="btn custom-btn btn-primary pull-right text-right show_inline">&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                次へ&ndash;&gt;-->
+<!--                            &lt;!&ndash;                            </button>&ndash;&gt;-->
+<!--                        </div>-->
+
+
+<!--                    </div>-->
+
+                    <div class=" col-centereds col-md-12 col-sm-12 col-sl-12 p-0 row mt-2">
                         <div class="col-sm-6 col-md-3 col-xl-3 image-div" v-for="(product,i) in products"
                              :class="(productJans.indexOf(product)) > -1 ? 'active-img' : ''">
                             <img :src="product.image"
