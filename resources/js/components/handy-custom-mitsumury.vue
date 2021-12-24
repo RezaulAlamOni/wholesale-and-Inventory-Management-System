@@ -2,9 +2,9 @@
     <section>
         <div class="main-content-container container-fluid px-4">
             <!-- Small Stats Blocks -->
-<!--            voice input    -->
+            <!--            voice input    -->
             <vue-speech lang="ja-JP" :resume="speech_start" style="display: none" @onTranscriptionEnd="getText"/>
-<!--            voice input  end   -->
+            <!--            voice input  end   -->
 
 
             <div class="row">
@@ -14,12 +14,12 @@
                         <!-- <button id="handy_shipment_item_insert" class="btn btn-primary pull-right" style="float:right"> 送信</button>&nbsp;-->
                         <a :href="base_url+'/android_home'" class="btn btn-primary pull-right top-button"
                            style="float:right">メニュー</a>
-<!--                        <a href="javascript:void(0)" class="btn btn-success pull-right mr-1 top-button"-->
-<!--                           style="float:right"> 発注</a>-->
+                        <!--                        <a href="javascript:void(0)" class="btn btn-success pull-right mr-1 top-button"-->
+                        <!--                           style="float:right"> 発注</a>-->
                         <!--                        <a href="javascript:void(0)" class="btn btn-success pull-right mr-1 top-button"-->
                         <!--                           style="float:right"> 採用</a>-->
-<!--                        <a href="javascript:void(0)" class="btn btn-success pull-right mr-1 top-button"-->
-<!--                           style="float:right"> 詳細</a>-->
+                        <!--                        <a href="javascript:void(0)" class="btn btn-success pull-right mr-1 top-button"-->
+                        <!--                           style="float:right"> 詳細</a>-->
 
                     </div>
                     <div style="font-size: 18px; padding: 5px 0px 2px 5px;position: relative">
@@ -33,79 +33,82 @@
 
                         <button v-if="productJans.length > 0" @click="selectSuper(' ')"
                                 class="btn btn-success pull-right mr-1 " id="show-super-list"
-                                style="position: absolute; top: 5px; right: 0px;padding: 5px 10px; font-size: 18px;"> メール
+                                style="position: absolute; top: 5px; right: 0px;padding: 5px 10px; font-size: 18px;">
+                            メール
                         </button>
                         <a class="btn btn-danger float-right mr-" v-if="productJans.length > 0"
                            @click="deleteMistunury(null)"
                            style=" position: absolute; top: 5px; right: 87px;padding: 5px 10px; font-size: 18px;"
                         > 削除</a>
-<!--                        <a href="mitsumury"-->
-<!--                           class="btn btn-info pull-right mr-1 "-->
-<!--                           style=" position: absolute; top: 5px; right: 0px;padding: 5px 10px; font-size: 18px;"> 戻る-->
-<!--                        </a>-->
+                        <!--                        <a href="mitsumury"-->
+                        <!--                           class="btn btn-info pull-right mr-1 "-->
+                        <!--                           style=" position: absolute; top: 5px; right: 0px;padding: 5px 10px; font-size: 18px;"> 戻る-->
+                        <!--                        </a>-->
                         <button @click="addProductModal(1)" v-if="productJans.length <= 0"
                                 class="btn btn-primary pull-right mr-1 " id="show-super-list_"
-                                style="position: absolute; top: 5px; right: 0px;padding: 5px 10px; font-size: 18px; float: right"> 写真を撮る
+                                style="position: absolute; top: 5px; right: 0px;padding: 5px 10px; font-size: 18px; float: right">
+                            写真を撮る
                         </button>
                         <button @click="addProductModal(0)" v-if="productJans.length <= 0"
                                 class="btn btn-info pull-right mr-1 "
-                                style="position: absolute; top: 5px; right: 115px;padding: 5px 10px; font-size: 18px;float: right"> 画像を選ぶ
+                                style="position: absolute; top: 5px; right: 115px;padding: 5px 10px; font-size: 18px;float: right">
+                            画像を選ぶ
                         </button>
                     </div>
-<!--                    <div id="stock_detail_by_jan_form" class="p_scn_form text-right mt-0">-->
-<!--                        <div class="input-group m-0 my-1">-->
-<!--                            <span class="text-warning" style="width: 100%; text-align: center;">-->
-<!--                                枠の中にクリックしてから <br> JANコードスキャンしてください-->
-<!--                            </span>-->
-<!--                            <input type="tel" class="form-control" placeholder="JANコードスキャン（13桁）"-->
-<!--                                   style="border-radius: 0px;padding: 5px;font-size: 16px;" autofocus-->
-<!--                                   v-model="jan_code" id="jan_"-->
-<!--                                   name="scan_by_jan_for_stock_detail"-->
-<!--                                   v-on:keyup="checkAndGetData($event)"-->
-<!--                                   @blur="checkAndGetData($event)"-->
-<!--                                   @paste="checkAndGetData($event)"-->
-<!--                                   @input="checkAndGetData($event)"-->
-<!--                                   aria-label="Recipient's username" aria-describedby="basic-addon2">-->
-<!--                            <div class="input-group-append">-->
-<!--                                <button class="btn btn-primary" type="button">次へ</button>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                        <div class="form-group m-0">-->
+                    <!--                    <div id="stock_detail_by_jan_form" class="p_scn_form text-right mt-0">-->
+                    <!--                        <div class="input-group m-0 my-1">-->
+                    <!--                            <span class="text-warning" style="width: 100%; text-align: center;">-->
+                    <!--                                枠の中にクリックしてから <br> JANコードスキャンしてください-->
+                    <!--                            </span>-->
+                    <!--                            <input type="tel" class="form-control" placeholder="JANコードスキャン（13桁）"-->
+                    <!--                                   style="border-radius: 0px;padding: 5px;font-size: 16px;" autofocus-->
+                    <!--                                   v-model="jan_code" id="jan_"-->
+                    <!--                                   name="scan_by_jan_for_stock_detail"-->
+                    <!--                                   v-on:keyup="checkAndGetData($event)"-->
+                    <!--                                   @blur="checkAndGetData($event)"-->
+                    <!--                                   @paste="checkAndGetData($event)"-->
+                    <!--                                   @input="checkAndGetData($event)"-->
+                    <!--                                   aria-label="Recipient's username" aria-describedby="basic-addon2">-->
+                    <!--                            <div class="input-group-append">-->
+                    <!--                                <button class="btn btn-primary" type="button">次へ</button>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="form-group m-0">-->
 
-<!--                            &lt;!&ndash;                            <input type="tel" id="jan_input" class="form-control custom-input"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                   v-model="jan_code"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                   style="padding: 5px 10px !important;height: 45px !important; margin: 5px 0 !important;"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                   name="scan_by_jan_for_stock_detail"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                   v-on:keyup="checkAndGetData($event)"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                   @blur="checkAndGetData($event)"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                   @paste="checkAndGetData($event)"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                   @input="checkAndGetData($event)"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                   placeholder="JANコードスキャン（13桁）" autofocus>&ndash;&gt;-->
-
-
-<!--                            &lt;!&ndash;                                    <button type="button" @click="alertForIos" onclick="$('#jan_input').focus()"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                            class="hide btn custom-btn btn-primary text-right show_inline search-button-ios "&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                            style="float: left;width: 100px">&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                        音声&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                    </button>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                    <text-recognition :base_url="base_url"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                                      @getSearchData="getSearchData"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                                      @clearInput="clearInput"></text-recognition>&ndash;&gt;-->
-
-<!--                            &lt;!&ndash;                                    <button type="button" @click="getBarCodeScan()"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                            class="pr-0 ml-1 btn custom-btn btn-primary text-right show_inline search-button"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                            style="padding:0;float: left;width: 70px !important;">&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                        <i class="fa fa-barcode" style="font-size: 40px"></i>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                    </button>&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            <button type="button" v-on:click="getOrderDataByJan()"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                    style="margin: 0px;width: 80px !important; height: 40px;height: 30px !important;line-height: 18px !important;font-size: 18px !important;"&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                    class="btn custom-btn btn-primary pull-right text-right show_inline">&ndash;&gt;-->
-<!--                            &lt;!&ndash;                                次へ&ndash;&gt;-->
-<!--                            &lt;!&ndash;                            </button>&ndash;&gt;-->
-<!--                        </div>-->
+                    <!--                            &lt;!&ndash;                            <input type="tel" id="jan_input" class="form-control custom-input"&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                                   v-model="jan_code"&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                                   style="padding: 5px 10px !important;height: 45px !important; margin: 5px 0 !important;"&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                                   name="scan_by_jan_for_stock_detail"&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                                   v-on:keyup="checkAndGetData($event)"&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                                   @blur="checkAndGetData($event)"&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                                   @paste="checkAndGetData($event)"&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                                   @input="checkAndGetData($event)"&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                                   placeholder="JANコードスキャン（13桁）" autofocus>&ndash;&gt;-->
 
 
-<!--                    </div>-->
+                    <!--                            &lt;!&ndash;                                    <button type="button" @click="alertForIos" onclick="$('#jan_input').focus()"&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                                            class="hide btn custom-btn btn-primary text-right show_inline search-button-ios "&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                                            style="float: left;width: 100px">&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                                        音声&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                                    </button>&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                                    <text-recognition :base_url="base_url"&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                                                      @getSearchData="getSearchData"&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                                                      @clearInput="clearInput"></text-recognition>&ndash;&gt;-->
+
+                    <!--                            &lt;!&ndash;                                    <button type="button" @click="getBarCodeScan()"&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                                            class="pr-0 ml-1 btn custom-btn btn-primary text-right show_inline search-button"&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                                            style="padding:0;float: left;width: 70px !important;">&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                                        <i class="fa fa-barcode" style="font-size: 40px"></i>&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                                    </button>&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                            <button type="button" v-on:click="getOrderDataByJan()"&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                                    style="margin: 0px;width: 80px !important; height: 40px;height: 30px !important;line-height: 18px !important;font-size: 18px !important;"&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                                    class="btn custom-btn btn-primary pull-right text-right show_inline">&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                                次へ&ndash;&gt;-->
+                    <!--                            &lt;!&ndash;                            </button>&ndash;&gt;-->
+                    <!--                        </div>-->
+
+
+                    <!--                    </div>-->
 
                     <div class=" col-centereds col-md-12 col-sm-12 col-sl-12 p-0 row mt-2">
                         <div class="col-sm-6 col-md-3 col-xl-3 image-div" v-for="(product,i) in products"
@@ -115,7 +118,8 @@
                                  alt="Cinque Terre" @click="viewInfoForImage(product,product.img)"
                                  @dblclick="viewInfoForImage(product,product.img,1)"
                                  style="cursor: pointer">
-                            <input class="form-check-input form-check-input_" type="checkbox" :id="'check_by_'+product.jan" v-model="productJans"
+                            <input class="form-check-input form-check-input_" type="checkbox"
+                                   :id="'check_by_'+product.jan" v-model="productJans"
                                    :value="product">
                         </div>
 
@@ -168,7 +172,8 @@
                                 <tr data-v-c9953dda="">
 
                                     <td data-v-c9953dda="">
-                                        <input data-v-c9953dda="" type="tel" id="cost" @click="selectItem($event,'cost')"
+                                        <input data-v-c9953dda="" type="tel" id="cost"
+                                               @click="selectItem($event,'cost')"
                                                class="form-control  " v-model="preview_product.cost"
                                                @keyup="calculatePrice('cost')"
                                                style="border-radius: 0px; text-align: center; padding: 7px 0px;">
@@ -176,7 +181,8 @@
                                         <!--                                        @keypress="pressEnterAndSave($event,'sell')"-->
                                     </td>
                                     <td data-v-c9953dda="">
-                                        <input data-v-c9953dda="" type="tel" id="sell" @click="selectItem($event,'sell')"
+                                        <input data-v-c9953dda="" type="tel" id="sell"
+                                               @click="selectItem($event,'sell')"
                                                class="form-control  " v-model="preview_product.sell"
                                                @keyup="calculatePrice('sell')"
                                                style="border-radius: 0px; text-align: center; padding: 7px 0px;">
@@ -184,7 +190,8 @@
                                         <!--                                        @blur="blurAndSave()"-->
                                     </td>
                                     <td data-v-c9953dda="">
-                                        <input data-v-c9953dda="" type="tel" id="profit" @click="selectItem($event,'profit')"
+                                        <input data-v-c9953dda="" type="tel" id="profit"
+                                               @click="selectItem($event,'profit')"
                                                class="form-control  "
                                                :value="preview_product.sell - preview_product.cost" readonly
                                                style="border-radius: 0px; text-align: center; padding: 7px 0px;">
@@ -360,21 +367,22 @@
                                 </thead>
                                 <tbody data-v-c9953dda="" class="physicaltbody">
 
-<!--                                <tr :class="(selectedSuper.indexOf(vendor.id) > -1) ? 'active-c' : ''"-->
-<!--                                    v-for="vendor in vendors" style="border-bottom: 1px solid gray">-->
-<!--                                    <td style="width: 50px;padding: 10px;border: none !important;">-->
-<!--                                        <input class="form-check-input m-0" type="checkbox" v-model="selectedSuper"-->
-<!--                                               :value="vendor.id">-->
-<!--                                    </td>-->
-<!--                                    <td style="padding: 10px;;border: none !important;">{{ vendor.text }}</td>-->
-<!--                                </tr>-->
+                                <!--                                <tr :class="(selectedSuper.indexOf(vendor.id) > -1) ? 'active-c' : ''"-->
+                                <!--                                    v-for="vendor in vendors" style="border-bottom: 1px solid gray">-->
+                                <!--                                    <td style="width: 50px;padding: 10px;border: none !important;">-->
+                                <!--                                        <input class="form-check-input m-0" type="checkbox" v-model="selectedSuper"-->
+                                <!--                                               :value="vendor.id">-->
+                                <!--                                    </td>-->
+                                <!--                                    <td style="padding: 10px;;border: none !important;">{{ vendor.text }}</td>-->
+                                <!--                                </tr>-->
 
                                 <template v-for="vendor in vendors">
                                     <tr :class="(selectedSuper.indexOf(vendor.customer_id) > -1) ? 'active-c' : ''"
                                         style="border-bottom: 1px solid gray"
                                         @click="clickAndCheck(vendor.customer_id)">
                                         <td style="width: 50px;padding: 10px;border: none !important;">
-                                            <input class="form-check-input m-0 hide" :id="vendor.customer_id" type="checkbox"
+                                            <input class="form-check-input m-0 hide" :id="vendor.customer_id"
+                                                   type="checkbox"
                                                    v-model="selectedSuper"
                                                    :value="vendor.customer_id">
                                         </td>
@@ -383,13 +391,16 @@
 
                                     <tr v-if="selectedSuper.indexOf(vendor.customer_id) > -1">
                                         <td colspan="2">
-                                            <table data-v-c9953dda="" class="table table-borderless physical_handy_tabls">
+                                            <table data-v-c9953dda=""
+                                                   class="table table-borderless physical_handy_tabls">
                                                 <tr style="border-bottom: 1px solid gray" v-for="shop in vendor.shops"
                                                     :class="(checkExist(shop.customer_shop_id)) ? 'active-c' : ''"
                                                     @click="selectSuperShop(vendor.customer_id,shop.customer_shop_id)">
                                                     <td style="border: none !important;padding: 10px"></td>
                                                     <td style="border: none !important;padding: 10px"></td>
-                                                    <td style="padding: 10px;;border: none !important;">{{ shop.shop_name }}</td>
+                                                    <td style="padding: 10px;;border: none !important;">
+                                                        {{ shop.shop_name }}
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -454,7 +465,7 @@ export default {
     name: "handy-custom-mistumury",
     data() {
         return {
-            speech_start : 0,
+            speech_start: 0,
             jan_code: '',
             order_data: [],
             select_status: 0,
@@ -481,9 +492,9 @@ export default {
             },
             preview: null,
             open_camera: 0,
-            selectedSuperShops : [],
-            check : null,
-            selected_input : '',
+            selectedSuperShops: [],
+            check: null,
+            selected_input: '',
 
         }
     },
@@ -499,7 +510,7 @@ export default {
         this.getProducts();
         setTimeout(function () {
             _this.addProductModal(1);
-        },1000)
+        }, 3000)
     },
     methods: {
         getProducts() {
@@ -550,9 +561,9 @@ export default {
             // this.handi_navi = '---------';
             // $('#handy-navi').show();
         },
-        viewInfoForImage(product, img ,i = 0) {
+        viewInfoForImage(product, img, i = 0) {
             if (i === 0) {
-                $('#check_by_'+product.jan).click();
+                $('#check_by_' + product.jan).click();
                 return 0;
             }
             product.item_name = product.name;
@@ -686,7 +697,7 @@ export default {
 
 
         },
-        selectItem(e,selected_id) {
+        selectItem(e, selected_id) {
             e.target.select()
             this.startSpeech();
             this.selected_input = selected_id;
@@ -874,7 +885,7 @@ export default {
             axios.post(_this.base_url + '/get_customer_list')
                 .then(function (response) {
                     // console.log(response.data)
-                     _this.vendors = response.data.all_customer_list;
+                    _this.vendors = response.data.all_customer_list;
                     // $('#select_tonya').modal({backdrop: 'static', keyboard: false})
                 })
                 .catch(function (e) {
@@ -1064,7 +1075,8 @@ export default {
             if (!_this.allSelectedSuper) {
                 _this.vendors.map(function (ven) {
                     _this.selectedSuper.push(ven.customer_id)
-                    _this.selectedSuperShops.push({c_id : ven.customer_id, s_ids : ven.shops.map(function (sp) {
+                    _this.selectedSuperShops.push({
+                        c_id: ven.customer_id, s_ids: ven.shops.map(function (sp) {
                             return sp.customer_shop_id;
                         })
                     })
@@ -1085,7 +1097,7 @@ export default {
                 $('#mistumury-prodct-add-modal').modal({backdrop: 'static'})
                 $('#click-file').show()
                 $('#open-camera').show()
-            },2000)
+            }, 2000)
         },
         //sendtoSuper
         sendtoSuper() {
@@ -1171,15 +1183,15 @@ export default {
                     $('#my-file').val('')
                     setTimeout(function () {
                         if (i == 1) {
-                            $('#check_by_'+response.data.jan).click()
+                            $('#check_by_' + response.data.jan).click()
                             setTimeout(function () {
                                 if (_this.productJans.length > 0) {
                                     $('#show-super-list').click()
                                 }
-                            },500)
+                            }, 500)
 
                         }
-                    },1000)
+                    }, 1000)
                 })
         },
 
@@ -1221,33 +1233,42 @@ export default {
         },
 
         clickAddFile(type) {
+            let _this = this;
             this.open_camera = type;
             setTimeout(function () {
                 $('#my-file').click()
+                // _this.performClick('my-file');
             }, 200)
         },
 
-        selectSuperShop(customer_id,shop_id) {
+        performClick(elemId) {
+            var elem = document.getElementById(elemId);
+            if (elem && document.createEvent) {
+                var evt = document.createEvent("MouseEvents");
+                evt.initEvent("click", true, false);
+                elem.dispatchEvent(evt);
+            }
+        },
+
+        selectSuperShop(customer_id, shop_id) {
             let _this = this;
-            this.selectedSuperShops.map(function (p,key) {
-                if (p.c_id == customer_id ){
+            this.selectedSuperShops.map(function (p, key) {
+                if (p.c_id == customer_id) {
                     if (p.s_ids.indexOf(shop_id) > -1) {
-                        p.s_ids.splice(p.s_ids.indexOf(shop_id),1)
-                    } else  {
+                        p.s_ids.splice(p.s_ids.indexOf(shop_id), 1)
+                    } else {
                         p.s_ids.push(shop_id)
                     }
                 }
-                console.log(key,p)
+                console.log(key, p)
             })
-
-
 
 
         },
 
         checkExist(id) {
             var check = 0;
-            this.selectedSuperShops.map(function (p,key) {
+            this.selectedSuperShops.map(function (p, key) {
                 if (p.s_ids.indexOf(id) > -1) {
                     check = 1;
                 }
@@ -1260,21 +1281,21 @@ export default {
             $('#' + id).click();
             let _this = this;
             _this.check = null;
-            this.selectedSuperShops.map(function (p,key) {
-                if (p.c_id == id ){
+            this.selectedSuperShops.map(function (p, key) {
+                if (p.c_id == id) {
                     _this.check = key;
                 }
-                console.log(p.c_id ,id,key,p)
+                console.log(p.c_id, id, key, p)
             })
 
             if (_this.check == null) {
-                this.selectedSuperShops.push({c_id : id, s_ids : []})
+                this.selectedSuperShops.push({c_id: id, s_ids: []})
             } else {
-                this.selectedSuperShops.splice(_this.check,1)
+                this.selectedSuperShops.splice(_this.check, 1)
             }
         },
         // voice input
-        placeValueToInputField(text){
+        placeValueToInputField(text) {
             let _this = this;
             text = parseInt(text);
             setTimeout(function () {
@@ -1297,7 +1318,7 @@ export default {
                 } else {
                     console.log(text)
                 }
-            },50)
+            }, 50)
         },
         getText({lastSentence, transcription}) {
             let _this = this;
