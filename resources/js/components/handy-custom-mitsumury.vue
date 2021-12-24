@@ -496,6 +496,7 @@ export default {
         $('#handy-navi').show();
         this.getVendorList();
         this.getProducts();
+        this.addProductModal(1);
     },
     methods: {
         getProducts() {
