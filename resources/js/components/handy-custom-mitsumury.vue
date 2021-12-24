@@ -489,6 +489,7 @@ export default {
     },
     mounted() {
         // this.getProducts();
+        let _this = this;
         this.images = ['57.jpg', 'cocacola.jpeg', 's-l1600.jpg', 'fish.jpeg', '4901005109803.jpg', '69813_11.png', '69813_11.png', 'Whocoded.jpg'];
         $('#jan_').focus()
         $('#jan_').select()
@@ -496,7 +497,9 @@ export default {
         $('#handy-navi').show();
         this.getVendorList();
         this.getProducts();
-        this.addProductModal(1);
+        setTimeout(function () {
+            _this.addProductModal(1);
+        },1000)
     },
     methods: {
         getProducts() {
