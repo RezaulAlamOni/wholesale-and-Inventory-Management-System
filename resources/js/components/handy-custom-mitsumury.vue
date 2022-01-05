@@ -452,6 +452,31 @@
                 </div>
             </div>
         </div>
+        <div class="jn nav_disp-w" style="z-index: 9999;width: 310px; right: 15px; bottom: 15px;"
+             id="handy-camara-navi">
+            <div class="card card-warning jn_old_popup " style="padding: 6px">
+                <div class="card-heading">
+                    <a class="btn btn-light float-right" href="javascript:void(0)"
+                       onclick="$('#handy-camara-navi').hide()">戻る</a>
+                </div>
+                <div class="card-body">
+                    <button @click="addProductModal(1)" v-if="productJans.length <= 0"
+                            class="btn btn-primary pull-right mr-1 " id="show-super-list__"
+                            style=" top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: right">
+                        写真を撮る
+                    </button>
+                    <button @click="addProductModal(0)" v-if="productJans.length <= 0"
+                            class="btn btn-info pull-right mr-1 "
+                            style=" top: 5px; right: 115px;padding: 5px 10px; font-size: 22px;float: left">
+                        画像を選ぶ
+                    </button>
+
+
+
+
+                </div>
+            </div>
+        </div>
     </section>
 
 </template>
@@ -504,12 +529,11 @@ export default {
         this.images = ['57.jpg', 'cocacola.jpeg', 's-l1600.jpg', 'fish.jpeg', '4901005109803.jpg', '69813_11.png', '69813_11.png', 'Whocoded.jpg'];
         $('#jan_').focus()
         $('#jan_').select()
-        this.handi_navi = '商品を押してください';
-        $('#handy-navi').show();
+        $('#handy-camara-navi').show();
         this.getVendorList();
         this.getProducts();
         setTimeout(function () {
-            _this.addProductModal(1);
+            // _this.addProductModal(1);
         }, 3000)
     },
     methods: {
