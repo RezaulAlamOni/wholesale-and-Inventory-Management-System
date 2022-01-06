@@ -1,6 +1,6 @@
 <template>
     <section>
-        <div class="main-content-container container-fluid px-4">
+        <div class="main-content-container container-fluid px-4" @dblclick="handiNaviShow()" style="min-height: 100vh">
             <!-- Small Stats Blocks -->
             <!--            voice input    -->
             <vue-speech lang="ja-JP" :resume="speech_start" style="display: none" @onTranscriptionEnd="getText"/>
@@ -40,440 +40,383 @@
                            @click="deleteMistunury(null)"
                            style=" position: absolute; top: 5px; right: 87px;padding: 5px 10px; font-size: 18px;"
                         > 削除</a>
-                        <!--                        <a href="mitsumury"-->
-                        <!--                           class="btn btn-info pull-right mr-1 "-->
-                        <!--                           style=" position: absolute; top: 5px; right: 0px;padding: 5px 10px; font-size: 18px;"> 戻る-->
-                        <!--                        </a>-->
-                        <button @click="addProductModal(1)" v-if="productJans.length <= 0"
-                                class="btn btn-primary pull-right mr-1 " id="show-super-list_"
-                                style="position: absolute; top: 5px; right: 0px;padding: 5px 10px; font-size: 18px; float: right">
-                            写真を撮る
-                        </button>
-                        <button @click="addProductModal(0)" v-if="productJans.length <= 0"
-                                class="btn btn-info pull-right mr-1 "
-                                style="position: absolute; top: 5px; right: 115px;padding: 5px 10px; font-size: 18px;float: right">
-                            画像を選ぶ
-                        </button>
-                    </div>
-                    <!--                    <div id="stock_detail_by_jan_form" class="p_scn_form text-right mt-0">-->
-                    <!--                        <div class="input-group m-0 my-1">-->
-                    <!--                            <span class="text-warning" style="width: 100%; text-align: center;">-->
-                    <!--                                枠の中にクリックしてから <br> JANコードスキャンしてください-->
-                    <!--                            </span>-->
-                    <!--                            <input type="tel" class="form-control" placeholder="JANコードスキャン（13桁）"-->
-                    <!--                                   style="border-radius: 0px;padding: 5px;font-size: 16px;" autofocus-->
-                    <!--                                   v-model="jan_code" id="jan_"-->
-                    <!--                                   name="scan_by_jan_for_stock_detail"-->
-                    <!--                                   v-on:keyup="checkAndGetData($event)"-->
-                    <!--                                   @blur="checkAndGetData($event)"-->
-                    <!--                                   @paste="checkAndGetData($event)"-->
-                    <!--                                   @input="checkAndGetData($event)"-->
-                    <!--                                   aria-label="Recipient's username" aria-describedby="basic-addon2">-->
-                    <!--                            <div class="input-group-append">-->
-                    <!--                                <button class="btn btn-primary" type="button">次へ</button>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                        <div class="form-group m-0">-->
-
-                    <!--                            &lt;!&ndash;                            <input type="tel" id="jan_input" class="form-control custom-input"&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                                   v-model="jan_code"&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                                   style="padding: 5px 10px !important;height: 45px !important; margin: 5px 0 !important;"&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                                   name="scan_by_jan_for_stock_detail"&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                                   v-on:keyup="checkAndGetData($event)"&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                                   @blur="checkAndGetData($event)"&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                                   @paste="checkAndGetData($event)"&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                                   @input="checkAndGetData($event)"&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                                   placeholder="JANコードスキャン（13桁）" autofocus>&ndash;&gt;-->
 
 
-                    <!--                            &lt;!&ndash;                                    <button type="button" @click="alertForIos" onclick="$('#jan_input').focus()"&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                                            class="hide btn custom-btn btn-primary text-right show_inline search-button-ios "&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                                            style="float: left;width: 100px">&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                                        音声&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                                    </button>&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                                    <text-recognition :base_url="base_url"&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                                                      @getSearchData="getSearchData"&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                                                      @clearInput="clearInput"></text-recognition>&ndash;&gt;-->
-
-                    <!--                            &lt;!&ndash;                                    <button type="button" @click="getBarCodeScan()"&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                                            class="pr-0 ml-1 btn custom-btn btn-primary text-right show_inline search-button"&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                                            style="padding:0;float: left;width: 70px !important;">&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                                        <i class="fa fa-barcode" style="font-size: 40px"></i>&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                                    </button>&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                            <button type="button" v-on:click="getOrderDataByJan()"&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                                    style="margin: 0px;width: 80px !important; height: 40px;height: 30px !important;line-height: 18px !important;font-size: 18px !important;"&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                                    class="btn custom-btn btn-primary pull-right text-right show_inline">&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                                次へ&ndash;&gt;-->
-                    <!--                            &lt;!&ndash;                            </button>&ndash;&gt;-->
-                    <!--                        </div>-->
-
-
-                    <!--                    </div>-->
-
-                    <div class=" col-centereds col-md-12 col-sm-12 col-sl-12 p-0 row mt-2">
-                        <div class="col-sm-6 col-md-3 col-xl-3 image-div" v-for="(product,i) in products"
-                             :class="(productJans.indexOf(product)) > -1 ? 'active-img' : ''">
-                            <img :src="product.image"
-                                 class="img-thumbnail custom-img"
-                                 alt="Cinque Terre" @click="viewInfoForImage(product,product.img)"
-                                 @dblclick="viewInfoForImage(product,product.img,1)"
-                                 style="cursor: pointer">
-                            <input class="form-check-input form-check-input_" type="checkbox"
-                                   :id="'check_by_'+product.jan" v-model="productJans"
-                                   :value="product">
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-             aria-hidden="true" id="mistumury-mage-preview">
-            <div class="modal-dialog modal-lg mt-0">
-                <div class="modal-content">
-                    <div class="modal-header" style="padding: 5px;justify-content: right">
-                        <a class="btn btn-danger float-right mr-1" @click="deleteMistunury(preview_product)">削除</a>
-                        <a class="btn btn-success float-right mr-1" @click="naviShow()"> 保存</a>
-                        <!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
-                        <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
-
-                    </div>
-                    <div class="modal-body p-0" style="text-align: center">
-                        <div
-                            style="font-size: 18px;text-align: left;padding: 5px 10px;background: #c3ff8f80;font-weight: bold;">
-                            {{ preview_product.item_name }}
-                        </div>
-                        <div>
-                            <img
-                                :src="''+preview_product.image"
-                                class="img-thumbnail custom-img-preview" alt="Cinque Terre"
-                                style="cursor: pointer">
-                        </div>
-                        <div>
-                            <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls">
-                                <thead data-v-c9953dda="">
-                                <tr data-v-c9953dda="">
-                                    <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
-                                        原価
-                                    </th>
-                                    <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
-                                        売価
-                                    </th>
-                                    <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
-                                        粗利
-                                    </th>
-                                    <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
-                                        ％
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody data-v-c9953dda="" class="physicaltbody">
-                                <tr data-v-c9953dda="">
-
-                                    <td data-v-c9953dda="">
-                                        <input data-v-c9953dda="" type="tel" id="cost"
-                                               @click="selectItem($event,'cost')"
-                                               class="form-control  " v-model="preview_product.cost"
-                                               @keyup="calculatePrice('cost')"
-                                               style="border-radius: 0px; text-align: center; padding: 7px 0px;">
-                                        <!--                                        @blur="blurAndSave()"-->
-                                        <!--                                        @keypress="pressEnterAndSave($event,'sell')"-->
-                                    </td>
-                                    <td data-v-c9953dda="">
-                                        <input data-v-c9953dda="" type="tel" id="sell"
-                                               @click="selectItem($event,'sell')"
-                                               class="form-control  " v-model="preview_product.sell"
-                                               @keyup="calculatePrice('sell')"
-                                               style="border-radius: 0px; text-align: center; padding: 7px 0px;">
-                                        <!--                                        @keypress="pressEnterAndSave($event,'profit_margin')"-->
-                                        <!--                                        @blur="blurAndSave()"-->
-                                    </td>
-                                    <td data-v-c9953dda="">
-                                        <input data-v-c9953dda="" type="tel" id="profit"
-                                               @click="selectItem($event,'profit')"
-                                               class="form-control  "
-                                               :value="preview_product.sell - preview_product.cost" readonly
-                                               style="border-radius: 0px; text-align: center; padding: 7px 0px;">
-                                        <!--                                        v-model="preview_product.profit"-->
-                                        <!--                                               @keypress="pressEnterAndSave($event,'profit_margin')"-->
-                                        <!--                                               @keyup="calculatePrice('profit')"-->
-                                    </td>
-                                    <td data-v-c9953dda="">
-                                        <input data-v-c9953dda="" type="tel" id="profit_margin"
-                                               @click="selectItem($event,'profit_margin')"
-                                               class="form-control  " v-model="preview_product.gross_profit_margin"
-                                               @keyup="calculatePrice('profit_margin')"
-                                               style="border-radius: 0px; text-align: center; padding: 7px 0px;">
-                                        <!--                                        @blur="blurAndSave()"-->
-                                        <!--                                        @keypress="pressEnterAndSave($event,'cost')"-->
-
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="detail-pro">
-                            {{ preview_product.jan }}
-                        </div>
-                        <div class="detail-pro">
-                            {{ preview_product.created_at }}
-                        </div>
-
-
-                    </div>
-                    <!--                    <div class="modal-footer " style="padding: 6px">-->
-                    <!--                    </div>-->
-                </div>
-            </div>
-        </div>
-        <!--        // mistumury-prodct-add-modal-->
-        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-             aria-hidden="true" id="mistumury-prodct-add-modal">
-            <div class="modal-dialog modal-lg mt-0">
-                <div class="modal-content">
-                    <div class="modal-header" style="padding: 5px;justify-content: right">
-                        <button class="btn btn-success float-right mr-1" id="product-add--"
-                                @click="saveNewMistumuryProduct($event,1)"> 保存と送信
-                        </button>
-                        <button class="btn btn-success float-right mr-1" id="product-add-"
-                                @click="saveNewMistumuryProduct($event)"> 保存
-                        </button>
-                        <!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
-                        <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-prodct-add-modal')">戻る</a>
-
-                    </div>
-                    <div class="modal-body p-0" style="text-align: center">
-                        <div
-                            style="font-size: 18px;text-align: left;padding: 5px 10px;background: #c3ff8f80;font-weight: bold;">
-                            <input type="text" v-model="mistumury_product.title" class="form-control"
-                                   placeholder="商品名を入力してください">
-                        </div>
-                        <div>
-                            <div class="form-group text-center">
-                                <input type="file" :accept="open_camera ? 'image/*;capture=camera' : 'image/*'"
-                                       @change="previewImage" class="form-control-file hide"
-                                       id="my-file" alt="00">
-                                <button class="btn btn-info" id="click-file" @click="clickAddFile(0)">画像を選ぶ</button>
-                                <button class="btn btn-primary" id="open-camera" @click="clickAddFile(1)">写真を撮る</button>
+                        <div class=" col-centereds col-md-12 col-sm-12 col-sl-12 p-0 row mt-2">
+                            <div class="col-sm-6 col-md-3 col-xl-3 image-div" v-for="(product,i) in products"
+                                 :class="(productJans.indexOf(product)) > -1 ? 'active-img' : ''">
+                                <img :src="product.image"
+                                     class="img-thumbnail custom-img"
+                                     alt="Cinque Terre" @click="viewInfoForImage(product,product.img)"
+                                     @dblclick="viewInfoForImage(product,product.img,1)"
+                                     style="cursor: pointer">
+                                <input class="form-check-input form-check-input_" type="checkbox"
+                                       :id="'check_by_'+product.jan" v-model="productJans"
+                                       :value="product">
                             </div>
-                            <img v-if="preview"
-                                 :src="preview"
-                                 class="img-thumbnail custom-img-preview" alt="Cinque Terre"
-                                 style="cursor: pointer">
-                        </div>
-                        <div>
-                            <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls">
-                                <thead data-v-c9953dda="">
-                                <tr data-v-c9953dda="">
-                                    <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
-                                        原価
-                                    </th>
-                                    <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
-                                        売価
-                                    </th>
-                                    <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
-                                        粗利
-                                    </th>
-                                    <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
-                                        ％
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody data-v-c9953dda="" class="physicaltbody">
-                                <tr data-v-c9953dda="">
-                                    <td data-v-c9953dda="">
-                                        <input data-v-c9953dda="" type="tel" id="cost_" @click="selectItem($event)"
-                                               class="form-control  " v-model="mistumury_product.cost"
-                                               @keypress="pressEnterAndNext($event,'sell_')"
-                                               @keyup="calculateNewProductAddPrice('cost')"
-                                               style="border-radius: 0px; text-align: center; padding: 7px 0px;">
-                                    </td>
-                                    <td data-v-c9953dda="">
-                                        <input data-v-c9953dda="" type="tel" id="sell_" @click="selectItem($event)"
-                                               class="form-control  " v-model="mistumury_product.sell"
-                                               @keypress="pressEnterAndNext($event,'profit_margin_')"
-                                               @keyup="calculateNewProductAddPrice('sell')"
-                                               style="border-radius: 0px; text-align: center; padding: 7px 0px;">
-                                    </td>
-                                    <td data-v-c9953dda="">
-                                        <input data-v-c9953dda="" type="tel" id="profit_" @click="selectItem($event)"
-                                               class="form-control  "
-                                               :value="(mistumury_product.sell && mistumury_product.cost) ? mistumury_product.sell - mistumury_product.cost : ''"
-                                               readonly
-                                               style="border-radius: 0px; text-align: center; padding: 7px 0px;">
-                                        <!--                                        v-model="preview_product.profit"-->
-                                        <!--                                               @keypress="pressEnterAndNext($event,'profit_margin')"-->
-                                        <!--                                               @keyup="calculatePrice('profit')"-->
-                                    </td>
-                                    <td data-v-c9953dda="">
-                                        <input data-v-c9953dda="" type="tel" id="profit_margin_"
-                                               @click="selectItem($event)"
-                                               @keypress="pressEnterAndNext($event,'cost_')"
-                                               class="form-control  " v-model="mistumury_product.profit_margin"
-                                               @keyup="calculateNewProductAddPrice('profit_margin')"
-                                               style="border-radius: 0px; text-align: center; padding: 7px 0px;">
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="form-group" style="display: none">
-                            <select class="form-control" id="vendprs" v-model="maker_id"
-                                    @change="updateVendorData()">
-                                <option value="0">問屋を選択</option>
-                                <option v-for="vendor in vendors" :value="vendor.id">
-                                    {{ vendor.text }}
-                                </option>
-                            </select>
-                        </div>
 
-
+                        </div>
                     </div>
-                    <!--                    <div class="modal-footer " style="padding: 6px">-->
-                    <!--                    </div>-->
                 </div>
             </div>
-        </div>
 
-        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-             aria-hidden="true" id="mistumury-select-super">
-            <div class="modal-dialog modal-lg mt-0">
-                <div class="modal-content">
-                    <div class="modal-header" style="padding: 5px;justify-content: right">
-                        <button class="btn btn-success mr-2" @click="sendtoSuper()"
-                                :disabled="(productJans.length > 0 && selectedSuper.length > 0 ) ? false : true">送信
-                        </button>
-                        <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-select-super')">戻る</a>
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                 aria-hidden="true" id="mistumury-mage-preview">
+                <div class="modal-dialog modal-lg mt-0">
+                    <div class="modal-content">
+                        <div class="modal-header" style="padding: 5px;justify-content: right">
+                            <a class="btn btn-danger float-right mr-1" @click="deleteMistunury(preview_product)">削除</a>
+                            <a class="btn btn-success float-right mr-1" @click="naviShow()"> 保存</a>
+                            <!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
+                            <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
+
+                        </div>
+                        <div class="modal-body p-0" style="text-align: center">
+                            <div
+                                style="font-size: 18px;text-align: left;padding: 5px 10px;background: #c3ff8f80;font-weight: bold;">
+                                {{ preview_product.item_name }}
+                            </div>
+                            <div>
+                                <img
+                                    :src="''+preview_product.image"
+                                    class="img-thumbnail custom-img-preview" alt="Cinque Terre"
+                                    style="cursor: pointer">
+                            </div>
+                            <div>
+                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls">
+                                    <thead data-v-c9953dda="">
+                                    <tr data-v-c9953dda="">
+                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                            原価
+                                        </th>
+                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                            売価
+                                        </th>
+                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                            粗利
+                                        </th>
+                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                            ％
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody data-v-c9953dda="" class="physicaltbody">
+                                    <tr data-v-c9953dda="">
+
+                                        <td data-v-c9953dda="">
+                                            <input data-v-c9953dda="" type="tel" id="cost"
+                                                   @click="selectItem($event,'cost')"
+                                                   class="form-control  " v-model="preview_product.cost"
+                                                   @keyup="calculatePrice('cost')"
+                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+                                            <!--                                        @blur="blurAndSave()"-->
+                                            <!--                                        @keypress="pressEnterAndSave($event,'sell')"-->
+                                        </td>
+                                        <td data-v-c9953dda="">
+                                            <input data-v-c9953dda="" type="tel" id="sell"
+                                                   @click="selectItem($event,'sell')"
+                                                   class="form-control  " v-model="preview_product.sell"
+                                                   @keyup="calculatePrice('sell')"
+                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+                                            <!--                                        @keypress="pressEnterAndSave($event,'profit_margin')"-->
+                                            <!--                                        @blur="blurAndSave()"-->
+                                        </td>
+                                        <td data-v-c9953dda="">
+                                            <input data-v-c9953dda="" type="tel" id="profit"
+                                                   @click="selectItem($event,'profit')"
+                                                   class="form-control  "
+                                                   :value="preview_product.sell - preview_product.cost" readonly
+                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+                                            <!--                                        v-model="preview_product.profit"-->
+                                            <!--                                               @keypress="pressEnterAndSave($event,'profit_margin')"-->
+                                            <!--                                               @keyup="calculatePrice('profit')"-->
+                                        </td>
+                                        <td data-v-c9953dda="">
+                                            <input data-v-c9953dda="" type="tel" id="profit_margin"
+                                                   @click="selectItem($event,'profit_margin')"
+                                                   class="form-control  " v-model="preview_product.gross_profit_margin"
+                                                   @keyup="calculatePrice('profit_margin')"
+                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+                                            <!--                                        @blur="blurAndSave()"-->
+                                            <!--                                        @keypress="pressEnterAndSave($event,'cost')"-->
+
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="detail-pro">
+                                {{ preview_product.jan }}
+                            </div>
+                            <div class="detail-pro">
+                                {{ preview_product.created_at }}
+                            </div>
+
+
+                        </div>
+                        <!--                    <div class="modal-footer " style="padding: 6px">-->
+                        <!--                    </div>-->
                     </div>
-                    <div class="modal-body p-0" style="text-align: center">
-                        <div
-                            style="font-size: 16px;text-align: left;padding: 5px 10px;background: #c3ff8f80;font-weight: bold;">
-                            スーパーを選択して送信してください
+                </div>
+            </div>
+            <!--        // mistumury-prodct-add-modal-->
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                 aria-hidden="true" id="mistumury-prodct-add-modal">
+                <div class="modal-dialog modal-lg mt-0">
+                    <div class="modal-content">
+                        <div class="modal-header" style="padding: 5px;justify-content: right">
+                            <!--                        <button class="btn btn-success float-right mr-1" id="product-add&#45;&#45;"-->
+                            <!--                                @click="saveNewMistumuryProduct($event,1)"> 保存と送信-->
+                            <!--                        </button>-->
+                            <!--                        <button class="btn btn-success float-right mr-1" id="product-add-"-->
+                            <!--                                @click="saveNewMistumuryProduct($event)"> 保存-->
+                            <!--                        </button>-->
+                            <!--                        &lt;!&ndash;                        <a class="btn btn-success float-right mr-2">発注</a>&ndash;&gt;-->
+                            <!--                        <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-prodct-add-modal')">戻る</a>-->
+
                         </div>
-                        <div>
-                            <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls">
-                                <thead>
-                                <tr>
-                                    <th colspan="2 " style="text-align: left">
-                                        <input class="form-check-input check-all m-0" @click="selectAllSuper()"
-                                               v-model="allSelectedSuper" type="checkbox" value="">
-                                        <label class="form-check-label " style="margin-left: 40px"
-                                               for="flexCheckChecked">
-                                            全て
-                                        </label>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody data-v-c9953dda="" class="physicaltbody">
-
-                                <!--                                <tr :class="(selectedSuper.indexOf(vendor.id) > -1) ? 'active-c' : ''"-->
-                                <!--                                    v-for="vendor in vendors" style="border-bottom: 1px solid gray">-->
-                                <!--                                    <td style="width: 50px;padding: 10px;border: none !important;">-->
-                                <!--                                        <input class="form-check-input m-0" type="checkbox" v-model="selectedSuper"-->
-                                <!--                                               :value="vendor.id">-->
-                                <!--                                    </td>-->
-                                <!--                                    <td style="padding: 10px;;border: none !important;">{{ vendor.text }}</td>-->
-                                <!--                                </tr>-->
-
-                                <template v-for="vendor in vendors">
-                                    <tr :class="(selectedSuper.indexOf(vendor.customer_id) > -1) ? 'active-c' : ''"
-                                        style="border-bottom: 1px solid gray"
-                                        @click="clickAndCheck(vendor.customer_id)">
-                                        <td style="width: 50px;padding: 10px;border: none !important;">
-                                            <input class="form-check-input m-0 hide" :id="vendor.customer_id"
-                                                   type="checkbox"
-                                                   v-model="selectedSuper"
-                                                   :value="vendor.customer_id">
-                                        </td>
-                                        <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
+                        <div class="modal-body p-0" style="text-align: center">
+                            <div
+                                style="font-size: 18px;text-align: left;padding: 5px 10px;background: #c3ff8f80;font-weight: bold;">
+                                <input type="text" v-model="mistumury_product.title" class="form-control"
+                                       placeholder="商品名を入力してください">
+                            </div>
+                            <div>
+                                <div class="form-group text-center">
+                                    <input type="file" :accept="open_camera ? 'image/*;capture=camera' : 'image/*'"
+                                           @change="previewImage" class="form-control-file hide"
+                                           id="my-file" alt="00">
+                                    <button class="btn btn-info" id="click-file" @click="clickAddFile(0)">画像を選ぶ</button>
+                                    <button class="btn btn-primary" id="open-camera" @click="clickAddFile(1)">写真を撮る
+                                    </button>
+                                </div>
+                                <img v-if="preview"
+                                     :src="preview"
+                                     class="img-thumbnail custom-img-preview" alt="Cinque Terre"
+                                     style="cursor: pointer">
+                            </div>
+                            <div>
+                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls">
+                                    <thead data-v-c9953dda="">
+                                    <tr data-v-c9953dda="">
+                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                            原価
+                                        </th>
+                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                            売価
+                                        </th>
+                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                            粗利
+                                        </th>
+                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                            ％
+                                        </th>
                                     </tr>
-
-                                    <tr v-if="selectedSuper.indexOf(vendor.customer_id) > -1">
-                                        <td colspan="2">
-                                            <table data-v-c9953dda=""
-                                                   class="table table-borderless physical_handy_tabls">
-                                                <tr style="border-bottom: 1px solid gray" v-for="shop in vendor.shops"
-                                                    :class="(checkExist(shop.customer_shop_id)) ? 'active-c' : ''"
-                                                    @click="selectSuperShop(vendor.customer_id,shop.customer_shop_id)">
-                                                    <td style="border: none !important;padding: 10px"></td>
-                                                    <td style="border: none !important;padding: 10px"></td>
-                                                    <td style="padding: 10px;;border: none !important;">
-                                                        {{ shop.shop_name }}
-                                                    </td>
-                                                </tr>
-                                            </table>
+                                    </thead>
+                                    <tbody data-v-c9953dda="" class="physicaltbody">
+                                    <tr data-v-c9953dda="">
+                                        <td data-v-c9953dda="">
+                                            <input data-v-c9953dda="" type="tel" id="cost_" @click="selectItem($event)"
+                                                   class="form-control  " v-model="mistumury_product.cost"
+                                                   @keypress="pressEnterAndNext($event,'sell_')"
+                                                   @keyup="calculateNewProductAddPrice('cost')"
+                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+                                        </td>
+                                        <td data-v-c9953dda="">
+                                            <input data-v-c9953dda="" type="tel" id="sell_" @click="selectItem($event)"
+                                                   class="form-control  " v-model="mistumury_product.sell"
+                                                   @keypress="pressEnterAndNext($event,'profit_margin_')"
+                                                   @keyup="calculateNewProductAddPrice('sell')"
+                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+                                        </td>
+                                        <td data-v-c9953dda="">
+                                            <input data-v-c9953dda="" type="tel" id="profit_"
+                                                   @click="selectItem($event)"
+                                                   class="form-control  "
+                                                   :value="(mistumury_product.sell && mistumury_product.cost) ? mistumury_product.sell - mistumury_product.cost : ''"
+                                                   readonly
+                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+                                            <!--                                        v-model="preview_product.profit"-->
+                                            <!--                                               @keypress="pressEnterAndNext($event,'profit_margin')"-->
+                                            <!--                                               @keyup="calculatePrice('profit')"-->
+                                        </td>
+                                        <td data-v-c9953dda="">
+                                            <input data-v-c9953dda="" type="tel" id="profit_margin_"
+                                                   @click="selectItem($event)"
+                                                   @keypress="pressEnterAndNext($event,'cost_')"
+                                                   class="form-control  " v-model="mistumury_product.profit_margin"
+                                                   @keyup="calculateNewProductAddPrice('profit_margin')"
+                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;">
                                         </td>
                                     </tr>
-                                </template>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="form-group" style="display: none">
+                                <select class="form-control" id="vendprs" v-model="maker_id"
+                                        @change="updateVendorData()">
+                                    <option value="0">問屋を選択</option>
+                                    <option v-for="vendor in vendors" :value="vendor.id">
+                                        {{ vendor.text }}
+                                    </option>
+                                </select>
+                            </div>
 
-                                </tbody>
 
-                            </table>
                         </div>
+                        <!--                    <div class="modal-footer " style="padding: 6px">-->
+                        <!--                    </div>-->
+                    </div>
+                </div>
+            </div>
 
-                        <div class="form-group" v-if="message">
-                            <label><h5 class="text-warning">ここにメッセージを書くことができます </h5></label>
-                            <textarea class="form-control" autofocus v-model="message"
-                                      style="border: 1px solid; background: beige;"
-                                      id="exampleFormControlTextarea1" rows="3">
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                 aria-hidden="true" id="mistumury-select-super">
+                <div class="modal-dialog modal-lg mt-0">
+                    <div class="modal-content">
+                        <div class="modal-header" style="padding: 5px;justify-content: right">
+                            <button class="btn btn-success mr-2" @click="sendtoSuper()"
+                                    :disabled="(productJans.length > 0 && selectedSuper.length > 0 ) ? false : true">送信
+                            </button>
+                            <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-select-super')">戻る</a>
+                        </div>
+                        <div class="modal-body p-0" style="text-align: center">
+                            <div
+                                style="font-size: 16px;text-align: left;padding: 5px 10px;background: #c3ff8f80;font-weight: bold;">
+                                スーパーを選択して送信してください
+                            </div>
+                            <div>
+                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="2 " style="text-align: left">
+                                            <input class="form-check-input check-all m-0" @click="selectAllSuper()"
+                                                   v-model="allSelectedSuper" type="checkbox" value="">
+                                            <label class="form-check-label " style="margin-left: 40px"
+                                                   for="flexCheckChecked">
+                                                全て
+                                            </label>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody data-v-c9953dda="" class="physicaltbody">
+
+                                    <!--                                <tr :class="(selectedSuper.indexOf(vendor.id) > -1) ? 'active-c' : ''"-->
+                                    <!--                                    v-for="vendor in vendors" style="border-bottom: 1px solid gray">-->
+                                    <!--                                    <td style="width: 50px;padding: 10px;border: none !important;">-->
+                                    <!--                                        <input class="form-check-input m-0" type="checkbox" v-model="selectedSuper"-->
+                                    <!--                                               :value="vendor.id">-->
+                                    <!--                                    </td>-->
+                                    <!--                                    <td style="padding: 10px;;border: none !important;">{{ vendor.text }}</td>-->
+                                    <!--                                </tr>-->
+
+                                    <template v-for="vendor in vendors">
+                                        <tr :class="(selectedSuper.indexOf(vendor.customer_id) > -1) ? 'active-c' : ''"
+                                            style="border-bottom: 1px solid gray"
+                                            @click="clickAndCheck(vendor.customer_id)">
+                                            <td style="width: 50px;padding: 10px;border: none !important;">
+                                                <input class="form-check-input m-0 hide" :id="vendor.customer_id"
+                                                       type="checkbox"
+                                                       v-model="selectedSuper"
+                                                       :value="vendor.customer_id">
+                                            </td>
+                                            <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
+                                        </tr>
+
+                                        <tr v-if="selectedSuper.indexOf(vendor.customer_id) > -1">
+                                            <td colspan="2">
+                                                <table data-v-c9953dda=""
+                                                       class="table table-borderless physical_handy_tabls">
+                                                    <tr style="border-bottom: 1px solid gray"
+                                                        v-for="shop in vendor.shops"
+                                                        :class="(checkExist(shop.customer_shop_id)) ? 'active-c' : ''"
+                                                        @click="selectSuperShop(vendor.customer_id,shop.customer_shop_id)">
+                                                        <td style="border: none !important;padding: 10px"></td>
+                                                        <td style="border: none !important;padding: 10px"></td>
+                                                        <td style="padding: 10px;;border: none !important;">
+                                                            {{ shop.shop_name }}
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </template>
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+
+                            <div class="form-group" v-if="message">
+                                <label><h5 class="text-warning">ここにメッセージを書くことができます </h5></label>
+                                <textarea class="form-control" autofocus v-model="message"
+                                          style="border: 1px solid; background: beige;"
+                                          id="exampleFormControlTextarea1" rows="3">
 
                             </textarea>
+                            </div>
+
+
                         </div>
+                        <!--                    <div class="modal-footer " style="padding: 6px">-->
+                        <!--                    </div>-->
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="jn nav_disp-w" style="z-index: 9999;width: 270px; right: 15px; bottom: 15px;"
+                 id="handy-navi">
+                <div class="card card-warning jn_old_popup " style="padding: 6px">
+                    <!--                <div class="card-heading">-->
+                    <!--                    <a class="btn btn-light float-right" href="javascript:void(0)"-->
+                    <!--                       onclick="$('#handy-navi').hide()">戻る</a>-->
+                    <!--                </div>-->
+                    <div class="card-body">
+                        <a class="btn btn-light float-right" href="javascript:void(0)"
+                           v-if="selected_products.length <= 0"
+                           onclick="$('#handy-navi').hide()">戻る</a>
+
+                        <a class="btn btn-light float-right" href="javascript:void(0)" v-else
+                           @click="confirm()">***</a>
+
+                        <ol id="handy-navi-body" v-html="handi_navi">
+
+                        </ol>
 
 
                     </div>
-                    <!--                    <div class="modal-footer " style="padding: 6px">-->
-                    <!--                    </div>-->
                 </div>
             </div>
-        </div>
+            <div class="jn nav_disp-w" style="z-index: 9999;width: 310px; right: 15px; bottom: 15px;"
+                 id="handy-camara-navi">
+                <div class="card card-warning jn_old_popup " style="padding: 6px">
+                    <div class="card-heading">
+                        <!--                    <a class="btn btn-light float-right" href="javascript:void(0)"-->
+                        <!--                       onclick="$('#handy-camara-navi').hide()">戻る</a>-->
+                    </div>
+                    <div class="card-body" style="text-align: center;font-size: 24px">
+                        <template v-if="navi_button == 1">
+                            <button @click="addProductModal(0)" v-if="productJans.length <= 0"
+                                    class="btn btn-info pull-right mr-1 "
+                                    style=" top: 5px; right: 115px;padding: 5px 10px; font-size: 22px;float: right">
+                                送受信
+                            </button>
+                            または
+                            <button @click="addProductModal(1)" v-if="productJans.length <= 0"
+                                    class="btn btn-primary pull-right mr-1 " id="show-super-list__"
+                                    style=" top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: left">
+                                撮影
+                            </button>
+                        </template>
+                        <template v-else-if="navi_button == 2">
+                            <button class="btn btn-success mr-1" id="product-add--"
+                                    @click="saveNewMistumuryProduct($event,1)">送信
+                            </button>
+                        </template>
 
 
-        <div class="jn nav_disp-w" style="z-index: 9999;width: 270px; right: 15px; bottom: 15px;"
-             id="handy-navi">
-            <div class="card card-warning jn_old_popup " style="padding: 6px">
-                <!--                <div class="card-heading">-->
-                <!--                    <a class="btn btn-light float-right" href="javascript:void(0)"-->
-                <!--                       onclick="$('#handy-navi').hide()">戻る</a>-->
-                <!--                </div>-->
-                <div class="card-body">
-                    <a class="btn btn-light float-right" href="javascript:void(0)" v-if="selected_products.length <= 0"
-                       onclick="$('#handy-navi').hide()">戻る</a>
-
-                    <a class="btn btn-light float-right" href="javascript:void(0)" v-else
-                       @click="confirm()">***</a>
-
-                    <ol id="handy-navi-body" v-html="handi_navi">
-
-                    </ol>
-
-
-                </div>
-            </div>
-        </div>
-        <div class="jn nav_disp-w" style="z-index: 9999;width: 310px; right: 15px; bottom: 15px;"
-             id="handy-camara-navi">
-            <div class="card card-warning jn_old_popup " style="padding: 6px">
-                <div class="card-heading">
-                    <a class="btn btn-light float-right" href="javascript:void(0)"
-                       onclick="$('#handy-camara-navi').hide()">戻る</a>
-                </div>
-                <div class="card-body">
-                    <button @click="addProductModal(1)" v-if="productJans.length <= 0"
-                            class="btn btn-primary pull-right mr-1 " id="show-super-list__"
-                            style=" top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: right">
-                        写真を撮る
-                    </button>
-                    <button @click="addProductModal(0)" v-if="productJans.length <= 0"
-                            class="btn btn-info pull-right mr-1 "
-                            style=" top: 5px; right: 115px;padding: 5px 10px; font-size: 22px;float: left">
-                        画像を選ぶ
-                    </button>
-
-
-
-
+                    </div>
                 </div>
             </div>
         </div>
@@ -520,6 +463,7 @@ export default {
             selectedSuperShops: [],
             check: null,
             selected_input: '',
+            navi_button: null
 
         }
     },
@@ -529,9 +473,9 @@ export default {
         this.images = ['57.jpg', 'cocacola.jpeg', 's-l1600.jpg', 'fish.jpeg', '4901005109803.jpg', '69813_11.png', '69813_11.png', 'Whocoded.jpg'];
         $('#jan_').focus()
         $('#jan_').select()
-        $('#handy-camara-navi').show();
         this.getVendorList();
         this.getProducts();
+        this.handiNaviShow();
         setTimeout(function () {
             // _this.addProductModal(1);
         }, 3000)
@@ -586,8 +530,10 @@ export default {
             // $('#handy-navi').show();
         },
         viewInfoForImage(product, img, i = 0) {
+
             if (i === 0) {
                 $('#check_by_' + product.jan).click();
+                $('#handy-camara-navi').hide();
                 return 0;
             }
             product.item_name = product.name;
@@ -935,6 +881,7 @@ export default {
                 $('#cost').select();
                 _this.startSpeech();
                 _this.selected_input = 'cost';
+                $('#handy-camara-navi').hide();
             }, 700)
 
         },
@@ -1165,6 +1112,8 @@ export default {
             }
             $('#click-file').hide()
             $('#open-camera').hide()
+            // navi button change
+            this.navi_button = 2;
         },
 
         saveNewMistumuryProduct: function (event, i = null) {
@@ -1175,6 +1124,7 @@ export default {
                 $('#product-add-').prop('disabled', true);
                 $('#product-add--').prop('disabled', true);
             }
+            $('#handy-camara-navi').hide();
             let _this = this;
             if (this.mistumury_product.title.length <= 0 || this.mistumury_product.cost <= 0 || this.mistumury_product.sell <= 0) {
                 this.handi_navi = '商品名を入力してください';
@@ -1353,6 +1303,15 @@ export default {
             let _this = this
             _this.speech_start = (_this.speech_start === 0) ? 1 : 0;
         },
+        handiNaviShow() {
+            if (this.productJans.length <= 0) {
+                $('#handy-camara-navi').show();
+                this.navi_button = 1;
+                this.confirmAndHide('mistumury-prodct-add-modal')
+
+            }
+
+        }
     },
     watch: {}
 }
