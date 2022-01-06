@@ -179,7 +179,7 @@
                             <div
                                 style="font-size: 18px;text-align: left;padding: 5px 10px;background: #c3ff8f80;font-weight: bold;">
                                 <input type="text" v-model="mistumury_product.title" class="form-control"
-                                       placeholder="商品名を入力してください">
+                                       placeholder="商品名を入力してください" @click="handiNaviShow_()">
                             </div>
                             <div>
                                 <div class="form-group text-center">
@@ -1311,7 +1311,15 @@ export default {
 
             }
 
-        }
+        },
+        handiNaviShow_() {
+            if (this.productJans.length <= 0) {
+                $('#handy-camara-navi').show();
+                this.navi_button = 2;
+
+            }
+
+        },
     },
     watch: {}
 }
