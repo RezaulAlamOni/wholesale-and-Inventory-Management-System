@@ -275,9 +275,9 @@
                 <div class="modal-dialog modal-lg mt-0">
                     <div class="modal-content">
                         <div class="modal-header" style="padding: 5px;justify-content: right">
-                            <button class="btn btn-success mr-2" @click="sendtoSuper()"
-                                    :disabled="(productJans.length > 0 && selectedSuper.length > 0 ) ? false : true">送信
-                            </button>
+<!--                            <button class="btn btn-success mr-2" @click="sendtoSuper()"-->
+<!--                                    :disabled="(productJans.length > 0 && selectedSuper.length > 0 ) ? false : true">送信-->
+<!--                            </button>-->
                             <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-select-super')">戻る</a>
                         </div>
                         <div class="modal-body p-0" style="text-align: center">
@@ -414,6 +414,9 @@
                                     @click="saveNewMistumuryProduct($event,1)">送信
                             </button>
                         </template>
+                        <button class="btn btn-success mr-2" @click="sendtoSuper()" v-else-if="navi_button == 3"
+                                :disabled="(productJans.length > 0 && selectedSuper.length > 0 ) ? false : true">送信
+                        </button>
 
 
                     </div>
@@ -1092,6 +1095,7 @@ export default {
                     _this.getProducts();
                     _this.handi_navi = '見積スーパーに送信されました';
                     $('#handy-navi').show()
+                    $('#handy-camara-navi').hide();
                 })
                 .catch(function (e) {
                     console.log(e)
@@ -1267,6 +1271,12 @@ export default {
             } else {
                 this.selectedSuperShops.splice(_this.check, 1)
             }
+
+            if (this.selectedSuper.length) {
+                this.navi_button = 3;
+                $('#handy-camara-navi').show();
+            }
+
         },
         // voice input
         placeValueToInputField(text) {
