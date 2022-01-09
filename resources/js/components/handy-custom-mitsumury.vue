@@ -395,7 +395,7 @@
                         <!--                    <a class="btn btn-light float-right" href="javascript:void(0)"-->
                         <!--                       onclick="$('#handy-camara-navi').hide()">戻る</a>-->
                     </div>
-                    <div class="card-body" style="text-align: center;font-size: 24px">
+                    <div class="card-body" style="text-align: center;font-size: 22px">
                         <template v-if="navi_button == 1">
                             <button @click="addProductModal(0)" v-if="productJans.length <= 0"
                                     class="btn btn-info pull-right mr-1 "
@@ -408,6 +408,8 @@
                                     style=" top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: left">
                                 撮影
                             </button>
+                            <br>を選んで下さい
+
                         </template>
                         <template v-else-if="navi_button == 2">
                             <button class="btn btn-success mr-1" id="product-add--"
