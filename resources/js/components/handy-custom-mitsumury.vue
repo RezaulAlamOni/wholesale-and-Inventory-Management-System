@@ -1215,6 +1215,11 @@ export default {
         clickAddFile(type) {
             let _this = this;
             this.open_camera = type;
+            if (!type) {
+                this.selectSuper(' ')
+                // $('#mistumury-prodct-add-modal').hide();
+                return false;
+            }
             setTimeout(function () {
                 $('#my-file').click()
                 // _this.performClick('my-file');
