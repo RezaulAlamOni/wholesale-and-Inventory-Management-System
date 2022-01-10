@@ -395,7 +395,7 @@
                         <!--                    <a class="btn btn-light float-right" href="javascript:void(0)"-->
                         <!--                       onclick="$('#handy-camara-navi').hide()">戻る</a>-->
                     </div>
-                    <div class="card-body" style="text-align: center;font-size: 22px">
+                    <div class="card-body" style="text-align: center;font-size: 16px">
                         <template v-if="navi_button == 1">
                             <button @click="addProductModal(0)" v-if="productJans.length <= 0"
                                     class="btn btn-info pull-right mr-1 "
