@@ -1069,6 +1069,9 @@ export default {
         // add product model
         addProductModal(type) {
             this.clickAddFile(type)
+            if (!type) {
+                return false;
+            }
             setTimeout(function () {
                 $('#mistumury-prodct-add-modal').modal({backdrop: 'static'})
                 $('#click-file').show()
