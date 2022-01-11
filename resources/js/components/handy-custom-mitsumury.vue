@@ -1073,7 +1073,7 @@ export default {
                 return false;
             }
             setTimeout(function () {
-                $('#mistumury-prodct-add-modal').modal({backdrop: 'static'})
+                // $('#mistumury-prodct-add-modal').modal({backdrop: 'static'})
                 $('#click-file').show()
                 $('#open-camera').show()
             }, 2000)
@@ -1122,7 +1122,12 @@ export default {
             $('#click-file').hide()
             $('#open-camera').hide()
             // navi button change
-            this.navi_button = 2;
+            $('#handy-camara-navi').hide();
+            // this.navi_button = 2;
+
+            this.mistumury_product.title = '000'
+            this.saveNewMistumuryProduct();
+
         },
 
         saveNewMistumuryProduct: function (event, i = null) {
@@ -1154,9 +1159,15 @@ export default {
 
             axios.post(_this.base_url + '/custom-mistumury-products', fd)
                 .then(function (response) {
+
                     _this.getProducts();
                     _this.handi_navi = '仕入・販売先マスターへ登録されました';
                     $('#handy-navi').show();
+
+                    $('#handy-camara-navi').show();
+                    _this.navi_button = 1;
+                    $('#handy-navi').hide();
+
                     $('#mistumury-prodct-add-modal').modal('hide');
                     $('#product-add-').prop('disabled', false);
                     $('#product-add--').prop('disabled', false);
@@ -1174,7 +1185,9 @@ export default {
                             }, 500)
 
                         }
+
                     }, 1000)
+
                 })
         },
 
@@ -1328,7 +1341,6 @@ export default {
                 $('#handy-camara-navi').show();
                 this.navi_button = 1;
                 this.confirmAndHide('mistumury-prodct-add-modal')
-
             }
 
         },
