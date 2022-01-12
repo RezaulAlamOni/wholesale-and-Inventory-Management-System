@@ -178,6 +178,12 @@ class CustomMisthsumuryProductController extends Controller
      */
     public function update(Request $request, CustomMisthsumuryProduct $customMisthsumuryProduct)
     {
+        if (isset($request->title)) {
+            CustomMisthsumuryProduct::query()->where( 'jan', $request->jan)->update([
+                'name' => $request->title,
+                ]);
+            return response()->json(['status' => 200]);
+        }
         $custom_estimate_item = $customMisthsumuryProduct->find($request->id);
         $custom_estimate_item->cost_price = $request->cost;
         $custom_estimate_item->selling_price = $request->sell;

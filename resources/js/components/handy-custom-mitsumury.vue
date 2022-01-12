@@ -74,7 +74,9 @@
                         <div class="modal-body p-0" style="text-align: center">
                             <div
                                 style="font-size: 18px;text-align: left;padding: 5px 10px;background: #c3ff8f80;font-weight: bold;">
-                                {{ preview_product.item_name }}
+
+                                <input class="form-control" type="text" v-model="preview_product.item_name"
+                                       @keyup="saveItemName($event)">
                             </div>
                             <div>
                                 <img
@@ -108,18 +110,18 @@
                                                    @click="selectItem($event,'cost')"
                                                    class="form-control  " v-model="preview_product.cost"
                                                    @keyup="calculatePrice('cost')"
-                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;">
-                                            <!--                                        @blur="blurAndSave()"-->
-                                            <!--                                        @keypress="pressEnterAndSave($event,'sell')"-->
+                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;"
+                                                   @blur="blurAndSave()"
+                                                   @keypress="pressEnterAndSave($event,'sell')">
                                         </td>
                                         <td data-v-c9953dda="">
                                             <input data-v-c9953dda="" type="tel" id="sell"
                                                    @click="selectItem($event,'sell')"
                                                    class="form-control  " v-model="preview_product.sell"
                                                    @keyup="calculatePrice('sell')"
-                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;">
-                                            <!--                                        @keypress="pressEnterAndSave($event,'profit_margin')"-->
-                                            <!--                                        @blur="blurAndSave()"-->
+                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;"
+                                                   @keypress="pressEnterAndSave($event,'profit_margin')"
+                                                   @blur="blurAndSave()">
                                         </td>
                                         <td data-v-c9953dda="">
                                             <input data-v-c9953dda="" type="tel" id="profit"
@@ -136,9 +138,9 @@
                                                    @click="selectItem($event,'profit_margin')"
                                                    class="form-control  " v-model="preview_product.gross_profit_margin"
                                                    @keyup="calculatePrice('profit_margin')"
-                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;">
-                                            <!--                                        @blur="blurAndSave()"-->
-                                            <!--                                        @keypress="pressEnterAndSave($event,'cost')"-->
+                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;"
+                                                   @blur="blurAndSave()"
+                                                   @keypress="pressEnterAndSave($event,'cost')">
 
                                         </td>
                                     </tr>
@@ -275,9 +277,9 @@
                 <div class="modal-dialog modal-lg mt-0">
                     <div class="modal-content">
                         <div class="modal-header" style="padding: 5px;justify-content: right">
-<!--                            <button class="btn btn-success mr-2" @click="sendtoSuper()"-->
-<!--                                    :disabled="(productJans.length > 0 && selectedSuper.length > 0 ) ? false : true">送信-->
-<!--                            </button>-->
+                            <!--                            <button class="btn btn-success mr-2" @click="sendtoSuper()"-->
+                            <!--                                    :disabled="(productJans.length > 0 && selectedSuper.length > 0 ) ? false : true">送信-->
+                            <!--                            </button>-->
                             <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-select-super')">戻る</a>
                         </div>
                         <div class="modal-body p-0" style="text-align: center">
@@ -469,7 +471,7 @@ export default {
             check: null,
             selected_input: '',
             navi_button: null,
-            product_select_mode : 0
+            product_select_mode: 0
 
         }
     },
@@ -1069,6 +1071,28 @@ export default {
             $('#mistumury-select-super').modal({backdrop: 'static'})
         },
         // add product model
+        saveItemName(e) {
+            let _this = this;
+            if (e.keyCode == 13) {
+
+                let data = {
+                    jan: _this.preview_product.jan,
+                    title: _this.preview_product.item_name
+                }
+
+                axios.post(_this.base_url + '/update_custom_estimate_items', data)
+                    .then(function (response) {
+                        // _this.getOrderDataByJan();
+                        _this.getProducts();
+                        _this.handi_navi = '000';
+                        $('#handy-navi').show()
+                    })
+                    .catch(function (e) {
+                        console.log(e)
+                    })
+            }
+        },
+        //
         addProductModal(type) {
             this.clickAddFile(type)
             if (!type) {
