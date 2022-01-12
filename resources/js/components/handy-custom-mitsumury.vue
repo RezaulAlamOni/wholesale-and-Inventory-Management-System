@@ -468,7 +468,8 @@ export default {
             selectedSuperShops: [],
             check: null,
             selected_input: '',
-            navi_button: null
+            navi_button: null,
+            product_select_mode : 0
 
         }
     },
@@ -536,7 +537,7 @@ export default {
         },
         viewInfoForImage(product, img, i = 0) {
 
-            if (i === 0) {
+            if (i === 0 && this.product_select_mode) {
                 $('#check_by_' + product.jan).click();
                 $('#handy-camara-navi').hide();
                 return 0;
@@ -548,6 +549,7 @@ export default {
             return true;
         },
         confirmAndHide(type) {
+            this.product_select_mode = 0
             $('#' + type).modal('hide')
             $('#' + type).modal('hide')
         },
@@ -1232,6 +1234,7 @@ export default {
             let _this = this;
             this.open_camera = type;
             if (!type) {
+                this.product_select_mode = 1;
                 this.selectSuper(' ')
                 // $('#mistumury-prodct-add-modal').hide();
                 return false;
