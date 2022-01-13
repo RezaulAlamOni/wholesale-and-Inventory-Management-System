@@ -66,9 +66,9 @@
                     <div class="modal-content">
                         <div class="modal-header" style="padding: 5px;justify-content: right">
                             <a class="btn btn-danger float-right mr-1" @click="deleteMistunury(preview_product)">削除</a>
-                            <a class="btn btn-success float-right mr-1" @click="naviShow()"> 保存</a>
+<!--                            <a class="btn btn-success float-right mr-1" @click="naviShow()"> 保存</a>-->
                             <!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
-                            <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
+<!--                            <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>-->
 
                         </div>
                         <div class="modal-body p-0" style="text-align: center">
@@ -377,7 +377,7 @@
                     <div class="card-body">
                         <a class="btn btn-light float-right" href="javascript:void(0)"
                            v-if="selected_products.length <= 0"
-                           onclick="$('#handy-navi').hide()">戻る</a>
+                           onclick="$('#handy-navi').hide();$('#mistumury-mage-preview').modal('hide');">戻る</a>
 
                         <a class="btn btn-light float-right" href="javascript:void(0)" v-else
                            @click="confirm()">***</a>
@@ -421,6 +421,7 @@
                         <button class="btn btn-success mr-2" @click="sendtoSuper()" v-else-if="navi_button == 3"
                                 :disabled="(productJans.length > 0 && selectedSuper.length > 0 ) ? false : true">送信
                         </button>
+                        <a class="btn btn-info float-right"  v-else-if="navi_button == 4" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
 
 
                     </div>
@@ -554,6 +555,10 @@ export default {
             this.product_select_mode = 0
             $('#' + type).modal('hide')
             $('#' + type).modal('hide')
+            if (type == 'mistumury-mage-preview') {
+                $('#handy-camara-navi').hide();
+            }
+
         },
         getOrderDataByJan() {
             let _this = this;
@@ -772,8 +777,8 @@ export default {
                 .then(function (response) {
                     // _this.getOrderDataByJan();
                     _this.getProducts();
-                    _this.handi_navi = '仕入・販売先マスターへ登録されました';
-                    $('#handy-navi').show()
+                    // _this.handi_navi = '仕入・販売先マスターへ登録されました';
+                    // $('#handy-navi').show()
                 })
                 .catch(function (e) {
                     console.log(e)
@@ -891,6 +896,10 @@ export default {
                 _this.startSpeech();
                 _this.selected_input = 'cost';
                 $('#handy-camara-navi').hide();
+
+                _this.navi_button = 4;
+                $('#handy-camara-navi').show();
+
             }, 700)
 
         },
@@ -1036,8 +1045,8 @@ export default {
                 })
         },
         naviShow() {
-            this.handi_navi = '仕入・販売先マスターへ登録されました';
-            $('#handy-navi').show();
+            // this.handi_navi = '仕入・販売先マスターへ登録されました';
+            // $('#handy-navi').show();
         },
         // select all
         selectAll() {
@@ -1187,8 +1196,8 @@ export default {
                 .then(function (response) {
 
                     _this.getProducts();
-                    _this.handi_navi = '仕入・販売先マスターへ登録されました';
-                    $('#handy-navi').show();
+                    // _this.handi_navi = '仕入・販売先マスターへ登録されました';
+                    // $('#handy-navi').show();
 
                     $('#handy-camara-navi').show();
                     _this.navi_button = 1;
@@ -1219,9 +1228,10 @@ export default {
 
         deleteMistunury: function (product) {
             let _this = this;
+            $('#handy-camara-navi').hide();
             this.handi_navi = '<span style="font-size: 20px"> 削除しますか？ </span> ' +
                 '<a href="javascript:void(0)" class="btn btn-danger btn-sm" id="delete-product" >はい　</a>' +
-                '<a href="#" class="btn btn-info btn-sm" onclick="$(\'#handy-navi\').hide()">いいえ</a>';
+                '<a href="#" class="btn btn-info btn-sm" onclick="$(\'#handy-navi\').hide();$(\'#handy-camara-navi\').show();">いいえ</a>';
             $('#handy-navi').show();
 
             setTimeout(function () {
