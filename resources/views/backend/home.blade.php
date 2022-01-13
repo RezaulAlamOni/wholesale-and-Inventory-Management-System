@@ -76,13 +76,13 @@
 						<p class="submessg">（受注・ 手書）<a href="{{ route('manualOrder') }}"
 							class="btn btn-info btn-sm menualablebtn common_goto_sheet" data_num_link="12"
 							id="size_setting_btn" style="margin-bottom: 0">
-							手書
+                                ｵﾝﾗｲﾝ 確定
 						</a></p>
                     <br>
 						<p class="submessg">（受注）<a href="{{ route('brand') }}"
 							class="btn btn-success btn-sm menualablebtn common_goto_sheet" data_num_link="12"
 							id="size_setting_btn" style="margin-bottom: 0; background: #0c673b !important;">
-                                ｵﾝﾗｲﾝ 確定
+                                手書
                             </a></p>
 						<!-- <h4 class="btom_content_home" style="padding-top:55px">③000000000</h4> -->
 				</div>
