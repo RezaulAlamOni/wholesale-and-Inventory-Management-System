@@ -280,7 +280,7 @@
                             <!--                            <button class="btn btn-success mr-2" @click="sendtoSuper()"-->
                             <!--                                    :disabled="(productJans.length > 0 && selectedSuper.length > 0 ) ? false : true">送信-->
                             <!--                            </button>-->
-                            <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-select-super')">戻る</a>
+<!--                            <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-select-super')">戻る</a>-->
                         </div>
                         <div class="modal-body p-0" style="text-align: center">
                             <div
@@ -418,11 +418,15 @@
                                     @click="saveNewMistumuryProduct($event,1)">送信
                             </button>
                         </template>
-                        <button class="btn btn-success mr-2" @click="sendtoSuper()" v-else-if="navi_button == 3"
-                                :disabled="(productJans.length > 0 && selectedSuper.length > 0 ) ? false : true">送信
-                        </button>
-                        <a class="btn btn-info float-right"  v-else-if="navi_button == 4" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
 
+                        <a class="btn btn-info float-right"  v-else-if="navi_button == 4" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
+                        <template v-else-if="navi_button == 5">
+                            <button class="btn btn-success mr-2 float-left" @click="sendtoSuper()" v-if="(productJans.length > 0 && selectedSuper.length > 0 )"
+                                    :disabled="(productJans.length > 0 && selectedSuper.length > 0 ) ? false : true">送信
+                            </button>
+                            <a class="btn btn-primary float-left" v-else  onclick="$('#mistumury-select-super').modal('hide')">0000</a>
+                            <a class="btn btn-info float-right"   @click="confirmAndHide('mistumury-select-super')">戻る</a>
+                        </template>
 
                     </div>
                 </div>
@@ -542,7 +546,7 @@ export default {
 
             if (i === 0 && this.product_select_mode) {
                 $('#check_by_' + product.jan).click();
-                $('#handy-camara-navi').hide();
+                // $('#handy-camara-navi').hide();
                 return 0;
             }
             product.item_name = product.name;
@@ -555,8 +559,11 @@ export default {
             this.product_select_mode = 0
             $('#' + type).modal('hide')
             $('#' + type).modal('hide')
-            if (type == 'mistumury-mage-preview') {
+            if ( type == 'mistumury-mage-preview' || type == 'mistumury-select-super' ) {
                 $('#handy-camara-navi').hide();
+            }
+            if (type == 'mistumury-select-super' ) {
+                this.product_select_mode = 0;
             }
 
         },
@@ -1116,6 +1123,7 @@ export default {
         //sendtoSuper
         sendtoSuper() {
             let _this = this;
+            _this.confirmAndHide('mistumury-select-super');
             this.allSelected = false
             this.allSelectedSuper = false
 
@@ -1268,8 +1276,9 @@ export default {
             let _this = this;
             this.open_camera = type;
             if (!type) {
-                this.product_select_mode = 1;
-                this.selectSuper(' ')
+                _this.product_select_mode = 1;
+                _this.navi_button = 5;
+                _this.selectSuper(' ')
                 // $('#mistumury-prodct-add-modal').hide();
                 return false;
             }
@@ -1333,7 +1342,7 @@ export default {
             }
 
             if (this.selectedSuper.length) {
-                this.navi_button = 3;
+                this.navi_button = 5;
                 $('#handy-camara-navi').show();
             }
 
