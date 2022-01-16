@@ -401,31 +401,31 @@
                         <template v-if="navi_button == 1">
                             <button @click="addProductModal(0)" v-if="productJans.length <= 0"
                                     class="btn btn-info pull-right mr-1 "
-                                    style=" top: 5px; right: 115px;padding: 5px 10px; font-size: 22px;float: right">
+                                    style=" top: 5px; right: 115px;padding: 5px 10px; font-size: 22px;float: right;font-size: 20px;">
                                 送受信
                             </button>
                             または
                             <button @click="addProductModal(1)" v-if="productJans.length <= 0"
                                     class="btn btn-primary pull-right mr-1 " id="show-super-list__"
-                                    style=" top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: left">
+                                    style="top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: left;font-size: 20px;">
                                 撮影
                             </button>
                             <br>を選んで下さい
 
                         </template>
                         <template v-else-if="navi_button == 2">
-                            <button class="btn btn-success mr-1" id="product-add--"
+                            <button class="btn btn-success mr-1" id="product-add--" style="font-size: 20px;"
                                     @click="saveNewMistumuryProduct($event,1)">送信
                             </button>
                         </template>
 
-                        <a class="btn btn-info float-right"  v-else-if="navi_button == 4" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
+                        <a class="btn btn-info float-right" style="font-size: 20px;"  v-else-if="navi_button == 4" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
                         <template v-else-if="navi_button == 5">
-                            <button class="btn btn-success mr-2 float-left" @click="sendtoSuper()" v-if="(productJans.length > 0 && selectedSuper.length > 0 )"
+                            <button class="btn btn-success mr-2 float-left" style="font-size: 20px;" @click="sendtoSuper()" v-if="(productJans.length > 0 && selectedSuper.length > 0 )"
                                     :disabled="(productJans.length > 0 && selectedSuper.length > 0 ) ? false : true">送信
                             </button>
-                            <a class="btn btn-primary float-left" v-else  onclick="$('#mistumury-select-super').modal('hide')">0000</a>
-                            <a class="btn btn-info float-right"   @click="confirmAndHide('mistumury-select-super')">戻る</a>
+                            <a class="btn btn-primary float-left" style="font-size: 20px;" v-else  onclick="$('#mistumury-select-super').modal('hide')">商品選択画面</a>
+                            <a class="btn btn-info float-right" style="font-size: 20px;" @click="confirmAndHide('mistumury-select-super')">戻る</a>
                         </template>
 
                     </div>
