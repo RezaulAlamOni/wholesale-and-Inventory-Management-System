@@ -31,6 +31,34 @@
     {{-- <script async defer src="https://buttons.github.io/buttons.js"></script> --}}
     @include('backend.layouts.js_variable')
     @yield('style')
+
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script>
+
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('668cc0c510bc9039b290', {
+            cluster: 'ap2'
+        });
+
+        var channel = pusher.subscribe('my-channel');
+        channel.bind('my-event', function(data) {
+            let response = JSON.stringify(data);
+
+            if (data.message.user_id = 'super') {
+                $('#myModal').modal()
+                const notificationOption = {
+                    body: '新しい見積受けました、見積ページのピンク色に変わっている部分 確認お願いします。',
+                    icon: "https://keipro.development.dhaka10.dev.jacos.jp/mail/resource/img/notification_icon.png"
+                };
+                if (Notification.permission === "granted") {
+                    new Notification('RV3', notificationOption);
+                }
+            }
+        });
+    </script>
+
 </head>
 
 <body>
@@ -60,6 +88,29 @@
             <div class="cutom-loader">
                 <img src="{{Config::get('app.url').'/public/loader/ajax-loader.gif'}}" class="loading_image loading_image_custom"/>
             </div>
+
+            <div id="myModal" class="modal fade" role="dialog" >
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content" style="    background: rgb(220 240 250);">
+                        {{--                    <div class="modal-header">--}}
+                        {{--                        <button type="button" class="close" data-dismiss="modal">&times;</button>--}}
+                        {{--                    </div>--}}
+                        <div class="modal-body text-center">
+                            <p style="font-size: 16px">スーパーから見積の新発注来ました、確認お願いします.</p>
+{{--                            <a  href="#" type="button" class="btn btn-success">--}}
+{{--                                見積り--}}
+{{--                            </a>--}}
+                        </div>
+                        <div class="modal-footer  p-0">
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">戻る</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     </div>
     @yield('script')

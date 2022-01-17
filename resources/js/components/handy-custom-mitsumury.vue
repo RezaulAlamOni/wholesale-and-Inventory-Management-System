@@ -31,14 +31,14 @@
                             </label>
                         </div>
 
-                        <button v-if="productJans.length > 0" @click="selectSuper(' ')"
-                                class="btn btn-success pull-right mr-1 " id="show-super-list"
-                                style="position: absolute; top: 5px; right: 0px;padding: 5px 10px; font-size: 18px;">
-                            メール
-                        </button>
+<!--                        <button v-if="productJans.length > 0" @click="selectSuper(' ')"-->
+<!--                                class="btn btn-success pull-right mr-1 " id="show-super-list"-->
+<!--                                style="position: absolute; top: 5px; right: 0px;padding: 5px 10px; font-size: 18px;">-->
+<!--                            メール-->
+<!--                        </button>-->
                         <a class="btn btn-danger float-right mr-" v-if="productJans.length > 0"
                            @click="deleteMistunury(null)"
-                           style=" position: absolute; top: 5px; right: 87px;padding: 5px 10px; font-size: 18px;"
+                           style=" position: absolute; top: 5px; right:0px;padding: 5px 10px; font-size: 18px;"
                         > 削除</a>
 
 
