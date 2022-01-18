@@ -46,7 +46,7 @@
         channel.bind('my-event', function(data) {
             let response = JSON.stringify(data);
 
-            if (data.message.user_id = 'super') {
+            if (data.message.user_id == 'super') {
                 $('#myModal').modal()
                 const notificationOption = {
                     body: '新しい見積受けました、見積ページのピンク色に変わっている部分 確認お願いします。',
