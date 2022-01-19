@@ -86,7 +86,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "js/build_component/" + ({"0":"handy-product-inventory-inquiry","1":"handy-product-order-place-kouri","2":"handy-mitsumury","3":"handy-vandor-master","4":"handy-product-order-receive","5":"handy-product-order-place","6":"handy-product-order-confirm-kouri","7":"handy-product-inventory-tmp-tana-update","8":"handy-product-inventory-return","9":"handy-order-shipment-list","10":"handy-customer-master","11":"barcode-scan","12":"handy-product-order-mail","13":"handy-product-online-order-kouri","14":"admin-super-manage","15":"example-component"}[chunkId]||chunkId) + ".js?id=" + {"0":"26b0834659fb8dcce76f","1":"8b7247fa468dee96f9b1","2":"bab3a0b8013f56fc15a7","3":"966ac6e95b1c0498d211","4":"06ca118c41e2dfc2db71","5":"44087f47517e7d67bfaa","6":"7aaabfa603204c35240e","7":"252f24e43b0489c972f7","8":"4061e4a19b11763e731f","9":"15c3e09291b830a24467","10":"8d5acb02a1111a352891","11":"37660b3c0a5312846fef","12":"fbefd0b706cc4e928328","13":"0b6a5a4d0efce1cd2d0f","14":"96642b83ada284522f43","15":"bc0e4a76e132e1aaf7cf"}[chunkId] + "";
+/******/ 		script.src = __webpack_require__.p + "js/build_component/" + ({"0":"handy-product-inventory-inquiry","1":"handy-product-order-place-kouri","2":"handy-mitsumury","3":"handy-vandor-master","4":"handy-product-order-receive","5":"handy-product-order-place","6":"handy-product-order-confirm-kouri","7":"handy-product-inventory-tmp-tana-update","8":"handy-product-inventory-return","9":"handy-order-shipment-list","10":"handy-customer-master","11":"barcode-scan","12":"handy-product-order-mail","13":"handy-product-online-order-kouri","14":"admin-super-manage","15":"example-component"}[chunkId]||chunkId) + ".js?id=" + {"0":"26b0834659fb8dcce76f","1":"8b7247fa468dee96f9b1","2":"f3790aaaea1090e7142f","3":"966ac6e95b1c0498d211","4":"06ca118c41e2dfc2db71","5":"44087f47517e7d67bfaa","6":"7aaabfa603204c35240e","7":"252f24e43b0489c972f7","8":"4061e4a19b11763e731f","9":"15c3e09291b830a24467","10":"8d5acb02a1111a352891","11":"37660b3c0a5312846fef","12":"fbefd0b706cc4e928328","13":"0b6a5a4d0efce1cd2d0f","14":"96642b83ada284522f43","15":"bc0e4a76e132e1aaf7cf"}[chunkId] + "";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -49837,6 +49837,10 @@ var handyProductCustomMitsumry = function handyProductCustomMitsumry() {
   return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, "./resources/js/components/handy-custom-mitsumury.vue"));
 };
 
+var handyProductCustomMitsumryOrders = function handyProductCustomMitsumryOrders() {
+  return __webpack_require__.e/* import() */(2).then(__webpack_require__.bind(null, "./resources/js/components/handy-custom-mitsumury-orders.vue"));
+};
+
 var superAdminCustomerSuperManage = function superAdminCustomerSuperManage() {
   return __webpack_require__.e/* import() */(14).then(__webpack_require__.bind(null, "./resources/js/components/Admin/customers-list-manage.vue"));
 };
@@ -49882,6 +49886,7 @@ var app = new Vue({
     'handy-product-inventory-update': handyProductInventoryUpdate,
     'handy-product-inventory-mistumury': handyProductInventoryMitsumry,
     'handy-product-custom-mistumury': handyProductCustomMitsumry,
+    'handy-product-custom-mistumury-orders': handyProductCustomMitsumryOrders,
     'handy-product-inventory-return': handyProductInventoryReturn,
     'handy-order-shipment-list': handyOrderShipmentList,
     'bar-code-scan': barCodeScan,

@@ -35,7 +35,7 @@ class CustomMisthsumuryProductController extends Controller
     {
         $title = "Custom Mitsumury Orders";
         $active = 'custom-mitsumury Orders';
-        return view('backend.handy_pages.custom-mitsumury', compact('title', 'active'));
+        return view('backend.handy_pages.custom-mitsumury-orders', compact('title', 'active'));
     }
 
 
