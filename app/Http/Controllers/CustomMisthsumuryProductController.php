@@ -26,6 +26,17 @@ class CustomMisthsumuryProductController extends Controller
         $active = 'custom-mitsumury';
         return view('backend.handy_pages.custom-mitsumury', compact('title', 'active'));
     }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function mistumuryOrders()
+    {
+        $title = "Custom Mitsumury Orders";
+        $active = 'custom-mitsumury Orders';
+        return view('backend.handy_pages.custom-mitsumury', compact('title', 'active'));
+    }
 
 
     public function getAllMistumury()
