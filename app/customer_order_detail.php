@@ -12,7 +12,7 @@ class customer_order_detail extends Model
 {
     public function jan()
     {
-        return $this->belongsTo(jan::class, 'jan','jan');
+        return $this->belongsTo(jan::class, 'jan','jan')->with('custom_mistumury');
     }
     public function jans()
     {

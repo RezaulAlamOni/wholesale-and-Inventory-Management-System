@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CustomMisthsumuryProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\customer;
@@ -705,6 +706,7 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
                     // Query the name field in status table
                     $q->whereNotNull('rack_number'); // '=' is optional
                 })
+                ->whereIn('jan',CustomMisthsumuryProduct::pluck('jan'))
                 ->get();
         }
 
