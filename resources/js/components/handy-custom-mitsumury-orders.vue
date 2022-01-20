@@ -67,14 +67,14 @@
                                         </th>
                                         <th colspan="2"
                                             style="width: 50px; border: none !important; text-align: left; padding: 5px;height: 40px !important;">
-                                            <span class="badge badge-success float-right ml-2"
-                                                  style="font-size: 15px">
-                                                <a :href="base_url+'/handy_receive_mitshumori'" class="text-white"> 戻る </a>
-                                            </span>
+<!--                                            <span class="badge badge-success float-right ml-2"-->
+<!--                                                  style="font-size: 15px">-->
+<!--                                                <a :href="base_url+'/handy_receive_mitshumori'" class="text-white"> 戻る </a>-->
+<!--                                            </span>-->
 
-                                            <span class="badge badge-success float-right" v-if="productJans.length > 0"
-                                                  style="padding: 7px 15px;font-size: 15px"
-                                                  @click="orderToTonya()">発注</span>
+<!--                                            <span class="badge badge-success float-right" v-if="productJans.length > 0"-->
+<!--                                                  style="padding: 7px 15px;font-size: 15px"-->
+<!--                                                  @click="orderToTonya()">発注</span>-->
                                         </th>
 
                                         <!--                                        <th colspan="2" style="width: 50px; text-align: center; padding: 5px;">-->
@@ -97,7 +97,7 @@
                                             粗利
                                         </th>
                                         <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
-                                            ％
+<!--                                            ％-->
                                         </th>
                                     </tr>
                                     </thead>
@@ -145,14 +145,15 @@
                                                 <!--                                               @keypress="pressEnterAndSave($event,'profit_margin')"-->
                                                 <!--                                               @keyup="calculatePrice('profit')"-->
                                             </td>
-                                            <td :class="checkDateOlderHour(product.updated_at) ? 'back-ground' : ''">
-                                                <input data-v-c9953dda="" type="tel" id="profit_margin_"
-                                                       @click="selectItem($event)"
-                                                       @blur="blurAndSave()"
-                                                       @keypress="pressEnterAndSave($event,'special-price')"
-                                                       class="form-control  " v-model="product.gross_profit_margin"
-                                                       @keyup="calculatePrice('profit_margin')" readonly
-                                                       style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+                                            <td :class="checkDateOlderHour(product.updated_at) ? 'back-ground' : ''" class="text-center">
+<!--                                                <input data-v-c9953dda="" type="tel" id="profit_margin_"-->
+<!--                                                       @click="selectItem($event)"-->
+<!--                                                       @blur="blurAndSave()"-->
+<!--                                                       @keypress="pressEnterAndSave($event,'special-price')"-->
+<!--                                                       class="form-control  " v-model="product.gross_profit_margin"-->
+<!--                                                       @keyup="calculatePrice('profit_margin')" readonly-->
+<!--                                                       style="border-radius: 0px; text-align: center; padding: 7px 0px;">-->
+                                            {{ product.customer_order.customer_shop.shop_name }}
                                             </td>
                                         </tr>
                                         <tr :class="checkDateOlderHour(product.updated_at) ? 'back-ground' : ''">
@@ -186,9 +187,9 @@
                                             </td>
                                             <td class="text-center">
                                                 <span class="badge badge-success" style="cursor: pointer;margin:2px"
-                                                      @click="orderToTonya(product)">発注</span>
-                                                <span class="badge badge-primary" style="cursor: pointer;margin:2px"
-                                                      @click="storeToMaster(product)">採用</span>
+                                                      @click="orderToTonya(product)">出荷</span>
+<!--                                                <span class="badge badge-primary" style="cursor: pointer;margin:2px"-->
+<!--                                                      @click="storeToMaster(product)">採用</span>-->
                                             </td>
                                         </tr>
                                     </template>
@@ -938,6 +939,7 @@ export default {
             $('#handy-navi').show();
         },
         orderToTonya(product = null) {
+            return 0;
             let _this = this;
             _this.loader = 1;
             setTimeout(function () {
@@ -1036,6 +1038,7 @@ export default {
         },
         //
         pressAndSave(e, index, type) {
+            return 0;
             if (e.keyCode == 13) {
                 $('#' + type + index).focus()
                 $('#' + type + index).select()
@@ -1043,6 +1046,7 @@ export default {
         },
         // save order quantity
         updateOrderQuantity(product, index, type) {
+            return 0;
             let _this = this;
             axios.post(_this.base_url + '/save-mistumury-order-quantity',
                 {
