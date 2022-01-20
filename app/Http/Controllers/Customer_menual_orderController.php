@@ -683,17 +683,31 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
     public function getCustomerOrderInfoByJan(Request $request)
     {
         $value = '確定済み';
-        $jan_code = $request->jan_code;
-        $result = customer_order_detail::where('jan', $jan_code)->with(['vendor_item', 'jan', 'customer_order', 'customer_shipment'])
-            ->whereHas('customer_order', function ($q) use ($value) {
-                // Query the name field in status table
-                $q->where('status', '=', $value); // '=' is optional
-            })
-            ->whereHas('customer_shipment', function ($q) use ($value) {
-                // Query the name field in status table
-                $q->whereNotNull('rack_number'); // '=' is optional
-            })
-            ->first();
+        if (isset($request->jan_code)) {
+            $jan_code = $request->jan_code;
+            $result = customer_order_detail::where('jan', $jan_code)->with(['vendor_item', 'jan', 'customer_order', 'customer_shipment'])
+                ->whereHas('customer_order', function ($q) use ($value) {
+                    // Query the name field in status table
+                    $q->where('status', '=', $value); // '=' is optional
+                })
+                ->whereHas('customer_shipment', function ($q) use ($value) {
+                    // Query the name field in status table
+                    $q->whereNotNull('rack_number'); // '=' is optional
+                })
+                ->first();
+        } else {
+            $result = customer_order_detail::with(['vendor_item', 'jan', 'customer_order', 'customer_shipment'])
+                ->whereHas('customer_order', function ($q) use ($value) {
+                    // Query the name field in status table
+                    $q->where('status', '=', $value); // '=' is optional
+                })
+                ->whereHas('customer_shipment', function ($q) use ($value) {
+                    // Query the name field in status table
+                    $q->whereNotNull('rack_number'); // '=' is optional
+                })
+                ->get();
+        }
+
         if ($result) {
             return response()->json(['success' => 1, 'result' => $result]);
         } else {

@@ -489,7 +489,7 @@ export default {
         $('#jan_').focus()
         $('#jan_').select()
         // this.getVendorList();
-        // this.getProducts();
+        this.getProducts();
         // this.handiNaviShow();
         setTimeout(function () {
             // _this.addProductModal(1);
@@ -498,11 +498,11 @@ export default {
     methods: {
         getProducts() {
             let _this = this;
-            axios.get(this.base_url + '/get-all-custom-mistumury-products')
+            axios.post(this.base_url + '/getCustomerOrderInfoByJan')
                 .then(function (res) {
                     let data = res.data;
-                    _this.products = data.products;
-                    _this.productJans = [];
+                    // _this.products = data.products;
+                    // _this.productJans = [];
                 })
                 .catch(function () {
 
