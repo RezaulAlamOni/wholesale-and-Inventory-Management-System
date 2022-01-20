@@ -218,11 +218,11 @@
                     <div class="modal-body p-0" style="text-align: center">
                         <div
                             style="font-size: 18px;text-align: left;padding: 5px 10px;background: #c3ff8f80;font-weight: bold;">
-                            {{ preview_product.title }}
+                            {{ preview_product.jan.name }}
                         </div>
                         <div>
                             <img
-                                :src="preview_product.image"
+                                :src="preview_product.jan.custom_mistumury.image"
                                 class="img-thumbnail custom-img-preview" alt="Cinque Terre"
                                 style="cursor: pointer">
                         </div>
@@ -299,10 +299,10 @@
                             </table>
                         </div>
                         <div class="detail-pro">
-                            {{ preview_product.jan }}
+                            {{ preview_product.jan.jan }}
                         </div>
                         <div class="detail-pro">
-                            {{ preview_product.vendor_name }}
+                            {{ preview_product.customer_order.customer_shop.shop_name }}
                         </div>
                         <div class="detail-pro">
                             {{ preview_product.created_at }}
@@ -369,7 +369,16 @@ export default {
             handi_navi: '',
             search_data: null,
             product_pics: [],
-            preview_product: {},
+            preview_product: {
+                jan : {
+                    custom_mistumury : {}
+                },
+                customer_order : {
+                    customer_shop : {
+
+                    }
+                }
+            },
             orderBy: 'DESC',
             maker_id: 0,
             vendors: [],
