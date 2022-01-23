@@ -56,6 +56,7 @@ const handyProductInventoryUpdate = ()=> import( /* webpackChunkName: "handy-pro
 const handyProductInventoryMitsumry = ()=> import( /* webpackChunkName: "handy-mitsumury" */ './components/handy-mitsumury');
 const handyProductCustomMitsumry = ()=> import( /* webpackChunkName: "handy-mitsumury" */ './components/handy-custom-mitsumury');
 const handyProductCustomMitsumryOrders = ()=> import( /* webpackChunkName: "handy-mitsumury" */ './components/handy-custom-mitsumury-orders');
+const handyProductCustomMitsumryOrdersShipment = ()=> import( /* webpackChunkName: "handy-mitsumury" */ './components/handy-custom-mitsumury-orders-shipment-list');
 const superAdminCustomerSuperManage = ()=> import( /* webpackChunkName: "admin-super-manage" */ './components/Admin/customers-list-manage');
 const handyProductInventoryReturn = ()=> import( /* webpackChunkName: "handy-product-inventory-return" */ './components/handy-product-inventory-return');
 const handyOrderShipmentList = ()=> import( /* webpackChunkName: "handy-order-shipment-list" */ './components/handy-order-shipment-list');
@@ -85,6 +86,7 @@ const app = new Vue({
         'handy-product-inventory-mistumury' : handyProductInventoryMitsumry,
         'handy-product-custom-mistumury' : handyProductCustomMitsumry,
         'handy-product-custom-mistumury-orders' : handyProductCustomMitsumryOrders,
+        'handy-product-custom-mistumury-orders-shipment-list' : handyProductCustomMitsumryOrdersShipment,
         'handy-product-inventory-return' : handyProductInventoryReturn,
         'handy-order-shipment-list' : handyOrderShipmentList,
         'bar-code-scan' : barCodeScan,
