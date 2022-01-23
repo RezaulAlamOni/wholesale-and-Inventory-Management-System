@@ -135,6 +135,7 @@ Route::group(['middleware'=>'MyMiddleWire'],function(){
     // 20.10.2021
 	Route::get('/custom-mitsumury',[\App\Http\Controllers\CustomMisthsumuryProductController::class,'index'])->name('custom.mitsumury'); // Oni for new design handy custom mistumury
 	Route::get('/custom-mitsumury-orders',[\App\Http\Controllers\CustomMisthsumuryProductController::class,'mistumuryOrders'])->name('custom.mitsumury.orders'); // Oni for new design handy custom mistumury ordres
+	Route::get('/handy-custom-mistumury-shipment-list',[\App\Http\Controllers\CustomMisthsumuryProductController::class,'customMistumuryShipment'])->name('custom.mitsumury.shipment'); // Oni for new design handy custom mistumury ordres
 	Route::get('/get-all-products', 'MistumuryController@index')->name('mitsumury.get.products'); // Oni for new design handy
 	Route::get('/get-all-custom-mistumury-products',[\App\Http\Controllers\CustomMisthsumuryProductController::class,'getAllMistumury'])->name('custom.mitsumury.get.products'); // Oni for new design handy
 	// save new mistumury product without jan
