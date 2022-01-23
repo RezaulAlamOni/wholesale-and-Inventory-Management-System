@@ -187,7 +187,7 @@
                                             </td>
                                             <td class="text-center">
                                                 <span class="badge badge-success" style="cursor: pointer;margin:2px"
-                                                      @click="orderToTonya(product)">出荷</span>
+                                                      @click="shipmentTosuper(product)">出荷</span>
 <!--                                                <span class="badge badge-primary" style="cursor: pointer;margin:2px"-->
 <!--                                                      @click="storeToMaster(product)">採用</span>-->
                                             </td>
@@ -1086,6 +1086,70 @@ export default {
 
         },
         //
+        //
+        shipmentTosuper(order) {
+            let _this = this;
+            _this.order_data = order;
+            let order_itemData =this.order_data;
+
+            let c_quantity = parseInt(_this.order_data.customer_shipment.confirm_unit_quantity) + parseInt(_this.order_data.customer_shipment.confirm_ball_quantity) * parseInt(_this.order_data.jan.ball_inputs) + parseInt(_this.order_data.customer_shipment.confirm_case_quantity) * parseInt(_this.order_data.jan.case_inputs);
+
+            let total_quantity_vls = c_quantity;
+            let total_quantity_vls_price = total_quantity_vls*order_itemData.selling_price;
+            let data = {
+                jan_code: order_itemData.jan.jan,
+                pname: order_itemData.jan.name,
+                c_quantity: c_quantity,
+                customer_id: order_itemData.customer_shipment.customer_id,
+                customer_item_id: order_itemData.customer_item_id,
+                customer_order_id: order_itemData.customer_shipment.customer_order_id,
+                customer_order_detail_id: order_itemData.customer_shipment.customer_order_detail_id,
+                inputs_type: order_itemData.customer_shipment.inputs,
+                confirm_case_quantity: order_itemData.customer_shipment.confirm_case_quantity,
+                confirm_ball_quantity: order_itemData.customer_shipment.confirm_ball_quantity,
+                confirm_unit_quantity: order_itemData.customer_shipment.confirm_unit_quantity,
+                customer_shipment_id: order_itemData.customer_shipment.customer_shipment_id,
+                rack_number: order_itemData.customer_shipment.rack_number,
+                total_quantity_vls:total_quantity_vls,
+                total_quantity_vls_price:total_quantity_vls_price
+
+            };
+            console.log(data);
+            //return false;
+            $('.loading_image_custom').show()
+            if (data.length <= 0) {
+                $('.loading_image_custom').hide()
+                $('#stock-order-show-by-jan').modal('hide')
+            } else {
+                axios.post(this.base_url + '/shipment_arival_insert_handy_shipmentorder_to_super', data)
+                    .then(function (res) {
+                        console.log(res);
+                        if (res.data.message == 'stock_over_qty') {
+                            console.log('stock over');
+                            _this.handi_navi = '<li>在庫量不足。</li>';
+                            $('#handy-navi').show()
+                            return false;
+                        } else {
+                            console.log('stock done');
+                            _this.handi_navi = '<li>出荷が完了しました。</li>';
+                            $('#handy-navi').show();
+
+                            _this.getProducts();
+                        }
+
+
+                    })
+                    .then(function (er) {
+
+                    })
+                    .finally(function () {
+                        $('.loading_image_custom').hide()
+                        _this.loader = 0
+                    })
+            }
+
+
+        },
     },
     watch: {
         productJans: function (val) {
