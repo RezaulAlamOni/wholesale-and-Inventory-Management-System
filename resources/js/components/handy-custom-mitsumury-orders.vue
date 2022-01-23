@@ -72,9 +72,9 @@
                                                 <a :href="base_url+'/handy-custom-mistumury-shipment-list'" class="text-white"> 履歴 </a>
                                             </span>
 
-                                            <span class="badge badge-success float-right" v-if="productJans.length > 0"
-                                                  style="padding: 7px 15px;font-size: 15px"
-                                                  @click="orderToTonya()">出荷</span>
+                                            <span class="badge badge-info float-right" v-if="productJans.length > 0"
+                                                  style="font-size: 15px"
+                                                  @click="multipleShipmentTosuper()">出荷</span>
                                         </th>
 
                                         <!--                                        <th colspan="2" style="width: 50px; text-align: center; padding: 5px;">-->
@@ -186,7 +186,7 @@
                                                 (バラ)
                                             </td>
                                             <td class="text-center">
-                                                <span class="badge badge-success" style="cursor: pointer;margin:2px"
+                                                <span class="badge badge-info" style="cursor: pointer;margin:2px"
                                                       @click="shipmentTosuper(product)">出荷</span>
 <!--                                                <span class="badge badge-primary" style="cursor: pointer;margin:2px"-->
 <!--                                                      @click="storeToMaster(product)">採用</span>-->
@@ -947,65 +947,6 @@ export default {
             this.handi_navi = '仕入・販売先マスターへ登録されました';
             $('#handy-navi').show();
         },
-        orderToTonya(product = null) {
-            return 0;
-            let _this = this;
-            _this.loader = 1;
-            setTimeout(function () {
-                var dtes = $.datepicker.formatDate('yy-mm-dd', new Date());
-                let data_array = [];
-                if (product == null) {
-                    _this.productJans.map(function (pro) {
-                        console.log(pro)
-                        let data = [
-                            pro.order_point_case_quantity,
-                            pro.order_point_ball_quantity,
-                            pro.order_point_unit_quantity,
-                            pro.customer_id,
-                            pro.jan,
-                            dtes,
-                            Math.floor(100000 + Math.random() * 900000),
-                            _this.shop_id
-                        ]
-                        data_array.push(data)
-                    })
-                } else {
-                    let data = [
-                        product.order_point_case_quantity,
-                        product.order_point_ball_quantity,
-                        product.order_point_unit_quantity,
-                        product.customer_id,
-                        product.jan,
-                        dtes,
-                        Math.floor(100000 + Math.random() * 900000),
-                        _this.shop_id
-                    ]
-                    data_array.push(data)
-                }
-
-
-                axios.post(this.base_url + '/vendor_order_insert_from_custom_mistumury_handy', {'data_array': data_array})
-                    .then(function (res) {
-                        if (res.data.message == '502') {
-                            $('#handy-navi').show()
-                            _this.handi_navi = '<li>採用し終わったら、\n発注できるようになります。。</li>';
-                        } else {
-                            $('#handy-navi').show()
-                            _this.handi_navi = '<li>発注が完了しました。次のJANコードスキャンして【次へ】押してください。</li>';
-                        }
-
-
-                        // _this.hideModelAndClearInput()
-                    })
-                    .then(function (er) {
-
-                    })
-                    .finally(function () {
-                        $('.loading_image_custom').hide()
-                        _this.loader = 0
-                    })
-            }, 500)
-        },
         storeToMaster(product = null) {
 
             let _this = this;
@@ -1150,6 +1091,64 @@ export default {
 
 
         },
+        //
+        multipleShipmentTosuper() {
+            let _this = this;
+            let data = this.productJans.map(function (order_itemData) {
+                _this.order_data = order_itemData;
+                let c_quantity = parseInt(_this.order_data.customer_shipment.confirm_unit_quantity) + parseInt(_this.order_data.customer_shipment.confirm_ball_quantity) * parseInt(_this.order_data.jan.ball_inputs) + parseInt(_this.order_data.customer_shipment.confirm_case_quantity) * parseInt(_this.order_data.jan.case_inputs);
+
+                let total_quantity_vls = c_quantity;
+                let total_quantity_vls_price = total_quantity_vls*order_itemData.selling_price;
+                let data1 = {
+                    jan_code: order_itemData.jan.jan,
+                    pname: order_itemData.jan.name,
+                    c_quantity: c_quantity,
+                    customer_id: order_itemData.customer_shipment.customer_id,
+                    customer_item_id: order_itemData.customer_item_id,
+                    customer_order_id: order_itemData.customer_shipment.customer_order_id,
+                    customer_order_detail_id: order_itemData.customer_shipment.customer_order_detail_id,
+                    inputs_type: order_itemData.customer_shipment.inputs,
+                    confirm_case_quantity: order_itemData.customer_shipment.confirm_case_quantity,
+                    confirm_ball_quantity: order_itemData.customer_shipment.confirm_ball_quantity,
+                    confirm_unit_quantity: order_itemData.customer_shipment.confirm_unit_quantity,
+                    customer_shipment_id: order_itemData.customer_shipment.customer_shipment_id,
+                    rack_number: order_itemData.customer_shipment.rack_number,
+                    total_quantity_vls:total_quantity_vls,
+                    total_quantity_vls_price:total_quantity_vls_price
+
+                };
+                return data1;
+            })
+
+            if (data.length > 0) {
+                axios.post(this.base_url + '/multiple-shipment_arival_insert_handy_shipmentorder_to_super', {data : data})
+                    .then(function (res) {
+                        console.log(res);
+                        if (res.data.message == 'stock_over_qty') {
+                            console.log('stock over');
+                            _this.handi_navi = '<li>在庫量不足。</li>';
+                            $('#handy-navi').show()
+                            return false;
+                        } else {
+                            console.log('stock done');
+                            _this.handi_navi = '<li>出荷が完了しました。</li>';
+                            $('#handy-navi').show();
+
+                            _this.getProducts();
+                        }
+
+
+                    })
+                    .then(function (er) {
+
+                    })
+                    .finally(function () {
+                        $('.loading_image_custom').hide()
+                        _this.loader = 0
+                    })
+            }
+        }
     },
     watch: {
         productJans: function (val) {

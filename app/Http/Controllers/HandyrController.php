@@ -1484,6 +1484,78 @@ WHERE DATE(co.shipment_date) = CURDATE()
         return $result = response()->json(['message' => 'success']);
     }
 
+    public function multiple_shipment_arival_insert_handy_shipmentorder_to_super(Request $request)
+    {
+        $datas = $request->data;
+        $plug = 0;
+
+        foreach ($datas as $data) {
+            $data = (object)$data;
+            $jan_code = $data->jan_code;
+            $c_quantity = $data->c_quantity;
+            $customer_id = $data->customer_id;
+            $customer_item_id = $data->customer_item_id;
+            $customer_order_id = $data->customer_order_id;
+            $customer_order_detail_id = $data->customer_order_detail_id;
+            $inputs_type = $data->inputs_type;
+            $customer_shipment_id = $data->customer_shipment_id;
+            $rack_number = $data->rack_number;
+            $confirm_case_quantity = $data->confirm_case_quantity;
+            $confirm_ball_quantity = $data->confirm_ball_quantity;
+            $confirm_unit_quantity = $data->confirm_unit_quantity;
+            /*decrease stock quantity*/
+            $stock_info = collect(\DB::select("select * from stock_items inner join vendor_items on stock_items.vendor_item_id=vendor_items.vendor_item_id inner join jans on jans.jan = vendor_items.jan where vendor_items.jan = '" . $jan_code . "' and stock_items.rack_number='" . $rack_number . "'"))->first();
+            if ($stock_info) {
+                $stock_items = array();
+                if ($confirm_case_quantity > $stock_info->case_quantity) {
+                    $plug = 1;
+                }
+                if ($confirm_ball_quantity > $stock_info->ball_quantity) {
+                    $plug = 1;
+                }
+                if ($confirm_unit_quantity > $stock_info->unit_quantity) {
+                    $plug = 1;
+                }
+                $vl_c = $stock_info->case_quantity - $confirm_case_quantity;
+                $vl_c = ($vl_c < 0 ? 0 : $vl_c);
+                $stock_items['case_quantity'] = $vl_c;
+
+                $vl_b = $stock_info->ball_quantity - $confirm_ball_quantity;
+                $vl_b = ($vl_b < 0 ? 0 : $vl_b);
+                $stock_items['ball_quantity'] = $vl_b;
+
+                $vl_u = $stock_info->unit_quantity - $confirm_unit_quantity;
+                $vl_u = ($vl_u < 0 ? 0 : $vl_u);
+                $stock_items['unit_quantity'] = $vl_u;
+                stock_item::where(['vendor_item_id' => $stock_info->vendor_item_id, 'rack_number' => $rack_number])->update($stock_items);
+                customer_shipment::where('customer_shipment_id', $data->customer_shipment_id)->update(['quantity' => $data->c_quantity, 'reload_status' => '1']);
+                customer_order::where('customer_order_id', $data->customer_order_id)->update(['status' => '出荷済み']);
+                $total_quantity_vls_price = $data->total_quantity_vls_price;
+                $totalQty= (($stock_info->case_inputs*$confirm_case_quantity)+($stock_info->ball_inputs*$confirm_ball_quantity)+$confirm_unit_quantity);
+                $totalP = $totalQty*$stock_info->selling_price;
+                $total_quantity_vls_price = ($total_quantity_vls_price==''?$totalP:$total_quantity_vls_price);
+                $insert_invoice = array(
+                    'invoice_amount' => $total_quantity_vls_price,
+                    'customer_id' => $data->customer_id,
+                    'customer_shipment_id' => $data->customer_shipment_id,
+                    'invoice_date' => date('Y-m-d'),
+                );
+
+                customer_invoice::insert($insert_invoice);
+            } else {
+                $plug = 1;
+
+            }
+
+        }
+
+        if ($plug) {
+            return $result = response()->json(['message' => 'stock_over_qty']);
+        }
+
+        return $result = response()->json(['message' => 'success']);
+    }
+
     public function shipment_arival_insert_handy_shipmentorder_to_super_web(Request $request)
     {
         //print_r($request->all());

@@ -232,6 +232,7 @@ Route::group(['middleware'=>'MyMiddleWire'],function(){
 	Route::post('/insert_shipment_order_info', 'HandyrController@insert_shipment_order_info');
 	Route::post('/shipment_arival_insert_handy_shipmentorder', 'HandyrController@shipment_arival_insert_handy_shipmentorder');
 	Route::post('/shipment_arival_insert_handy_shipmentorder_to_super', 'HandyrController@shipment_arival_insert_handy_shipmentorder_to_super');
+	Route::post('/multiple-shipment_arival_insert_handy_shipmentorder_to_super', 'HandyrController@multiple_shipment_arival_insert_handy_shipmentorder_to_super');
 	//Route::get('/kouri-order-info-for-handy/{jan}', 'ReceiveorderController@orderInfoForHandy');
 
 	/* shimpent order */
