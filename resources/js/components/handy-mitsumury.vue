@@ -1267,7 +1267,7 @@ export default {
 }
 
 .active-img {
-    box-shadow: inset 0px 0px 5px #0079ff;
+    box-shadow: inset 0px 0px 18px #0079ff;
 }
 
 .well {
