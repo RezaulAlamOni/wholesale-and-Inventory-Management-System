@@ -26,10 +26,10 @@
                     </div>
                     <div style="font-size: 18px; padding: 5px 0px 2px 5px;position: relative">
                         <div class="form-check">
-                            <input class="form-check-input check-all" @click="selectAll()" v-model="allSelected"
+                            <input class="form-check-input check-all hide"  @click="selectAll()" v-model="allSelected"
                                    type="checkbox" value="" id="flexCheckChecked">
                             <label class="form-check-label ml-2" for="flexCheckChecked">
-                                全て
+                                <button class="btn btn-success" onclick="$('#flexCheckChecked').click()" style="font-size: 18px;">全て</button>
                             </label>
                         </div>
 
