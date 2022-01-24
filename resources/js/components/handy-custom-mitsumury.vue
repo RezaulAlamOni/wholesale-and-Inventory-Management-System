@@ -1129,7 +1129,7 @@ export default {
             this.allSelected = false
             this.allSelectedSuper = false
 
-            let data = {'item_info': this.productJans, 'super_info': this.selectedSuper, 'message': this.message};
+            let data = {'item_info': this.productJans, 'super_info': this.selectedSuperShops    , 'message': this.message};
             this.handi_navi = '少しお待ちどして下さい';
             $('#handy-navi').show();
             $('#mistumury-select-super').modal('hide');
