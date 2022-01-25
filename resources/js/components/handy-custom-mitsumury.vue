@@ -47,7 +47,7 @@
                         <div class=" col-centereds col-md-12 col-sm-12 col-sl-12 p-0 row mt-2">
                             <div class="col-sm-6 col-md-3 col-xl-3 image-div" v-for="(product,i) in products"
                                  :class="(productJans.indexOf(product)) > -1 ? 'active-img' : ''">
-                                <img :src="product.image"
+                                <img :src="product.image" :id="'img'+i"
                                      class="img-thumbnail custom-img"
                                      alt="Cinque Terre" @click="viewInfoForImage(product,product.img)"
                                      @dblclick="viewInfoForImage(product,product.img,1)"
@@ -189,7 +189,7 @@
                                 <div class="form-group text-center">
                                     <input type="file" :accept="open_camera ? 'image;capture=camera' : 'image/*'"
                                            @change="previewImage" class="form-control-file hide"
-                                           id="my-file" alt="00">
+                                           id="my-file" alt="00" capture="camera">
                                     <button class="btn btn-info" id="click-file" @click="clickAddFile(0)">画像を選ぶ</button>
                                     <button class="btn btn-primary" id="open-camera" @click="clickAddFile(1)">写真を撮る
                                     </button>
@@ -1193,6 +1193,8 @@ export default {
                 return false;
             }
 
+            $('.loading_image_custom').show()
+            _this.loader = 1
             let fd = new FormData()
 
             fd.append('image', _this.mistumury_product.image)
@@ -1230,9 +1232,11 @@ export default {
                             }, 500)
 
                         }
-
+                        $('#img0').click()
+                        $('#handy-camara-navi').show();
                     }, 1000)
-
+                    $('.loading_image_custom').hide()
+                    _this.loader = 0
                 })
         },
 
