@@ -401,6 +401,7 @@
                     </div>
                     <div class="card-body" style="text-align: center;font-size: 16px">
                         <template v-if="navi_button == 1">
+                            <span style="width: 100%;color: green;">{{ success_navi }}</span><br>
                             <button @click="addProductModal(0)" v-if="productJans.length <= 0"
                                     class="btn btn-info pull-right mr-1 "
                                     style=" top: 5px; right: 115px;padding: 5px 10px; font-size: 22px;float: right;font-size: 20px;">
@@ -478,7 +479,8 @@ export default {
             check: null,
             selected_input: '',
             navi_button: null,
-            product_select_mode: 0
+            product_select_mode: 0,
+            success_navi: '',
 
         }
     },
@@ -1232,11 +1234,15 @@ export default {
                             }, 500)
 
                         }
-                        $('#img0').click()
+                        // $('#img0').click()
                         $('#handy-camara-navi').show();
                     }, 1000)
+                    _this.success_navi = '画像保存されました'
                     $('.loading_image_custom').hide()
                     _this.loader = 0
+                    setTimeout(function(){
+                        _this.success_navi = '';
+                    },10000)
                 })
         },
 
