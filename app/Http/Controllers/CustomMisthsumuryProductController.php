@@ -73,26 +73,27 @@ class CustomMisthsumuryProductController extends Controller
         $image = $request->image;
         $extension = $image->extension();
         $name = pathinfo($image->getClientOriginalName(),PATHINFO_FILENAME).time().mt_rand();
-        $vendor = vendor::where('user_id',auth()->id())->first();
-        $jan = rand(1000000000,9999999999);
-        $jan = '20'. $vendor->vendor_id . $jan;
+
 //        $image->storeAs('/public', $name .".".$extension);
         $fileNameToStore = $name .".".$extension;
         $file = $request->file('image');
 
-        $resize = Image::make($file)->resize(400, null, function ($constraint) {
+        $resize = Image::make($file)->resize(300, null, function ($constraint) {
             $constraint->aspectRatio();
         })->encode('jpg');
 
         // Create hash value
-        $hash = md5($resize->__toString());
+//        $hash = md5($resize->__toString());
 
         // Prepare qualified image name
-        $image = $hash."jpg";
+//        $image = $hash."jpg";
 
         // Put image to storage
         $save = Storage::put("public/{$fileNameToStore}", $resize->__toString());
 
+        $vendor = vendor::where('user_id',auth()->id())->first();
+        $jan = rand(1000000000,9999999999);
+        $jan = '20'. $vendor->vendor_id . $jan;
 
         CustomMisthsumuryProduct::create([
             'name' => $request->title,
