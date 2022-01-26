@@ -15,7 +15,7 @@
                         <a :href="base_url+'/android_home'" class="btn btn-primary pull-right top-button"
                            style="float:right">メニュー</a>
                         <a :href="base_url+'/custom-mitsumury-orders'" class="btn btn-success pull-right top-button mr-2"
-                           style="float:right">見積出荷</a>
+                           style="float:right">履歴</a>
                         <!--                        <a href="javascript:void(0)" class="btn btn-success pull-right mr-1 top-button"-->
                         <!--                           style="float:right"> 発注</a>-->
                         <!--                        <a href="javascript:void(0)" class="btn btn-success pull-right mr-1 top-button"-->
@@ -25,6 +25,9 @@
 
                     </div>
                     <div style="font-size: 18px; padding: 5px 0px 2px 5px;position: relative">
+
+                        <img id="preview">
+
                         <div class="form-check">
                             <input class="form-check-input check-all hide"  @click="selectAll()" v-model="allSelected"
                                    type="checkbox" value="" id="flexCheckChecked">
@@ -496,6 +499,7 @@ export default {
         setTimeout(function () {
             // _this.addProductModal(1);
         }, 3000)
+
     },
     methods: {
         getProducts() {
