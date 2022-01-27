@@ -14,7 +14,8 @@
                         <!-- <button id="handy_shipment_item_insert" class="btn btn-primary pull-right" style="float:right"> 送信</button>&nbsp;-->
                         <a :href="base_url+'/android_home'" class="btn btn-primary pull-right top-button"
                            style="float:right">メニュー</a>
-                        <a :href="base_url+'/custom-mitsumury-orders'" class="btn btn-success pull-right top-button mr-2"
+                        <a :href="base_url+'/custom-mitsumury-orders'"
+                           class="btn btn-success pull-right top-button mr-2"
                            style="float:right">履歴</a>
                         <!--                        <a href="javascript:void(0)" class="btn btn-success pull-right mr-1 top-button"-->
                         <!--                           style="float:right"> 発注</a>-->
@@ -29,18 +30,20 @@
                         <img id="preview">
 
                         <div class="form-check">
-                            <input class="form-check-input check-all hide"  @click="selectAll()" v-model="allSelected"
+                            <input class="form-check-input check-all hide" @click="selectAll()" v-model="allSelected"
                                    type="checkbox" value="" id="flexCheckChecked">
                             <label class="form-check-label ml-2" for="flexCheckChecked">
-                                <button class="btn btn-success" onclick="$('#flexCheckChecked').click()" style="font-size: 18px;">全て</button>
+                                <button class="btn btn-success" onclick="$('#flexCheckChecked').click()"
+                                        style="font-size: 18px;">全て
+                                </button>
                             </label>
                         </div>
 
-<!--                        <button v-if="productJans.length > 0" @click="selectSuper(' ')"-->
-<!--                                class="btn btn-success pull-right mr-1 " id="show-super-list"-->
-<!--                                style="position: absolute; top: 5px; right: 0px;padding: 5px 10px; font-size: 18px;">-->
-<!--                            メール-->
-<!--                        </button>-->
+                        <!--                        <button v-if="productJans.length > 0" @click="selectSuper(' ')"-->
+                        <!--                                class="btn btn-success pull-right mr-1 " id="show-super-list"-->
+                        <!--                                style="position: absolute; top: 5px; right: 0px;padding: 5px 10px; font-size: 18px;">-->
+                        <!--                            メール-->
+                        <!--                        </button>-->
                         <a class="btn btn-danger float-right mr-" v-if="productJans.length > 0"
                            @click="deleteMistunury(null)"
                            style=" position: absolute; top: 5px; right:0px;padding: 5px 10px; font-size: 18px;"
@@ -71,9 +74,9 @@
                     <div class="modal-content">
                         <div class="modal-header" style="padding: 5px;justify-content: right">
                             <a class="btn btn-danger float-right mr-1" @click="deleteMistunury(preview_product)">削除</a>
-<!--                            <a class="btn btn-success float-right mr-1" @click="naviShow()"> 保存</a>-->
+                            <!--                            <a class="btn btn-success float-right mr-1" @click="naviShow()"> 保存</a>-->
                             <!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
-<!--                            <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>-->
+                            <!--                            <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>-->
 
                         </div>
                         <div class="modal-body p-0" style="text-align: center">
@@ -285,7 +288,7 @@
                             <!--                            <button class="btn btn-success mr-2" @click="sendtoSuper()"-->
                             <!--                                    :disabled="(productJans.length > 0 && selectedSuper.length > 0 ) ? false : true">送信-->
                             <!--                            </button>-->
-<!--                            <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-select-super')">戻る</a>-->
+                            <!--                            <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-select-super')">戻る</a>-->
                         </div>
                         <div class="modal-body p-0" style="text-align: center">
                             <div
@@ -425,13 +428,17 @@
                             </button>
                         </template>
 
-                        <a class="btn btn-info float-right" style="font-size: 20px;"  v-else-if="navi_button == 4" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
+                        <a class="btn btn-info float-right" style="font-size: 20px;" v-else-if="navi_button == 4"
+                           @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
                         <template v-else-if="navi_button == 5">
-                            <button class="btn btn-success mr-2 float-left" style="font-size: 20px;" @click="sendtoSuper()" v-if="(productJans.length > 0 && selectedSuper.length > 0 )"
+                            <button class="btn btn-success mr-2 float-left" style="font-size: 20px;"
+                                    @click="sendtoSuper()" v-if="(productJans.length > 0 && selectedSuper.length > 0 )"
                                     :disabled="(productJans.length > 0 && selectedSuper.length > 0 ) ? false : true">送信
                             </button>
-                            <a class="btn btn-primary float-left" style="font-size: 20px;" v-else  onclick="$('#mistumury-select-super').modal('hide')">商品選択画面</a>
-                            <a class="btn btn-info float-right" style="font-size: 20px;" @click="confirmAndHide('mistumury-select-super')">戻る</a>
+                            <a class="btn btn-primary float-left" style="font-size: 20px;" v-else
+                               onclick="$('#mistumury-select-super').modal('hide')">商品選択画面</a>
+                            <a class="btn btn-info float-right" style="font-size: 20px;"
+                               @click="confirmAndHide('mistumury-select-super')">戻る</a>
                         </template>
 
                     </div>
@@ -567,10 +574,10 @@ export default {
             this.product_select_mode = 0
             $('#' + type).modal('hide')
             $('#' + type).modal('hide')
-            if ( type == 'mistumury-mage-preview' || type == 'mistumury-select-super' ) {
+            if (type == 'mistumury-mage-preview' || type == 'mistumury-select-super') {
                 $('#handy-camara-navi').hide();
             }
-            if (type == 'mistumury-select-super' ) {
+            if (type == 'mistumury-select-super') {
                 this.product_select_mode = 0;
             }
 
@@ -1135,7 +1142,7 @@ export default {
             this.allSelected = false
             this.allSelectedSuper = false
 
-            let data = {'item_info': this.productJans, 'super_info': this.selectedSuperShops    , 'message': this.message};
+            let data = {'item_info': this.productJans, 'super_info': this.selectedSuperShops, 'message': this.message};
             this.handi_navi = '少しお待ちどして下さい';
             $('#handy-navi').show();
             $('#mistumury-select-super').modal('hide');
@@ -1161,13 +1168,27 @@ export default {
         },
         //
         previewImage: function (event) {
+            let _this = this;
             var input = event.target;
             if (input.files) {
                 var reader = new FileReader();
                 reader.onload = (e) => {
                     this.preview = e.target.result;
+                    // console.log(this.preview)
+                    // this.mistumury_product.image = e.target.result
+                    var img = new Image;
+                    img.onload = resizeImage;
+                    img.src = e.target.result;
+                    function resizeImage() {
+                        var newDataUri = _this.imageToDataUri(this, 250, 300);
+                        console.log(newDataUri)
+
+                        let imag = _this.dataURLtoFile(newDataUri,'data.png');
+                        _this.mistumury_product.image = imag;
+                        _this.saveNewMistumuryProduct();
+                    }
                 }
-                this.mistumury_product.image = input.files[0];
+                // this.mistumury_product.image = input.files[0];
                 reader.readAsDataURL(input.files[0]);
             }
             $('#click-file').hide()
@@ -1177,9 +1198,44 @@ export default {
             // this.navi_button = 2;
 
             this.mistumury_product.title = '000'
-            this.saveNewMistumuryProduct();
+            // this.saveNewMistumuryProduct();
 
         },
+        dataURLtoFile(dataurl, filename) {
+
+            var arr = dataurl.split(','),
+                mime = arr[0].match(/:(.*?);/)[1],
+                bstr = atob(arr[1]),
+                n = bstr.length,
+                u8arr = new Uint8Array(n);
+
+            while(n--){
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+
+            return new File([u8arr], filename, {type:mime});
+        },
+
+
+
+        imageToDataUri(img, width, height) {
+
+            // create an off-screen canvas
+            var canvas = document.createElement('canvas'),
+                ctx = canvas.getContext('2d');
+
+            // set its dimension to target size
+            canvas.width = width;
+            canvas.height = height;
+
+            // draw source image into the off-screen canvas:
+            ctx.drawImage(img, 0, 0, width, height);
+
+            // encode image to data-uri with base64 version of compressed image
+            return canvas.toDataURL();
+        },
+
+        //image base64
 
         saveNewMistumuryProduct: function (event, i = null) {
             if (i == 1) {
@@ -1244,9 +1300,9 @@ export default {
                     _this.success_navi = '画像保存されました'
                     $('.loading_image_custom').hide()
                     _this.loader = 0
-                    setTimeout(function(){
+                    setTimeout(function () {
                         _this.success_navi = '';
-                    },10000)
+                    }, 10000)
                 })
         },
 
