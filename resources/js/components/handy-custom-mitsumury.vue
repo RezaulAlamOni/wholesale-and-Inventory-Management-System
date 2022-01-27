@@ -1180,7 +1180,7 @@ export default {
                     img.onload = resizeImage;
                     img.src = e.target.result;
                     function resizeImage() {
-                        var newDataUri = _this.imageToDataUri(this, 250, 300);
+                        var newDataUri = _this.imageToDataUri(this, 150, 150);
                         console.log(newDataUri)
 
                         let imag = _this.dataURLtoFile(newDataUri,'data.png');
