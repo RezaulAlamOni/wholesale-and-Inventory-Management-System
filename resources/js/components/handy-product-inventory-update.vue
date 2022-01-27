@@ -113,14 +113,16 @@
                                                                 <td>
                                                                     <input type="tel" :id="'case'+index" @click="selectItem($event,'ケース')"
                                                                            @keypress="pressEnterAndSave($event,index,'ball')"
+                                                                           @blur="updateOrderQnty($event,index,'ball')"
                                                                            v-model="order.case_quantity" :readonly="readonly"
                                                                            class="form-control inputs ">
-                                                                    <!--                                                                @blur="updateOrderQnty('ケース')"-->
+                                                                    <!--                                                       @blur="pressEnterAndSave($event,index,'ball')"         @blur="updateOrderQnty('ケース')"-->
                                                                 </td>
 
                                                                 <td>
                                                                     <input type="tel" :id="'ball'+index" @click="selectItem($event,'ケース')"
                                                                            @keypress="pressEnterAndSave($event,index,'bara')"
+                                                                           @blur="updateOrderQnty($event,index,'bara')"
                                                                            v-model="order.ball_quantity" :readonly="readonly"
                                                                            class="form-control boll_order inputs">
                                                                     <!--                                                                @blur="updateOrderQnty('ボール')"-->
@@ -129,12 +131,15 @@
                                                                 <td>
                                                                     <input type="tel" :id="'bara'+index" @click="selectItem($event,'ケース')"
                                                                            @keypress="pressEnterAndSave($event,index,'rack')"
+                                                                           @blur="updateOrderQnty($event,index,'rack')"
                                                                            v-model="order.unit_quantity" :readonly="readonly"
                                                                            class="form-control cmn_num_formt bara_order inputs" >
                                                                 </td>
 
                                                                 <td>
-                                                                    <input type="tel"  @keypress="pressEnterAndSave($event,index+1,'case')"
+                                                                    <input type="tel"
+                                                                           @blur="updateOrderQnty($event,index+1,'case')"
+                                                                           @keypress="pressEnterAndSave($event,index+1,'case')"
                                                                            class="form-control  " :id="'rack'+index" v-model="order.rack_number"
                                                                            style="border-radius: 0px; text-align: center;"  :readonly="readonly">
                                                                 </td>
@@ -422,7 +427,27 @@ export default {
 
         },
 
-        updateOrderQnty(type) {
+        updateOrderQnty(e, i,type) {
+
+                let j = i;
+                this.calculateTotalQuantity();
+                if (type=='case') {
+                    j = i-1;
+                }
+                this.previous_rack_number = this.previous_rack_numbers[j];
+                this.updateInventoryData(this.order_data[j]);
+                if ($('#'+type+i).length <= 0){
+                    $('#order-place-button').focus()
+                } else {
+                    $('#'+type+i).focus()
+                    $('#'+type+i).select()
+                }
+
+
+        },
+
+        updateOrderQnty__(type) {
+
             let _this = this;
             _this.input_type = type
             let quantity = type == 'ケース' ? this.case_order : (type == 'ボール' ? this.boll_order : this.bara_order);
