@@ -195,7 +195,7 @@
                                 <div class="form-group text-center">
                                     <input type="file" :accept="open_camera ? 'image;capture=camera' : 'image/*'"
                                            @change="previewImage" class="form-control-file hide"
-                                           id="my-file" alt="00" capture="camera">
+                                           id="my-file" alt="00" capture="camera" ref="file">
                                     <button class="btn btn-info" id="click-file" @click="clickAddFile(0)">画像を選ぶ</button>
                                     <button class="btn btn-primary" id="open-camera" @click="clickAddFile(1)">写真を撮る
                                     </button>
@@ -1181,7 +1181,7 @@ export default {
                     img.src = e.target.result;
                     function resizeImage() {
                         var newDataUri = _this.imageToDataUri(this, 150, 150);
-                        console.log(newDataUri)
+                        // console.log(newDataUri)
 
                         let imag = _this.dataURLtoFile(newDataUri,'data.png');
                         _this.mistumury_product.image = imag;
@@ -1265,7 +1265,7 @@ export default {
             fd.append('sell', _this.mistumury_product.sell)
             fd.append('title', _this.mistumury_product.title)
             fd.append('profit_margin', _this.mistumury_product.profit_margin)
-            $('#show-super-list__').click()
+            $('#show-super-list__').trigger('click')
             axios.post(_this.base_url + '/custom-mistumury-products', fd)
                 .then(function (response) {
 
@@ -1355,8 +1355,9 @@ export default {
                 return false;
             }
             setTimeout(function () {
-                $('#my-file').click()
-                // _this.performClick('my-file');
+                // $('#my-file').click()
+                // _this.$refs.file.$el.click()
+                _this.performClick('my-file');
             }, 200)
         },
 
