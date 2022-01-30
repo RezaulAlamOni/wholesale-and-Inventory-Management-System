@@ -1265,7 +1265,7 @@ export default {
             fd.append('sell', _this.mistumury_product.sell)
             fd.append('title', _this.mistumury_product.title)
             fd.append('profit_margin', _this.mistumury_product.profit_margin)
-
+            $('#show-super-list__').click()
             axios.post(_this.base_url + '/custom-mistumury-products', fd)
                 .then(function (response) {
 
