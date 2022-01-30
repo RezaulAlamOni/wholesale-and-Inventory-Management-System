@@ -272,7 +272,6 @@
                                 </select>
                             </div>
 
-
                         </div>
                         <!--                    <div class="modal-footer " style="padding: 6px">-->
                         <!--                    </div>-->
@@ -373,7 +372,27 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade bd-example-modal-lg" style="top: 300px" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                 aria-hidden="true" id="mistumury-add-product-continue">
+                <div class="modal-dialog modal-lg mt-0">
+                    <div class="modal-content">
+                        <div class="modal-header" style="padding: 40px;">
+                            <button @click="addProductModal(1)"
+                                    class="btn btn-info float-left mr-1 "
+                                    style="padding: 5px 10px; font-size: 22px;float: left;">
+                                続ける
+                            </button>
 
+                            <button onclick="$('#mistumury-add-product-continue').modal('hide')"
+                                    class="btn btn-primary pull-right mr-1 " id="show-super-list_-"
+                                    style="top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: left;">
+                                戻る
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
 
             <div class="jn nav_disp-w" style="z-index: 9999;width: 270px; right: 15px; bottom: 15px;"
                  id="handy-navi">
@@ -1201,6 +1220,7 @@ export default {
             // this.saveNewMistumuryProduct();
 
         },
+
         dataURLtoFile(dataurl, filename) {
 
             var arr = dataurl.split(','),
@@ -1215,8 +1235,6 @@ export default {
 
             return new File([u8arr], filename, {type:mime});
         },
-
-
 
         imageToDataUri(img, width, height) {
 
@@ -1265,7 +1283,9 @@ export default {
             fd.append('sell', _this.mistumury_product.sell)
             fd.append('title', _this.mistumury_product.title)
             fd.append('profit_margin', _this.mistumury_product.profit_margin)
-            $('#show-super-list__').trigger('click')
+            //
+            $('#mistumury-add-product-continue').modal({backdrop : 'static'})
+            //
             axios.post(_this.base_url + '/custom-mistumury-products', fd)
                 .then(function (response) {
 
