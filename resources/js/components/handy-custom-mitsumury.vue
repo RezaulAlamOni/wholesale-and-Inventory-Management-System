@@ -382,7 +382,6 @@
                                     style="padding: 5px 10px; font-size: 22px;float: left;">
                                 続ける
                             </button>
-
                             <button onclick="$('#mistumury-add-product-continue').modal('hide')"
                                     class="btn btn-primary pull-right mr-1 " id="show-super-list_-"
                                     style="top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: left;">

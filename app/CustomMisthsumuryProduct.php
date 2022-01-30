@@ -22,7 +22,7 @@ class CustomMisthsumuryProduct extends Model
 
     protected function getCreatedAtAttribute($value)
     {
-        return date('d-M-Y', strtotime($value));
+        return date('Y-M-d', strtotime($value));
     }
 
 }
