@@ -398,7 +398,7 @@
                     </div>
                 </div>
             </div>
-            <div class="jn nav_disp-w" style="z-index: 9999;width: 310px; right: 15px; bottom: 15px;"
+            <div class="jn nav_disp-w" style="z-index: 9999; right: 15px; bottom: 15px;" :class="navi_button == 4 ? 'navi-width-100' : 'navi-width-350'"
                  id="handy-camara-navi">
                 <div class="card card-warning jn_old_popup " style="padding: 6px">
                     <div class="card-heading">
@@ -1476,6 +1476,13 @@ export default {
 </script>
 
 <style scoped>
+
+.navi-width-100 {
+    width: 100px;
+}
+.navi-width-350 {
+    width: 350px;
+}
 
 .detail-pro {
     font-size: 16px;
