@@ -1505,7 +1505,7 @@ export default {
     width: 100px;
 }
 .navi-width-350 {
-    width: 350px;
+    width: 300px;
 }
 
 .detail-pro {

@@ -85,14 +85,21 @@ class OrderController extends Controller
             $shiptment['confirm_quantity'] = $c_quantity;
 
 
-            if ($stock_info) {
-                $shiptment['rack_number'] = $stock_info->rack_number;
-                if ($stock_info->case_quantity >= $case_order_quantity && $stock_info->ball_quantity >= $ball_order_quantity && $stock_info->unit_quantity >= $unit_order_quantity) {
-                    customer_shipment::insert($shiptment);
-                    customer_order::where('customer_order_id', $customer_order_id)->update(['status' => '確定済み']);
-                }
+            $shiptment['rack_number'] = 2222;
+            customer_shipment::insert($shiptment);
+            customer_order::where('customer_order_id', $customer_order_id)->update(['status' => '確定済み']);
 
-            }
+            // 31.01.2022 oni
+//            if ($stock_info) {
+//                $shiptment['rack_number'] = $stock_info->rack_number;
+//                if ($stock_info->case_quantity >= $case_order_quantity && $stock_info->ball_quantity >= $ball_order_quantity && $stock_info->unit_quantity >= $unit_order_quantity) {
+//                    customer_shipment::insert($shiptment);
+//                    customer_order::where('customer_order_id', $customer_order_id)->update(['status' => '確定済み']);
+//                }
+//
+//            }
+
+            // comment for custom mistumury order from super
 
         }
 
