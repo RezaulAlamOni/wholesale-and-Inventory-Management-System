@@ -99,7 +99,7 @@
                         {{--                    </div>--}}
                         <div class="modal-body text-center">
                             <p style="font-size: 16px">スーパーから見積の新発注来ました、確認お願いします.</p>
-                            <a  href="{{ route('custom.mitsumury.shipment') }}" type="button" class="btn btn-success">
+                            <a  href="{{ route('custom.mitsumury.orders') }}" type="button" class="btn btn-success">
                                 見積り
                             </a>
                         </div>
