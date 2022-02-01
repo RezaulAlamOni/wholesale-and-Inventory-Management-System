@@ -47,13 +47,13 @@
 <!--                                    </tr>-->
                                     <tr data-v-c9953dda="">
                                         <th class="p-0" style="border: none !important;">
-                                            <input class="form-check-input check-all m-0" id="flexCheck_"
-                                                   style="height: 20px;width: 20px"
-                                                   @click="selectAll()" v-model="allSelected" type="checkbox" value="">
-                                            <label class="form-check-label " style="margin-left: 30px;font-weight: bold"
-                                                   for="flexCheck_">
-                                                全て
-                                            </label>
+<!--                                            <input class="form-check-input check-all m-0" id="flexCheck_"-->
+<!--                                                   style="height: 20px;width: 20px"-->
+<!--                                                   @click="selectAll()" v-model="allSelected" type="checkbox" value="">-->
+<!--                                            <label class="form-check-label " style="margin-left: 30px;font-weight: bold"-->
+<!--                                                   for="flexCheck_">-->
+<!--                                                全て-->
+<!--                                            </label>-->
                                         </th>
                                         <th colspan="2" class="p-0" style="border: none !important;">
 <!--                                            <select class="form-control" aria-label="Default select example"-->
@@ -72,9 +72,9 @@
                                                 <a :href="base_url+'/handy-custom-mistumury-shipment-list'" class="text-white"> 履歴 </a>
                                             </span>
 
-                                            <span class="badge badge-info float-right" v-if="productJans.length > 0"
-                                                  style="font-size: 15px"
-                                                  @click="multipleShipmentTosuper()">出荷</span>
+<!--                                            <span class="badge badge-info float-right" v-if="productJans.length > 0"-->
+<!--                                                  style="font-size: 15px"-->
+<!--                                                  @click="multipleShipmentTosuper()">出荷</span>-->
                                         </th>
 
                                         <!--                                        <th colspan="2" style="width: 50px; text-align: center; padding: 5px;">-->
@@ -114,8 +114,8 @@
                                                      class="img-thumbnail custom-img"
                                                      alt="Cinque Terre" @click="viewInfoForImage(product,product.img)"
                                                      style="cursor: pointer" width="100px">
-                                                <input class="form-check-input form-check-input__" type="checkbox"
-                                                       v-model="productJans" :value="product">
+<!--                                                <input class="form-check-input form-check-input__" type="checkbox"-->
+<!--                                                       v-model="productJans" :value="product">-->
                                             </td>
                                             <td :class="checkDateOlderHour(product.updated_at) ? 'back-ground' : ''">
                                                 <input data-v-c9953dda="" type="tel" id="cost_"
@@ -153,7 +153,8 @@
 <!--                                                       class="form-control  " v-model="product.gross_profit_margin"-->
 <!--                                                       @keyup="calculatePrice('profit_margin')" readonly-->
 <!--                                                       style="border-radius: 0px; text-align: center; padding: 7px 0px;">-->
-                                            {{ product.customer_order.customer_shop.shop_name }}
+<!--                                            {{ product.customer_order.customer_shop.shop_name }}-->
+                                                {{ product.customer_order.customer.name }}
                                             </td>
                                         </tr>
                                         <tr :class="checkDateOlderHour(product.updated_at) ? 'back-ground' : ''">
@@ -185,9 +186,10 @@
                                                        style="border-radius: 0px; text-align: center; padding: 7px 0px;border-bottom: 1px solid gray !important;background: transparent;" readonly>
                                                 (バラ)
                                             </td>
-                                            <td class="text-center">
-                                                <span class="badge badge-info" style="cursor: pointer;margin:2px"
-                                                      @click="shipmentTosuper(product)">出荷</span>
+                                            <td class="text-center" style="font-size: 12px">
+                                                {{ product.customer_order.created_at.substring(0, 10) }}
+<!--                                                <span class="badge badge-info" style="cursor: pointer;margin:2px"-->
+<!--                                                      @click="shipmentTosuper(product)">出荷</span>-->
 <!--                                                <span class="badge badge-primary" style="cursor: pointer;margin:2px"-->
 <!--                                                      @click="storeToMaster(product)">採用</span>-->
                                             </td>
