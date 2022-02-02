@@ -429,7 +429,7 @@
                             <button @click="addProductModal(0)" v-if="productJans.length <= 0"
                                     class="btn btn-info pull-right mr-1 "
                                     style=" top: 5px; right: 115px;padding: 5px 10px; font-size: 22px;float: right;font-size: 20px;">
-                                送受信
+                                メンテ
                             </button>
                             または
                             <button @click="addProductModal(1)" v-if="productJans.length <= 0"
@@ -446,8 +446,29 @@
                             </button>
                         </template>
 
-                        <a class="btn btn-info float-right" style="font-size: 20px;" v-else-if="navi_button == 4"
-                           @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
+                        <template v-else-if="navi_button == 4">
+                            <a class="btn btn-info float-right" style="font-size: 20px;"
+                               @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
+                            <br>
+                            <div style="width: 100%;margin-top: 20px;text-align: center">
+                                <button class="btn btn-info pull-right mr-1 "
+                                        style=" top: 5px; right: 115px;padding: 5px 10px; font-size: 22px;float: right;font-size: 20px;">
+                                    スーパー別
+                                </button>
+                                <button class="btn btn-primary pull-right mr-1 " id="show-super-list--"
+                                        style="top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: left;font-size: 20px;">
+                                    全体
+                                </button>
+                                <br>
+                                <button class="btn btn-primary pull-right mr-1 " id="show-super-list"
+                                        style="top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: left;font-size: 20px;width: 200px">
+                                    スーパー別のランク付け
+                                </button>
+                            </div>
+
+                        </template>
+
+
                         <template v-else-if="navi_button == 5">
                             <button class="btn btn-success mr-2 float-left" style="font-size: 20px;"
                                     @click="sendtoSuper()" v-if="(productJans.length > 0 && selectedSuper.length > 0 )"
@@ -1498,7 +1519,7 @@ export default {
 <style scoped>
 
 .navi-width-100 {
-    width: 100px;
+    width: 220px;
 }
 .navi-width-350 {
     width: 350px;
