@@ -44,10 +44,10 @@
                         <!--                                style="position: absolute; top: 5px; right: 0px;padding: 5px 10px; font-size: 18px;">-->
                         <!--                            メール-->
                         <!--                        </button>-->
-                        <a class="btn btn-danger float-right mr-" v-if="productJans.length > 0"
-                           @click="deleteMistunury(null)"
-                           style=" position: absolute; top: 5px; right:0px;padding: 5px 10px; font-size: 18px;"
-                        > 削除</a>
+<!--                        <a class="btn btn-danger float-right mr-" v-if="productJans.length > 0"-->
+<!--                           @click="deleteMistunury(null)"-->
+<!--                           style=" position: absolute; top: 5px; right:0px;padding: 5px 10px; font-size: 18px;"-->
+<!--                        > 削除</a>-->
 
 
                         <div class=" col-centereds col-md-12 col-sm-12 col-sl-12 p-0 row mt-2">
@@ -1348,6 +1348,8 @@ export default {
 
         deleteMistunury: function (product) {
             let _this = this;
+            _this.productJans = product ? [product] : _this.productJans
+
             $('#handy-camara-navi').hide();
             this.handi_navi = '<span style="font-size: 20px"> 削除しますか？ </span> ' +
                 '<a href="javascript:void(0)" class="btn btn-danger btn-sm" id="delete-product" >はい　</a>' +
@@ -1360,7 +1362,7 @@ export default {
                 })
             }, 1000)
 
-            _this.productJans = product ? [product] : _this.productJans
+
             return 1;
 
             axios.post(_this.base_url + '/custom-mistumury-products-delete', {jan: jans})
@@ -1373,9 +1375,11 @@ export default {
 
         deleteProduct: function () {
             let _this = this;
+            _this.productJans = _this.preview_product ? [_this.preview_product]  : _this.products
             let data = _this.productJans.map(function (pr) {
                 return pr.jan
             })
+
             axios.post(_this.base_url + '/custom-mistumury-products-delete', {jan: data})
                 .then(function (response) {
                     _this.getProducts();
@@ -1522,7 +1526,7 @@ export default {
     width: 220px;
 }
 .navi-width-350 {
-    width: 350px;
+    width: 300px;
 }
 
 .detail-pro {

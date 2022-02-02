@@ -707,6 +707,7 @@ left join customer_shipments on customer_shipments.customer_order_detail_id = cu
                     $q->whereNotNull('rack_number'); // '=' is optional
                 })
                 ->whereIn('jan',CustomMisthsumuryProduct::pluck('jan'))
+                ->orderBy('created_at','desc')
                 ->get();
         }
 

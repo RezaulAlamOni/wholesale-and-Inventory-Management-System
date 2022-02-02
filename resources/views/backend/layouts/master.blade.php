@@ -99,9 +99,9 @@
                         {{--                    </div>--}}
                         <div class="modal-body text-center">
                             <p style="font-size: 16px">スーパーから見積の新発注来ました、確認お願いします.</p>
-{{--                            <a  href="#" type="button" class="btn btn-success">--}}
-{{--                                見積り--}}
-{{--                            </a>--}}
+                            <a  href="{{ route('custom.mitsumury.orders') }}" type="button" class="btn btn-success">
+                                見積り
+                            </a>
                         </div>
                         <div class="modal-footer  p-0">
                             <button type="button" class="btn btn-warning" data-dismiss="modal">戻る</button>
