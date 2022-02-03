@@ -372,22 +372,82 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade bd-example-modal-lg" style="top: 300px" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+            <div class="modal fade bd-example-modal-lg" style="top: 100px" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
                  aria-hidden="true" id="mistumury-add-product-continue">
                 <div class="modal-dialog modal-lg mt-0">
                     <div class="modal-content">
-                        <div class="modal-header" style="padding: 40px;">
-                            <button @click="addProductModal(1)"
-                                    class="btn btn-info float-left mr-1 "
-                                    style="padding: 5px 10px; font-size: 22px;float: left;">
-                                続ける
-                            </button>
-                            <button onclick="$('#mistumury-add-product-continue').modal('hide')"
-                                    class="btn btn-primary pull-right mr-1 " id="show-super-list_-"
-                                    style="top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: left;">
-                                戻る
-                            </button>
+                        <div class="modal-header" style="padding: 20px;">
+                                <button @click="addProductModal(1)"
+                                        class="btn btn-info float-left mr-1 "
+                                        style="padding: 5px 10px; font-size: 22px;float: left;">
+                                    続ける
+                                </button>
+                                <button onclick="$('#mistumury-add-product-continue').modal('hide')"
+                                        class="btn btn-primary pull-right mr-1 " id="show-super-list_-"
+                                        style="top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: right;">
+                                    戻る
+                                </button>
+
                         </div>
+                        <div class="modal-body" style="padding: 5px">
+                            <button
+                                    class="btn btn-success float-left mr-1 "
+                                    style="padding: 5px 5px; font-size: 18px;float: left;">
+                                スーパー一覧表
+                            </button>
+                            <button @click="super_price = super_price ? 0 : 1"
+                                    class="btn btn-primary float-right mr-1 "
+                                    style="top: 5px; right: 0px;padding: 5px 5px; font-size: 18px; float: right;">
+                                スーパー別
+                            </button>
+                            <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls" style="margin-top: 50px" v-if="super_price">
+                                <thead data-v-c9953dda="">
+                                <tr data-v-c9953dda="">
+                                    <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                        000
+                                    </th>
+                                    <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                        **
+                                    </th>
+
+                                </tr>
+                                </thead>
+                                <tbody data-v-c9953dda="" class="physicaltbody" style="padding: 10px">
+                                <tr data-v-c9953dda="">
+
+                                    <td data-v-c9953dda="">
+                                        A スーパー
+                                    </td>
+                                    <td data-v-c9953dda="">
+                                        100
+                                    </td>
+
+                                </tr>
+                                <tr data-v-c9953dda="">
+
+                                    <td data-v-c9953dda="">
+                                        B スーパー
+                                    </td>
+                                    <td data-v-c9953dda="">
+                                        120
+                                    </td>
+
+                                </tr>
+                                <tr data-v-c9953dda="">
+
+                                    <td data-v-c9953dda="">
+                                        ジャコス
+                                    </td>
+                                    <td data-v-c9953dda="">
+                                        130
+                                    </td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
 
                     </div>
                 </div>
@@ -530,6 +590,7 @@ export default {
             navi_button: null,
             product_select_mode: 0,
             success_navi: '',
+            super_price : 0
 
         }
     },
@@ -1527,6 +1588,10 @@ export default {
 }
 .navi-width-350 {
     width: 300px;
+}
+
+.physicaltbody >tr >td {
+    text-align: center;
 }
 
 .detail-pro {
