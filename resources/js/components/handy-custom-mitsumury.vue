@@ -400,7 +400,7 @@
                                     style="top: 5px; right: 0px;padding: 5px 5px; font-size: 18px; float: right;">
                                 スーパー別
                             </button>
-                            <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls" style="margin-top: 50px" v-if="super_price">
+                            <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls" style="margin-top: 50px;margin-bottom: 20px" >
                                 <thead data-v-c9953dda="">
                                 <tr data-v-c9953dda="">
                                     <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
@@ -445,7 +445,16 @@
                                 </tr>
                                 </tbody>
                             </table>
-
+                            <button
+                                class="btn btn-danger float-left mr-1 "
+                                style="padding: 5px 5px; font-size: 18px;float: left;">
+                                削除
+                            </button>
+                            <button
+                                    class="btn btn-success float-right mr-1 "
+                                    style="top: 5px; right: 0px;padding: 5px 5px; font-size: 18px; float: right;">
+                                送信
+                            </button>
                         </div>
 
 
