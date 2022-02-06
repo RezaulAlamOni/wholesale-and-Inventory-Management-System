@@ -92,75 +92,138 @@
                                     class="img-thumbnail custom-img-preview" alt="Cinque Terre"
                                     style="cursor: pointer">
                             </div>
-                            <div>
-                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls">
-                                    <thead data-v-c9953dda="">
-                                    <tr data-v-c9953dda="">
-                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
-                                            原価
-                                        </th>
-                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
-                                            売価
-                                        </th>
-                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
-                                            粗利
-                                        </th>
-                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
-                                            ％
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody data-v-c9953dda="" class="physicaltbody">
-                                    <tr data-v-c9953dda="">
+<!--                            <div>-->
+<!--                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls">-->
+<!--                                    <thead data-v-c9953dda="">-->
+<!--                                    <tr data-v-c9953dda="">-->
+<!--                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">-->
+<!--                                            原価-->
+<!--                                        </th>-->
+<!--                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">-->
+<!--                                            売価-->
+<!--                                        </th>-->
+<!--                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">-->
+<!--                                            粗利-->
+<!--                                        </th>-->
+<!--                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">-->
+<!--                                            ％-->
+<!--                                        </th>-->
+<!--                                    </tr>-->
+<!--                                    </thead>-->
+<!--                                    <tbody data-v-c9953dda="" class="physicaltbody">-->
+<!--                                    <tr data-v-c9953dda="">-->
 
-                                        <td data-v-c9953dda="">
-                                            <input data-v-c9953dda="" type="tel" id="cost"
-                                                   @click="selectItem($event,'cost')"
-                                                   class="form-control  " v-model="preview_product.cost"
-                                                   @keyup="calculatePrice('cost')"
-                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;"
-                                                   @blur="blurAndSave()"
-                                                   @keypress="pressEnterAndSave($event,'sell')">
-                                        </td>
-                                        <td data-v-c9953dda="">
-                                            <input data-v-c9953dda="" type="tel" id="sell"
-                                                   @click="selectItem($event,'sell')"
-                                                   class="form-control  " v-model="preview_product.sell"
-                                                   @keyup="calculatePrice('sell')"
-                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;"
-                                                   @keypress="pressEnterAndSave($event,'profit_margin')"
-                                                   @blur="blurAndSave()">
-                                        </td>
-                                        <td data-v-c9953dda="">
-                                            <input data-v-c9953dda="" type="tel" id="profit"
-                                                   @click="selectItem($event,'profit')"
-                                                   class="form-control  "
-                                                   :value="preview_product.sell - preview_product.cost" readonly
-                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;">
-                                            <!--                                        v-model="preview_product.profit"-->
-                                            <!--                                               @keypress="pressEnterAndSave($event,'profit_margin')"-->
-                                            <!--                                               @keyup="calculatePrice('profit')"-->
-                                        </td>
-                                        <td data-v-c9953dda="">
-                                            <input data-v-c9953dda="" type="tel" id="profit_margin"
-                                                   @click="selectItem($event,'profit_margin')"
-                                                   class="form-control  " v-model="preview_product.gross_profit_margin"
-                                                   @keyup="calculatePrice('profit_margin')"
-                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;"
-                                                   @blur="blurAndSave()"
-                                                   @keypress="pressEnterAndSave($event,'cost')">
+<!--                                        <td data-v-c9953dda="">-->
+<!--                                            <input data-v-c9953dda="" type="tel" id="cost"-->
+<!--                                                   @click="selectItem($event,'cost')"-->
+<!--                                                   class="form-control  " v-model="preview_product.cost"-->
+<!--                                                   @keyup="calculatePrice('cost')"-->
+<!--                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;"-->
+<!--                                                   @blur="blurAndSave()"-->
+<!--                                                   @keypress="pressEnterAndSave($event,'sell')">-->
+<!--                                        </td>-->
+<!--                                        <td data-v-c9953dda="">-->
+<!--                                            <input data-v-c9953dda="" type="tel" id="sell"-->
+<!--                                                   @click="selectItem($event,'sell')"-->
+<!--                                                   class="form-control  " v-model="preview_product.sell"-->
+<!--                                                   @keyup="calculatePrice('sell')"-->
+<!--                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;"-->
+<!--                                                   @keypress="pressEnterAndSave($event,'profit_margin')"-->
+<!--                                                   @blur="blurAndSave()">-->
+<!--                                        </td>-->
+<!--                                        <td data-v-c9953dda="">-->
+<!--                                            <input data-v-c9953dda="" type="tel" id="profit"-->
+<!--                                                   @click="selectItem($event,'profit')"-->
+<!--                                                   class="form-control  "-->
+<!--                                                   :value="preview_product.sell - preview_product.cost" readonly-->
+<!--                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;">-->
+<!--                                            &lt;!&ndash;                                        v-model="preview_product.profit"&ndash;&gt;-->
+<!--                                            &lt;!&ndash;                                               @keypress="pressEnterAndSave($event,'profit_margin')"&ndash;&gt;-->
+<!--                                            &lt;!&ndash;                                                @keyup="calculatePrice('profit')"&ndash;&gt;-->
+<!--                                        </td>-->
+<!--                                        <td data-v-c9953dda="">-->
+<!--                                            <input data-v-c9953dda="" type="tel" id="profit_margin"-->
+<!--                                                   @click="selectItem($event,'profit_margin')"-->
+<!--                                                   class="form-control  " v-model="preview_product.gross_profit_margin"-->
+<!--                                                   @keyup="calculatePrice('profit_margin')"-->
+<!--                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;"-->
+<!--                                                   @blur="blurAndSave()"-->
+<!--                                                   @keypress="pressEnterAndSave($event,'cost')">-->
 
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    </tbody>-->
+<!--                                </table>-->
+<!--                            </div>-->
                             <div class="detail-pro">
                                 {{ preview_product.jan }}
                             </div>
                             <div class="detail-pro">
                                 {{ preview_product.created_at }}
                             </div>
+                            <div class="mb-4">
+                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls " style="margin-top: 30px;margin-bottom: 103px;">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="2 " style="text-align: left;border-right: none !important;">
+                                            <input class="form-check-input check-all m-0" @click="selectAllSuper()"
+                                                   v-model="allSelectedSuper" type="checkbox" value="">
+                                            <label class="form-check-label " style="margin-left: 40px"
+                                                   for="flexCheckChecked">
+                                                全て
+                                            </label>
+                                        </th>
+                                        <th style="border-left: none !important;">
+
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody data-v-c9953dda="" class="physicaltbody">
+
+                                    <!--                                <tr :class="(selectedSuper.indexOf(vendor.id) > -1) ? 'active-c' : ''"-->
+                                    <!--                                    v-for="vendor in vendors" style="border-bottom: 1px solid gray">-->
+                                    <!--                                    <td style="width: 50px;padding: 10px;border: none !important;">-->
+                                    <!--                                        <input class="form-check-input m-0" type="checkbox" v-model="selectedSuper"-->
+                                    <!--                                               :value="vendor.id">-->
+                                    <!--                                    </td>-->
+                                    <!--                                    <td style="padding: 10px;;border: none !important;">{{ vendor.text }}</td>-->
+                                    <!--                                </tr>-->
+
+                                    <template v-for="vendor in vendors">
+                                        <tr :class="(selectedSuper.indexOf(vendor.customer_id) > -1) ? 'active-c' : ''"
+                                            style="border-bottom: 1px solid gray"
+                                            @click="clickAndCheck(vendor.customer_id)">
+                                            <td style="width: 50px;padding: 10px;border: none !important;">
+                                                <input class="form-check-input m-0 hide" :id="vendor.customer_id"
+                                                       type="checkbox"
+                                                       v-model="selectedSuper"
+                                                       :value="vendor.customer_id">
+                                            </td>
+                                            <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
+                                            <td style="padding: 10px;border: none !important;width: 80px">
+                                                <input  type="tel"  class="form-control  "
+                                                        value="100"
+                                                        style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+                                            </td>
+                                        </tr>
+                                    </template>
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+<!--                            <button-->
+<!--                                class="btn btn-danger float-left mr-1 " @click="deleteMistunury(preview_product)"-->
+<!--                                style="padding: 5px 5px; font-size: 18px;float: left;">-->
+<!--                                削除-->
+<!--                            </button>-->
+<!--                            <button-->
+<!--                                class="btn btn-success float-right mr-1 " @click="sendtoSuper()" :disabled="selectedSuper.length <= 0 ? true : false"-->
+<!--                                style="top: 5px; right: 0px;padding: 5px 5px; font-size: 18px; float: right;">-->
+<!--                                送信-->
+<!--                            </button>-->
 
 
                         </div>
@@ -400,58 +463,66 @@
                                     style="top: 5px; right: 0px;padding: 5px 5px; font-size: 18px; float: right;">
                                 スーパー別
                             </button>
-                            <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls" style="margin-top: 50px;margin-bottom: 20px" >
-                                <thead data-v-c9953dda="">
-                                <tr data-v-c9953dda="">
-                                    <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
-                                        000
-                                    </th>
-                                    <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
-                                        **
-                                    </th>
+                            <div>
+                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls " style="margin-top: 50px">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="2 " style="text-align: left;border-right: none !important;">
+                                            <input class="form-check-input check-all m-0" @click="selectAllSuper()"
+                                                   v-model="allSelectedSuper" type="checkbox" value="">
+                                            <label class="form-check-label " style="margin-left: 40px"
+                                                   for="flexCheckChecked">
+                                                全て
+                                            </label>
+                                        </th>
+                                        <th style="border-left: none !important;">
 
-                                </tr>
-                                </thead>
-                                <tbody data-v-c9953dda="" class="physicaltbody" style="padding: 10px">
-                                <tr data-v-c9953dda="">
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody data-v-c9953dda="" class="physicaltbody">
 
-                                    <td data-v-c9953dda="">
-                                        A スーパー
-                                    </td>
-                                    <td data-v-c9953dda="">
-                                        100
-                                    </td>
+                                    <!--                                <tr :class="(selectedSuper.indexOf(vendor.id) > -1) ? 'active-c' : ''"-->
+                                    <!--                                    v-for="vendor in vendors" style="border-bottom: 1px solid gray">-->
+                                    <!--                                    <td style="width: 50px;padding: 10px;border: none !important;">-->
+                                    <!--                                        <input class="form-check-input m-0" type="checkbox" v-model="selectedSuper"-->
+                                    <!--                                               :value="vendor.id">-->
+                                    <!--                                    </td>-->
+                                    <!--                                    <td style="padding: 10px;;border: none !important;">{{ vendor.text }}</td>-->
+                                    <!--                                </tr>-->
 
-                                </tr>
-                                <tr data-v-c9953dda="">
+                                    <template v-for="vendor in vendors">
+                                        <tr :class="(selectedSuper.indexOf(vendor.customer_id) > -1) ? 'active-c' : ''"
+                                            style="border-bottom: 1px solid gray"
+                                            @click="clickAndCheck(vendor.customer_id)">
+                                            <td style="width: 50px;padding: 10px;border: none !important;">
+                                                <input class="form-check-input m-0 hide" :id="vendor.customer_id"
+                                                       type="checkbox"
+                                                       v-model="selectedSuper"
+                                                       :value="vendor.customer_id">
+                                            </td>
+                                            <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
+                                            <td style="padding: 10px;border: none !important;width: 80px">
+                                                <input  type="tel"  class="form-control  "
+                                                        value="100"
+                                                        style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+                                            </td>
+                                        </tr>
+                                    </template>
 
-                                    <td data-v-c9953dda="">
-                                        B スーパー
-                                    </td>
-                                    <td data-v-c9953dda="">
-                                        120
-                                    </td>
+                                    </tbody>
 
-                                </tr>
-                                <tr data-v-c9953dda="">
+                                </table>
 
-                                    <td data-v-c9953dda="">
-                                        ジャコス
-                                    </td>
-                                    <td data-v-c9953dda="">
-                                        130
-                                    </td>
+                            </div>
 
-                                </tr>
-                                </tbody>
-                            </table>
                             <button
-                                class="btn btn-danger float-left mr-1 "
+                                class="btn btn-danger float-left mr-1 " @click="deleteMistunury(preview_product)"
                                 style="padding: 5px 5px; font-size: 18px;float: left;">
                                 削除
                             </button>
                             <button
-                                    class="btn btn-success float-right mr-1 "
+                                    class="btn btn-success float-right mr-1 " @click="sendtoSuper()" :disabled="selectedSuper.length <= 0 ? true : false"
                                     style="top: 5px; right: 0px;padding: 5px 5px; font-size: 18px; float: right;">
                                 送信
                             </button>
@@ -519,21 +590,25 @@
                             <a class="btn btn-info float-right" style="font-size: 20px;"
                                @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
                             <br>
-                            <div style="width: 100%;margin-top: 20px;text-align: center">
-                                <button class="btn btn-info pull-right mr-1 "
-                                        style=" top: 5px; right: 115px;padding: 5px 10px; font-size: 22px;float: right;font-size: 20px;">
-                                    スーパー別
-                                </button>
-                                <button class="btn btn-primary pull-right mr-1 " id="show-super-list--"
-                                        style="top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: left;font-size: 20px;">
-                                    全体
-                                </button>
-                                <br>
-                                <button class="btn btn-primary pull-right mr-1 " id="show-super-list"
-                                        style="top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: left;font-size: 20px;width: 200px">
-                                    スーパー別のランク付け
-                                </button>
-                            </div>
+                            <button class="btn btn-info pull-left mr-1 "  @click="sendtoSuper()" :disabled="selectedSuper.length <= 0 ? true : false"
+                                    style=" top: 5px; right: 115px;padding: 5px 10px; font-size: 22px;float: left;font-size: 20px;">
+                                送信
+                            </button>
+<!--                            <div style="width: 100%;margin-top: 20px;text-align: center">-->
+<!--                                <button class="btn btn-info pull-right mr-1 "  @click="sendtoSuper()" :disabled="selectedSuper.length <= 0 ? true : false"-->
+<!--                                        style=" top: 5px; right: 115px;padding: 5px 10px; font-size: 22px;float: right;font-size: 20px;">-->
+<!--                                    送信-->
+<!--                                </button>-->
+<!--                                <button class="btn btn-primary pull-right mr-1 " id="show-super-list&#45;&#45;"-->
+<!--                                        style="top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: left;font-size: 20px;">-->
+<!--                                    全体-->
+<!--                                </button>-->
+<!--                                <br>-->
+<!--                                <button class="btn btn-primary pull-right mr-1 " id="show-super-list"-->
+<!--                                        style="top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: left;font-size: 20px;width: 200px">-->
+<!--                                    スーパー別のランク付け-->
+<!--                                </button>-->
+<!--                            </div>-->
 
                         </template>
 
@@ -625,6 +700,7 @@ export default {
                     let data = res.data;
                     _this.products = data.products;
                     _this.productJans = [];
+                    _this.preview_product = _this.products[0];
                 })
                 .catch(function () {
 
@@ -1250,8 +1326,8 @@ export default {
             _this.confirmAndHide('mistumury-select-super');
             this.allSelected = false
             this.allSelectedSuper = false
-
-            let data = {'item_info': this.productJans, 'super_info': this.selectedSuperShops, 'message': this.message};
+            // this.productJans
+            let data = {'item_info': [_this.preview_product], 'super_info': this.selectedSuperShops, 'message': this.message};
             this.handi_navi = '少しお待ちどして下さい';
             $('#handy-navi').show();
             $('#mistumury-select-super').modal('hide');
@@ -1264,7 +1340,10 @@ export default {
             axios.post(setApiUrl + '/api/custom-estimation-data', data)
                 .then(function (response) {
                     // _this.getOrderDataByJan();
-                    _this.getProducts();
+                    _this.getProducts().then((result) => {
+                        _this.preview_product = _this.products[0];
+                    })
+                    $('#mistumury-add-product-continue').modal('hide')
                     _this.handi_navi = '見積スーパーに送信されました';
                     $('#handy-navi').show()
                     $('#handy-camara-navi').hide();
@@ -1375,6 +1454,7 @@ export default {
             fd.append('profit_margin', _this.mistumury_product.profit_margin)
             //
             $('#mistumury-add-product-continue').modal({backdrop : 'static'})
+
             //
             axios.post(_this.base_url + '/custom-mistumury-products', fd)
                 .then(function (response) {
@@ -1382,9 +1462,9 @@ export default {
                     _this.getProducts();
                     // _this.handi_navi = '仕入・販売先マスターへ登録されました';
                     // $('#handy-navi').show();
-
-                    $('#handy-camara-navi').show();
-                    _this.navi_button = 1;
+                    $('#handy-camara-navi').hide();
+                    // $('#handy-camara-navi').show();
+                    // _this.navi_button = 1;
                     $('#handy-navi').hide();
 
                     $('#mistumury-prodct-add-modal').modal('hide');
@@ -1405,7 +1485,7 @@ export default {
 
                         }
                         // $('#img0').click()
-                        $('#handy-camara-navi').show();
+                        // $('#handy-camara-navi').show();
                     }, 1000)
                     _this.success_navi = '画像保存されました'
                     $('.loading_image_custom').hide()
@@ -1455,6 +1535,8 @@ export default {
                     _this.getProducts();
                     _this.handi_navi = '000000';
                     $('#mistumury-mage-preview').modal('hide')
+                    $('#mistumury-add-product-continue').modal('hide')
+                    $('#').modal('hide')
                 })
         },
 
@@ -1529,8 +1611,8 @@ export default {
             }
 
             if (this.selectedSuper.length) {
-                this.navi_button = 5;
-                $('#handy-camara-navi').show();
+                // this.navi_button = 5;
+                // $('#handy-camara-navi').show();
             }
 
         },
@@ -1600,7 +1682,7 @@ export default {
 }
 
 .physicaltbody >tr >td {
-    text-align: center;
+    /*text-align: center;*/
 }
 
 .detail-pro {
