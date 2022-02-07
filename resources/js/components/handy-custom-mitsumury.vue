@@ -201,7 +201,9 @@
                                             </td>
                                             <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
                                             <td style="padding: 10px;border: none !important;width: 80px">
-                                                <input  type="tel"  class="form-control" @blur="saveCustomerWisePrice(vendor)"
+                                                <input  type="tel"  class="form-control"
+                                                        @keypress="pressEnterAndSGo($event)"
+                                                        @blur="saveCustomerWisePrice(vendor)"
                                                         style="border-radius: 0px; text-align: center; padding: 7px 0px;" v-model="vendor.price">
 
                                             </td>
@@ -504,7 +506,7 @@
                                             <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
                                             <td style="padding: 10px;border: none !important;width: 80px">
                                                 <input  type="tel"  class="form-control"
-                                                        @keypress="pressEnterAndSGo(event)"
+                                                        @keypress="pressEnterAndSGo($event)"
                                                         @blur="saveCustomerWisePrice(vendor)"
                                                         style="border-radius: 0px; text-align: center; padding: 7px 0px;" v-model="vendor.price">
                                             </td>
@@ -1714,7 +1716,7 @@ export default {
         pressEnterAndSGo(e) {
             let _this = this;
             if (e.keyCode == 13) {
-                $(this).blur()
+                $(e.target).blur();
             }
         },
     },
