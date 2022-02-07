@@ -711,6 +711,21 @@ export default {
 
                 })
         },
+        getProductsUpdate() {
+            let _this = this;
+            axios.get(this.base_url + '/get-all-custom-mistumury-products')
+                .then(function (res) {
+                    let data = res.data;
+                    _this.products = data.products;
+                    _this.productJans = [];
+                })
+                .catch(function () {
+
+                })
+                .finally(function () {
+
+                })
+        },
         setSelectStatus() {
             this.select_status = this.select_status ? 0 : 1;
             if (this.select_status === 1) {
@@ -762,7 +777,6 @@ export default {
             $('#' + type).modal('hide')
             $('#' + type).modal('hide')
             if (type == 'mistumury-mage-preview' || type == 'mistumury-select-super') {
-                this.getProducts();
                 $('#handy-camara-navi').hide();
             }
             if (type == 'mistumury-select-super') {
@@ -1690,7 +1704,7 @@ export default {
 
             axios.post(_this.base_url + '/customer-mistumury-products-price', data)
                 .then(function (response) {
-
+                    _this.getProductsUpdate()
                 })
         }
     },
