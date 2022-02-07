@@ -1103,6 +1103,7 @@ export default {
         previewProductInfoWithImage(product) {
             let _this = this;
             _this.preview_product = product;
+            _this.selectedSuper = [];
             let prices = [];
             _this.preview_product.customer_prices.map(function (price) {
                 prices[price.customer_id] = price.price
@@ -1366,7 +1367,7 @@ export default {
             axios.post(setApiUrl + '/api/custom-estimation-data', data)
                 .then(function (response) {
                     // _this.getOrderDataByJan();
-                    _this.getProducts();
+                    _this.getProductsUpdate();
 
                     $('#mistumury-add-product-continue').modal('hide')
                     _this.handi_navi = '見積スーパーに送信されました';
