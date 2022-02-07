@@ -201,9 +201,9 @@
                                             </td>
                                             <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
                                             <td style="padding: 10px;border: none !important;width: 80px">
-                                                <input  type="tel"  class="form-control  "
-                                                        value="100"
-                                                        style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+                                                <input  type="tel"  class="form-control" @blur="saveCustomerWisePrice(vendor)"
+                                                        style="border-radius: 0px; text-align: center; padding: 7px 0px;" v-model="vendor.price">
+
                                             </td>
                                         </tr>
                                     </template>
@@ -503,9 +503,8 @@
                                             </td>
                                             <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
                                             <td style="padding: 10px;border: none !important;width: 80px">
-                                                <input  type="tel"  class="form-control  "
-                                                        value="100"
-                                                        style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+                                                <input  type="tel"  class="form-control" @blur="saveCustomerWisePrice(vendor)"
+                                                        style="border-radius: 0px; text-align: center; padding: 7px 0px;" v-model="vendor.price">
                                             </td>
                                         </tr>
                                     </template>
@@ -1667,6 +1666,23 @@ export default {
             }
 
         },
+
+        saveCustomerWisePrice(customer){
+            let _this = this;
+            console.log(customer)
+            console.log(this.preview_product)
+            // customer-mistumury-products-price
+            let data = {
+                customer_id : customer.customer_id,
+                jan : _this.preview_product.jan,
+                price : customer.price
+            }
+
+            axios.post(_this.base_url + '/customer-mistumury-products-price', {data: data})
+                .then(function (response) {
+
+                })
+        }
     },
     watch: {}
 }

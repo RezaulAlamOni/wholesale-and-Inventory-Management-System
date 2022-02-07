@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\CustomersproductPrice;
 
 class CustomMisthsumuryProduct extends Model
 {
@@ -23,6 +24,11 @@ class CustomMisthsumuryProduct extends Model
     protected function getCreatedAtAttribute($value)
     {
         return date('Y-m-d', strtotime($value));
+    }
+
+    public function customer_prices()
+    {
+        return $this->hasMany(CustomersProductPrice::class,'jan','jan');
     }
 
 }
