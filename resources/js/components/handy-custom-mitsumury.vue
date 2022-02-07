@@ -700,6 +700,9 @@ export default {
                     _this.products = data.products;
                     _this.productJans = [];
                     _this.preview_product = _this.products[0];
+                    _this.vendors.map(function (customer) {
+                        customer.price = _this.products[0].selling_price;
+                    })
                 })
                 .catch(function () {
 
@@ -759,6 +762,7 @@ export default {
             $('#' + type).modal('hide')
             $('#' + type).modal('hide')
             if (type == 'mistumury-mage-preview' || type == 'mistumury-select-super') {
+                this.getProducts();
                 $('#handy-camara-navi').hide();
             }
             if (type == 'mistumury-select-super') {
@@ -1085,6 +1089,15 @@ export default {
         previewProductInfoWithImage(product) {
             let _this = this;
             _this.preview_product = product;
+            let prices = [];
+            _this.preview_product.customer_prices.map(function (price) {
+                prices[price.customer_id] = price.price
+            })
+            _this.vendors.map(function (customer) {
+                customer.price = prices[customer.customer_id]
+            })
+            _this.preview_product.prices = prices;
+
             _this.maker_id = 0;
             _this.preview_product.title = product.name;
             _this.preview_product.cost = product.cost_price;
@@ -1339,9 +1352,8 @@ export default {
             axios.post(setApiUrl + '/api/custom-estimation-data', data)
                 .then(function (response) {
                     // _this.getOrderDataByJan();
-                    _this.getProducts().then((result) => {
-                        _this.preview_product = _this.products[0];
-                    })
+                    _this.getProducts();
+
                     $('#mistumury-add-product-continue').modal('hide')
                     _this.handi_navi = '見積スーパーに送信されました';
                     $('#handy-navi').show()
@@ -1452,6 +1464,7 @@ export default {
             fd.append('title', _this.mistumury_product.title)
             fd.append('profit_margin', _this.mistumury_product.profit_margin)
             //
+
             $('#mistumury-add-product-continue').modal({backdrop : 'static'})
 
             //
@@ -1669,16 +1682,13 @@ export default {
 
         saveCustomerWisePrice(customer){
             let _this = this;
-            console.log(customer)
-            console.log(this.preview_product)
-            // customer-mistumury-products-price
             let data = {
                 customer_id : customer.customer_id,
                 jan : _this.preview_product.jan,
                 price : customer.price
             }
 
-            axios.post(_this.base_url + '/customer-mistumury-products-price', {data: data})
+            axios.post(_this.base_url + '/customer-mistumury-products-price', data)
                 .then(function (response) {
 
                 })
