@@ -28,7 +28,7 @@ class CustomMisthsumuryProduct extends Model
 
     public function customer_prices()
     {
-        return $this->hasMany(CustomersProductPrice::class,'jan','jan');
+        return $this->hasMany(CustomersProductPrice::class,'jan','jan')->orderBy('price','asc');
     }
 
 }

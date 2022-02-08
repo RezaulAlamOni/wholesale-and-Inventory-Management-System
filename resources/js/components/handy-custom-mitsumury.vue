@@ -161,11 +161,11 @@
                             <div class="detail-pro">
                                 {{ preview_product.created_at }}
                             </div>
-                            <div class="mb-4">
-                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls " style="margin-top: 30px;margin-bottom: 103px;">
+                            <div class="mb-4" style="margin-bottom: 80px !important;">
+                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls " style="margin-top: 30px;margin-bottom: 50px">
                                     <thead>
                                     <tr>
-                                        <th colspan="2 " style="text-align: left;border-right: none !important;">
+                                        <th colspan="3" style="text-align: left;border-right: none !important;">
                                             <input class="form-check-input check-all m-0" @click="selectAllSuper()"
                                                    v-model="allSelectedSuper" type="checkbox" value="">
                                             <label class="form-check-label " style="margin-left: 40px"
@@ -173,8 +173,20 @@
                                                 全て
                                             </label>
                                         </th>
-                                        <th style="border-left: none !important;">
+                                    </tr>
+                                    </thead>
+                                    <thead>
+                                    <tr>
 
+                                        <th >
+                                            スーパー名
+                                        </th>
+                                        <th>
+                                            ランク
+                                            設定
+                                        </th>
+                                        <th >
+                                            %
                                         </th>
                                     </tr>
                                     </thead>
@@ -193,19 +205,21 @@
                                         <tr :class="(selectedSuper.indexOf(vendor.customer_id) > -1) ? 'active-c' : ''"
                                             style="border-bottom: 1px solid gray"
                                             @click="clickAndCheck(vendor.customer_id)">
-                                            <td style="width: 50px;padding: 10px;border: none !important;">
+                                            <td style="display : none;width: 50px;padding: 10px;border: none !important;">
                                                 <input class="form-check-input m-0 hide" :id="vendor.customer_id"
                                                        type="checkbox"
                                                        v-model="selectedSuper"
                                                        :value="vendor.customer_id">
                                             </td>
                                             <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
+                                            <td style="padding: 10px;border: none !important;text-align: center;text-transform: uppercase">
+                                                {{ vendor.rank }}
+                                            </td>
                                             <td style="padding: 10px;border: none !important;width: 80px">
                                                 <input  type="tel"  class="form-control"
                                                         @keypress="pressEnterAndSGo($event)"
                                                         @blur="saveCustomerWisePrice(vendor)"
                                                         style="border-radius: 0px; text-align: center; padding: 7px 0px;" v-model="vendor.price">
-
                                             </td>
                                         </tr>
                                     </template>
@@ -213,7 +227,6 @@
                                     </tbody>
 
                                 </table>
-
                             </div>
 
 <!--                            <button-->
@@ -466,10 +479,10 @@
                                 スーパー別
                             </button>
                             <div>
-                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls " style="margin-top: 50px">
+                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls " style="margin-top: 30px;margin-bottom: 50px">
                                     <thead>
                                     <tr>
-                                        <th colspan="2 " style="text-align: left;border-right: none !important;">
+                                        <th colspan="3" style="text-align: left;border-right: none !important;">
                                             <input class="form-check-input check-all m-0" @click="selectAllSuper()"
                                                    v-model="allSelectedSuper" type="checkbox" value="">
                                             <label class="form-check-label " style="margin-left: 40px"
@@ -477,8 +490,20 @@
                                                 全て
                                             </label>
                                         </th>
-                                        <th style="border-left: none !important;">
+                                    </tr>
+                                    </thead>
+                                    <thead>
+                                    <tr>
 
+                                        <th >
+                                            スーパー名
+                                        </th>
+                                        <th>
+                                            ランク
+                                            設定
+                                        </th>
+                                        <th >
+                                            %
                                         </th>
                                     </tr>
                                     </thead>
@@ -497,13 +522,16 @@
                                         <tr :class="(selectedSuper.indexOf(vendor.customer_id) > -1) ? 'active-c' : ''"
                                             style="border-bottom: 1px solid gray"
                                             @click="clickAndCheck(vendor.customer_id)">
-                                            <td style="width: 50px;padding: 10px;border: none !important;">
+                                            <td style="display : none;width: 50px;padding: 10px;border: none !important;">
                                                 <input class="form-check-input m-0 hide" :id="vendor.customer_id"
                                                        type="checkbox"
                                                        v-model="selectedSuper"
                                                        :value="vendor.customer_id">
                                             </td>
                                             <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
+                                            <td style="padding: 10px;border: none !important;width: 80px">
+                                                A
+                                            </td>
                                             <td style="padding: 10px;border: none !important;width: 80px">
                                                 <input  type="tel"  class="form-control"
                                                         @keypress="pressEnterAndSGo($event)"
@@ -1113,9 +1141,18 @@ export default {
                 prices[price.customer_id] = price.price
             })
             _this.vendors.map(function (customer) {
-                customer.price = prices[customer.customer_id]
+                customer.price = prices[customer.customer_id];
             })
-            _this.preview_product.prices = prices;
+            _this.vendors.sort((a,b) => a.price - b.price);
+            _this.preview_product.prices = prices
+            let i,alphabet= [];
+            for(i=9;++i<36;){
+                alphabet.push( i.toString(36));
+            }
+
+            _this.vendors.map(function (customer,key) {
+                customer.rank = alphabet[key];
+            })
 
             _this.maker_id = 0;
             _this.preview_product.title = product.name;
