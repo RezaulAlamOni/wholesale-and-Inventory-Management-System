@@ -518,7 +518,7 @@
                                     <!--                                    <td style="padding: 10px;;border: none !important;">{{ vendor.text }}</td>-->
                                     <!--                                </tr>-->
 
-                                    <template v-for="vendor in vendors">
+                                    <template v-for="(vendor ,index ) in vendors">
                                         <tr :class="(selectedSuper.indexOf(vendor.customer_id) > -1) ? 'active-c' : ''"
                                             style="border-bottom: 1px solid gray"
                                             @click="clickAndCheck(vendor.customer_id)">
@@ -529,13 +529,13 @@
                                                        :value="vendor.customer_id">
                                             </td>
                                             <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
-                                            <td style="padding: 10px;border: none !important;width: 80px">
-                                                A
+                                            <td style="padding: 10px;border: none !important;text-align: center;text-transform: uppercase">
+                                                {{ vendor.rank }}
                                             </td>
                                             <td style="padding: 10px;border: none !important;width: 80px">
                                                 <input  type="tel"  class="form-control"
                                                         @keypress="pressEnterAndSGo($event)"
-                                                        @blur="saveCustomerWisePrice(vendor)"
+                                                        @blur="saveCustomerWisePrice(vendor,index)"
                                                         style="border-radius: 0px; text-align: center; padding: 7px 0px;" v-model="vendor.price">
                                             </td>
                                         </tr>
@@ -544,7 +544,6 @@
                                     </tbody>
 
                                 </table>
-
                             </div>
 
                             <button
@@ -1750,6 +1749,10 @@ export default {
                     })
                 })
 
+                _this.vendors.map(function (v,i) {
+                    v.price = (parseInt(price)+parseInt(i*5))
+                })
+
             } else {
                 data = [{
                     customer_id : customer.customer_id,
@@ -1757,7 +1760,16 @@ export default {
                     price : customer.price
                 }]
             }
+            _this.vendors.sort((a,b) => a.price - b.price);
 
+            let i,alphabet= [];
+            for(i=9;++i<36;){
+                alphabet.push( i.toString(36));
+            }
+
+            _this.vendors.map(function (customer,key) {
+                customer.rank = alphabet[key];
+            })
 
             axios.post(_this.base_url + '/customer-mistumury-products-price', {data : data})
                 .then(function (response) {
