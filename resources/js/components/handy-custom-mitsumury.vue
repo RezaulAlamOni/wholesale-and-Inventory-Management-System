@@ -410,23 +410,23 @@
                                             <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
                                         </tr>
 
-                                        <tr v-if="selectedSuper.indexOf(vendor.customer_id) > -1">
-                                            <td colspan="2">
-                                                <table data-v-c9953dda=""
-                                                       class="table table-borderless physical_handy_tabls">
-                                                    <tr style="border-bottom: 1px solid gray"
-                                                        v-for="shop in vendor.shops"
-                                                        :class="(checkExist(shop.customer_shop_id)) ? 'active-c' : ''"
-                                                        @click="selectSuperShop(vendor.customer_id,shop.customer_shop_id)">
-                                                        <td style="border: none !important;padding: 10px"></td>
-                                                        <td style="border: none !important;padding: 10px"></td>
-                                                        <td style="padding: 10px;;border: none !important;">
-                                                            {{ shop.shop_name }}
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </td>
-                                        </tr>
+<!--                                        <tr v-if="selectedSuper.indexOf(vendor.customer_id) > -1">-->
+<!--                                            <td colspan="2">-->
+<!--                                                <table data-v-c9953dda=""-->
+<!--                                                       class="table table-borderless physical_handy_tabls">-->
+<!--                                                    <tr style="border-bottom: 1px solid gray"-->
+<!--                                                        v-for="shop in vendor.shops"-->
+<!--                                                        :class="(checkExist(shop.customer_shop_id)) ? 'active-c' : ''"-->
+<!--                                                        @click="selectSuperShop(vendor.customer_id,shop.customer_shop_id)">-->
+<!--                                                        <td style="border: none !important;padding: 10px"></td>-->
+<!--                                                        <td style="border: none !important;padding: 10px"></td>-->
+<!--                                                        <td style="padding: 10px;;border: none !important;">-->
+<!--                                                            {{ shop.shop_name }}-->
+<!--                                                        </td>-->
+<!--                                                    </tr>-->
+<!--                                                </table>-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
                                     </template>
 
                                     </tbody>
