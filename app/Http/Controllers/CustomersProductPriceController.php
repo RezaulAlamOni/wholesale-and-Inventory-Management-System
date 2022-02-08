@@ -35,14 +35,23 @@ class CustomersProductPriceController extends Controller
      */
     public function store(Request $request)
     {
-        CustomersProductPrice::updateOrCreate([
-            'jan' => $request->jan,
-            'customer_id' => $request->customer_id
-        ],[
-            'jan' => $request->jan,
-            'customer_id' => $request->customer_id,
-            'price' => $request->price,
-        ]);
+        $data = $request->data;
+        foreach ($data as $datum) {
+            try {
+                CustomersProductPrice::updateOrCreate([
+                    'jan' => $datum['jan'],
+                    'customer_id' => $datum['customer_id']
+                ],[
+                    'jan' => $datum['jan'],
+                    'customer_id' => $datum['customer_id'],
+                    'price' => $datum['price'],
+                ]);
+            } catch (\Exception $exception) {
+
+            }
+
+        }
+
         return response()->json(['status' => 200]);
     }
 

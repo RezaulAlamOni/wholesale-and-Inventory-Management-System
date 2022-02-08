@@ -201,7 +201,7 @@
                                     <!--                                    <td style="padding: 10px;;border: none !important;">{{ vendor.text }}</td>-->
                                     <!--                                </tr>-->
 
-                                    <template v-for="vendor in vendors">
+                                    <template v-for="(vendor ,index ) in vendors">
                                         <tr :class="(selectedSuper.indexOf(vendor.customer_id) > -1) ? 'active-c' : ''"
                                             style="border-bottom: 1px solid gray"
                                             @click="clickAndCheck(vendor.customer_id)">
@@ -218,7 +218,7 @@
                                             <td style="padding: 10px;border: none !important;width: 80px">
                                                 <input  type="tel"  class="form-control"
                                                         @keypress="pressEnterAndSGo($event)"
-                                                        @blur="saveCustomerWisePrice(vendor)"
+                                                        @blur="saveCustomerWisePrice(vendor,index)"
                                                         style="border-radius: 0px; text-align: center; padding: 7px 0px;" v-model="vendor.price">
                                             </td>
                                         </tr>
@@ -1736,15 +1736,30 @@ export default {
 
         },
 
-        saveCustomerWisePrice(customer){
+        saveCustomerWisePrice(customer,index){
             let _this = this;
-            let data = {
-                customer_id : customer.customer_id,
-                jan : _this.preview_product.jan,
-                price : customer.price
+            let data = [];
+
+            if (index == 0) {
+                let price =  customer.price;
+                _this.vendors.map(function (v,i) {
+                    data.push({
+                        customer_id : v.customer_id,
+                        jan : _this.preview_product.jan,
+                        price : (parseInt(price)+parseInt(i*5))
+                    })
+                })
+
+            } else {
+                data = [{
+                    customer_id : customer.customer_id,
+                    jan : _this.preview_product.jan,
+                    price : customer.price
+                }]
             }
 
-            axios.post(_this.base_url + '/customer-mistumury-products-price', data)
+
+            axios.post(_this.base_url + '/customer-mistumury-products-price', {data : data})
                 .then(function (response) {
                     _this.getProductsUpdate()
                 })
