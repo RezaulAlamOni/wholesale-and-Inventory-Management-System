@@ -217,7 +217,9 @@
                                                 <select class="form-control" style="text-transform: uppercase" id="vendprs" v-model="vendor.price"
                                                         @change="saveRankOfValue($event,vendor)">
                                                     <option value="0"></option>
-                                                    <option style="text-transform: uppercase" v-for="(vendor, i) in alphabet_value" :value="100+i*5">
+                                                    <option style="text-transform: uppercase"
+                                                            v-if="i < vendors.length"
+                                                            v-for="(vendor, i) in alphabet_value" :value="100+i*5">
                                                         {{ vendor }}
                                                     </option>
                                                 </select>
@@ -539,10 +541,13 @@
                                             <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
                                             <td style="padding: 10px;border: none !important;text-align: center;text-transform: uppercase">
                                                 <!--                                                {{ vendor.rank }}-->
-                                                <select class="form-control" style="text-transform: uppercase" id="vendprs" v-model="vendor.price"
+                                                <select class="form-control" style="text-transform: uppercase" id="vendprs"
+                                                        v-model="vendor.price"
                                                         @change="saveRankOfValue($event,vendor)">
                                                     <option value="0"></option>
-                                                    <option style="text-transform: uppercase" v-for="(vendor, i) in alphabet_value" :value="100+i*5">
+                                                    <option style="text-transform: uppercase"
+                                                            v-if="i < vendors.length"
+                                                            v-for="(vendor, i) in alphabet_value" :value="100+i*5">
                                                         {{ vendor }}
                                                     </option>
                                                 </select>
