@@ -213,13 +213,21 @@
                                             </td>
                                             <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
                                             <td style="padding: 10px;border: none !important;text-align: center;text-transform: uppercase">
-                                                {{ vendor.rank }}
+<!--                                                {{ vendor.rank }}-->
+                                                <select class="form-control" style="text-transform: uppercase" id="vendprs" v-model="vendor.price"
+                                                        @change="saveRankOfValue($event,vendor)">
+                                                    <option value="0"></option>
+                                                    <option style="text-transform: uppercase" v-for="(vendor, i) in alphabet_value" :value="100+i*5">
+                                                        {{ vendor }}
+                                                    </option>
+                                                </select>
+
                                             </td>
                                             <td style="padding: 10px;border: none !important;width: 80px">
-                                                <input  type="tel"  class="form-control"
-                                                        @keypress="pressEnterAndSGo($event)"
-                                                        @blur="saveCustomerWisePrice(vendor,index)"
-                                                        style="border-radius: 0px; text-align: center; padding: 7px 0px;" v-model="vendor.price">
+                                                <input  type="tel"  class="form-control" readonly
+                                                        style="border-radius: 0px; text-align: center; padding: 7px 0px;" :value="vendor.price">
+<!--                                                @keypress="pressEnterAndSGo($event)"-->
+<!--                                                @blur="saveCustomerWisePrice(vendor,index)"-->
                                             </td>
                                         </tr>
                                     </template>
@@ -530,13 +538,21 @@
                                             </td>
                                             <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
                                             <td style="padding: 10px;border: none !important;text-align: center;text-transform: uppercase">
-                                                {{ vendor.rank }}
+                                                <!--                                                {{ vendor.rank }}-->
+                                                <select class="form-control" style="text-transform: uppercase" id="vendprs" v-model="vendor.price"
+                                                        @change="saveRankOfValue($event,vendor)">
+                                                    <option value="0"></option>
+                                                    <option style="text-transform: uppercase" v-for="(vendor, i) in alphabet_value" :value="100+i*5">
+                                                        {{ vendor }}
+                                                    </option>
+                                                </select>
+
                                             </td>
                                             <td style="padding: 10px;border: none !important;width: 80px">
-                                                <input  type="tel"  class="form-control"
-                                                        @keypress="pressEnterAndSGo($event)"
-                                                        @blur="saveCustomerWisePrice(vendor,index)"
-                                                        style="border-radius: 0px; text-align: center; padding: 7px 0px;" v-model="vendor.price">
+                                                <input  type="tel"  class="form-control" readonly
+                                                        style="border-radius: 0px; text-align: center; padding: 7px 0px;" :value="vendor.price">
+                                                <!--                                                @keypress="pressEnterAndSGo($event)"-->
+                                                <!--                                                @blur="saveCustomerWisePrice(vendor,index)"-->
                                             </td>
                                         </tr>
                                     </template>
@@ -704,7 +720,8 @@ export default {
             navi_button: null,
             product_select_mode: 0,
             success_navi: '',
-            super_price : 0
+            super_price : 0,
+            alphabet_value : []
 
         }
     },
@@ -720,6 +737,12 @@ export default {
         setTimeout(function () {
             // _this.addProductModal(1);
         }, 3000)
+        let i,j = 0;
+        for(i=9;++i<36;){
+            _this.alphabet_value.push(i.toString(36));
+            j++;
+        }
+
 
     },
     methods: {
@@ -1739,7 +1762,8 @@ export default {
             let _this = this;
             let data = [];
 
-            if (index == 0) {
+            if (index == 0)
+            {
                 let price =  customer.price;
                 _this.vendors.map(function (v,i) {
                     data.push({
@@ -1783,6 +1807,13 @@ export default {
                 $(e.target).blur();
             }
         },
+
+        saveRankOfValue(e,customer){
+            let _this = this;
+            let value = e.target.value
+            customer.price = value;
+            _this.saveCustomerWisePrice(customer,2);
+        }
     },
     watch: {}
 }
