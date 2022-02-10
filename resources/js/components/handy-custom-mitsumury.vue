@@ -39,11 +39,11 @@
                             </label>
                         </div>
 
-                        <!--                        <button v-if="productJans.length > 0" @click="selectSuper(' ')"-->
-                        <!--                                class="btn btn-success pull-right mr-1 " id="show-super-list"-->
-                        <!--                                style="position: absolute; top: 5px; right: 0px;padding: 5px 10px; font-size: 18px;">-->
-                        <!--                            メール-->
-                        <!--                        </button>-->
+                        <button onclick="$('#mistumury-super-price-rank-setup').modal()"
+                                class="btn btn-success pull-right mr-1 " id="show-super-list"
+                                style="position: absolute; top: 5px; right: 0px;padding: 5px 10px; font-size: 18px;">
+                            ランク付け
+                        </button>
 <!--                        <a class="btn btn-danger float-right mr-" v-if="productJans.length > 0"-->
 <!--                           @click="deleteMistunury(null)"-->
 <!--                           style=" position: absolute; top: 5px; right:0px;padding: 5px 10px; font-size: 18px;"-->
@@ -460,6 +460,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="modal fade bd-example-modal-lg" style="top: 100px" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
                  aria-hidden="true" id="mistumury-add-product-continue">
                 <div class="modal-dialog modal-lg mt-0">
@@ -577,6 +578,105 @@
                                     style="top: 5px; right: 0px;padding: 5px 5px; font-size: 18px; float: right;">
                                 送信
                             </button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+<!--            super price rank setup -->
+            <div class="modal fade bd-example-modal-lg" style="top: 100px" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                 aria-hidden="true" id="mistumury-super-price-rank-setup">
+                <div class="modal-dialog modal-lg mt-0">
+                    <div class="modal-content">
+                        <div class="modal-header" style="padding: 20px;text-align: right">
+                                <button onclick="$('#mistumury-super-price-rank-setup').modal('hide')"
+                                        class="btn btn-primary mr-1 " id="show-super-list_--"
+                                        style="padding: 5px 10px; font-size: 22px; float: right;">
+                                    戻る
+                                </button>
+                        </div>
+                        <div class="modal-body" style="padding: 5px">
+
+                            <div>
+                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls " style="margin-top: 30px;margin-bottom: 50px">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="3" style="text-align: left;border-right: none !important;">
+<!--                                            <input class="form-check-input check-all m-0" @click="selectAllSuper()"-->
+<!--                                                   v-model="allSelectedSuper" type="checkbox" value="">-->
+<!--                                            <label class="form-check-label " style="margin-left: 40px"-->
+<!--                                                   for="flexCheckChecked">-->
+<!--                                                全て-->
+<!--                                            </label>-->
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <thead>
+                                    <tr>
+
+                                        <th >
+                                            スーパー名
+                                        </th>
+                                        <th>
+                                            ランク
+                                            設定
+                                        </th>
+                                        <th >
+                                            %
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody data-v-c9953dda="" class="physicaltbody">
+
+                                    <!--                                <tr :class="(selectedSuper.indexOf(vendor.id) > -1) ? 'active-c' : ''"-->
+                                    <!--                                    v-for="vendor in vendors" style="border-bottom: 1px solid gray">-->
+                                    <!--                                    <td style="width: 50px;padding: 10px;border: none !important;">-->
+                                    <!--                                        <input class="form-check-input m-0" type="checkbox" v-model="selectedSuper"-->
+                                    <!--                                               :value="vendor.id">-->
+                                    <!--                                    </td>-->
+                                    <!--                                    <td style="padding: 10px;;border: none !important;">{{ vendor.text }}</td>-->
+                                    <!--                                </tr>-->
+
+                                    <template v-for="(vendor ,index ) in vendors">
+                                        <tr :class="(selectedSuper.indexOf(vendor.customer_id) > -1) ? 'active-c' : ''"
+                                            style="border-bottom: 1px solid gray"
+                                            @click="clickAndCheck(vendor.customer_id)">
+                                            <td style="display : none;width: 50px;padding: 10px;border: none !important;">
+                                                <input class="form-check-input m-0 hide" :id="vendor.customer_id"
+                                                       type="checkbox"
+                                                       v-model="selectedSuper"
+                                                       :value="vendor.customer_id">
+                                            </td>
+                                            <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
+                                            <td style="padding: 10px;border: none !important;text-align: center;text-transform: uppercase">
+                                                <!--                                                {{ vendor.rank }}-->
+                                                <select class="form-control" style="text-transform: uppercase" id="vendprs"
+                                                        v-model="vendor.price"
+                                                        @change="saveRankOfValue($event,vendor)">
+                                                    <option value="0"></option>
+                                                    <option style="text-transform: uppercase"
+                                                            v-if="i < vendors.length"
+                                                            v-for="(vendor, i) in alphabet_value" :value="100+i*5">
+                                                        {{ vendor }}
+                                                    </option>
+                                                </select>
+
+                                            </td>
+                                            <td style="padding: 10px;border: none !important;width: 80px">
+                                                <input  type="tel"  class="form-control" readonly
+                                                        style="border-radius: 0px; text-align: center; padding: 7px 0px;" :value="vendor.price">
+                                                <!--                                                @keypress="pressEnterAndSGo($event)"-->
+                                                <!--                                                @blur="saveCustomerWisePrice(vendor,index)"-->
+                                            </td>
+                                        </tr>
+                                    </template>
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+
                         </div>
 
 
@@ -761,7 +861,16 @@ export default {
                     _this.preview_product = _this.products[0];
                     _this.vendors.map(function (customer) {
                         // customer.price = _this.products[0].selling_price;
-                        customer.price = 100;
+                        customer.price = customer.price_rank ? customer.price_rank.price : 100;
+                    })
+                    _this.vendors.sort((a,b) => a.price - b.price);
+                    let i,alphabet= [];
+                    for(i=9;++i<36;){
+                        alphabet.push( i.toString(36));
+                    }
+
+                    _this.vendors.map(function (customer,key) {
+                        customer.rank = alphabet[key];
                     })
                 })
                 .catch(function () {
@@ -1168,10 +1277,10 @@ export default {
             _this.preview_product.customer_prices.map(function (price) {
                 prices[price.customer_id] = price.price
             })
-            _this.vendors.map(function (customer,index) {
-                customer.price = prices[customer.customer_id];
-                // customer.price = prices[customer.customer_id];
-            })
+            // _this.vendors.map(function (customer,index) {
+            //     customer.price = prices[customer.customer_id];
+            //     // customer.price = prices[customer.customer_id];
+            // })
             _this.vendors.sort((a,b) => a.price - b.price);
             _this.preview_product.prices = prices
             let i,alphabet= [];
