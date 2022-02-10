@@ -39,10 +39,10 @@ class CustomersProductPriceController extends Controller
         foreach ($data as $datum) {
             try {
                 CustomersProductPrice::updateOrCreate([
-                    'jan' => $datum['jan'],
+//                    'jan' => $datum['jan'],
                     'customer_id' => $datum['customer_id']
                 ],[
-                    'jan' => $datum['jan'],
+//                    'jan' => $datum['jan'],
                     'customer_id' => $datum['customer_id'],
                     'price' => $datum['price'],
                 ]);

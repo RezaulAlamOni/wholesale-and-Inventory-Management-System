@@ -20,6 +20,10 @@ class customer extends Model
     public function shops()
     {
         return $this->hasMany(customer_shop::class,'customer_id','customer_id');
-
+    }
+    public function price_rank()
+    {
+        return $this->hasOne(CustomersProductPrice::class,'customer_id','customer_id')
+            ->orderBy('id','desc');
     }
 }

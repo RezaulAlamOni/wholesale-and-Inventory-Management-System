@@ -760,7 +760,8 @@ export default {
                     _this.productJans = [];
                     _this.preview_product = _this.products[0];
                     _this.vendors.map(function (customer) {
-                        customer.price = _this.products[0].selling_price;
+                        // customer.price = _this.products[0].selling_price;
+                        customer.price = 100;
                     })
                 })
                 .catch(function () {
@@ -1167,8 +1168,9 @@ export default {
             _this.preview_product.customer_prices.map(function (price) {
                 prices[price.customer_id] = price.price
             })
-            _this.vendors.map(function (customer) {
+            _this.vendors.map(function (customer,index) {
                 customer.price = prices[customer.customer_id];
+                // customer.price = prices[customer.customer_id];
             })
             _this.vendors.sort((a,b) => a.price - b.price);
             _this.preview_product.prices = prices

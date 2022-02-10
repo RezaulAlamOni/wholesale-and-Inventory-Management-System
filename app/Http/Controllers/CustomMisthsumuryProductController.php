@@ -7,6 +7,7 @@ use App\CustomMisthsumuryProduct;
 use App\jan;
 use App\vendor;
 use App\vendor_item;
+use App\CustomersProductPrice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -49,7 +50,8 @@ class CustomMisthsumuryProductController extends Controller
     public function getAllMistumury()
     {
         $products = CustomMisthsumuryProduct::orderBy('created_at','desc')->with('customer_prices')->get();
-        return response()->json(['products' => $products]);
+        $customer_prices = CustomersProductPrice::groupBy('customer_id')->orderBy('price','asc')->orderby('id','desc')->get();
+        return response()->json(['products' => $products,'customer_prices' => $customer_prices]);
     }
 
     /**
