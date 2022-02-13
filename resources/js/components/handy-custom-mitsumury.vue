@@ -92,69 +92,69 @@
                                     class="img-thumbnail custom-img-preview" alt="Cinque Terre"
                                     style="cursor: pointer">
                             </div>
-<!--                            <div>-->
-<!--                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls">-->
-<!--                                    <thead data-v-c9953dda="">-->
-<!--                                    <tr data-v-c9953dda="">-->
-<!--                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">-->
-<!--                                            原価-->
-<!--                                        </th>-->
-<!--                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">-->
-<!--                                            売価-->
-<!--                                        </th>-->
-<!--                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">-->
-<!--                                            粗利-->
-<!--                                        </th>-->
-<!--                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">-->
-<!--                                            ％-->
-<!--                                        </th>-->
-<!--                                    </tr>-->
-<!--                                    </thead>-->
-<!--                                    <tbody data-v-c9953dda="" class="physicaltbody">-->
-<!--                                    <tr data-v-c9953dda="">-->
+                            <div>
+                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls">
+                                    <thead data-v-c9953dda="">
+                                    <tr data-v-c9953dda="">
+                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                            原価
+                                        </th>
+                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                            売価
+                                        </th>
+                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                            粗利
+                                        </th>
+                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                            ％
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody data-v-c9953dda="" class="physicaltbody">
+                                    <tr data-v-c9953dda="">
 
-<!--                                        <td data-v-c9953dda="">-->
-<!--                                            <input data-v-c9953dda="" type="tel" id="cost"-->
-<!--                                                   @click="selectItem($event,'cost')"-->
-<!--                                                   class="form-control  " v-model="preview_product.cost"-->
-<!--                                                   @keyup="calculatePrice('cost')"-->
-<!--                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;"-->
-<!--                                                   @blur="blurAndSave()"-->
-<!--                                                   @keypress="pressEnterAndSave($event,'sell')">-->
-<!--                                        </td>-->
-<!--                                        <td data-v-c9953dda="">-->
-<!--                                            <input data-v-c9953dda="" type="tel" id="sell"-->
-<!--                                                   @click="selectItem($event,'sell')"-->
-<!--                                                   class="form-control  " v-model="preview_product.sell"-->
-<!--                                                   @keyup="calculatePrice('sell')"-->
-<!--                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;"-->
-<!--                                                   @keypress="pressEnterAndSave($event,'profit_margin')"-->
-<!--                                                   @blur="blurAndSave()">-->
-<!--                                        </td>-->
-<!--                                        <td data-v-c9953dda="">-->
-<!--                                            <input data-v-c9953dda="" type="tel" id="profit"-->
-<!--                                                   @click="selectItem($event,'profit')"-->
-<!--                                                   class="form-control  "-->
-<!--                                                   :value="preview_product.sell - preview_product.cost" readonly-->
-<!--                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;">-->
-<!--                                            &lt;!&ndash;                                        v-model="preview_product.profit"&ndash;&gt;-->
-<!--                                            &lt;!&ndash;                                               @keypress="pressEnterAndSave($event,'profit_margin')"&ndash;&gt;-->
-<!--                                            &lt;!&ndash;                                                @keyup="calculatePrice('profit')"&ndash;&gt;-->
-<!--                                        </td>-->
-<!--                                        <td data-v-c9953dda="">-->
-<!--                                            <input data-v-c9953dda="" type="tel" id="profit_margin"-->
-<!--                                                   @click="selectItem($event,'profit_margin')"-->
-<!--                                                   class="form-control  " v-model="preview_product.gross_profit_margin"-->
-<!--                                                   @keyup="calculatePrice('profit_margin')"-->
-<!--                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;"-->
-<!--                                                   @blur="blurAndSave()"-->
-<!--                                                   @keypress="pressEnterAndSave($event,'cost')">-->
+                                        <td data-v-c9953dda="">
+                                            <input data-v-c9953dda="" type="tel" id="cost"
+                                                   @click="selectItem($event,'cost')"
+                                                   class="form-control  " v-model="preview_product.cost"
+                                                   @keyup="calculatePrice('cost')"
+                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;"
+                                                   @blur="blurAndSave()"
+                                                   @keypress="pressEnterAndSave($event,'sell')">
+                                        </td>
+                                        <td data-v-c9953dda="">
+                                            <input data-v-c9953dda="" type="tel" id="sell"
+                                                   @click="selectItem($event,'sell')"
+                                                   class="form-control  " v-model="preview_product.sell"
+                                                   @keyup="calculatePrice('sell')"
+                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;"
+                                                   @keypress="pressEnterAndSave($event,'profit_margin')"
+                                                   @blur="blurAndSave()">
+                                        </td>
+                                        <td data-v-c9953dda="">
+                                            <input data-v-c9953dda="" type="tel" id="profit"
+                                                   @click="selectItem($event,'profit')"
+                                                   class="form-control  "
+                                                   :value="preview_product.sell - preview_product.cost" readonly
+                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+                                            <!--                                        v-model="preview_product.profit"-->
+                                            <!--                                               @keypress="pressEnterAndSave($event,'profit_margin')"-->
+                                            <!--                                                @keyup="calculatePrice('profit')"-->
+                                        </td>
+                                        <td data-v-c9953dda="">
+                                            <input data-v-c9953dda="" type="tel" id="profit_margin"
+                                                   @click="selectItem($event,'profit_margin')"
+                                                   class="form-control  " v-model="preview_product.gross_profit_margin"
+                                                   @keyup="calculatePrice('profit_margin')"
+                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;"
+                                                   @blur="blurAndSave()"
+                                                   @keypress="pressEnterAndSave($event,'cost')">
 
-<!--                                        </td>-->
-<!--                                    </tr>-->
-<!--                                    </tbody>-->
-<!--                                </table>-->
-<!--                            </div>-->
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                             <div class="detail-pro">
                                 {{ preview_product.jan }}
                             </div>
@@ -204,7 +204,7 @@
                                     <template v-for="(vendor ,index ) in vendors">
                                         <tr :class="(selectedSuper.indexOf(vendor.customer_id) > -1) ? 'active-c' : ''"
                                             style="border-bottom: 1px solid gray"
-                                            @click="clickAndCheck(vendor.customer_id)">
+                                            @click="clickAndCheck(vendor.customer_id,vendor.price)">
                                             <td style="display : none;width: 50px;padding: 10px;border: none !important;">
                                                 <input class="form-check-input m-0 hide" :id="vendor.customer_id"
                                                        type="checkbox"
@@ -410,7 +410,7 @@
                                     <template v-for="vendor in vendors">
                                         <tr :class="(selectedSuper.indexOf(vendor.customer_id) > -1) ? 'active-c' : ''"
                                             style="border-bottom: 1px solid gray"
-                                            @click="clickAndCheck(vendor.customer_id)">
+                                            @click="clickAndCheck(vendor.customer_id,vendor.price)">
                                             <td style="width: 50px;padding: 10px;border: none !important;">
                                                 <input class="form-check-input m-0 hide" :id="vendor.customer_id"
                                                        type="checkbox"
@@ -532,7 +532,7 @@
                                     <template v-for="(vendor ,index ) in vendors">
                                         <tr :class="(selectedSuper.indexOf(vendor.customer_id) > -1) ? 'active-c' : ''"
                                             style="border-bottom: 1px solid gray"
-                                            @click="clickAndCheck(vendor.customer_id)">
+                                            @click="clickAndCheck(vendor.customer_id,vendor.price)">
                                             <td style="display : none;width: 50px;padding: 10px;border: none !important;">
                                                 <input class="form-check-input m-0 hide" :id="vendor.customer_id"
                                                        type="checkbox"
@@ -641,7 +641,7 @@
                                     <template v-for="(vendor ,index ) in vendors">
                                         <tr :class="(selectedSuper.indexOf(vendor.customer_id) > -1) ? 'active-c' : ''"
                                             style="border-bottom: 1px solid gray"
-                                            @click="clickAndCheck(vendor.customer_id)">
+                                            @click="clickAndCheck(vendor.customer_id,vendor.price)">
                                             <td style="display : none;width: 50px;padding: 10px;border: none !important;">
                                                 <input class="form-check-input m-0 hide" :id="vendor.customer_id"
                                                        type="checkbox"
@@ -826,7 +826,8 @@ export default {
             product_select_mode: 0,
             success_navi: '',
             super_price : 0,
-            alphabet_value : []
+            alphabet_value : [],
+            base_price : 100
 
         }
     },
@@ -1169,7 +1170,7 @@ export default {
             axios.post(_this.base_url + '/update_custom_estimate_items', data)
                 .then(function (response) {
                     // _this.getOrderDataByJan();
-                    _this.getProducts();
+                    _this.getProductsUpdate();
                     // _this.handi_navi = '仕入・販売先マスターへ登録されました';
                     // $('#handy-navi').show()
                 })
@@ -1271,8 +1272,10 @@ export default {
         },
         previewProductInfoWithImage(product) {
             let _this = this;
+            _this.base_price = parseInt(product.selling_price)
             _this.preview_product = product;
             _this.selectedSuper = [];
+            _this.selectedSuperShops = [];
             let prices = [];
             _this.preview_product.customer_prices.map(function (price) {
                 prices[price.customer_id] = price.price
@@ -1480,7 +1483,7 @@ export default {
                     _this.selectedSuperShops.push({
                         c_id: ven.customer_id, s_ids: ven.shops.map(function (sp) {
                             return sp.customer_shop_id;
-                        })
+                        }), price :((_this.base_price*ven.price)/100)
                     })
                 })
             }
@@ -1664,7 +1667,8 @@ export default {
             //
             axios.post(_this.base_url + '/custom-mistumury-products', fd)
                 .then(function (response) {
-
+                    _this.selectedSuper = [];
+                    _this.selectedSuperShops = [];
                     _this.getProducts();
                     // _this.handi_navi = '仕入・販売先マスターへ登録されました';
                     // $('#handy-navi').show();
@@ -1799,7 +1803,7 @@ export default {
         },
 
         // for checkbox clcik
-        clickAndCheck(id) {
+        clickAndCheck(id,price) {
             $('#' + id).click();
             let _this = this;
             _this.check = null;
@@ -1807,11 +1811,11 @@ export default {
                 if (p.c_id == id) {
                     _this.check = key;
                 }
-                console.log(p.c_id, id, key, p)
+                // console.log(p.c_id, id, key, p)
             })
 
             if (_this.check == null) {
-                this.selectedSuperShops.push({c_id: id, s_ids: []})
+                this.selectedSuperShops.push({c_id: id, s_ids: [],price : ((_this.base_price*price)/100)})
             } else {
                 this.selectedSuperShops.splice(_this.check, 1)
             }
