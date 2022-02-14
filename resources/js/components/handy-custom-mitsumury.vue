@@ -155,6 +155,131 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div>
+                                <table class="table table-bordered physical_handy_tabls">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 50px; text-align: center;padding: 05px">
+                                            ケース  (入数)
+                                        </th>
+                                        <th style="width: 50px; text-align: center;padding: 05px">
+                                            ボール  (入数)
+
+                                        </th>
+                                        <!--                                                    <th style="width: 50px; text-align: center;padding: 05px;">-->
+                                        <!--                                                        バラ-->
+                                        <!--                                                    </th>-->
+<!--                                        <th style="width: 50px; text-align: center; padding: 5px;">-->
+<!--                                            原価-->
+<!--                                        </th>-->
+<!--                                        <th style="width: 50px; text-align: center; padding: 5px;">-->
+<!--                                            売価-->
+<!--                                        </th>-->
+<!--                                        <th style="width: 50px; text-align: center; padding: 5px;">-->
+<!--                                            粗利-->
+<!--                                        </th>-->
+<!--                                        <th style="width: 50px; text-align: center; padding: 5px;">-->
+<!--                                            ％-->
+<!--                                        </th>-->
+                                    </tr>
+                                    </thead>
+                                    <tbody class="physicaltbody">
+                                    <template v-if="preview_product">
+                                        <tr>
+                                            <td>
+                                                <input type="tel" :id="'case'"
+                                                       @click="selectItem($event,'ケース')"
+                                                       @keypress="pressEnterAndSave($event,'boll')"
+                                                       @blur="blurAndSave()"
+                                                       v-model="preview_product.case_unit"
+                                                       class="form-control inputs "
+                                                       id="case"
+                                                       style="text-align: center">
+                                                <!--                                                                @blur="updateOrderQnty('ケース')"-->
+                                            </td>
+
+                                            <td>
+                                                <input type="tel" :id="'ball'"
+                                                       @click="selectItem($event,'ケース')"
+                                                       @keypress="pressEnterAndSave($event,'cost')"
+                                                       @blur="blurAndSave()"
+                                                       v-model="preview_product.ball_unit"
+                                                       id="boll"
+                                                       class="form-control boll_order inputs"
+                                                       style="text-align: center">
+                                                <!--                                                                @blur="updateOrderQnty('ボール')"-->
+                                            </td>
+
+                                            <!--                                                        <td>-->
+                                            <!--                                                            <input type="tel" :id="'bara'"-->
+                                            <!--                                                                   @click="selectItem($event,'ケース')"-->
+                                            <!--                                                                   @keypress="pressEnterAndSave($event,'case')"-->
+                                            <!--                                                                   value="0"-->
+                                            <!--                                                                   class="form-control cmn_num_formt bara_order inputs"-->
+                                            <!--                                                                   style="text-align: center">-->
+                                            <!--                                                        </td>-->
+
+<!--                                            <td>-->
+<!--                                                <input type="tel"-->
+<!--                                                       @click="selectItem($event,'')"-->
+<!--                                                       @keypress="pressEnterAndSave($event,'sell')"-->
+<!--                                                       @blur="updateVendorItemProperty(order_data[0],'cost')"-->
+<!--                                                       class="form-control  " :id="'cost'"-->
+<!--                                                       v-model="order_data[0].cost_price"-->
+<!--                                                       style="border-radius: 0px; text-align: center;    padding: 7px 0px;">-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <input type="tel"-->
+<!--                                                       @click="selectItem($event,'')"-->
+<!--                                                       @keypress="pressEnterAndSave($event,'profit_margin')"-->
+<!--                                                       @blur="updateVendorItemProperty(order_data[0],'sell')"-->
+<!--                                                       class="form-control  " :id="'sell'"-->
+<!--                                                       v-model="order_data[0].selling_price"-->
+<!--                                                       style="border-radius: 0px; text-align: center;    padding: 7px 0px;">-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                <input type="tel"-->
+<!--                                                       class="form-control  " :id="'profit'" readonly-->
+<!--                                                       :value="((order_data[0].selling_price-order_data[0].cost_price)).toFixed(2)"-->
+<!--                                                       style="border-radius: 0px; text-align: center;padding : 7px 0px">-->
+                                                <!--                                                            ((order_data[0].selling_price-order_data[0].cost_price)/order_data[0].selling_price*100)-->
+                                                <!--                                                            <input type="tel"-->
+                                                <!--                                                                   @click="selectItem($event,'')"-->
+                                                <!--                                                                   @keypress="pressEnterAndSave($event,'profit_margin')"-->
+                                                <!--                                                                   @blur="updateVendorItemProperty(order_data[0],'profit')"-->
+                                                <!--                                                                   class="form-control  " :id="'profit'"-->
+                                                <!--                                                                   :value="order_data[0].selling_price - order_data[0].cost_price"-->
+                                                <!--                                                                   style="border-radius: 0px; text-align: center;padding : 7px 0px">-->
+<!--                                            </td>-->
+
+<!--                                            <td>-->
+<!--                                                <input type="tel"-->
+<!--                                                       @click="selectItem($event,'')"-->
+
+<!--                                                       class="form-control  " :id="'profit_margin'"-->
+<!--                                                       :value="((order_data[0].selling_price-order_data[0].cost_price)/order_data[0].selling_price*100).toFixed(2)"-->
+<!--                                                       style="border-radius: 0px; text-align: center;padding : 7px 0px" readonly>-->
+                                                <!--                                                            @keypress="pressEnterAndSave($event,'case')"-->
+                                                <!--                                                            @blur="updateVendorItemProperty(order_data[0],'profit_margin')"-->
+                                                <!--                                                                   v-model="order_data[0].profit_margin"-->
+<!--                                            </td>-->
+
+                                        </tr>
+                                    </template>
+                                    <template v-else>
+                                        <tr>
+                                            <td style="font-size:16px;background: #f4c8c8;text-align:center;vertical-align:0;"
+                                                colspan="7">
+                                                <!--                                                            データが見つかりませんでした。-->
+                                                ......
+                                            </td>
+                                        </tr>
+                                    </template>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
                             <div class="detail-pro">
                                 {{ preview_product.jan }}
                             </div>
@@ -1164,7 +1289,9 @@ export default {
                 id: _this.preview_product.id,
                 cost: parseFloat(_this.preview_product.cost),
                 gross_profit_margin: parseFloat(_this.preview_product.gross_profit_margin),
-                sell: parseFloat(_this.preview_product.sell)
+                sell: parseFloat(_this.preview_product.sell),
+                case_qty: parseInt(_this.preview_product.case_unit),
+                ball_qty: parseInt(_this.preview_product.ball_unit)
             }
 
             axios.post(_this.base_url + '/update_custom_estimate_items', data)
@@ -1346,8 +1473,8 @@ export default {
             let data = {
                 vendor_item_id: vendor.vendor_item_id,
                 product_name: vendor.item_name,
-                case_qty: parseInt(vendor.case_inputs),
-                ball_qty: parseInt(vendor.ball_inputs),
+                case_qty: parseInt(vendor.case_unit),
+                ball_qty: parseInt(vendor.ball_unit),
                 price: parseInt(vendor.cost_price),
                 gross_profit_margin: parseInt(vendor.profit_margin),
                 gross_profit: ((vendor.selling_price - vendor.cost_price) / vendor.selling_price * 100).toFixed(2),
