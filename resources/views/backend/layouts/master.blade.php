@@ -15,7 +15,11 @@
     <link rel="shortcut icon" href="{{Config::get('app.url').'/public/backend/images/logo/favicon.ico'}}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="manifest" href="{{Config::get('app.url').'/manifest.json'}}">
+    @if(\Request::route()->getName() == 'custom.mitsumury')
+        <link rel="manifest" href="{{Config::get('app.url').'/manifest-mistumury.json'}}">
+    @else
+        <link rel="manifest" href="{{Config::get('app.url').'/manifest.json'}}">
+    @endif
     <meta name="description" content="A simple web app">
 
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
