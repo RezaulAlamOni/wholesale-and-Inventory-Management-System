@@ -28,7 +28,7 @@
     }],
   "lang": "en-US",
   "start_url": "/rv3_tonyav1/custom-mitsumury",
-  "scope": "/rv3_tonyav1/custom-mitsumury,/rv3_tonyav1/custom-mitsumury,/rv3_tonyav1/*",
+  "scope": "/rv3_tonyav1/custom-mitsumury",
   "display": "standalone",
   "background_color": "green",
   "theme_color": "orange",

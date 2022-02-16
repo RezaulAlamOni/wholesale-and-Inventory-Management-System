@@ -69,7 +69,7 @@
             </div>
 
             <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-                 aria-hidden="true" id="mistumury-mage-preview">
+                 aria-hidden="true" id="mistumury-mage-preview" onclick="$('#handy-camara-navi').show();">
                 <div class="modal-dialog modal-lg mt-0">
                     <div class="modal-content">
                         <div class="modal-header" style="padding: 5px;justify-content: right">
@@ -1279,7 +1279,6 @@ export default {
             let _this = this;
 
             // return false;
-
             if (parseFloat(_this.preview_product.cost) > parseFloat(_this.preview_product.sell)) {
                 _this.handi_navi = 'XXXXX';
                 $('#handy-navi').show()
@@ -1298,6 +1297,8 @@ export default {
                 .then(function (response) {
                     // _this.getOrderDataByJan();
                     _this.getProductsUpdate();
+                    _this.navi_button = 4;
+                    $('#handy-camara-navi').show();
                     // _this.handi_navi = '仕入・販売先マスターへ登録されました';
                     // $('#handy-navi').show()
                 })
@@ -1438,7 +1439,7 @@ export default {
                 $('#cost').select();
                 _this.startSpeech();
                 _this.selected_input = 'cost';
-                $('#handy-camara-navi').hide();
+                // $('#handy-camara-navi').hide();
 
                 _this.navi_button = 4;
                 $('#handy-camara-navi').show();
@@ -2045,6 +2046,8 @@ export default {
             axios.post(_this.base_url + '/customer-mistumury-products-price', {data : data})
                 .then(function (response) {
                     _this.getProductsUpdate()
+                    _this.navi_button = 4;
+                    $('#handy-camara-navi').show();
                 })
         },
 
@@ -2059,6 +2062,8 @@ export default {
             let _this = this;
             let value = e.target.value
             customer.price = value;
+
+
             _this.saveCustomerWisePrice(customer,2);
         }
     },
