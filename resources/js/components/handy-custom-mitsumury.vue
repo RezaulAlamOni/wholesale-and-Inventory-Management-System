@@ -51,10 +51,50 @@
 
 
                         <div class=" col-centereds col-md-12 col-sm-12 col-sl-12 p-0 row mt-2">
+                            <div id="stock_detail_by_jan_form" class="p_scn_form text-right">
+                                <div class="form-group row">
+                                    <span class="text-warning" style="width: 100%; text-align: center;">
+                                        枠の中にクリックしてから <br> JANコードスキャンしてください
+                                    </span>
+                                    <div class="col-md-12">
+                                        <input type="tel" id="jan_input" class="form-control custom-input"
+                                               v-model="jan_code" style="margin: 0 !important;"
+                                               name="scan_by_jan_for_stock_detail"
+                                               v-on:keyup="checkAndGetData($event)"
+                                               @paste="checkAndGetData($event)"
+                                               @input="checkAndGetData($event)"
+                                               @blur="checkAndGetData($event)"
+                                               placeholder="JANコードスキャン（13桁）" autofocus>
+                                    </div>
+                                </div>
+
+                                <div>
+<!--                                    <button type="button" @click="alertForIos" onclick="$('#jan_input').focus()"-->
+<!--                                            class="hide btn custom-btn btn-primary text-right show_inline search-button-ios "-->
+<!--                                            style="float: left;width: 100px">-->
+<!--                                        音声-->
+<!--                                    </button>-->
+                                    <!--                                    <text-recognition :base_url="base_url" class="hide"-->
+                                    <!--                                                      @getSearchData="getSearchData"-->
+                                    <!--                                                      @clearInput="clearInput"></text-recognition>-->
+
+<!--                                    <button type="button" @click="getBarCodeScan()"-->
+<!--                                            class="pr-0 ml-1 btn custom-btn btn-primary text-right show_inline search-button"-->
+<!--                                            style="padding:0;float: left;width: 70px !important;">-->
+<!--                                        <i class="fa fa-barcode" style="font-size: 40px"></i>-->
+<!--                                    </button>-->
+<!--                                    <button type="button" v-on:click="getOrderDataByJan()"-->
+<!--                                            style="margin: 0px;width: 80px !important;"-->
+<!--                                            class="btn custom-btn btn-primary pull-right text-right show_inline">-->
+<!--                                        次へ-->
+<!--                                    </button>-->
+                                </div>
+
+                            </div>
                             <div class="col-sm-6 col-md-3 col-xl-3 image-div" v-for="(product,i) in products"
                                  :class="(productJans.indexOf(product)) > -1 ? 'active-img' : ''">
                                 <img :src="product.image" :id="'img'+i"
-                                     class="img-thumbnail custom-img"
+                                     class="img-thumbnail custom-img" :class="product.jan"
                                      alt="Cinque Terre" @click="viewInfoForImage(product,product.img)"
                                      @dblclick="viewInfoForImage(product,product.img,1)"
                                      style="cursor: pointer">
@@ -946,6 +986,7 @@ export default {
             open_camera: 0,
             selectedSuperShops: [],
             check: null,
+            loader: 0,
             selected_input: '',
             navi_button: null,
             product_select_mode: 0,
@@ -1156,14 +1197,24 @@ export default {
 
             if (this.jan_code.length >= 13 || this.jan_code.length == 8) {
                 if (reg.test(this.jan_code)) {
-                    this.insertToJanList()
+                    if ($('.'+this.jan_code)[0]) {
+                        $('.'+this.jan_code).click()
+                    }
+                    // this.insertToJanList()
                 }
             }
             if (e.keyCode === 13) {
                 if (reg.test(this.jan_code) && this.jan_code.length >= 8) {
-                    this.insertToJanList()
+                    if ($('.'+this.jan_code)[0]) {
+                        $('.'+this.jan_code).click()
+                    }
+                    // this.insertToJanList()
                 }
             }
+            _this.handi_navi = '000';
+            $('#handy-navi').show()
+            $('#handy-camara-navi').hide();
+            this.jan_code = '';
             if (!reg.test(this.jan_code)) {
                 setTimeout(function () {
                     _this.getSearchData(_this.jan_code);
