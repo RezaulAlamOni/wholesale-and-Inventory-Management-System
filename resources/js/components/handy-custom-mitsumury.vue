@@ -69,7 +69,7 @@
             </div>
 
             <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-                 aria-hidden="true" id="mistumury-mage-preview" onclick="$('#handy-camara-navi').show();">
+                 aria-hidden="true" id="mistumury-mage-preview" >
                 <div class="modal-dialog modal-lg mt-0">
                     <div class="modal-content">
                         <div class="modal-header" style="padding: 5px;justify-content: right">
@@ -79,7 +79,7 @@
                             <!--                            <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>-->
 
                         </div>
-                        <div class="modal-body p-0" style="text-align: center">
+                        <div class="modal-body p-0" style="text-align: center" onclick="$('#handy-camara-navi').show();">
                             <div
                                 style="font-size: 18px;text-align: left;padding: 5px 10px;background: #c3ff8f80;font-weight: bold;">
 
@@ -1664,7 +1664,7 @@ export default {
             this.allSelected = false
             this.allSelectedSuper = false
             // this.productJans
-            let data = {'item_info': [_this.preview_product], 'super_info': this.selectedSuperShops, 'message': this.message};
+            let data = {'item_info': _this.productJans.length > 0 ? _this.productJans : [_this.preview_product], 'super_info': this.selectedSuperShops, 'message': this.message};
             this.handi_navi = '少しお待ちどして下さい';
             $('#handy-navi').show();
             $('#mistumury-select-super').modal('hide');
@@ -1687,7 +1687,8 @@ export default {
                 .catch(function (e) {
                     console.log(e)
                 })
-            this.selectedSuper = [];
+            _this.selectedSuper = [];
+            _this.selectedSuperShops = [];
             this.productJans = [];
         },
         //
