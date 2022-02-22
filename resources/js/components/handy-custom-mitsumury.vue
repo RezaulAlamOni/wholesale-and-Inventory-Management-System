@@ -643,7 +643,7 @@
                                 </button>
 
                         </div>
-                        <div class="modal-body" style="padding: 5px">
+                        <div class="modal-body" style="padding: 5px;display: none">
                             <button
                                     class="btn btn-success float-left mr-1 "
                                     style="padding: 5px 5px; font-size: 18px;float: left;">
