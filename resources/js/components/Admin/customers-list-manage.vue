@@ -25,6 +25,7 @@
                                     <th>販売先名</th>
                                     <th>コード</th>
                                     <th>電話</th>
+                                    <th>メール</th>
                                     <th>
                                         <!-- <a href="" class="btn btn-primary float-right"><i class="mdi mdi-all-inclusive"></i><span class="hide-menu"> Create New </span></a> -->
 
@@ -46,6 +47,7 @@
                                     <td>{{ user.name }}</td>
                                     <td>{{ user.partner_code }}</td>
                                     <td>{{ user.phone }}</td>
+                                    <td>{{ user.user.email }}</td>
                                     <td>
                                         <!--                                        @can('retrieve_users')-->
                                         <!--                                        <a href="{{Config::get('app.url').'user_update/'.user.id}}"-->

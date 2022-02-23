@@ -106,7 +106,7 @@ class UserManagement extends Controller
     {
         $title = __('messages.super');
         $active = 'super_list';
-        $users = customer::get();
+        $users = customer::with('user')->get();
         return view('backend.user.super_list', compact('users', 'active', 'title'));
     }
 
