@@ -26,6 +26,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "tesseract.js": "^2.1.5",
         "testcafe": "^1.8.7",
         "vue-barcode-reader": "0.0.3",
         "vue-speech": "^0.1.0",

@@ -20,7 +20,7 @@ class SendMailPortalController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -31,7 +31,7 @@ class SendMailPortalController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -42,8 +42,8 @@ class SendMailPortalController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -54,16 +54,19 @@ class SendMailPortalController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
     }
-    public function haccuListsendtomailportal(Request $request){
-       print_r($request->all());exit;
-        $maker_id = maker::insertGetId(['maker_code'=>'123321','vendor_id'=>'0','maker_name'=>'Demo maker']);
-   return $maker_id;
+
+    public function haccuListsendtomailportal(Request $request)
+    {
+        print_r($request->all());
+        exit;
+        $maker_id = maker::insertGetId(['maker_code' => '123321', 'vendor_id' => '0', 'maker_name' => 'Demo maker']);
+        return $maker_id;
     }
 }

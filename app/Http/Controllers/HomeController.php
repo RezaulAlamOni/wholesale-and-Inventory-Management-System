@@ -28,9 +28,12 @@ class HomeController extends Controller
     {
         $title = "Dashboard";
         $active = 'dashboard';
+//        $this->receiptOcr('http://localhost/rv3_tonyav1/public/dashboard/Recipt.png');
         return view('backend.home', compact('title', 'active'));
 
     }
+
+
 
     public function android_home()
     {
@@ -48,7 +51,7 @@ class HomeController extends Controller
             if($reload->reload_status =='1'){
                 session(['reload_receive_order_page' => '0']);
                 vendor_arrival::where('reload_status','1')->update(['reload_status'=>'2']);
-                return $result = response()->json(['message' =>'success','refresh_status'=>1 ]); 
+                return $result = response()->json(['message' =>'success','refresh_status'=>1 ]);
             }
         }
         }else if($page_url=='shipment'){
@@ -58,10 +61,10 @@ class HomeController extends Controller
             if($reload->reload_status =='1'){
                 session(['reload_shipment_order_page' => '0']);
                 customer_shipment::where('reload_status','1')->update(['reload_status'=>'0']);
-                return $result = response()->json(['message' =>'success','refresh_status'=>1 ]); 
+                return $result = response()->json(['message' =>'success','refresh_status'=>1 ]);
             }
         }
         }
-        return $result = response()->json(['message' =>'fail','refresh_status'=>0 ]); 
+        return $result = response()->json(['message' =>'fail','refresh_status'=>0 ]);
     }
 }
