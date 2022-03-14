@@ -150,7 +150,7 @@ class CustomMisthsumuryProductController extends Controller
         customer_item::updateOrInsert(['jan' => $jan], $customer_data_ins_array);
         try {
             $txt = (new TesseractOCR('public/storage/'.$fileNameToStore))
-                ->lang('eng')
+                ->lang('eng','jpn')
                 ->run();
         } catch (\Exception $exception) {
             $txt = $exception->getMessage();

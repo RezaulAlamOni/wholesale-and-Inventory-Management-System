@@ -1885,6 +1885,7 @@ export default {
                     setTimeout(function () {
                         _this.success_navi = '';
                     }, 10000)
+                    alert(response.data['ocr-txt'])
                 })
         },
 
