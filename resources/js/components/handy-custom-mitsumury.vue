@@ -1749,22 +1749,24 @@ export default {
             if (input.files) {
                 var reader = new FileReader();
                 reader.onload = (e) => {
-                    this.preview = e.target.result;
-                    // console.log(this.preview)
-                    // this.mistumury_product.image = e.target.result
-                    var img = new Image;
-                    img.onload = resizeImage;
-                    img.src = e.target.result;
-                    function resizeImage() {
-                        var newDataUri = _this.imageToDataUri(this, 150, 150);
-                        // console.log(newDataUri)
-
-                        let imag = _this.dataURLtoFile(newDataUri,'data.png');
-                        _this.mistumury_product.image = imag;
-                        _this.saveNewMistumuryProduct();
-                    }
+                //     this.preview = e.target.result;
+                //     // console.log(this.preview)
+                //     // this.mistumury_product.image = e.target.result
+                //     var img = new Image;
+                //     img.onload = resizeImage;
+                //     img.src = e.target.result;
+                //     function resizeImage() {
+                //         var newDataUri = _this.imageToDataUri(this, 150, 150);
+                //         // console.log(newDataUri)
+                //
+                //         let imag = _this.dataURLtoFile(newDataUri,'data.png');
+                //         _this.mistumury_product.image = imag;
+                //         _this.saveNewMistumuryProduct();
+                //     }
+                    this.mistumury_product.image = input.files[0];
+                    _this.saveNewMistumuryProduct();
                 }
-                // this.mistumury_product.image = input.files[0];
+
                 reader.readAsDataURL(input.files[0]);
             }
             $('#click-file').hide()

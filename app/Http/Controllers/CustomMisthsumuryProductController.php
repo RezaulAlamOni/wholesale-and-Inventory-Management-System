@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use thiagoalessio\TesseractOCR\TesseractOCR;
 
 
 class CustomMisthsumuryProductController extends Controller
@@ -80,9 +81,10 @@ class CustomMisthsumuryProductController extends Controller
         $fileNameToStore = $name .".".$extension;
         $file = $request->file('image');
 
-        $resize = Image::make($file)->resize(300, null, function ($constraint) {
-            $constraint->aspectRatio();
-        })->encode('jpg');
+//        $resize = Image::make($file)->resize(300, null, function ($constraint) {
+//            $constraint->aspectRatio();
+//        })->encode('jpg');
+        $resize = Image::make($file)->encode('jpg');
 
         // Create hash value
 //        $hash = md5($resize->__toString());
@@ -146,7 +148,15 @@ class CustomMisthsumuryProductController extends Controller
 //                'gross_profit' => $item->selling_price - $item->cost_price
         );
         customer_item::updateOrInsert(['jan' => $jan], $customer_data_ins_array);
-        return response()->json(['status' => 200,'jan' => $jan]);
+        try {
+            $txt = (new TesseractOCR('public/storage/'.$fileNameToStore))
+                ->lang()
+                ->run();
+        } catch (\Exception $exception) {
+            $txt = '';
+        }
+
+        return response()->json(['status' => 200,'jan' => $jan,'ocr-txt' => $txt]);
     }
 
     public function delete(Request $request)

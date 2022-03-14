@@ -6,6 +6,7 @@ use App\customer_shipment;
 use App\vendor_arrival;
 use DB;
 use Session;
+use thiagoalessio\TesseractOCR\TesseractOCR;
 class HomeController extends Controller
 {
     /**
@@ -28,7 +29,14 @@ class HomeController extends Controller
     {
         $title = "Dashboard";
         $active = 'dashboard';
-//        $this->receiptOcr('http://localhost/rv3_tonyav1/public/dashboard/Recipt.png');
+
+//        $txt =  (new TesseractOCR('public/storage/Recipt.png'))
+//            ->lang()
+//            ->run();
+//
+//        return $txt;
+
+
         return view('backend.home', compact('title', 'active'));
 
     }

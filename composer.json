@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "alimranahmed/laraocr": "^1.2",
         "barryvdh/laravel-dompdf": "^0.8.4",
         "doctrine/dbal": "^2.0",
         "fideloper/proxy": "^4.0",
@@ -21,7 +22,8 @@
         "laravel/ui": "^2.0",
         "rap2hpoutre/fast-excel": "^3.0",
         "simplesoftwareio/simple-qrcode": "^2.0",
-        "spatie/laravel-permission": "^3.2"
+        "spatie/laravel-permission": "^3.2",
+        "thiagoalessio/tesseract_ocr": "^2.12"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
