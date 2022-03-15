@@ -50,7 +50,9 @@
 <!--                        > 削除</a>-->
 
 
-                        <div class=" col-centereds col-md-12 col-sm-12 col-sl-12 p-0 row mt-2">
+                        <div class=" col-centereds col-md-12 col-sm-12 col-sl-12 p-0 row mt-2"
+                             @scroll="handleScroll"
+                             style="height: calc(100vh - 115px);overflow: auto;">
                             <div id="stock_detail_by_jan_form" class="p_scn_form text-right">
                                 <div class="form-group row">
                                     <span class="text-warning" style="width: 100%; text-align: center;">
@@ -1025,6 +1027,11 @@ export default {
             //     // ajax call get data from server and append to the div
             //     // alert('bottom')
             // }
+
+            // var position = $(window).scrollTop();
+            // var bottom = $(document).height() - $(window).height();
+            // console.log('-----'+position)
+            // console.log("======"+bottom)
         });
 
 
@@ -1854,9 +1861,7 @@ export default {
             fd.append('title', _this.mistumury_product.title)
             fd.append('profit_margin', _this.mistumury_product.profit_margin)
             //
-
-            $('#mistumury-add-product-continue').modal({backdrop : 'static'})
-
+            $('#mistumury-add-product-continue').modal('hide')
             //
             axios.post(_this.base_url + '/custom-mistumury-products', fd)
                 .then(function (response) {
@@ -1893,6 +1898,7 @@ export default {
                     _this.success_navi = '画像保存されました'
                     $('.loading_image_custom').hide()
                     _this.loader = 0
+                    $('#mistumury-add-product-continue').modal({backdrop : 'static'})
                     setTimeout(function () {
                         _this.success_navi = '';
                     }, 10000)
@@ -2120,6 +2126,12 @@ export default {
             let _this = this;
             if (e.keyCode == 13) {
                 $(e.target).blur();
+            }
+        },
+         handleScroll: function(el) {
+            if((el.srcElement.offsetHeight + el.srcElement.scrollTop) >= el.srcElement.scrollHeight) {
+                // this.hasScrolledToBottom = true;
+                console.log(111)
             }
         },
 
