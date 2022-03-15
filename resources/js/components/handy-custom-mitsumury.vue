@@ -632,23 +632,21 @@
                  aria-hidden="true" id="mistumury-add-product-continue">
                 <div class="modal-dialog modal-lg mt-0">
                     <div class="modal-content">
-                        <div class="modal-header" style="padding: 20px;">
-                            <button @click="addProductModal(1)"
-                                        class="btn btn-info float-left mr-1 "
-                                        style="padding: 5px 10px; font-size: 22px;float: left;">
-                                    続ける
-                                </button>
-                            <button onclick="$('#mistumury-add-product-continue').modal('hide')"
-                                        class="btn btn-primary pull-right mr-1 " id="show-super-list_-"
-                                        style="top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: right;">
-                                    戻る
-                                </button>
-
+                        <div class="modal-header" style="padding: 10px;justify-content: center;text-align: center">
+                            撮影した写真が保存出来ました。<br> 撮影進めますか？
                         </div>
-                        <div class="modal-body text-center" style="padding: 5px;">
+                        <div class="modal-body " style="padding: 10px;">
+                            <button @click="addProductModal(1)"
+                                    class="btn btn-info float-left mr-1 "
+                                    style="padding: 5px 10px; font-size: 22px;float: left;">
+                                続ける
+                            </button>
+                            <button onclick="$('#mistumury-add-product-continue').modal('hide')"
+                                    class="btn btn-primary pull-right mr-1 " id="show-super-list_-"
+                                    style="top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: right;">
+                                戻る
+                            </button>
 
-                            撮影した写真が保存出来ました。<br>
-                            撮影進めますか？
                         </div>
                         <div class="modal-body" style="padding: 5px;display: none">
                             <button
