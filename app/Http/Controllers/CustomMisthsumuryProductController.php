@@ -49,7 +49,7 @@ class CustomMisthsumuryProductController extends Controller
 
     public function getAllMistumury()
     {
-        $products = CustomMisthsumuryProduct::orderBy('created_at','desc')->with('customer_prices')->get();
+        $products = CustomMisthsumuryProduct::orderBy('created_at','desc')->with('customer_prices')->paginate(20);
         $customer_prices = CustomersProductPrice::groupBy('customer_id')->orderBy('price','asc')->orderby('id','desc')->get();
         return response()->json(['products' => $products,'customer_prices' => $customer_prices]);
     }

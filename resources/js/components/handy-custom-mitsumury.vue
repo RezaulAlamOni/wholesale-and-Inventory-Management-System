@@ -967,6 +967,7 @@ export default {
             order_data: [],
             select_status: 0,
             products: [],
+            paginate_products: [],
             selected_products: [],
             handi_navi: '',
             search_data: null,
@@ -998,7 +999,7 @@ export default {
             success_navi: '',
             super_price : 0,
             alphabet_value : [],
-            base_price : 100
+            base_price : 100,
 
         }
     },
@@ -1019,11 +1020,12 @@ export default {
             _this.alphabet_value.push(i.toString(36));
             j++;
         }
-        // $(window).scroll(function() {
-        //     if($(window).scrollTop() + $(window).innerHeight == $(document).height()) {
-        //         alert("bottom!");
-        //     }
-        // });
+        $(window).scroll(function() {
+            // if($(window).scrollbarXBottom() == $(document).height() - $(window).height()) {
+            //     // ajax call get data from server and append to the div
+            //     // alert('bottom')
+            // }
+        });
 
 
     },
@@ -1033,7 +1035,8 @@ export default {
             axios.get(this.base_url + '/get-all-custom-mistumury-products')
                 .then(function (res) {
                     let data = res.data;
-                    _this.products = data.products;
+                    _this.paginate_products = data.products;
+                    _this.products = data.products.data;
                     _this.productJans = [];
                     _this.preview_product = _this.products[0];
                     _this.vendors.map(function (customer) {
