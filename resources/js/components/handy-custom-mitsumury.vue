@@ -869,8 +869,9 @@
                         <a class="btn btn-light float-right" href="javascript:void(0)" v-else
                            @click="confirm()">***</a>
 
-                        <ol id="handy-navi-body" v-html="handi_navi">
+                        <ol id="handy-navi-body" v-html="handi_navi" style="display: contents;">
 
+                        </ol>
                         </ol>
 
 
@@ -910,7 +911,7 @@
                         <template v-else-if="navi_button == 4">
                             <a class="btn btn-info float-right" style="font-size: 20px;"
                                @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
-                            <br>
+
                             <button class="btn btn-info pull-left mr-1 "  @click="sendtoSuper()" :disabled="selectedSuper.length <= 0 ? true : false"
                                     style=" top: 5px; right: 115px;padding: 5px 10px; font-size: 22px;float: left;font-size: 20px;">
                                 送信
@@ -1910,13 +1911,18 @@ export default {
             $('#handy-camara-navi').hide();
             this.handi_navi = '<span style="font-size: 20px"> 削除しますか？ </span> ' +
                 '<a href="javascript:void(0)" class="btn btn-danger btn-sm" id="delete-product" >はい　</a>' +
-                '<a href="#" class="btn btn-info btn-sm" onclick="$(\'#handy-navi\').hide();$(\'#handy-camara-navi\').show();">いいえ</a>';
+                '<a href="#" class="btn btn-info btn-sm float-right" id="hide-delete-navi">いいえ</a>';
             $('#handy-navi').show();
 
             setTimeout(function () {
                 $('#delete-product').on('click', function () {
                     _this.deleteProduct();
                 })
+                $('#hide-delete-navi').on('click', function () {
+                    $('#handy-navi').hide();
+                    $('#handy-camara-navi').show();
+                })
+                $('#handy-camara-navi').hide();
             }, 1000)
 
 
