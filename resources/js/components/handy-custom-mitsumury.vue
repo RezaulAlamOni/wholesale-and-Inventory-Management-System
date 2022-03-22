@@ -1069,7 +1069,10 @@ export default {
         },
         getPaginate(){
             let _this = this;
-            axios.get(_this.paginate_products.next_page_url)
+            if (!_this.paginate_products.next_page_url) {
+                return 0;
+            }
+            axios.get(this.base_url + '/get-all-custom-mistumury-products?page='+(_this.paginate_products.current_page+1))
                 .then(function (res) {
                     let data = res.data;
                     _this.paginate_products = data.products;
