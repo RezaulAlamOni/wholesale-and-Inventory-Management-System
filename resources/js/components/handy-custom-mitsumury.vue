@@ -1072,7 +1072,7 @@ export default {
             if (!_this.paginate_products.next_page_url) {
                 return 0;
             }
-            axios.get(this.base_url + '/get-all-custom-mistumury-products?page='+(_this.paginate_products.current_page+1))
+            axios.get(this.base_url + '/get-all-custom-mistumury-products/'+(_this.paginate_products.current_page+1))
                 .then(function (res) {
                     let data = res.data;
                     _this.paginate_products = data.products;

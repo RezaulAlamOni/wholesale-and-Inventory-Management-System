@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
-
 class CustomMisthsumuryProductController extends Controller
 {
     /**
@@ -47,9 +46,9 @@ class CustomMisthsumuryProductController extends Controller
     }
 
 
-    public function getAllMistumury()
+    public function getAllMistumury($page = 1)
     {
-        $products = CustomMisthsumuryProduct::orderBy('created_at','desc')->with('customer_prices')->paginate(20);
+        $products = CustomMisthsumuryProduct::orderBy('created_at','desc')->with('customer_prices')->paginate(30,['*'],'page',$page);
         $customer_prices = CustomersProductPrice::groupBy('customer_id')->orderBy('price','asc')->orderby('id','desc')->get();
         return response()->json(['products' => $products,'customer_prices' => $customer_prices]);
     }

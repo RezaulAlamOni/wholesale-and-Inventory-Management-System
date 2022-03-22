@@ -138,7 +138,7 @@ Route::group(['middleware' => 'MyMiddleWire'], function () {
     Route::get('/custom-mitsumury-orders', [\App\Http\Controllers\CustomMisthsumuryProductController::class, 'mistumuryOrders'])->name('custom.mitsumury.orders'); // Oni for new design handy custom mistumury ordres
     Route::get('/handy-custom-mistumury-shipment-list', [\App\Http\Controllers\CustomMisthsumuryProductController::class, 'customMistumuryShipment'])->name('custom.mitsumury.shipment'); // Oni for new design handy custom mistumury ordres
     Route::get('/get-all-products', 'MistumuryController@index')->name('mitsumury.get.products'); // Oni for new design handy
-    Route::get('/get-all-custom-mistumury-products', [\App\Http\Controllers\CustomMisthsumuryProductController::class, 'getAllMistumury'])->name('custom.mitsumury.get.products'); // Oni for new design handy
+    Route::get('/get-all-custom-mistumury-products/{page?}', [\App\Http\Controllers\CustomMisthsumuryProductController::class, 'getAllMistumury'])->name('custom.mitsumury.get.products'); // Oni for new design handy
     // save new mistumury product without jan
     Route::post('/custom-mistumury-products', [\App\Http\Controllers\CustomMisthsumuryProductController::class, 'store'])->name('save.custom.mitsumury.get.products'); // Oni for new design handy
     Route::post('/custom-mistumury-products-delete', [\App\Http\Controllers\CustomMisthsumuryProductController::class, 'delete'])->name('custom.mitsumury.delete.products'); // Oni for new design handy
