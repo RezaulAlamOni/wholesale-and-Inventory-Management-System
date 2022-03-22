@@ -104,6 +104,10 @@
                                        :id="'check_by_'+product.jan" v-model="productJans"
                                        :value="product">
                             </div>
+<!--                            <div class="text-center col-md-12">-->
+<!--                                <a class="btn btn-info" @click="getPaginate(0)" v-if="paginate_products.prev_page_url">&lt;Previous</a>-->
+<!--                                <a class="btn btn-info" @clcik="getPaginate(1)" v-if="paginate_products.next_page_url">Next&gt;</a>-->
+<!--                            </div>-->
 
                         </div>
                     </div>
@@ -872,9 +876,6 @@
                         <ol id="handy-navi-body" v-html="handi_navi" style="display: contents;">
 
                         </ol>
-                        </ol>
-
-
                     </div>
                 </div>
             </div>
@@ -1066,11 +1067,43 @@ export default {
 
                 })
         },
+        getPaginate(){
+            let _this = this;
+            axios.get(_this.paginate_products.next_page_url)
+                .then(function (res) {
+                    let data = res.data;
+                    _this.paginate_products = data.products;
+                    _this.products = _this.products.concat(data.products.data);
+                    _this.productJans = [];
+                    _this.preview_product = _this.products[0];
+                    _this.vendors.map(function (customer) {
+                        // customer.price = _this.products[0].selling_price;
+                        customer.price = customer.price_rank ? customer.price_rank.price : 100;
+                    })
+                    _this.vendors.sort((a,b) => a.price - b.price);
+                    let i,alphabet= [];
+                    for(i=9;++i<36;){
+                        alphabet.push( i.toString(36));
+                    }
+
+                    _this.vendors.map(function (customer,key) {
+                        customer.rank = alphabet[key];
+                    })
+                })
+                .catch(function () {
+
+                })
+                .finally(function () {
+
+                })
+        },
         getProductsUpdate() {
             let _this = this;
+            return 0;
             axios.get(this.base_url + '/get-all-custom-mistumury-products')
                 .then(function (res) {
                     let data = res.data;
+                    _this.paginate_products = data.products;
                     _this.products = data.products.data;
                     _this.productJans = [];
                 })
@@ -1133,6 +1166,9 @@ export default {
             $('#' + type).modal('hide')
             if (type == 'mistumury-mage-preview' || type == 'mistumury-select-super') {
                 $('#handy-camara-navi').hide();
+                setTimeout(function () {
+                    $('#handy-camara-navi').hide();
+                },1000)
             }
             if (type == 'mistumury-select-super') {
                 this.product_select_mode = 0;
@@ -1368,7 +1404,7 @@ export default {
                     // _this.getOrderDataByJan();
                     _this.getProductsUpdate();
                     _this.navi_button = 4;
-                    $('#handy-camara-navi').show();
+                    // $('#handy-camara-navi').show();
                     // _this.handi_navi = '仕入・販売先マスターへ登録されました';
                     // $('#handy-navi').show()
                 })
@@ -2132,10 +2168,12 @@ export default {
                 $(e.target).blur();
             }
         },
-         handleScroll: function(el) {
+        handleScroll: function(el) {
+            let _this = this;
             if((el.srcElement.offsetHeight + el.srcElement.scrollTop) >= el.srcElement.scrollHeight) {
                 // this.hasScrolledToBottom = true;
-                console.log(111)
+                // console.log(111)
+                _this.getPaginate();
             }
         },
 
