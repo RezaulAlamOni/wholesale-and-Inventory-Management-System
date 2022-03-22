@@ -1071,7 +1071,7 @@ export default {
             axios.get(this.base_url + '/get-all-custom-mistumury-products')
                 .then(function (res) {
                     let data = res.data;
-                    _this.products = data.products;
+                    _this.products = data.products.data;
                     _this.productJans = [];
                 })
                 .catch(function () {
