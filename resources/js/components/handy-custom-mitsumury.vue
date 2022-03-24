@@ -390,7 +390,7 @@
                                                     <option value="0"></option>
                                                     <option style="text-transform: uppercase"
                                                             v-if="i < vendors.length"
-                                                            v-for="(vendor, i) in alphabet_value" :value="100+i*5">
+                                                            v-for="(vendor, i) in alphabet_value" :value="100+i*3">
                                                         {{ vendor }}
                                                     </option>
                                                 </select>
@@ -722,7 +722,7 @@
                                                     <option value="0"></option>
                                                     <option style="text-transform: uppercase"
                                                             v-if="i < vendors.length"
-                                                            v-for="(vendor, i) in alphabet_value" :value="100+i*5">
+                                                            v-for="(vendor, i) in alphabet_value" :value="100+i*3">
                                                         {{ vendor }}
                                                     </option>
                                                 </select>
@@ -831,7 +831,7 @@
                                                     <option value="0"></option>
                                                     <option style="text-transform: uppercase"
                                                             v-if="i < vendors.length"
-                                                            v-for="(vendor, i) in alphabet_value" :value="100+i*5">
+                                                            v-for="(vendor, i) in alphabet_value" :value="100+i*3">
                                                         {{ vendor }}
                                                     </option>
                                                 </select>
@@ -1019,8 +1019,10 @@ export default {
         }, 3000)
         let i,j = 0;
         for(i=9;++i<36;){
-            _this.alphabet_value.push(i.toString(36));
-            j++;
+            if(i <14) {
+                _this.alphabet_value.push(i.toString(36));
+                j++;
+            }
         }
         $(window).scroll(function() {
             // if($(window).scrollbarXBottom() == $(document).height() - $(window).height()) {
@@ -2131,12 +2133,12 @@ export default {
                     data.push({
                         customer_id : v.customer_id,
                         jan : _this.preview_product.jan,
-                        price : (parseInt(price)+parseInt(i*5))
+                        price : (parseInt(price)+parseInt(i*3))
                     })
                 })
 
                 _this.vendors.map(function (v,i) {
-                    v.price = (parseInt(price)+parseInt(i*5))
+                    v.price = (parseInt(price)+parseInt(i*3))
                 })
 
             } else {
