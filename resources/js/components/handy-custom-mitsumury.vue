@@ -24,24 +24,25 @@
                         <!--                        <a href="javascript:void(0)" class="btn btn-success pull-right mr-1 top-button"-->
                         <!--                           style="float:right"> 詳細</a>-->
 
+
                     </div>
                     <div style="font-size: 18px; padding: 5px 0px 2px 5px;position: relative">
 
                         <img id="preview">
 
-                        <div class="form-check">
-                            <input class="form-check-input check-all hide" @click="selectAll()" v-model="allSelected"
-                                   type="checkbox" value="" id="flexCheckChecked">
-                            <label class="form-check-label ml-2" for="flexCheckChecked">
-                                <button class="btn btn-success" onclick="$('#flexCheckChecked').click()"
-                                        style="font-size: 18px;">全て
-                                </button>
-                            </label>
-                        </div>
-
+<!--                        <div class="form-check p-0">-->
+<!--                            <input class="form-check-input check-all hide" @click="selectAll()" v-model="allSelected"-->
+<!--                                   type="checkbox" value="" id="flexCheckChecked">-->
+<!--                            <label class="form-check-label" for="flexCheckChecked">-->
+<!--                                <button class="btn btn-success" onclick="$('#flexCheckChecked').click()"-->
+<!--                                        style="font-size: 18px;">全て-->
+<!--                                </button>-->
+<!--                            </label>-->
+<!--                        </div>-->
+<!--                        position: absolute; top: 5px; right: 0px;-->
                         <button onclick="$('#mistumury-super-price-rank-setup').modal()"
                                 class="btn btn-success pull-right mr-1 " id="show-super-list"
-                                style="position: absolute; top: 5px; right: 0px;padding: 5px 10px; font-size: 18px;">
+                                style="padding: 7px 10px; font-size: 18px;">
                             ランク付け
                         </button>
 <!--                        <a class="btn btn-danger float-right mr-" v-if="productJans.length > 0"-->
@@ -49,6 +50,10 @@
 <!--                           style=" position: absolute; top: 5px; right:0px;padding: 5px 10px; font-size: 18px;"-->
 <!--                        > 削除</a>-->
 
+                        <button class="btn btn-info mr-1 float-right"
+                                style="padding: 5px 10px; font-size: 22px; float: right;">
+                            スーパー登録
+                        </button>
 
                         <div class=" col-centereds col-md-12 col-sm-12 col-sl-12 p-0 row mt-2"
                              @scroll="handleScroll"
@@ -769,6 +774,10 @@
                                         style="padding: 5px 10px; font-size: 22px; float: right;">
                                     戻る
                                 </button>
+                            <button class="btn btn-info mr-1 float-right"
+                                        style="padding: 5px 10px; font-size: 22px; float: right;">
+                                スーパー登録
+                            </button>
                         </div>
                         <div class="modal-body" style="padding: 5px">
 
@@ -1019,7 +1028,7 @@ export default {
         }, 3000)
         let i,j = 0;
         for(i=9;++i<36;){
-            if(i <14) {
+            if(i <= 14) {
                 _this.alphabet_value.push(i.toString(36));
                 j++;
             }
