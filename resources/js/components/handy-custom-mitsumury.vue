@@ -39,10 +39,10 @@
 <!--                                </button>-->
 <!--                            </label>-->
 <!--                        </div>-->
-<!--                        position: absolute; top: 5px; right: 0px;-->
+<!--                        ;-->
                         <button onclick="$('#mistumury-super-price-rank-setup').modal()"
                                 class="btn btn-success pull-right mr-1 " id="show-super-list"
-                                style="padding: 7px 10px; font-size: 18px;">
+                                style="padding: 7px 10px; font-size: 18px;position: absolute; top: 5px; right: 0px">
                             ランク付け
                         </button>
 <!--                        <a class="btn btn-danger float-right mr-" v-if="productJans.length > 0"-->
@@ -50,8 +50,8 @@
 <!--                           style=" position: absolute; top: 5px; right:0px;padding: 5px 10px; font-size: 18px;"-->
 <!--                        > 削除</a>-->
 
-                        <button class="btn btn-info mr-1 float-right"
-                                style="padding: 5px 10px; font-size: 22px; float: right;">
+                        <button class="btn btn-info mr-1 "
+                                style="padding: 5px 10px; font-size: 22px; float: left;">
                             スーパー登録
                         </button>
 
@@ -769,12 +769,12 @@
                 <div class="modal-dialog modal-lg mt-0">
                     <div class="modal-content">
                         <div class="modal-header" style="padding: 20px;text-align: right">
-                                <button onclick="$('#mistumury-super-price-rank-setup').modal('hide')"
-                                        class="btn btn-primary mr-1 " id="show-super-list_--"
-                                        style="padding: 5px 10px; font-size: 22px; float: right;">
-                                    戻る
-                                </button>
-                            <button class="btn btn-info mr-1 float-right"
+                            <button onclick="$('#mistumury-super-price-rank-setup').modal('hide')"
+                                    class="btn btn-primary mr-1 float-right" id="show-super-list_--"
+                                    style="padding: 5px 10px; font-size: 22px; float: right;">
+                                戻る
+                            </button>
+                            <button class="btn btn-info mr-1 "
                                         style="padding: 5px 10px; font-size: 22px; float: right;">
                                 スーパー登録
                             </button>
