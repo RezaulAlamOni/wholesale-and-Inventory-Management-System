@@ -2262,8 +2262,9 @@ export default {
                 .then(function (response) {
                     let data = response.data
                     if(data.message == 'success'){
-                        _this.users = data.users;
-                        $('#customers_reg_modal').modal('hide')
+                        console.log(data)
+                        // _this.users = data.users;
+                        // $('#customers_reg_modal').modal('hide')
                     }
                     else {
                         _this.error_msg = data.message;
