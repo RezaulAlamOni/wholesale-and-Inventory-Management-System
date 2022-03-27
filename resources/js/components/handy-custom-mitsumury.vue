@@ -40,7 +40,7 @@
 <!--                            </label>-->
 <!--                        </div>-->
 <!--                        ;-->
-                        <button onclick="$('#mistumury-super-price-rank-setup').modal()"
+                        <button onclick="$('#mistumury-super-price-rank-setup').modal({backdrop : 'static'})"
                                 class="btn btn-success pull-right mr-1 " id="show-super-list"
                                 style="padding: 7px 10px; font-size: 18px;position: absolute; top: 5px; right: 0px">
                             ランク付け
@@ -50,7 +50,7 @@
 <!--                           style=" position: absolute; top: 5px; right:0px;padding: 5px 10px; font-size: 18px;"-->
 <!--                        > 削除</a>-->
 
-                        <button class="btn btn-info mr-1 "
+                        <button class="btn btn-info mr-1 " @click="showSuperAddForm()"
                                 style="padding: 5px 10px; font-size: 22px; float: left;">
                             スーパー登録
                         </button>
@@ -769,18 +769,18 @@
                 <div class="modal-dialog modal-lg mt-0">
                     <div class="modal-content">
                         <div class="modal-header" style="padding: 20px;text-align: right">
-                            <button onclick="$('#mistumury-super-price-rank-setup').modal('hide')"
+                            <button onclick="$('#mistumury-super-price-rank-setup').modal('hide');"  @click="new_super_plag = 0;"
                                     class="btn btn-primary mr-1 float-right" id="show-super-list_--"
                                     style="padding: 5px 10px; font-size: 22px; float: right;">
                                 戻る
                             </button>
-                            <button class="btn btn-info mr-1 "
+                            <button class="btn btn-info mr-1 " @click="new_super_plag = 1"
                                         style="padding: 5px 10px; font-size: 22px; float: right;">
                                 スーパー登録
                             </button>
                         </div>
                         <div class="modal-body" style="padding: 5px">
-                            <div class="panel-body buyer_reg_body" style="padding: 10px 40px;">
+                            <div class="panel-body buyer_reg_body" style="padding: 10px 40px;" v-if="new_super_plag">
                                 <form>
                                     <div class="form-group row">
                                         <label for="customer_name" class="col-sm-4 col-form-label">販売先名</label>
@@ -818,7 +818,7 @@
                                         </div>
                                     </div>
                                 </form>
-                                <button type="button" class="btn btn-info " @click="saveCustomer()">追加</button>
+                                <button type="button" class="btn btn-info float-right" @click="saveCustomer()">追加</button>
 
 
                             </div>
@@ -2252,9 +2252,9 @@ export default {
             let data = {
                 _token :  $('meta[name="csrf-token"]').attr('content'),
                 customer_name: _this.customer.name,
-                customer_code:  _this.customer.code,
+                customer_code:  Math.floor(100000 + Math.random() * 900000),
                 customer_phone:  _this.customer.phone,
-                customer_email:  _this.customer.email,
+                customer_email:  _this.customer.phone+'@jacos.co.jp',
                 user_type: 2
             }
 
@@ -2265,6 +2265,9 @@ export default {
                         console.log(data)
                         // _this.users = data.users;
                         // $('#customers_reg_modal').modal('hide')
+                        _this.getVendorList();
+                        _this.customer= {};
+                        _this.new_super_plag = 0;
                     }
                     else {
                         _this.error_msg = data.message;
@@ -2273,6 +2276,10 @@ export default {
                 .catch(function (e) {
                     console.log(e)
                 })
+        },
+        showSuperAddForm() {
+            this.new_super_plag = 1;
+            $('#mistumury-super-price-rank-setup').modal({backdrop : 'static'});
         }
     },
     watch: {}
