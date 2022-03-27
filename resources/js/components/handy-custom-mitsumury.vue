@@ -780,6 +780,48 @@
                             </button>
                         </div>
                         <div class="modal-body" style="padding: 5px">
+                            <div class="panel-body buyer_reg_body" style="padding: 10px 40px;">
+                                <form>
+                                    <div class="form-group row">
+                                        <label for="customer_name" class="col-sm-4 col-form-label">販売先名</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control-plaintext" id="customer_name"
+                                                   name="customer_name" v-model="customer.name">
+                                        </div>
+                                    </div>
+                                    <input type="hidden" maxlength="6" class="form-control-plaintext"
+                                           name="customer_code"
+                                           id="customer_code" v-model="customer.code">
+                                    <input type="hidden" class="form-control-plaintext" id="customer_email"
+                                           name="customer_email" v-model="customer.email" required>
+
+                                    <!--                                    <div class="form-group row">-->
+<!--                                        <label for="customer_code" class="col-sm-4 col-form-label">販売先コード</label>-->
+<!--                                        <div class="col-sm-8">-->
+<!--                                            <input type="tel" maxlength="6" class="form-control-plaintext"-->
+<!--                                                   name="customer_code"-->
+<!--                                                   id="customer_code" v-model="customer.code">-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="form-group row">-->
+<!--                                        <label for="customer_phone" class="col-sm-4 col-form-label">メイル</label>-->
+<!--                                        <div class="col-sm-8">-->
+<!--                                            <input type="email" class="form-control-plaintext" id="customer_email"-->
+<!--                                                   name="customer_email" v-model="customer.email" required>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+                                    <div class="form-group row">
+                                        <label for="customer_phone" class="col-sm-4 col-form-label">電話番号</label>
+                                        <div class="col-sm-8">
+                                            <input type="number" class="form-control-plaintext" id="customer_phone"
+                                                   name="customer_phone" v-model="customer.phone" required>
+                                        </div>
+                                    </div>
+                                </form>
+                                <button type="button" class="btn btn-info " @click="saveCustomer()">追加</button>
+
+
+                            </div>
 
                             <div>
                                 <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls " style="margin-top: 30px;margin-bottom: 50px">
@@ -1011,6 +1053,8 @@ export default {
             super_price : 0,
             alphabet_value : [],
             base_price : 100,
+            new_super_plag : 0,
+            customer: {},
 
         }
     },
@@ -2182,6 +2226,7 @@ export default {
                 $(e.target).blur();
             }
         },
+
         handleScroll: function(el) {
             let _this = this;
             if((el.srcElement.offsetHeight + el.srcElement.scrollTop) >= el.srcElement.scrollHeight) {
@@ -2198,6 +2243,35 @@ export default {
 
 
             _this.saveCustomerWisePrice(customer,2);
+        },
+
+        saveCustomer() {
+            let _this = this;
+            var setApiUrl ='/rv3_tonyav1';
+
+            let data = {
+                _token :  $('meta[name="csrf-token"]').attr('content'),
+                customer_name: _this.customer.name,
+                customer_code:  _this.customer.code,
+                customer_phone:  _this.customer.phone,
+                customer_email:  _this.customer.email,
+                user_type: 2
+            }
+
+            axios.post(setApiUrl+'/customer_add_edit', data)
+                .then(function (response) {
+                    let data = response.data
+                    if(data.message == 'success'){
+                        _this.users = data.users;
+                        $('#customers_reg_modal').modal('hide')
+                    }
+                    else {
+                        _this.error_msg = data.message;
+                    }
+                })
+                .catch(function (e) {
+                    console.log(e)
+                })
         }
     },
     watch: {}
