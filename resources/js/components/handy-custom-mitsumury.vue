@@ -2252,7 +2252,7 @@ export default {
             let data = {
                 _token :  $('meta[name="csrf-token"]').attr('content'),
                 customer_name: _this.customer.name,
-                customer_code:  Math.floor(100000 + Math.random() * 900000),
+                customer_code:  _this.customer.phone,
                 customer_phone:  _this.customer.phone,
                 customer_email:  _this.customer.phone+'@jacos.co.jp',
                 user_type: 2
