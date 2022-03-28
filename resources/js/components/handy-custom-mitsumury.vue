@@ -862,11 +862,11 @@
                                     <!--                                    </td>-->
                                     <!--                                    <td style="padding: 10px;;border: none !important;">{{ vendor.text }}</td>-->
                                     <!--                                </tr>-->
-
+                                    <!--                                    @click="clickAndCheck(vendor.customer_id,vendor.price)"-->
                                     <template v-for="(vendor ,index ) in vendors">
                                         <tr :class="(selectedSuper.indexOf(vendor.customer_id) > -1) ? 'active-c' : ''"
                                             style="border-bottom: 1px solid gray"
-                                            @click="clickAndCheck(vendor.customer_id,vendor.price)">
+                                            >
                                             <td style="display : none;width: 50px;padding: 10px;border: none !important;">
                                                 <input class="form-check-input m-0 hide" :id="vendor.customer_id"
                                                        type="checkbox"
@@ -2279,6 +2279,9 @@ export default {
                         _this.getVendorList();
                         _this.customer= {};
                         _this.new_super_plag = 0;
+                        _this.handi_navi = '<li>スーパー登録されました。</li>';
+                        $('#handy-navi').show();
+                        $('#handy-camara-navi').hide();
                     }
                     else {
                         _this.error_msg = data.message;
