@@ -1101,19 +1101,7 @@ export default {
                     _this.products = data.products.data;
                     _this.productJans = [];
                     _this.preview_product = _this.products[0];
-                    _this.vendors.map(function (customer) {
-                        // customer.price = _this.products[0].selling_price;
-                        customer.price = customer.price_rank ? customer.price_rank.price : 100;
-                    })
-                    _this.vendors.sort((a,b) => a.price - b.price);
-                    let i,alphabet= [];
-                    for(i=9;++i<36;){
-                        alphabet.push( i.toString(36));
-                    }
-
-                    _this.vendors.map(function (customer,key) {
-                        customer.rank = alphabet[key];
-                    })
+                    _this.customersListGenerate();
                 })
                 .catch(function () {
 
@@ -1121,6 +1109,23 @@ export default {
                 .finally(function () {
 
                 })
+        },
+        // customers list generate with rank
+        customersListGenerate() {
+            let _this = this;
+            _this.vendors.map(function (customer) {
+                // customer.price = _this.products[0].selling_price;
+                customer.price = customer.price_rank ? customer.price_rank.price : 100;
+            })
+            _this.vendors.sort((a,b) => a.price - b.price);
+            let i,alphabet= [];
+            for(i=9;++i<36;){
+                alphabet.push( i.toString(36));
+            }
+
+            _this.vendors.map(function (customer,key) {
+                customer.rank = alphabet[key];
+            })
         },
         getPaginate(){
             let _this = this;
@@ -1312,6 +1317,7 @@ export default {
                 if (reg.test(this.jan_code)) {
                     if ($('.'+this.jan_code)[0]) {
                         $('.'+this.jan_code).click()
+                        _this.jan_code = '';
                     }
                     // this.insertToJanList()
                 }
@@ -1320,6 +1326,7 @@ export default {
                 if (reg.test(this.jan_code) && this.jan_code.length >= 8) {
                     if ($('.'+this.jan_code)[0]) {
                         $('.'+this.jan_code).click()
+                        _this.jan_code = '';
                     }
                     // this.insertToJanList()
                 }
@@ -1327,12 +1334,14 @@ export default {
             _this.handi_navi = '000';
             $('#handy-navi').show()
             $('#handy-camara-navi').hide();
-            this.jan_code = '';
+
             if (!reg.test(this.jan_code)) {
                 setTimeout(function () {
                     _this.getSearchData(_this.jan_code);
+                    _this.jan_code = '';
                 }, 1200)
             }
+
 
         },
         getSearchData(text) {
@@ -1360,6 +1369,7 @@ export default {
                 })
                 .finally(function () {
                     $('.loading_image_custom').hide()
+
                 })
 
 
@@ -1556,6 +1566,7 @@ export default {
                 .then(function (response) {
                     // console.log(response.data)
                     _this.vendors = response.data.all_customer_list;
+                    _this.customersListGenerate();
                     // $('#select_tonya').modal({backdrop: 'static', keyboard: false})
                 })
                 .catch(function (e) {
