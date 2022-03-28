@@ -85,11 +85,11 @@
                                     <!--                                                      @getSearchData="getSearchData"-->
                                     <!--                                                      @clearInput="clearInput"></text-recognition>-->
 
-<!--                                    <button type="button" @click="getBarCodeScan()"-->
-<!--                                            class="pr-0 ml-1 btn custom-btn btn-primary text-right show_inline search-button"-->
-<!--                                            style="padding:0;float: left;width: 70px !important;">-->
-<!--                                        <i class="fa fa-barcode" style="font-size: 40px"></i>-->
-<!--                                    </button>-->
+                                    <button type="button" @click="getBarCodeScan()"
+                                            class="pr-0 ml-1 btn custom-btn btn-primary text-right show_inline search-button"
+                                            style="padding:0;float: left;width: 70px !important;">
+                                        <i class="fa fa-barcode" style="font-size: 40px"></i>
+                                    </button>
 <!--                                    <button type="button" v-on:click="getOrderDataByJan()"-->
 <!--                                            style="margin: 0px;width: 80px !important;"-->
 <!--                                            class="btn custom-btn btn-primary pull-right text-right show_inline">-->
@@ -908,6 +908,29 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                 aria-hidden="true" id="bar-code-scan-area">
+                <div class="modal-dialog modal-lg mt-0">
+                    <div class="modal-content">
+                        <div class="modal-body p-0">
+                            <div class="main-content-container container-fluid pt-2">
+                                <StreamBarcodeReader v-if="barCodeScan" @decode="onDecode"
+                                                     @loaded="onLoad()"></StreamBarcodeReader>
+
+                                <button type="button" @click="getBarCodeScan()"
+                                        style="float: right;margin: 5px 0;width: 95px !important;"
+                                        class="btn custom-btn btn-primary pull-right text-right show_inline">
+                                    次へ
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                </div>
+            </div>
+
 
             <div class="jn nav_disp-w" style="z-index: 9999;width: 270px; right: 15px; bottom: 15px;"
                  id="handy-navi">
@@ -1012,6 +1035,7 @@ import {StreamBarcodeReader} from "vue-barcode-reader";
 
 export default {
     props: ['base_url'],
+    components: {TextRecognition, StreamBarcodeReader},
     name: "handy-custom-mistumury",
     data() {
         return {
@@ -1020,6 +1044,7 @@ export default {
             order_data: [],
             select_status: 0,
             products: [],
+            barCodeScan: 0,
             paginate_products: [],
             selected_products: [],
             handi_navi: '',
@@ -2294,7 +2319,26 @@ export default {
         showSuperAddForm() {
             this.new_super_plag = 1;
             $('#mistumury-super-price-rank-setup').modal({backdrop : 'static'});
-        }
+        },
+
+        getBarCodeScan() {
+            this.barCodeScan = this.barCodeScan ? 0 : 1;
+            this.barCodeScan ? $('#bar-code-scan-area').modal({
+                backdrop: 'static',
+                keyboard: false
+            }) : $('#bar-code-scan-area').modal('hide');
+        },
+        onDecode(result) {
+            console.log(result)
+            // this.getBarCodeScan();
+            // this.jan_code = result;
+            // $('#handy-navi').hide()
+            // this.getOrderDataByJan()
+        },
+        onLoad() {
+            $('#handy-navi').show()
+            this.handi_navi = '<li>********。</li>';
+        },
     },
     watch: {}
 }
