@@ -3,7 +3,7 @@
         <div class="main-content-container container-fluid px-4" @dblclick="handiNaviShow()" style="min-height: 100vh">
             <!-- Small Stats Blocks -->
             <!--            voice input    -->
-            <vue-speech lang="ja-JP" :resume="speech_start" style="display: none" @onTranscriptionEnd="getText"/>
+<!--            <vue-speech lang="ja-JP" :resume="speech_start" style="display: none" @onTranscriptionEnd="getText"/>-->
             <!--            voice input  end   -->
 
 
@@ -414,6 +414,121 @@
 
                                 </table>
                             </div>
+
+<!--                            <button-->
+<!--                                class="btn btn-danger float-left mr-1 " @click="deleteMistunury(preview_product)"-->
+<!--                                style="padding: 5px 5px; font-size: 18px;float: left;">-->
+<!--                                削除-->
+<!--                            </button>-->
+<!--                            <button-->
+<!--                                class="btn btn-success float-right mr-1 " @click="sendtoSuper()" :disabled="selectedSuper.length <= 0 ? true : false"-->
+<!--                                style="top: 5px; right: 0px;padding: 5px 5px; font-size: 18px; float: right;">-->
+<!--                                送信-->
+<!--                            </button>-->
+
+
+                        </div>
+                        <!--                    <div class="modal-footer " style="padding: 6px">-->
+                        <!--                    </div>-->
+                    </div>
+                </div>
+            </div>
+            <!--        // mistumury-prodct-add-modal-->
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                 aria-hidden="true" id="mistumury-mage-preview-serch" >
+                <div class="modal-dialog modal-lg mt-0">
+                    <div class="modal-content">
+                        <div class="modal-header" style="padding: 5px;justify-content: right">
+<!--                            <a class="btn btn-danger float-right mr-1" @click="deleteMistunury(preview_product)">削除</a>-->
+                            <!--                            <a class="btn btn-success float-right mr-1" @click="naviShow()"> 保存</a>-->
+                            <!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
+                            <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-mage-preview-serch')">戻る</a>
+
+                        </div>
+                        <div class="modal-body p-0" style="text-align: center" onclick="$('#handy-camara-navi').show();">
+                            <div
+                                style="font-size: 18px;text-align: left;padding: 5px 10px;background: #c3ff8f80;font-weight: bold;">
+
+                                <input class="form-control" type="text" v-model="preview_product.item_name"
+                                       @keyup="saveItemName($event)">
+                            </div>
+                            <div>
+                                <img
+                                    :src="''+preview_product.image"
+                                    class="img-thumbnail custom-img-preview" alt="Cinque Terre"
+                                    style="cursor: pointer">
+                            </div>
+                            <div>
+                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls">
+                                    <thead data-v-c9953dda="">
+                                    <tr data-v-c9953dda="">
+                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                            原価
+                                        </th>
+                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                            売価
+                                        </th>
+                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                            粗利
+                                        </th>
+                                        <th data-v-c9953dda="" style="width: 50px; text-align: center; padding: 5px;">
+                                            ％
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody data-v-c9953dda="" class="physicaltbody">
+                                    <tr data-v-c9953dda="">
+
+                                        <td data-v-c9953dda="">
+                                            <input data-v-c9953dda="" type="tel" id="cost"
+                                                   @click="selectItem($event,'cost')"
+                                                   class="form-control  " v-model="preview_product.cost"
+                                                   @keyup="calculatePrice('cost')"
+                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;"
+                                                   @blur="blurAndSave()"
+                                                   @keypress="pressEnterAndSave($event,'sell')">
+                                        </td>
+                                        <td data-v-c9953dda="">
+                                            <input data-v-c9953dda="" type="tel" id="sell"
+                                                   @click="selectItem($event,'sell')"
+                                                   class="form-control  " v-model="preview_product.sell"
+                                                   @keyup="calculatePrice('sell')"
+                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;"
+                                                   @keypress="pressEnterAndSave($event,'profit_margin')"
+                                                   @blur="blurAndSave()">
+                                        </td>
+                                        <td data-v-c9953dda="">
+                                            <input data-v-c9953dda="" type="tel" id="profit"
+                                                   @click="selectItem($event,'profit')"
+                                                   class="form-control  "
+                                                   :value="preview_product.sell - preview_product.cost" readonly
+                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;">
+                                            <!--                                        v-model="preview_product.profit"-->
+                                            <!--                                               @keypress="pressEnterAndSave($event,'profit_margin')"-->
+                                            <!--                                                @keyup="calculatePrice('profit')"-->
+                                        </td>
+                                        <td data-v-c9953dda="">
+                                            <input data-v-c9953dda="" type="tel" id="profit_margin"
+                                                   @click="selectItem($event,'profit_margin')"
+                                                   class="form-control  " v-model="preview_product.gross_profit_margin"
+                                                   @keyup="calculatePrice('profit_margin')"
+                                                   style="border-radius: 0px; text-align: center; padding: 7px 0px;"
+                                                   @blur="blurAndSave()"
+                                                   @keypress="pressEnterAndSave($event,'cost')">
+
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="detail-pro">
+                                {{ preview_product.jan }}
+                            </div>
+                            <div class="detail-pro">
+                                {{ preview_product.created_at }}
+                            </div>
+
 
 <!--                            <button-->
 <!--                                class="btn btn-danger float-left mr-1 " @click="deleteMistunury(preview_product)"-->
@@ -1288,29 +1403,17 @@ export default {
                         _this.order_data = res.data.result;
                         _this.order_data_ = _this.order_data[0];
                         _this.product_name = _this.order_data[0].item_name;
-                        _this.order_data[0].img = _this.order_data[0].jan == '4901005500341' ? 'chocolate.jpg' : _this.images[Math.floor(Math.random() * 7)];
+                        _this.order_data[0].img_url = '/rv3_tonyav1/public/backend/images/products/'+_this.order_data[0].jan+'.png';
+                        _this.order_data[0].image = '/rv3_tonyav1/public/backend/images/products/'+_this.order_data[0].jan+'.png';
+                        _this.order_data[0].sell = _this.order_data[0].selling_price;
+                        _this.order_data[0].cost = _this.order_data[0].cost_price;
+                        _this.order_data[0].gross_profit_margin =  _this.order_data[0].profit_margin;
 
-
+                        $('#mistumury-mage-preview-serch').modal({backdrop: 'static'})
                         _this.previewProductInfoWithImage(_this.order_data[0]);
-
-                        _this.calculateTotalQuantity();
 
                         if (_this.type == 0) {
                             $('#stock-order-show-by-jan').modal({backdrop: 'static', keyboard: false})
-                            setTimeout(function () {
-                                $('#case0').focus()
-                                $('#case0').select()
-                                if ($('#rack' + 0).length <= 0) {
-                                    // $('#order-place-button').focus()
-                                } else {
-                                    // if (!_this.readonly) {
-                                    //     $('#rack' + 0).focus()
-                                    //     $('#rack' + 0).select()
-                                    // } else {
-                                    //     $('#order-place-button').focus()
-                                    // }
-                                }
-                            }, 720)
                         }
                         $('#handy-navi').hide();
                     } else {
@@ -1343,6 +1446,10 @@ export default {
                     if ($('.'+this.jan_code)[0]) {
                         $('.'+this.jan_code).click()
                         _this.jan_code = '';
+                    } else {
+                        console.log(_this.jan_code)
+                        _this.getOrderDataByJan();
+                        // _this.jan_code = '';
                     }
                     // this.insertToJanList()
                 }
@@ -1361,6 +1468,7 @@ export default {
             $('#handy-camara-navi').hide();
 
             if (!reg.test(this.jan_code)) {
+                console.log(this.jan_code)
                 setTimeout(function () {
                     _this.getSearchData(_this.jan_code);
                     _this.jan_code = '';
@@ -1607,7 +1715,7 @@ export default {
             let prices = [];
             _this.preview_product.customer_prices.map(function (price) {
                 prices[price.customer_id] = price.price
-            })
+            });
             // _this.vendors.map(function (customer,index) {
             //     customer.price = prices[customer.customer_id];
             //     // customer.price = prices[customer.customer_id];
@@ -1622,7 +1730,6 @@ export default {
             _this.vendors.map(function (customer,key) {
                 customer.rank = alphabet[key];
             })
-
             _this.maker_id = 0;
             _this.preview_product.title = product.name;
             _this.preview_product.cost = product.cost_price;
@@ -1631,18 +1738,18 @@ export default {
             _this.preview_product.profit = (((_this.preview_product.sell - _this.preview_product.cost) / _this.preview_product.sell) * 100).toFixed(2);
             _this.preview_product.gross_profit_margin = _this.preview_product.gross_profit_margin ? _this.preview_product.gross_profit_margin : (((_this.preview_product.sell - _this.preview_product.cost) / _this.preview_product.cost) * 100).toFixed(2);
 
-            $('#mistumury-mage-preview').modal({backdrop: 'static'})
+
             // $('#special-price').focus();
             // $('#special-price').select();
             setTimeout(function () {
-                $('#cost').focus();
-                $('#cost').select();
-                _this.startSpeech();
-                _this.selected_input = 'cost';
-                // $('#handy-camara-navi').hide();
 
-                _this.navi_button = 4;
-                $('#handy-camara-navi').show();
+                // _this.startSpeech();
+                // _this.selected_input = 'cost';
+                // $('#handy-camara-navi').hide();
+                $('#mistumury-mage-preview').modal({backdrop: 'static'})
+
+                // _this.navi_button = 4;
+                // $('#handy-camara-navi').show();
 
             }, 700)
 
@@ -2330,10 +2437,10 @@ export default {
         },
         onDecode(result) {
             console.log(result)
-            // this.getBarCodeScan();
-            // this.jan_code = result;
-            // $('#handy-navi').hide()
-            // this.getOrderDataByJan()
+            this.getBarCodeScan();
+            this.jan_code = result;
+            $('#handy-navi').hide()
+            this.getOrderDataByJan()
         },
         onLoad() {
             $('#handy-navi').show()
