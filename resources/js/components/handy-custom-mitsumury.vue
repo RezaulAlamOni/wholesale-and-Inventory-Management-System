@@ -127,7 +127,7 @@
                             <a class="btn btn-danger float-right mr-1" @click="deleteMistunury(preview_product)">削除</a>
                             <!--                            <a class="btn btn-success float-right mr-1" @click="naviShow()"> 保存</a>-->
                             <!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
-                            <!--                            <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>-->
+                                                        <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
 
                         </div>
                         <div class="modal-body p-0" style="text-align: center" onclick="$('#handy-camara-navi').show();">
