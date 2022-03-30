@@ -907,6 +907,7 @@ SELECT vendor_orders.order_case_quantity,vendor_orders.order_ball_quantity,vendo
         }
         $title = "";
         $view = view('backend.handy_pages.handy_stock_inventory_get_by_jan_code', compact('title', 'active', 'result', 'total_jaikos_stock'))->render();
+        $result[0]->created_at = date('Y-m-d',strtotime($result[0]->created_at));
         return response()->json(['status' => 200, 'status_code' => 200, 'view' => $view,'result'=>$result]);
 
 
