@@ -528,7 +528,83 @@
                             <div class="detail-pro">
                                 {{ preview_product.created_at }}
                             </div>
+                            <div class="mb-4" style="margin-bottom: 80px !important;">
+                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls " style="margin-top: 30px;margin-bottom: 50px">
+                                    <thead>
+                                    <tr>
+                                        <th colspan="3" style="text-align: left;border-right: none !important;">
+                                            <input class="form-check-input check-all m-0" @click="selectAllSuper()"
+                                                   v-model="allSelectedSuper" type="checkbox" value="">
+                                            <label class="form-check-label " style="margin-left: 40px"
+                                                   for="flexCheckChecked">
+                                                全て
+                                            </label>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <thead>
+                                    <tr>
 
+                                        <th >
+                                            スーパー名
+                                        </th>
+                                        <th>
+                                            ランク
+                                            設定
+                                        </th>
+                                        <th >
+                                            %
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody data-v-c9953dda="" class="physicaltbody">
+
+                                    <!--                                <tr :class="(selectedSuper.indexOf(vendor.id) > -1) ? 'active-c' : ''"-->
+                                    <!--                                    v-for="vendor in vendors" style="border-bottom: 1px solid gray">-->
+                                    <!--                                    <td style="width: 50px;padding: 10px;border: none !important;">-->
+                                    <!--                                        <input class="form-check-input m-0" type="checkbox" v-model="selectedSuper"-->
+                                    <!--                                               :value="vendor.id">-->
+                                    <!--                                    </td>-->
+                                    <!--                                    <td style="padding: 10px;;border: none !important;">{{ vendor.text }}</td>-->
+                                    <!--                                </tr>-->
+
+                                    <template v-for="(vendor ,index ) in vendors">
+                                        <tr :class="(selectedSuper.indexOf(vendor.customer_id) > -1) ? 'active-c' : ''"
+                                            style="border-bottom: 1px solid gray"
+                                            @click="clickAndCheck(vendor.customer_id,vendor.price)">
+                                            <td style="display : none;width: 50px;padding: 10px;border: none !important;">
+                                                <input class="form-check-input m-0 hide" :id="vendor.customer_id"
+                                                       type="checkbox"
+                                                       v-model="selectedSuper"
+                                                       :value="vendor.customer_id">
+                                            </td>
+                                            <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
+                                            <td style="padding: 10px;border: none !important;text-align: center;text-transform: uppercase">
+                                                <!--                                                {{ vendor.rank }}-->
+                                                <select class="form-control" style="text-transform: uppercase" id="vendprs" v-model="vendor.price"
+                                                        @change="saveRankOfValue($event,vendor)">
+                                                    <option value="0"></option>
+                                                    <option style="text-transform: uppercase"
+                                                            v-if="i < vendors.length"
+                                                            v-for="(vendor, i) in alphabet_value" :value="100+i*3">
+                                                        {{ vendor }}
+                                                    </option>
+                                                </select>
+
+                                            </td>
+                                            <td style="padding: 10px;border: none !important;width: 80px">
+                                                <input  type="tel"  class="form-control" readonly
+                                                        style="border-radius: 0px; text-align: center; padding: 7px 0px;" :value="vendor.price">
+                                                <!--                                                @keypress="pressEnterAndSGo($event)"-->
+                                                <!--                                                @blur="saveCustomerWisePrice(vendor,index)"-->
+                                            </td>
+                                        </tr>
+                                    </template>
+
+                                    </tbody>
+
+                                </table>
+                            </div>
 
 <!--                            <button-->
 <!--                                class="btn btn-danger float-left mr-1 " @click="deleteMistunury(preview_product)"-->
@@ -1404,12 +1480,17 @@ export default {
                         _this.order_data_ = _this.order_data[0];
                         _this.product_name = _this.order_data[0].item_name;
                         _this.order_data[0].img_url = '/rv3_tonyav1/public/backend/images/products/'+_this.order_data[0].jan+'.png';
+                        _this.order_data[0].image_url = '/rv3_tonyav1/public/backend/images/products/'+_this.order_data[0].jan+'.png';
                         _this.order_data[0].image = '/rv3_tonyav1/public/backend/images/products/'+_this.order_data[0].jan+'.png';
                         _this.order_data[0].sell = _this.order_data[0].selling_price;
                         _this.order_data[0].cost = _this.order_data[0].cost_price;
+                        _this.order_data[0].name = _this.order_data[0].item_name;
+                        _this.order_data[0].ball_unit = _this.order_data[0].ball_inputs;
+                        _this.order_data[0].case_unit = _this.order_data[0].item_name;
                         _this.order_data[0].gross_profit_margin =  _this.order_data[0].profit_margin;
 
                         $('#mistumury-mage-preview-serch').modal({backdrop: 'static'})
+                        _this.productJans = [_this.order_data[0]];
                         _this.previewProductInfoWithImage(_this.order_data[0]);
 
                         if (_this.type == 0) {
@@ -1739,6 +1820,7 @@ export default {
             _this.preview_product.gross_profit_margin = _this.preview_product.gross_profit_margin ? _this.preview_product.gross_profit_margin : (((_this.preview_product.sell - _this.preview_product.cost) / _this.preview_product.cost) * 100).toFixed(2);
 
 
+
             // $('#special-price').focus();
             // $('#special-price').select();
             setTimeout(function () {
@@ -1747,7 +1829,7 @@ export default {
                 // _this.selected_input = 'cost';
                 // $('#handy-camara-navi').hide();
                 $('#mistumury-mage-preview').modal({backdrop: 'static'})
-
+                _this.productJans = [_this.preview_product];
                 // _this.navi_button = 4;
                 // $('#handy-camara-navi').show();
 
@@ -1970,8 +2052,8 @@ export default {
             _this.confirmAndHide('mistumury-select-super');
             this.allSelected = false
             this.allSelectedSuper = false
-            // this.productJans
-            let data = {'item_info': _this.productJans.length > 0 ? _this.productJans : [_this.preview_product], 'super_info': this.selectedSuperShops, 'message': this.message};
+            this.productJans = _this.productJans.length > 0 ? _this.productJans : [_this.preview_product];
+            let data = {'item_info': _this.productJans , 'super_info': this.selectedSuperShops, 'message': this.message};
             this.handi_navi = '少しお待ちどして下さい';
             $('#handy-navi').show();
             $('#mistumury-select-super').modal('hide');
@@ -2261,8 +2343,8 @@ export default {
             }
 
             if (this.selectedSuper.length) {
-                // this.navi_button = 5;
-                // $('#handy-camara-navi').show();
+                this.navi_button = 5;
+                $('#handy-camara-navi').show();
             }
 
         },
