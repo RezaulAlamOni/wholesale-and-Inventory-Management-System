@@ -71,32 +71,44 @@ class CustomMisthsumuryProductController extends Controller
      */
     public function store(Request $request)
     {
-        $image = $request->image;
-        $extension = $image->extension();
-        $name = pathinfo($image->getClientOriginalName(),PATHINFO_FILENAME).time().mt_rand();
 
-//        $image->storeAs('/public', $name .".".$extension);
-        $fileNameToStore = $name .".".$extension;
-        $file = $request->file('image');
-
-        $resize = Image::make($file)->resize(300, null, function ($constraint) {
-            $constraint->aspectRatio();
-        })->encode('jpg');
-
-        // Create hash value
-//        $hash = md5($resize->__toString());
-
-        // Prepare qualified image name
-//        $image = $hash."jpg";
-
-        // Put image to storage
-        $save = Storage::put("public/{$fileNameToStore}", $resize->__toString());
 
         $vendor = vendor::where('user_id',auth()->id())->first();
-        $jan = rand(1000000000,9999999999);
-        $jan = '20'. $vendor->vendor_id . $jan;
 
-        CustomMisthsumuryProduct::create([
+        if (isset($request->jan)){
+            $jan = $request->jan;
+            $iamge_ = $request->image;
+        } else {
+
+            $image = $request->image;
+            $extension = $image->extension();
+            $name = pathinfo($image->getClientOriginalName(),PATHINFO_FILENAME).time().mt_rand();
+
+//        $image->storeAs('/public', $name .".".$extension);
+            $fileNameToStore = $name .".".$extension;
+            $file = $request->file('image');
+
+            $resize = Image::make($file)->resize(300, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->encode('jpg');
+
+            // Create hash value
+//        $hash = md5($resize->__toString());
+
+            // Prepare qualified image name
+//        $image = $hash."jpg";
+
+            // Put image to storage
+            $save = Storage::put("public/{$fileNameToStore}", $resize->__toString());
+
+            $jan = rand(1000000000,9999999999);
+            $jan = '20'. $vendor->vendor_id . $jan;
+
+            $iamge_ = $name .".".$extension;
+        }
+
+
+        CustomMisthsumuryProduct::updateOrinsert(["jan" => $jan],[
             'name' => $request->title,
             'jan' => $jan,
             'vendor_id' => $vendor->vendor_id,
@@ -107,7 +119,7 @@ class CustomMisthsumuryProductController extends Controller
             'gross_profit_margin' => $request->profit_margin,
             'case_unit' => 24,
             'ball_unit' => 6,
-            'image' => $name .".".$extension
+            'image' => $iamge_
         ] );
 
         jan::updateOrinsert(["jan" => $jan],[

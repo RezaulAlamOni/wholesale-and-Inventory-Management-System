@@ -3,7 +3,7 @@
         <div class="main-content-container container-fluid px-4" @dblclick="handiNaviShow()" style="min-height: 100vh">
             <!-- Small Stats Blocks -->
             <!--            voice input    -->
-<!--            <vue-speech lang="ja-JP" :resume="speech_start" style="display: none" @onTranscriptionEnd="getText"/>-->
+            <!--            <vue-speech lang="ja-JP" :resume="speech_start" style="display: none" @onTranscriptionEnd="getText"/>-->
             <!--            voice input  end   -->
 
 
@@ -30,25 +30,25 @@
 
                         <img id="preview">
 
-<!--                        <div class="form-check p-0">-->
-<!--                            <input class="form-check-input check-all hide" @click="selectAll()" v-model="allSelected"-->
-<!--                                   type="checkbox" value="" id="flexCheckChecked">-->
-<!--                            <label class="form-check-label" for="flexCheckChecked">-->
-<!--                                <button class="btn btn-success" onclick="$('#flexCheckChecked').click()"-->
-<!--                                        style="font-size: 18px;">全て-->
-<!--                                </button>-->
-<!--                            </label>-->
-<!--                        </div>-->
-<!--                        ;-->
+                        <!--                        <div class="form-check p-0">-->
+                        <!--                            <input class="form-check-input check-all hide" @click="selectAll()" v-model="allSelected"-->
+                        <!--                                   type="checkbox" value="" id="flexCheckChecked">-->
+                        <!--                            <label class="form-check-label" for="flexCheckChecked">-->
+                        <!--                                <button class="btn btn-success" onclick="$('#flexCheckChecked').click()"-->
+                        <!--                                        style="font-size: 18px;">全て-->
+                        <!--                                </button>-->
+                        <!--                            </label>-->
+                        <!--                        </div>-->
+                        <!--                        ;-->
                         <button onclick="$('#mistumury-super-price-rank-setup').modal({backdrop : 'static'})"
                                 class="btn btn-success pull-right mr-1 " id="show-super-list"
                                 style="padding: 7px 10px; font-size: 18px;position: absolute; top: 5px; right: 0px">
                             ランク付け
                         </button>
-<!--                        <a class="btn btn-danger float-right mr-" v-if="productJans.length > 0"-->
-<!--                           @click="deleteMistunury(null)"-->
-<!--                           style=" position: absolute; top: 5px; right:0px;padding: 5px 10px; font-size: 18px;"-->
-<!--                        > 削除</a>-->
+                        <!--                        <a class="btn btn-danger float-right mr-" v-if="productJans.length > 0"-->
+                        <!--                           @click="deleteMistunury(null)"-->
+                        <!--                           style=" position: absolute; top: 5px; right:0px;padding: 5px 10px; font-size: 18px;"-->
+                        <!--                        > 削除</a>-->
 
                         <button class="btn btn-info mr-1 " @click="showSuperAddForm()"
                                 style="padding: 5px 10px; font-size: 22px; float: left;">
@@ -76,11 +76,11 @@
                                 </div>
 
                                 <div>
-<!--                                    <button type="button" @click="alertForIos" onclick="$('#jan_input').focus()"-->
-<!--                                            class="hide btn custom-btn btn-primary text-right show_inline search-button-ios "-->
-<!--                                            style="float: left;width: 100px">-->
-<!--                                        音声-->
-<!--                                    </button>-->
+                                    <!--                                    <button type="button" @click="alertForIos" onclick="$('#jan_input').focus()"-->
+                                    <!--                                            class="hide btn custom-btn btn-primary text-right show_inline search-button-ios "-->
+                                    <!--                                            style="float: left;width: 100px">-->
+                                    <!--                                        音声-->
+                                    <!--                                    </button>-->
                                     <!--                                    <text-recognition :base_url="base_url" class="hide"-->
                                     <!--                                                      @getSearchData="getSearchData"-->
                                     <!--                                                      @clearInput="clearInput"></text-recognition>-->
@@ -90,17 +90,17 @@
                                             style="padding:0;float: left;width: 70px !important;">
                                         <i class="fa fa-barcode" style="font-size: 40px"></i>
                                     </button>
-<!--                                    <button type="button" v-on:click="getOrderDataByJan()"-->
-<!--                                            style="margin: 0px;width: 80px !important;"-->
-<!--                                            class="btn custom-btn btn-primary pull-right text-right show_inline">-->
-<!--                                        次へ-->
-<!--                                    </button>-->
+                                    <!--                                    <button type="button" v-on:click="getOrderDataByJan()"-->
+                                    <!--                                            style="margin: 0px;width: 80px !important;"-->
+                                    <!--                                            class="btn custom-btn btn-primary pull-right text-right show_inline">-->
+                                    <!--                                        次へ-->
+                                    <!--                                    </button>-->
                                 </div>
 
                             </div>
                             <div class="col-sm-6 col-md-3 col-xl-3 image-div" v-for="(product,i) in products"
                                  :class="(productJans.indexOf(product)) > -1 ? 'active-img' : ''">
-                                <img :src="product.image" :id="'img'+i"
+                                <img :src="product.image.includes('public/backend') ? product.image.replace('public/storage//rv3_tonyav1/','') : product.image" :id="'img'+i"
                                      class="img-thumbnail custom-img" :class="product.jan"
                                      alt="Cinque Terre" @click="viewInfoForImage(product,product.img)"
                                      @dblclick="viewInfoForImage(product,product.img,1)"
@@ -109,10 +109,10 @@
                                        :id="'check_by_'+product.jan" v-model="productJans"
                                        :value="product">
                             </div>
-<!--                            <div class="text-center col-md-12">-->
-<!--                                <a class="btn btn-info" @click="getPaginate(0)" v-if="paginate_products.prev_page_url">&lt;Previous</a>-->
-<!--                                <a class="btn btn-info" @clcik="getPaginate(1)" v-if="paginate_products.next_page_url">Next&gt;</a>-->
-<!--                            </div>-->
+                            <!--                            <div class="text-center col-md-12">-->
+                            <!--                                <a class="btn btn-info" @click="getPaginate(0)" v-if="paginate_products.prev_page_url">&lt;Previous</a>-->
+                            <!--                                <a class="btn btn-info" @clcik="getPaginate(1)" v-if="paginate_products.next_page_url">Next&gt;</a>-->
+                            <!--                            </div>-->
 
                         </div>
                     </div>
@@ -120,17 +120,18 @@
             </div>
 
             <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-                 aria-hidden="true" id="mistumury-mage-preview" >
+                 aria-hidden="true" id="mistumury-mage-preview">
                 <div class="modal-dialog modal-lg mt-0">
                     <div class="modal-content">
                         <div class="modal-header" style="padding: 5px;justify-content: right">
                             <a class="btn btn-danger float-right mr-1" @click="deleteMistunury(preview_product)">削除</a>
                             <!--                            <a class="btn btn-success float-right mr-1" @click="naviShow()"> 保存</a>-->
                             <!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
-                                                        <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
+                            <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
 
                         </div>
-                        <div class="modal-body p-0" style="text-align: center" onclick="$('#handy-camara-navi').show();">
+                        <div class="modal-body p-0" style="text-align: center"
+                             onclick="$('#handy-camara-navi').show();">
                             <div
                                 style="font-size: 18px;text-align: left;padding: 5px 10px;background: #c3ff8f80;font-weight: bold;">
 
@@ -211,27 +212,27 @@
                                     <thead>
                                     <tr>
                                         <th style="width: 50px; text-align: center;padding: 05px">
-                                            ケース  (入数)
+                                            ケース (入数)
                                         </th>
                                         <th style="width: 50px; text-align: center;padding: 05px">
-                                            ボール  (入数)
+                                            ボール (入数)
 
                                         </th>
                                         <!--                                                    <th style="width: 50px; text-align: center;padding: 05px;">-->
                                         <!--                                                        バラ-->
                                         <!--                                                    </th>-->
-<!--                                        <th style="width: 50px; text-align: center; padding: 5px;">-->
-<!--                                            原価-->
-<!--                                        </th>-->
-<!--                                        <th style="width: 50px; text-align: center; padding: 5px;">-->
-<!--                                            売価-->
-<!--                                        </th>-->
-<!--                                        <th style="width: 50px; text-align: center; padding: 5px;">-->
-<!--                                            粗利-->
-<!--                                        </th>-->
-<!--                                        <th style="width: 50px; text-align: center; padding: 5px;">-->
-<!--                                            ％-->
-<!--                                        </th>-->
+                                        <!--                                        <th style="width: 50px; text-align: center; padding: 5px;">-->
+                                        <!--                                            原価-->
+                                        <!--                                        </th>-->
+                                        <!--                                        <th style="width: 50px; text-align: center; padding: 5px;">-->
+                                        <!--                                            売価-->
+                                        <!--                                        </th>-->
+                                        <!--                                        <th style="width: 50px; text-align: center; padding: 5px;">-->
+                                        <!--                                            粗利-->
+                                        <!--                                        </th>-->
+                                        <!--                                        <th style="width: 50px; text-align: center; padding: 5px;">-->
+                                        <!--                                            ％-->
+                                        <!--                                        </th>-->
                                     </tr>
                                     </thead>
                                     <tbody class="physicaltbody">
@@ -270,50 +271,50 @@
                                             <!--                                                                   style="text-align: center">-->
                                             <!--                                                        </td>-->
 
-<!--                                            <td>-->
-<!--                                                <input type="tel"-->
-<!--                                                       @click="selectItem($event,'')"-->
-<!--                                                       @keypress="pressEnterAndSave($event,'sell')"-->
-<!--                                                       @blur="updateVendorItemProperty(order_data[0],'cost')"-->
-<!--                                                       class="form-control  " :id="'cost'"-->
-<!--                                                       v-model="order_data[0].cost_price"-->
-<!--                                                       style="border-radius: 0px; text-align: center;    padding: 7px 0px;">-->
-<!--                                            </td>-->
-<!--                                            <td>-->
-<!--                                                <input type="tel"-->
-<!--                                                       @click="selectItem($event,'')"-->
-<!--                                                       @keypress="pressEnterAndSave($event,'profit_margin')"-->
-<!--                                                       @blur="updateVendorItemProperty(order_data[0],'sell')"-->
-<!--                                                       class="form-control  " :id="'sell'"-->
-<!--                                                       v-model="order_data[0].selling_price"-->
-<!--                                                       style="border-radius: 0px; text-align: center;    padding: 7px 0px;">-->
-<!--                                            </td>-->
-<!--                                            <td>-->
-<!--                                                <input type="tel"-->
-<!--                                                       class="form-control  " :id="'profit'" readonly-->
-<!--                                                       :value="((order_data[0].selling_price-order_data[0].cost_price)).toFixed(2)"-->
-<!--                                                       style="border-radius: 0px; text-align: center;padding : 7px 0px">-->
-                                                <!--                                                            ((order_data[0].selling_price-order_data[0].cost_price)/order_data[0].selling_price*100)-->
-                                                <!--                                                            <input type="tel"-->
-                                                <!--                                                                   @click="selectItem($event,'')"-->
-                                                <!--                                                                   @keypress="pressEnterAndSave($event,'profit_margin')"-->
-                                                <!--                                                                   @blur="updateVendorItemProperty(order_data[0],'profit')"-->
-                                                <!--                                                                   class="form-control  " :id="'profit'"-->
-                                                <!--                                                                   :value="order_data[0].selling_price - order_data[0].cost_price"-->
-                                                <!--                                                                   style="border-radius: 0px; text-align: center;padding : 7px 0px">-->
-<!--                                            </td>-->
+                                            <!--                                            <td>-->
+                                            <!--                                                <input type="tel"-->
+                                            <!--                                                       @click="selectItem($event,'')"-->
+                                            <!--                                                       @keypress="pressEnterAndSave($event,'sell')"-->
+                                            <!--                                                       @blur="updateVendorItemProperty(order_data[0],'cost')"-->
+                                            <!--                                                       class="form-control  " :id="'cost'"-->
+                                            <!--                                                       v-model="order_data[0].cost_price"-->
+                                            <!--                                                       style="border-radius: 0px; text-align: center;    padding: 7px 0px;">-->
+                                            <!--                                            </td>-->
+                                            <!--                                            <td>-->
+                                            <!--                                                <input type="tel"-->
+                                            <!--                                                       @click="selectItem($event,'')"-->
+                                            <!--                                                       @keypress="pressEnterAndSave($event,'profit_margin')"-->
+                                            <!--                                                       @blur="updateVendorItemProperty(order_data[0],'sell')"-->
+                                            <!--                                                       class="form-control  " :id="'sell'"-->
+                                            <!--                                                       v-model="order_data[0].selling_price"-->
+                                            <!--                                                       style="border-radius: 0px; text-align: center;    padding: 7px 0px;">-->
+                                            <!--                                            </td>-->
+                                            <!--                                            <td>-->
+                                            <!--                                                <input type="tel"-->
+                                            <!--                                                       class="form-control  " :id="'profit'" readonly-->
+                                            <!--                                                       :value="((order_data[0].selling_price-order_data[0].cost_price)).toFixed(2)"-->
+                                            <!--                                                       style="border-radius: 0px; text-align: center;padding : 7px 0px">-->
+                                            <!--                                                            ((order_data[0].selling_price-order_data[0].cost_price)/order_data[0].selling_price*100)-->
+                                            <!--                                                            <input type="tel"-->
+                                            <!--                                                                   @click="selectItem($event,'')"-->
+                                            <!--                                                                   @keypress="pressEnterAndSave($event,'profit_margin')"-->
+                                            <!--                                                                   @blur="updateVendorItemProperty(order_data[0],'profit')"-->
+                                            <!--                                                                   class="form-control  " :id="'profit'"-->
+                                            <!--                                                                   :value="order_data[0].selling_price - order_data[0].cost_price"-->
+                                            <!--                                                                   style="border-radius: 0px; text-align: center;padding : 7px 0px">-->
+                                            <!--                                            </td>-->
 
-<!--                                            <td>-->
-<!--                                                <input type="tel"-->
-<!--                                                       @click="selectItem($event,'')"-->
+                                            <!--                                            <td>-->
+                                            <!--                                                <input type="tel"-->
+                                            <!--                                                       @click="selectItem($event,'')"-->
 
-<!--                                                       class="form-control  " :id="'profit_margin'"-->
-<!--                                                       :value="((order_data[0].selling_price-order_data[0].cost_price)/order_data[0].selling_price*100).toFixed(2)"-->
-<!--                                                       style="border-radius: 0px; text-align: center;padding : 7px 0px" readonly>-->
-                                                <!--                                                            @keypress="pressEnterAndSave($event,'case')"-->
-                                                <!--                                                            @blur="updateVendorItemProperty(order_data[0],'profit_margin')"-->
-                                                <!--                                                                   v-model="order_data[0].profit_margin"-->
-<!--                                            </td>-->
+                                            <!--                                                       class="form-control  " :id="'profit_margin'"-->
+                                            <!--                                                       :value="((order_data[0].selling_price-order_data[0].cost_price)/order_data[0].selling_price*100).toFixed(2)"-->
+                                            <!--                                                       style="border-radius: 0px; text-align: center;padding : 7px 0px" readonly>-->
+                                            <!--                                                            @keypress="pressEnterAndSave($event,'case')"-->
+                                            <!--                                                            @blur="updateVendorItemProperty(order_data[0],'profit_margin')"-->
+                                            <!--                                                                   v-model="order_data[0].profit_margin"-->
+                                            <!--                                            </td>-->
 
                                         </tr>
                                     </template>
@@ -338,7 +339,8 @@
                                 {{ preview_product.created_at }}
                             </div>
                             <div class="mb-4" style="margin-bottom: 80px !important;">
-                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls " style="margin-top: 30px;margin-bottom: 50px">
+                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls "
+                                       style="margin-top: 30px;margin-bottom: 50px">
                                     <thead>
                                     <tr>
                                         <th colspan="3" style="text-align: left;border-right: none !important;">
@@ -354,14 +356,14 @@
                                     <thead>
                                     <tr>
 
-                                        <th >
+                                        <th>
                                             スーパー名
                                         </th>
                                         <th>
                                             ランク
                                             設定
                                         </th>
-                                        <th >
+                                        <th>
                                             %
                                         </th>
                                     </tr>
@@ -389,8 +391,9 @@
                                             </td>
                                             <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
                                             <td style="padding: 10px;border: none !important;text-align: center;text-transform: uppercase">
-<!--                                                {{ vendor.rank }}-->
-                                                <select class="form-control" style="text-transform: uppercase" id="vendprs" v-model="vendor.price"
+                                                <!--                                                {{ vendor.rank }}-->
+                                                <select class="form-control" style="text-transform: uppercase"
+                                                        id="vendprs" v-model="vendor.price"
                                                         @change="saveRankOfValue($event,vendor)">
                                                     <option value="0"></option>
                                                     <option style="text-transform: uppercase"
@@ -402,10 +405,11 @@
 
                                             </td>
                                             <td style="padding: 10px;border: none !important;width: 80px">
-                                                <input  type="tel"  class="form-control" readonly
-                                                        style="border-radius: 0px; text-align: center; padding: 7px 0px;" :value="vendor.price">
-<!--                                                @keypress="pressEnterAndSGo($event)"-->
-<!--                                                @blur="saveCustomerWisePrice(vendor,index)"-->
+                                                <input type="tel" class="form-control" readonly
+                                                       style="border-radius: 0px; text-align: center; padding: 7px 0px;"
+                                                       :value="vendor.price">
+                                                <!--                                                @keypress="pressEnterAndSGo($event)"-->
+                                                <!--                                                @blur="saveCustomerWisePrice(vendor,index)"-->
                                             </td>
                                         </tr>
                                     </template>
@@ -415,16 +419,16 @@
                                 </table>
                             </div>
 
-<!--                            <button-->
-<!--                                class="btn btn-danger float-left mr-1 " @click="deleteMistunury(preview_product)"-->
-<!--                                style="padding: 5px 5px; font-size: 18px;float: left;">-->
-<!--                                削除-->
-<!--                            </button>-->
-<!--                            <button-->
-<!--                                class="btn btn-success float-right mr-1 " @click="sendtoSuper()" :disabled="selectedSuper.length <= 0 ? true : false"-->
-<!--                                style="top: 5px; right: 0px;padding: 5px 5px; font-size: 18px; float: right;">-->
-<!--                                送信-->
-<!--                            </button>-->
+                            <!--                            <button-->
+                            <!--                                class="btn btn-danger float-left mr-1 " @click="deleteMistunury(preview_product)"-->
+                            <!--                                style="padding: 5px 5px; font-size: 18px;float: left;">-->
+                            <!--                                削除-->
+                            <!--                            </button>-->
+                            <!--                            <button-->
+                            <!--                                class="btn btn-success float-right mr-1 " @click="sendtoSuper()" :disabled="selectedSuper.length <= 0 ? true : false"-->
+                            <!--                                style="top: 5px; right: 0px;padding: 5px 5px; font-size: 18px; float: right;">-->
+                            <!--                                送信-->
+                            <!--                            </button>-->
 
 
                         </div>
@@ -435,17 +439,18 @@
             </div>
             <!--        // mistumury-prodct-add-modal-->
             <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-                 aria-hidden="true" id="mistumury-mage-preview-serch" >
+                 aria-hidden="true" id="mistumury-mage-preview-serch">
                 <div class="modal-dialog modal-lg mt-0">
                     <div class="modal-content">
                         <div class="modal-header" style="padding: 5px;justify-content: right">
-<!--                            <a class="btn btn-danger float-right mr-1" @click="deleteMistunury(preview_product)">削除</a>-->
+                            <!--                            <a class="btn btn-danger float-right mr-1" @click="deleteMistunury(preview_product)">削除</a>-->
                             <!--                            <a class="btn btn-success float-right mr-1" @click="naviShow()"> 保存</a>-->
                             <!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
                             <a class="btn btn-info float-right" @click="confirmAndHide('mistumury-mage-preview-serch')">戻る</a>
 
                         </div>
-                        <div class="modal-body p-0" style="text-align: center" onclick="$('#handy-camara-navi').show();">
+                        <div class="modal-body p-0" style="text-align: center"
+                             onclick="$('#handy-camara-navi').show();">
                             <div
                                 style="font-size: 18px;text-align: left;padding: 5px 10px;background: #c3ff8f80;font-weight: bold;">
 
@@ -529,7 +534,8 @@
                                 {{ preview_product.created_at }}
                             </div>
                             <div class="mb-4" style="margin-bottom: 80px !important;">
-                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls " style="margin-top: 30px;margin-bottom: 50px">
+                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls "
+                                       style="margin-top: 30px;margin-bottom: 50px">
                                     <thead>
                                     <tr>
                                         <th colspan="3" style="text-align: left;border-right: none !important;">
@@ -545,14 +551,14 @@
                                     <thead>
                                     <tr>
 
-                                        <th >
+                                        <th>
                                             スーパー名
                                         </th>
                                         <th>
                                             ランク
                                             設定
                                         </th>
-                                        <th >
+                                        <th>
                                             %
                                         </th>
                                     </tr>
@@ -581,7 +587,8 @@
                                             <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
                                             <td style="padding: 10px;border: none !important;text-align: center;text-transform: uppercase">
                                                 <!--                                                {{ vendor.rank }}-->
-                                                <select class="form-control" style="text-transform: uppercase" id="vendprs" v-model="vendor.price"
+                                                <select class="form-control" style="text-transform: uppercase"
+                                                        id="vendprs" v-model="vendor.price"
                                                         @change="saveRankOfValue($event,vendor)">
                                                     <option value="0"></option>
                                                     <option style="text-transform: uppercase"
@@ -593,8 +600,9 @@
 
                                             </td>
                                             <td style="padding: 10px;border: none !important;width: 80px">
-                                                <input  type="tel"  class="form-control" readonly
-                                                        style="border-radius: 0px; text-align: center; padding: 7px 0px;" :value="vendor.price">
+                                                <input type="tel" class="form-control" readonly
+                                                       style="border-radius: 0px; text-align: center; padding: 7px 0px;"
+                                                       :value="vendor.price">
                                                 <!--                                                @keypress="pressEnterAndSGo($event)"-->
                                                 <!--                                                @blur="saveCustomerWisePrice(vendor,index)"-->
                                             </td>
@@ -606,16 +614,16 @@
                                 </table>
                             </div>
 
-<!--                            <button-->
-<!--                                class="btn btn-danger float-left mr-1 " @click="deleteMistunury(preview_product)"-->
-<!--                                style="padding: 5px 5px; font-size: 18px;float: left;">-->
-<!--                                削除-->
-<!--                            </button>-->
-<!--                            <button-->
-<!--                                class="btn btn-success float-right mr-1 " @click="sendtoSuper()" :disabled="selectedSuper.length <= 0 ? true : false"-->
-<!--                                style="top: 5px; right: 0px;padding: 5px 5px; font-size: 18px; float: right;">-->
-<!--                                送信-->
-<!--                            </button>-->
+                            <!--                            <button-->
+                            <!--                                class="btn btn-danger float-left mr-1 " @click="deleteMistunury(preview_product)"-->
+                            <!--                                style="padding: 5px 5px; font-size: 18px;float: left;">-->
+                            <!--                                削除-->
+                            <!--                            </button>-->
+                            <!--                            <button-->
+                            <!--                                class="btn btn-success float-right mr-1 " @click="sendtoSuper()" :disabled="selectedSuper.length <= 0 ? true : false"-->
+                            <!--                                style="top: 5px; right: 0px;padding: 5px 5px; font-size: 18px; float: right;">-->
+                            <!--                                送信-->
+                            <!--                            </button>-->
 
 
                         </div>
@@ -787,23 +795,23 @@
                                             <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
                                         </tr>
 
-<!--                                        <tr v-if="selectedSuper.indexOf(vendor.customer_id) > -1">-->
-<!--                                            <td colspan="2">-->
-<!--                                                <table data-v-c9953dda=""-->
-<!--                                                       class="table table-borderless physical_handy_tabls">-->
-<!--                                                    <tr style="border-bottom: 1px solid gray"-->
-<!--                                                        v-for="shop in vendor.shops"-->
-<!--                                                        :class="(checkExist(shop.customer_shop_id)) ? 'active-c' : ''"-->
-<!--                                                        @click="selectSuperShop(vendor.customer_id,shop.customer_shop_id)">-->
-<!--                                                        <td style="border: none !important;padding: 10px"></td>-->
-<!--                                                        <td style="border: none !important;padding: 10px"></td>-->
-<!--                                                        <td style="padding: 10px;;border: none !important;">-->
-<!--                                                            {{ shop.shop_name }}-->
-<!--                                                        </td>-->
-<!--                                                    </tr>-->
-<!--                                                </table>-->
-<!--                                            </td>-->
-<!--                                        </tr>-->
+                                        <!--                                        <tr v-if="selectedSuper.indexOf(vendor.customer_id) > -1">-->
+                                        <!--                                            <td colspan="2">-->
+                                        <!--                                                <table data-v-c9953dda=""-->
+                                        <!--                                                       class="table table-borderless physical_handy_tabls">-->
+                                        <!--                                                    <tr style="border-bottom: 1px solid gray"-->
+                                        <!--                                                        v-for="shop in vendor.shops"-->
+                                        <!--                                                        :class="(checkExist(shop.customer_shop_id)) ? 'active-c' : ''"-->
+                                        <!--                                                        @click="selectSuperShop(vendor.customer_id,shop.customer_shop_id)">-->
+                                        <!--                                                        <td style="border: none !important;padding: 10px"></td>-->
+                                        <!--                                                        <td style="border: none !important;padding: 10px"></td>-->
+                                        <!--                                                        <td style="padding: 10px;;border: none !important;">-->
+                                        <!--                                                            {{ shop.shop_name }}-->
+                                        <!--                                                        </td>-->
+                                        <!--                                                    </tr>-->
+                                        <!--                                                </table>-->
+                                        <!--                                            </td>-->
+                                        <!--                                        </tr>-->
                                     </template>
 
                                     </tbody>
@@ -828,7 +836,8 @@
                 </div>
             </div>
 
-            <div class="modal fade bd-example-modal-lg" style="top: 100px" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+            <div class="modal fade bd-example-modal-lg" style="top: 100px" tabindex="-1" role="dialog"
+                 aria-labelledby="myLargeModalLabel"
                  aria-hidden="true" id="mistumury-add-product-continue">
                 <div class="modal-dialog modal-lg mt-0">
                     <div class="modal-content">
@@ -850,8 +859,8 @@
                         </div>
                         <div class="modal-body" style="padding: 5px;display: none">
                             <button
-                                    class="btn btn-success float-left mr-1 "
-                                    style="padding: 5px 5px; font-size: 18px;float: left;">
+                                class="btn btn-success float-left mr-1 "
+                                style="padding: 5px 5px; font-size: 18px;float: left;">
                                 スーパー一覧表
                             </button>
                             <button @click="super_price = super_price ? 0 : 1"
@@ -860,7 +869,8 @@
                                 スーパー別
                             </button>
                             <div>
-                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls " style="margin-top: 30px;margin-bottom: 50px">
+                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls "
+                                       style="margin-top: 30px;margin-bottom: 50px">
                                     <thead>
                                     <tr>
                                         <th colspan="3" style="text-align: left;border-right: none !important;">
@@ -876,14 +886,14 @@
                                     <thead>
                                     <tr>
 
-                                        <th >
+                                        <th>
                                             スーパー名
                                         </th>
                                         <th>
                                             ランク
                                             設定
                                         </th>
-                                        <th >
+                                        <th>
                                             %
                                         </th>
                                     </tr>
@@ -912,7 +922,8 @@
                                             <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
                                             <td style="padding: 10px;border: none !important;text-align: center;text-transform: uppercase">
                                                 <!--                                                {{ vendor.rank }}-->
-                                                <select class="form-control" style="text-transform: uppercase" id="vendprs"
+                                                <select class="form-control" style="text-transform: uppercase"
+                                                        id="vendprs"
                                                         v-model="vendor.price"
                                                         @change="saveRankOfValue($event,vendor)">
                                                     <option value="0"></option>
@@ -925,8 +936,9 @@
 
                                             </td>
                                             <td style="padding: 10px;border: none !important;width: 80px">
-                                                <input  type="tel"  class="form-control" readonly
-                                                        style="border-radius: 0px; text-align: center; padding: 7px 0px;" :value="vendor.price">
+                                                <input type="tel" class="form-control" readonly
+                                                       style="border-radius: 0px; text-align: center; padding: 7px 0px;"
+                                                       :value="vendor.price">
                                                 <!--                                                @keypress="pressEnterAndSGo($event)"-->
                                                 <!--                                                @blur="saveCustomerWisePrice(vendor,index)"-->
                                             </td>
@@ -944,8 +956,9 @@
                                 削除
                             </button>
                             <button
-                                    class="btn btn-success float-right mr-1 " @click="sendtoSuper()" :disabled="selectedSuper.length <= 0 ? true : false"
-                                    style="top: 5px; right: 0px;padding: 5px 5px; font-size: 18px; float: right;">
+                                class="btn btn-success float-right mr-1 " @click="sendtoSuper()"
+                                :disabled="selectedSuper.length <= 0 ? true : false"
+                                style="top: 5px; right: 0px;padding: 5px 5px; font-size: 18px; float: right;">
                                 送信
                             </button>
                         </div>
@@ -954,19 +967,21 @@
                     </div>
                 </div>
             </div>
-<!--            super price rank setup -->
-            <div class="modal fade bd-example-modal-lg" style="top: 100px" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+            <!--            super price rank setup -->
+            <div class="modal fade bd-example-modal-lg" style="top: 100px" tabindex="-1" role="dialog"
+                 aria-labelledby="myLargeModalLabel"
                  aria-hidden="true" id="mistumury-super-price-rank-setup">
                 <div class="modal-dialog modal-lg mt-0">
                     <div class="modal-content">
                         <div class="modal-header" style="padding: 20px;text-align: right">
-                            <button onclick="$('#mistumury-super-price-rank-setup').modal('hide');"  @click="new_super_plag = 0;"
+                            <button onclick="$('#mistumury-super-price-rank-setup').modal('hide');"
+                                    @click="new_super_plag = 0;"
                                     class="btn btn-primary mr-1 float-right" id="show-super-list_--"
                                     style="padding: 5px 10px; font-size: 22px; float: right;">
                                 戻る
                             </button>
                             <button class="btn btn-info mr-1 " @click="new_super_plag = 1"
-                                        style="padding: 5px 10px; font-size: 22px; float: right;">
+                                    style="padding: 5px 10px; font-size: 22px; float: right;">
                                 スーパー登録
                             </button>
                         </div>
@@ -987,20 +1002,20 @@
                                            name="customer_email" v-model="customer.email" required>
 
                                     <!--                                    <div class="form-group row">-->
-<!--                                        <label for="customer_code" class="col-sm-4 col-form-label">販売先コード</label>-->
-<!--                                        <div class="col-sm-8">-->
-<!--                                            <input type="tel" maxlength="6" class="form-control-plaintext"-->
-<!--                                                   name="customer_code"-->
-<!--                                                   id="customer_code" v-model="customer.code">-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                    <div class="form-group row">-->
-<!--                                        <label for="customer_phone" class="col-sm-4 col-form-label">メイル</label>-->
-<!--                                        <div class="col-sm-8">-->
-<!--                                            <input type="email" class="form-control-plaintext" id="customer_email"-->
-<!--                                                   name="customer_email" v-model="customer.email" required>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
+                                    <!--                                        <label for="customer_code" class="col-sm-4 col-form-label">販売先コード</label>-->
+                                    <!--                                        <div class="col-sm-8">-->
+                                    <!--                                            <input type="tel" maxlength="6" class="form-control-plaintext"-->
+                                    <!--                                                   name="customer_code"-->
+                                    <!--                                                   id="customer_code" v-model="customer.code">-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+                                    <!--                                    <div class="form-group row">-->
+                                    <!--                                        <label for="customer_phone" class="col-sm-4 col-form-label">メイル</label>-->
+                                    <!--                                        <div class="col-sm-8">-->
+                                    <!--                                            <input type="email" class="form-control-plaintext" id="customer_email"-->
+                                    <!--                                                   name="customer_email" v-model="customer.email" required>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
                                     <div class="form-group row">
                                         <label for="customer_phone" class="col-sm-4 col-form-label">電話番号</label>
                                         <div class="col-sm-8">
@@ -1009,36 +1024,38 @@
                                         </div>
                                     </div>
                                 </form>
-                                <button type="button" class="btn btn-info float-right" @click="saveCustomer()">追加</button>
+                                <button type="button" class="btn btn-info float-right" @click="saveCustomer()">追加
+                                </button>
 
 
                             </div>
 
                             <div>
-                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls " style="margin-top: 30px;margin-bottom: 50px">
+                                <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls "
+                                       style="margin-top: 30px;margin-bottom: 50px">
                                     <thead>
                                     <tr>
                                         <th colspan="3" style="text-align: left;border-right: none !important;">
-<!--                                            <input class="form-check-input check-all m-0" @click="selectAllSuper()"-->
-<!--                                                   v-model="allSelectedSuper" type="checkbox" value="">-->
-<!--                                            <label class="form-check-label " style="margin-left: 40px"-->
-<!--                                                   for="flexCheckChecked">-->
-<!--                                                全て-->
-<!--                                            </label>-->
+                                            <!--                                            <input class="form-check-input check-all m-0" @click="selectAllSuper()"-->
+                                            <!--                                                   v-model="allSelectedSuper" type="checkbox" value="">-->
+                                            <!--                                            <label class="form-check-label " style="margin-left: 40px"-->
+                                            <!--                                                   for="flexCheckChecked">-->
+                                            <!--                                                全て-->
+                                            <!--                                            </label>-->
                                         </th>
                                     </tr>
                                     </thead>
                                     <thead>
                                     <tr>
 
-                                        <th >
+                                        <th>
                                             スーパー名
                                         </th>
                                         <th>
                                             ランク
                                             設定
                                         </th>
-                                        <th >
+                                        <th>
                                             %
                                         </th>
                                     </tr>
@@ -1057,7 +1074,7 @@
                                     <template v-for="(vendor ,index ) in vendors">
                                         <tr :class="(selectedSuper.indexOf(vendor.customer_id) > -1) ? 'active-c' : ''"
                                             style="border-bottom: 1px solid gray"
-                                            >
+                                        >
                                             <td style="display : none;width: 50px;padding: 10px;border: none !important;">
                                                 <input class="form-check-input m-0 hide" :id="vendor.customer_id"
                                                        type="checkbox"
@@ -1067,7 +1084,8 @@
                                             <td style="padding: 10px;;border: none !important;">{{ vendor.name }}</td>
                                             <td style="padding: 10px;border: none !important;text-align: center;text-transform: uppercase">
                                                 <!--                                                {{ vendor.rank }}-->
-                                                <select class="form-control" style="text-transform: uppercase" id="vendprs"
+                                                <select class="form-control" style="text-transform: uppercase"
+                                                        id="vendprs"
                                                         v-model="vendor.price"
                                                         @change="saveRankOfValue($event,vendor)">
                                                     <option value="0"></option>
@@ -1080,8 +1098,9 @@
 
                                             </td>
                                             <td style="padding: 10px;border: none !important;width: 80px">
-                                                <input  type="tel"  class="form-control" readonly
-                                                        style="border-radius: 0px; text-align: center; padding: 7px 0px;" :value="vendor.price">
+                                                <input type="tel" class="form-control" readonly
+                                                       style="border-radius: 0px; text-align: center; padding: 7px 0px;"
+                                                       :value="vendor.price">
                                                 <!--                                                @keypress="pressEnterAndSGo($event)"-->
                                                 <!--                                                @blur="saveCustomerWisePrice(vendor,index)"-->
                                             </td>
@@ -1144,7 +1163,8 @@
                     </div>
                 </div>
             </div>
-            <div class="jn nav_disp-w" style="z-index: 9999; right: 15px; bottom: 15px;" :class="navi_button == 4 ? 'navi-width-100' : 'navi-width-350'"
+            <div class="jn nav_disp-w" style="z-index: 9999; right: 15px; bottom: 15px;"
+                 :class="navi_button == 4 ? 'navi-width-100' : 'navi-width-350'"
                  id="handy-camara-navi">
                 <div class="card card-warning jn_old_popup " style="padding: 6px">
                     <div class="card-heading">
@@ -1178,25 +1198,26 @@
                             <a class="btn btn-info float-right" style="font-size: 20px;"
                                @click="confirmAndHide('mistumury-mage-preview')">戻る</a>
 
-                            <button class="btn btn-info pull-left mr-1 "  @click="sendtoSuper()" :disabled="selectedSuper.length <= 0 ? true : false"
+                            <button class="btn btn-info pull-left mr-1 " @click="sendtoSuper()"
+                                    :disabled="selectedSuper.length <= 0 ? true : false"
                                     style=" top: 5px; right: 115px;padding: 5px 10px; font-size: 22px;float: left;font-size: 20px;">
                                 送信
                             </button>
-<!--                            <div style="width: 100%;margin-top: 20px;text-align: center">-->
-<!--                                <button class="btn btn-info pull-right mr-1 "  @click="sendtoSuper()" :disabled="selectedSuper.length <= 0 ? true : false"-->
-<!--                                        style=" top: 5px; right: 115px;padding: 5px 10px; font-size: 22px;float: right;font-size: 20px;">-->
-<!--                                    送信-->
-<!--                                </button>-->
-<!--                                <button class="btn btn-primary pull-right mr-1 " id="show-super-list&#45;&#45;"-->
-<!--                                        style="top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: left;font-size: 20px;">-->
-<!--                                    全体-->
-<!--                                </button>-->
-<!--                                <br>-->
-<!--                                <button class="btn btn-primary pull-right mr-1 " id="show-super-list"-->
-<!--                                        style="top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: left;font-size: 20px;width: 200px">-->
-<!--                                    スーパー別のランク付け-->
-<!--                                </button>-->
-<!--                            </div>-->
+                            <!--                            <div style="width: 100%;margin-top: 20px;text-align: center">-->
+                            <!--                                <button class="btn btn-info pull-right mr-1 "  @click="sendtoSuper()" :disabled="selectedSuper.length <= 0 ? true : false"-->
+                            <!--                                        style=" top: 5px; right: 115px;padding: 5px 10px; font-size: 22px;float: right;font-size: 20px;">-->
+                            <!--                                    送信-->
+                            <!--                                </button>-->
+                            <!--                                <button class="btn btn-primary pull-right mr-1 " id="show-super-list&#45;&#45;"-->
+                            <!--                                        style="top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: left;font-size: 20px;">-->
+                            <!--                                    全体-->
+                            <!--                                </button>-->
+                            <!--                                <br>-->
+                            <!--                                <button class="btn btn-primary pull-right mr-1 " id="show-super-list"-->
+                            <!--                                        style="top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: left;font-size: 20px;width: 200px">-->
+                            <!--                                    スーパー別のランク付け-->
+                            <!--                                </button>-->
+                            <!--                            </div>-->
 
                         </template>
 
@@ -1266,10 +1287,10 @@ export default {
             navi_button: null,
             product_select_mode: 0,
             success_navi: '',
-            super_price : 0,
-            alphabet_value : [],
-            base_price : 100,
-            new_super_plag : 0,
+            super_price: 0,
+            alphabet_value: [],
+            base_price: 100,
+            new_super_plag: 0,
             customer: {},
 
         }
@@ -1286,14 +1307,14 @@ export default {
         setTimeout(function () {
             // _this.addProductModal(1);
         }, 3000)
-        let i,j = 0;
-        for(i=9;++i<36;){
-            if(i <= 14) {
+        let i, j = 0;
+        for (i = 9; ++i < 36;) {
+            if (i <= 14) {
                 _this.alphabet_value.push(i.toString(36));
                 j++;
             }
         }
-        $(window).scroll(function() {
+        $(window).scroll(function () {
             // if($(window).scrollbarXBottom() == $(document).height() - $(window).height()) {
             //     // ajax call get data from server and append to the div
             //     // alert('bottom')
@@ -1333,22 +1354,22 @@ export default {
                 // customer.price = _this.products[0].selling_price;
                 customer.price = customer.price_rank ? customer.price_rank.price : 100;
             })
-            _this.vendors.sort((a,b) => a.price - b.price);
-            let i,alphabet= [];
-            for(i=9;++i<36;){
-                alphabet.push( i.toString(36));
+            _this.vendors.sort((a, b) => a.price - b.price);
+            let i, alphabet = [];
+            for (i = 9; ++i < 36;) {
+                alphabet.push(i.toString(36));
             }
 
-            _this.vendors.map(function (customer,key) {
+            _this.vendors.map(function (customer, key) {
                 customer.rank = alphabet[key];
             })
         },
-        getPaginate(){
+        getPaginate() {
             let _this = this;
             if (!_this.paginate_products.next_page_url) {
                 return 0;
             }
-            axios.get(this.base_url + '/get-all-custom-mistumury-products/'+(_this.paginate_products.current_page+1))
+            axios.get(this.base_url + '/get-all-custom-mistumury-products/' + (_this.paginate_products.current_page + 1))
                 .then(function (res) {
                     let data = res.data;
                     _this.paginate_products = data.products;
@@ -1359,13 +1380,13 @@ export default {
                         // customer.price = _this.products[0].selling_price;
                         customer.price = customer.price_rank ? customer.price_rank.price : 100;
                     })
-                    _this.vendors.sort((a,b) => a.price - b.price);
-                    let i,alphabet= [];
-                    for(i=9;++i<36;){
-                        alphabet.push( i.toString(36));
+                    _this.vendors.sort((a, b) => a.price - b.price);
+                    let i, alphabet = [];
+                    for (i = 9; ++i < 36;) {
+                        alphabet.push(i.toString(36));
                     }
 
-                    _this.vendors.map(function (customer,key) {
+                    _this.vendors.map(function (customer, key) {
                         customer.rank = alphabet[key];
                     })
                 })
@@ -1447,7 +1468,7 @@ export default {
                 $('#handy-camara-navi').hide();
                 setTimeout(function () {
                     $('#handy-camara-navi').hide();
-                },1000)
+                }, 1000)
             }
             if (type == 'mistumury-select-super') {
                 this.product_select_mode = 0;
@@ -1479,15 +1500,18 @@ export default {
                         _this.order_data = res.data.result;
                         _this.order_data_ = _this.order_data[0];
                         _this.product_name = _this.order_data[0].item_name;
-                        _this.order_data[0].img_url = '/rv3_tonyav1/public/backend/images/products/'+_this.order_data[0].jan+'.png';
-                        _this.order_data[0].image_url = '/rv3_tonyav1/public/backend/images/products/'+_this.order_data[0].jan+'.png';
-                        _this.order_data[0].image = '/rv3_tonyav1/public/backend/images/products/'+_this.order_data[0].jan+'.png';
-                        _this.order_data[0].sell = _this.order_data[0].selling_price;
-                        _this.order_data[0].cost = _this.order_data[0].cost_price;
-                        _this.order_data[0].name = _this.order_data[0].item_name;
+                        _this.order_data[0].img_url = '/rv3_tonyav1/public/backend/images/products/' + _this.order_data[0].jan + '.png';
+                        _this.order_data[0].image_url = '/rv3_tonyav1/public/backend/images/products/' + _this.order_data[0].jan + '.png';
+                        _this.order_data[0].image = _this.mistumury_product.image = '/rv3_tonyav1/public/backend/images/products/' + _this.order_data[0].jan + '.png';
+                        _this.order_data[0].sell = _this.mistumury_product.sell = _this.order_data[0].selling_price;
+                        _this.order_data[0].cost = _this.mistumury_product.cost = _this.order_data[0].cost_price;
+                        _this.order_data[0].name = _this.mistumury_product.title = _this.order_data[0].item_name;
+                        _this.order_data[0].gross_profit_margin = _this.mistumury_product.profit_margin = _this.order_data[0].profit_margin;
                         _this.order_data[0].ball_unit = _this.order_data[0].ball_inputs;
                         _this.order_data[0].case_unit = _this.order_data[0].item_name;
-                        _this.order_data[0].gross_profit_margin =  _this.order_data[0].profit_margin;
+                        _this.mistumury_product.jan = _this.order_data[0].jan;
+
+                        _this.saveNewMistumuryProductFromScan();
 
                         $('#mistumury-mage-preview-serch').modal({backdrop: 'static'})
                         _this.productJans = [_this.order_data[0]];
@@ -1524,8 +1548,8 @@ export default {
 
             if (this.jan_code.length >= 13 || this.jan_code.length == 8) {
                 if (reg.test(this.jan_code)) {
-                    if ($('.'+this.jan_code)[0]) {
-                        $('.'+this.jan_code).click()
+                    if ($('.' + this.jan_code)[0]) {
+                        $('.' + this.jan_code).click()
                         _this.jan_code = '';
                     } else {
                         console.log(_this.jan_code)
@@ -1537,8 +1561,8 @@ export default {
             }
             if (e.keyCode === 13) {
                 if (reg.test(this.jan_code) && this.jan_code.length >= 8) {
-                    if ($('.'+this.jan_code)[0]) {
-                        $('.'+this.jan_code).click()
+                    if ($('.' + this.jan_code)[0]) {
+                        $('.' + this.jan_code).click()
                         _this.jan_code = '';
                     }
                     // this.insertToJanList()
@@ -1801,14 +1825,14 @@ export default {
             //     customer.price = prices[customer.customer_id];
             //     // customer.price = prices[customer.customer_id];
             // })
-            _this.vendors.sort((a,b) => a.price - b.price);
+            _this.vendors.sort((a, b) => a.price - b.price);
             _this.preview_product.prices = prices
-            let i,alphabet= [];
-            for(i=9;++i<36;){
-                alphabet.push( i.toString(36));
+            let i, alphabet = [];
+            for (i = 9; ++i < 36;) {
+                alphabet.push(i.toString(36));
             }
 
-            _this.vendors.map(function (customer,key) {
+            _this.vendors.map(function (customer, key) {
                 customer.rank = alphabet[key];
             })
             _this.maker_id = 0;
@@ -1818,7 +1842,6 @@ export default {
             // _this.preview_product.profit = product.selling_price - product.cost_price;
             _this.preview_product.profit = (((_this.preview_product.sell - _this.preview_product.cost) / _this.preview_product.sell) * 100).toFixed(2);
             _this.preview_product.gross_profit_margin = _this.preview_product.gross_profit_margin ? _this.preview_product.gross_profit_margin : (((_this.preview_product.sell - _this.preview_product.cost) / _this.preview_product.cost) * 100).toFixed(2);
-
 
 
             // $('#special-price').focus();
@@ -2000,7 +2023,7 @@ export default {
                     _this.selectedSuperShops.push({
                         c_id: ven.customer_id, s_ids: ven.shops.map(function (sp) {
                             return sp.customer_shop_id;
-                        }), price :((_this.base_price*ven.price)/100)
+                        }), price: ((_this.base_price * ven.price) / 100)
                     })
                 })
             }
@@ -2053,7 +2076,7 @@ export default {
             this.allSelected = false
             this.allSelectedSuper = false
             this.productJans = _this.productJans.length > 0 ? _this.productJans : [_this.preview_product];
-            let data = {'item_info': _this.productJans , 'super_info': this.selectedSuperShops, 'message': this.message};
+            let data = {'item_info': _this.productJans, 'super_info': this.selectedSuperShops, 'message': this.message};
             this.handi_navi = '少しお待ちどして下さい';
             $('#handy-navi').show();
             $('#mistumury-select-super').modal('hide');
@@ -2093,11 +2116,12 @@ export default {
                     var img = new Image;
                     img.onload = resizeImage;
                     img.src = e.target.result;
+
                     function resizeImage() {
                         var newDataUri = _this.imageToDataUri(this, 150, 150);
                         // console.log(newDataUri)
 
-                        let imag = _this.dataURLtoFile(newDataUri,'data.png');
+                        let imag = _this.dataURLtoFile(newDataUri, 'data.png');
                         _this.mistumury_product.image = imag;
                         _this.saveNewMistumuryProduct();
                     }
@@ -2124,11 +2148,11 @@ export default {
                 n = bstr.length,
                 u8arr = new Uint8Array(n);
 
-            while(n--){
+            while (n--) {
                 u8arr[n] = bstr.charCodeAt(n);
             }
 
-            return new File([u8arr], filename, {type:mime});
+            return new File([u8arr], filename, {type: mime});
         },
 
         imageToDataUri(img, width, height) {
@@ -2216,7 +2240,7 @@ export default {
                     _this.success_navi = '画像保存されました'
                     $('.loading_image_custom').hide()
                     _this.loader = 0
-                    $('#mistumury-add-product-continue').modal({backdrop : 'static'})
+                    $('#mistumury-add-product-continue').modal({backdrop: 'static'})
                     setTimeout(function () {
                         _this.success_navi = '';
                     }, 10000)
@@ -2257,7 +2281,7 @@ export default {
 
         deleteProduct: function () {
             let _this = this;
-            _this.productJans = _this.preview_product ? [_this.preview_product]  : _this.products
+            _this.productJans = _this.preview_product ? [_this.preview_product] : _this.products
             let data = _this.productJans.map(function (pr) {
                 return pr.jan
             })
@@ -2325,7 +2349,7 @@ export default {
         },
 
         // for checkbox clcik
-        clickAndCheck(id,price) {
+        clickAndCheck(id, price) {
             $('#' + id).click();
             let _this = this;
             _this.check = null;
@@ -2337,7 +2361,7 @@ export default {
             })
 
             if (_this.check == null) {
-                this.selectedSuperShops.push({c_id: id, s_ids: [],price : ((_this.base_price*price)/100)})
+                this.selectedSuperShops.push({c_id: id, s_ids: [], price: ((_this.base_price * price) / 100)})
             } else {
                 this.selectedSuperShops.splice(_this.check, 1)
             }
@@ -2400,44 +2424,43 @@ export default {
 
         },
 
-        saveCustomerWisePrice(customer,index){
+        saveCustomerWisePrice(customer, index) {
             let _this = this;
             let data = [];
 
-            if (index == 0)
-            {
-                let price =  customer.price;
-                _this.vendors.map(function (v,i) {
+            if (index == 0) {
+                let price = customer.price;
+                _this.vendors.map(function (v, i) {
                     data.push({
-                        customer_id : v.customer_id,
-                        jan : _this.preview_product.jan,
-                        price : (parseInt(price)+parseInt(i*3))
+                        customer_id: v.customer_id,
+                        jan: _this.preview_product.jan,
+                        price: (parseInt(price) + parseInt(i * 3))
                     })
                 })
 
-                _this.vendors.map(function (v,i) {
-                    v.price = (parseInt(price)+parseInt(i*3))
+                _this.vendors.map(function (v, i) {
+                    v.price = (parseInt(price) + parseInt(i * 3))
                 })
 
             } else {
                 data = [{
-                    customer_id : customer.customer_id,
-                    jan : _this.preview_product.jan,
-                    price : customer.price
+                    customer_id: customer.customer_id,
+                    jan: _this.preview_product.jan,
+                    price: customer.price
                 }]
             }
-            _this.vendors.sort((a,b) => a.price - b.price);
+            _this.vendors.sort((a, b) => a.price - b.price);
 
-            let i,alphabet= [];
-            for(i=9;++i<36;){
-                alphabet.push( i.toString(36));
+            let i, alphabet = [];
+            for (i = 9; ++i < 36;) {
+                alphabet.push(i.toString(36));
             }
 
-            _this.vendors.map(function (customer,key) {
+            _this.vendors.map(function (customer, key) {
                 customer.rank = alphabet[key];
             })
 
-            axios.post(_this.base_url + '/customer-mistumury-products-price', {data : data})
+            axios.post(_this.base_url + '/customer-mistumury-products-price', {data: data})
                 .then(function (response) {
                     _this.getProductsUpdate()
                     _this.navi_button = 4;
@@ -2452,52 +2475,51 @@ export default {
             }
         },
 
-        handleScroll: function(el) {
+        handleScroll: function (el) {
             let _this = this;
-            if((el.srcElement.offsetHeight + el.srcElement.scrollTop) >= el.srcElement.scrollHeight) {
+            if ((el.srcElement.offsetHeight + el.srcElement.scrollTop) >= el.srcElement.scrollHeight) {
                 // this.hasScrolledToBottom = true;
                 // console.log(111)
                 _this.getPaginate();
             }
         },
 
-        saveRankOfValue(e,customer){
+        saveRankOfValue(e, customer) {
             let _this = this;
             let value = e.target.value
             customer.price = value;
 
 
-            _this.saveCustomerWisePrice(customer,2);
+            _this.saveCustomerWisePrice(customer, 2);
         },
 
         saveCustomer() {
             let _this = this;
-            var setApiUrl ='/rv3_tonyav1';
+            var setApiUrl = '/rv3_tonyav1';
 
             let data = {
-                _token :  $('meta[name="csrf-token"]').attr('content'),
+                _token: $('meta[name="csrf-token"]').attr('content'),
                 customer_name: _this.customer.name,
-                customer_code:  _this.customer.phone,
-                customer_phone:  _this.customer.phone,
-                customer_email:  _this.customer.phone+'@jacos.co.jp',
+                customer_code: _this.customer.phone,
+                customer_phone: _this.customer.phone,
+                customer_email: _this.customer.phone + '@jacos.co.jp',
                 user_type: 2
             }
 
-            axios.post(setApiUrl+'/customer_add_edit', data)
+            axios.post(setApiUrl + '/customer_add_edit', data)
                 .then(function (response) {
                     let data = response.data
-                    if(data.message == 'success'){
+                    if (data.message == 'success') {
                         console.log(data)
                         // _this.users = data.users;
                         // $('#customers_reg_modal').modal('hide')
                         _this.getVendorList();
-                        _this.customer= {};
+                        _this.customer = {};
                         _this.new_super_plag = 0;
                         _this.handi_navi = '<li>スーパー登録されました。</li>';
                         $('#handy-navi').show();
                         $('#handy-camara-navi').hide();
-                    }
-                    else {
+                    } else {
                         _this.error_msg = data.message;
                     }
                 })
@@ -2507,7 +2529,7 @@ export default {
         },
         showSuperAddForm() {
             this.new_super_plag = 1;
-            $('#mistumury-super-price-rank-setup').modal({backdrop : 'static'});
+            $('#mistumury-super-price-rank-setup').modal({backdrop: 'static'});
         },
 
         getBarCodeScan() {
@@ -2528,6 +2550,47 @@ export default {
             $('#handy-navi').show()
             this.handi_navi = '<li>********。</li>';
         },
+        saveNewMistumuryProductFromScan() {
+
+            let _this = this;
+            let fd = new FormData()
+
+            fd.append('image', _this.mistumury_product.image)
+
+            fd.append('cost', _this.mistumury_product.cost)
+            fd.append('sell', _this.mistumury_product.sell)
+            fd.append('title', _this.mistumury_product.title)
+            fd.append('type', 'scan')
+            fd.append('profit_margin', _this.mistumury_product.profit_margin)
+            fd.append('jan', _this.mistumury_product.jan)
+            //
+            $('#mistumury-add-product-continue').modal('hide')
+            //
+            axios.post(_this.base_url + '/custom-mistumury-products', fd)
+                .then(function (response) {
+                    _this.selectedSuper = [];
+                    _this.selectedSuperShops = [];
+                    _this.getProducts();
+                    $('#handy-camara-navi').hide();
+                    $('#handy-navi').hide();
+
+                    _this.mistumury_product.image = null
+                    _this.preview = null
+                    _this.mistumury_product.title = ''
+                    $('#my-file').val('')
+
+                    _this.success_navi = '画像保存されました'
+                    $('.loading_image_custom').hide()
+                    _this.loader = 0
+                    _this.mistumury_product = {
+                        title: '',
+                        cost: 100,
+                        sell: 120,
+                        profit_margin: 20
+                    };
+
+                })
+        }
     },
     watch: {}
 }
@@ -2538,11 +2601,12 @@ export default {
 .navi-width-100 {
     width: 220px;
 }
+
 .navi-width-350 {
     width: 300px;
 }
 
-.physicaltbody >tr >td {
+.physicaltbody > tr > td {
     /*text-align: center;*/
 }
 
