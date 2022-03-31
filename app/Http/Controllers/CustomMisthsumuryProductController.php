@@ -107,20 +107,21 @@ class CustomMisthsumuryProductController extends Controller
             $iamge_ = $name .".".$extension;
         }
 
-
-        CustomMisthsumuryProduct::updateOrinsert(["jan" => $jan],[
-            'name' => $request->title,
-            'jan' => $jan,
-            'vendor_id' => $vendor->vendor_id,
-            'vendor_name' => $vendor->name,
-            'cost_price' => $request->cost,
-            'selling_price' => $request->sell,
-            'gross_profit' => $request->sell - $request->cost,
-            'gross_profit_margin' => $request->profit_margin,
-            'case_unit' => 24,
-            'ball_unit' => 6,
-            'image' => $iamge_
-        ] );
+        if (!CustomMisthsumuryProduct::where('jan',$jan)->first()) {
+            CustomMisthsumuryProduct::create([
+                'name' => $request->title,
+                'jan' => $jan,
+                'vendor_id' => $vendor->vendor_id,
+                'vendor_name' => $vendor->name,
+                'cost_price' => $request->cost,
+                'selling_price' => $request->sell,
+                'gross_profit' => $request->sell - $request->cost,
+                'gross_profit_margin' => $request->profit_margin,
+                'case_unit' => 24,
+                'ball_unit' => 6,
+                'image' => $iamge_
+            ] );
+        }
 
         jan::updateOrinsert(["jan" => $jan],[
             "jan" => $jan,

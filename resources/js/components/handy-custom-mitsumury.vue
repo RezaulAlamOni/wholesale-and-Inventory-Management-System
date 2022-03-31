@@ -140,7 +140,7 @@
                             </div>
                             <div>
                                 <img
-                                    :src="''+preview_product.image"
+                                    :src="''+( preview_product.image.includes('public/backend') ? preview_product.image.replace('public/storage//rv3_tonyav1/','') : preview_product.image)"
                                     class="img-thumbnail custom-img-preview" alt="Cinque Terre"
                                     style="cursor: pointer">
                             </div>
