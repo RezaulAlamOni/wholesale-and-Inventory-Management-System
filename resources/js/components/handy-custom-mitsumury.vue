@@ -2570,14 +2570,9 @@ export default {
                 .then(function (response) {
                     _this.selectedSuper = [];
                     _this.selectedSuperShops = [];
-                    _this.getProducts();
+
                     $('#handy-camara-navi').hide();
                     $('#handy-navi').hide();
-
-                    _this.mistumury_product.image = null
-                    _this.preview = null
-                    _this.mistumury_product.title = ''
-                    $('#my-file').val('')
 
                     _this.success_navi = '画像保存されました'
                     $('.loading_image_custom').hide()
@@ -2588,6 +2583,12 @@ export default {
                         sell: 120,
                         profit_margin: 20
                     };
+                    axios.get(_this.base_url + '/get-all-custom-mistumury-products')
+                        .then(function (res) {
+                            let data = res.data;
+                            _this.paginate_products = data.products;
+                            _this.products = data.products.data;
+                        })
 
                 })
         }
