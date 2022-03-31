@@ -110,7 +110,7 @@
                                                        class="form-control  " @click="selectItem($event)"
                                                        @keypress="pressEnterAndSave($event,'cost')"
                                                        style="border-radius: 0px; text-align: center; padding: 7px 0px;">-->
-                                                <img :src="product.jan.custom_mistumury.image.includes('public/backend') ? product.jan.custom_mistumury.image.replace('public/storage//rv3_tonyav1/','') : product.jan.custom_mistumury.image"
+                                                <img :src="product.jan.custom_mistumury.image.replace('public/storage//rv3_tonyav1/public/backend','public/backend')"
                                                      class="img-thumbnail custom-img"
                                                      alt="Cinque Terre" @click="viewInfoForImage(product,product.img)"
                                                      style="cursor: pointer" width="100px">
@@ -224,7 +224,7 @@
                         </div>
                         <div>
                             <img
-                                :src=" preview_product.jan.custom_mistumury.image.includes('public/backend') ? preview_product.jan.custom_mistumury.image.replace('public/storage//rv3_tonyav1/','') : preview_product.jan.custom_mistumury.image"
+                                :src="preview_product.jan.custom_mistumury.image ? preview_product.jan.custom_mistumury.image.replace('public/storage//rv3_tonyav1/public/backend','public/backend') : preview_product.jan.custom_mistumury.image"
                                 class="img-thumbnail custom-img-preview" alt="Cinque Terre"
                                 style="cursor: pointer">
                         </div>
