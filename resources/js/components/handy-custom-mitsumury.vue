@@ -1492,6 +1492,7 @@ export default {
                     //_this.resetField();
                     if (res.data.status == 400) {
                         console.log('log here');
+                        _this.insertToJanList()
                         _this.handi_navi = '<li>0000000</li>';
                         $('#handy-navi').show();
                         return false;
@@ -1928,8 +1929,10 @@ export default {
                         if (response.data.vendor_item_data == 1) {
                             console.log('this jan code is already registered');
                             _this.getOrderDataByJan();
-                            _this.getProducts();
+                            // _this.getProducts();
                             _this.jan_code = ''
+
+
                         } else {
                             console.log('do insert ' + jan_code);
                             let item_name = api_response.name;
@@ -1978,7 +1981,7 @@ export default {
 
                             axios.post(_this.base_url + '/add_vendor_item', data)
                                 .then(function (response) {
-                                    _this.getProducts();
+                                    // _this.getProducts();
                                     _this.getOrderDataByJan();
                                 })
                                 .catch(function (er) {
