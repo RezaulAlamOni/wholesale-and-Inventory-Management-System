@@ -42,7 +42,7 @@
                         <!--                        ;-->
                         <button onclick="$('#mistumury-super-price-rank-setup').modal({backdrop : 'static'})"
                                 class="btn btn-success pull-right mr-1 " id="show-super-list"
-                                style="padding: 7px 10px; font-size: 18px;position: absolute; top: 5px; right: 0px">
+                                style="padding: 7px 10px; font-size: 18px;position: absolute; top: 5px; right: 0px;z-index:999">
                             ランク付け
                         </button>
                         <!--                        <a class="btn btn-danger float-right mr-" v-if="productJans.length > 0"-->
