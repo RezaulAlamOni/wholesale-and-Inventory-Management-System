@@ -86,7 +86,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "js/build_component/" + ({"0":"handy-mitsumury","1":"handy-product-inventory-inquiry","2":"handy-product-order-place-kouri","3":"handy-vandor-master","4":"handy-product-order-receive","5":"handy-product-order-place","6":"handy-product-order-confirm-kouri","7":"handy-product-inventory-tmp-tana-update","8":"handy-product-inventory-return","9":"handy-order-shipment-list","10":"handy-customer-master","11":"barcode-scan","12":"handy-product-order-mail","13":"handy-product-online-order-kouri","14":"admin-super-manage","15":"example-component"}[chunkId]||chunkId) + ".js?id=" + {"0":"6b5b42cddd6854021695","1":"faede4a9a1551185f482","2":"0fe8211ef425641d7da7","3":"980e1351be8347b5d5b7","4":"a6372551d88bf496b462","5":"e0740a2d5a85f28d487a","6":"18e74295b8545fa47884","7":"c5d4547258d694589ff1","8":"c0382d25dc0f7eaffc62","9":"0f2bf837dbb5eaff5b83","10":"903809a9bb0cf541515d","11":"8b63738db2396ecea4e1","12":"e5ffdc279b0a58ebceda","13":"176260c6c77b60409fa9","14":"99fdc6f828669f60314f","15":"bc0e4a76e132e1aaf7cf"}[chunkId] + "";
+/******/ 		script.src = __webpack_require__.p + "js/build_component/" + ({"0":"handy-mitsumury","1":"handy-product-inventory-inquiry","2":"handy-product-order-place-kouri","3":"handy-vandor-master","4":"handy-product-order-receive","5":"handy-product-order-place","6":"handy-product-order-confirm-kouri","7":"handy-product-inventory-tmp-tana-update","8":"handy-product-inventory-return","9":"handy-order-shipment-list","10":"handy-customer-master","11":"barcode-scan","12":"handy-product-order-mail","13":"handy-product-online-order-kouri","14":"admin-super-manage","15":"example-component"}[chunkId]||chunkId) + ".js?id=" + {"0":"552313a1c2df79a6ecff","1":"811712770ca0adbb34ea","2":"8b7247fa468dee96f9b1","3":"966ac6e95b1c0498d211","4":"06ca118c41e2dfc2db71","5":"44087f47517e7d67bfaa","6":"7aaabfa603204c35240e","7":"252f24e43b0489c972f7","8":"4061e4a19b11763e731f","9":"15c3e09291b830a24467","10":"8d5acb02a1111a352891","11":"37660b3c0a5312846fef","12":"fbefd0b706cc4e928328","13":"0b6a5a4d0efce1cd2d0f","14":"7672deb304445bf5381b","15":"bc0e4a76e132e1aaf7cf"}[chunkId] + "";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -6088,89 +6088,6 @@ module.exports = {
 
 })));
 //# sourceMappingURL=bootstrap.js.map
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/lib/css-base.js":
-/***/ (function(module, exports) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
 
 
 /***/ }),

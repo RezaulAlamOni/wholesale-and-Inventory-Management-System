@@ -50,17 +50,17 @@
                         <!--                           style=" position: absolute; top: 5px; right:0px;padding: 5px 10px; font-size: 18px;"-->
                         <!--                        > 削除</a>-->
 
-                        <button class="btn btn-info mr-1 " @click="showSuperAddForm()"
-                                style="padding: 5px 10px; font-size: 22px; float: left;">
-                            スーパー登録
-                        </button>
+<!--                        <button class="btn btn-info mr-1 " @click="showSuperAddForm()"-->
+<!--                                style="padding: 5px 10px; font-size: 22px; float: left;">-->
+<!--                            スーパー登録-->
+<!--                        </button>-->
 
                         <div class=" col-centereds col-md-12 col-sm-12 col-sl-12 p-0 row mt-2"
                              @scroll="handleScroll"
                              style="height: calc(100vh - 115px);overflow: auto;">
                             <div id="stock_detail_by_jan_form" class="p_scn_form text-right">
                                 <div class="form-group row">
-                                    <span class="text-warning" style="width: 100%; text-align: center;">
+                                    <span class="text-warning" style="width: 100%; text-align: center;margin-top: 20px;">
                                         枠の中にクリックしてから <br> JANコードスキャンしてください
                                     </span>
                                     <div class="col-md-12">
@@ -102,7 +102,7 @@
                                  :class="(productJans.indexOf(product)) > -1 ? 'active-img' : ''">
                                 <img :src="product.image.includes('public/backend') ? product.image.replace('public/storage//rv3_tonyav1/','') : product.image" :id="'img'+i"
                                      class="img-thumbnail custom-img" :class="product.jan"
-                                     alt="Cinque Terre" @click="viewInfoForImage(product,product.img)"
+                                     :alt="product.jan" @click="viewInfoForImage(product,product.img)"
                                      @dblclick="viewInfoForImage(product,product.img,1)"
                                      style="cursor: pointer">
                                 <input class="form-check-input form-check-input_" type="checkbox"
@@ -141,7 +141,7 @@
                             <div>
                                 <img
                                     :src="''+(preview_product.image.includes('public/backend') ? preview_product.image.replace('public/storage//rv3_tonyav1/','') : preview_product.image)"
-                                    class="img-thumbnail custom-img-preview" alt="Cinque Terre"
+                                    class="img-thumbnail custom-img-preview" :alt="preview_product.jan"
                                     style="cursor: pointer">
                             </div>
                             <div>
@@ -968,21 +968,21 @@
                 </div>
             </div>
             <!--            super price rank setup -->
-            <div class="modal fade bd-example-modal-lg" style="top: 100px" tabindex="-1" role="dialog"
+            <div class="modal fade bd-example-modal-lg" style="top: 0px" tabindex="-1" role="dialog"
                  aria-labelledby="myLargeModalLabel"
                  aria-hidden="true" id="mistumury-super-price-rank-setup">
                 <div class="modal-dialog modal-lg mt-0">
                     <div class="modal-content">
-                        <div class="modal-header" style="padding: 20px;text-align: right">
+                        <div class="modal-header" style="padding: 10px;text-align: right">
+                            <button class="btn btn-info mr-1 " @click="new_super_plag = 1"
+                                    style="padding: 5px 10px; font-size: 22px; float: left;">
+                                スーパー登録-・ランク
+                            </button>
                             <button onclick="$('#mistumury-super-price-rank-setup').modal('hide');"
                                     @click="new_super_plag = 0;"
                                     class="btn btn-primary mr-1 float-right" id="show-super-list_--"
                                     style="padding: 5px 10px; font-size: 22px; float: right;">
                                 戻る
-                            </button>
-                            <button class="btn btn-info mr-1 " @click="new_super_plag = 1"
-                                    style="padding: 5px 10px; font-size: 22px; float: right;">
-                                スーパー登録
                             </button>
                         </div>
                         <div class="modal-body" style="padding: 5px">
@@ -2712,9 +2712,9 @@ table thead tr th, table tbody tr td {
     border: none !important;
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 767px) {
     .image-div {
-        width: 33%;
+        width: 50%;
         max-height: 130px;
     }
 
