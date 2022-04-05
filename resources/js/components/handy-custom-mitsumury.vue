@@ -102,7 +102,7 @@
                                  :class="(productJans.indexOf(product)) > -1 ? 'active-img' : ''">
                                 <img :src="product.image.includes('public/backend') ? product.image.replace('public/storage//rv3_tonyav1/','') : product.image" :id="'img'+i"
                                      class="img-thumbnail custom-img" :class="product.jan"
-                                     :alt="product.jan" @click="viewInfoForImage(product,product.img)"
+                                     :alt="product.name" @click="viewInfoForImage(product,product.img)"
                                      @dblclick="viewInfoForImage(product,product.img,1)"
                                      style="cursor: pointer">
                                 <input class="form-check-input form-check-input_" type="checkbox"
@@ -976,7 +976,7 @@
                         <div class="modal-header" style="padding: 10px;text-align: right">
                             <button class="btn btn-info mr-1 " @click="new_super_plag = 1"
                                     style="padding: 5px 10px; font-size: 22px; float: left;">
-                                スーパー登録-・ランク
+                                スーパー登録-
                             </button>
                             <button onclick="$('#mistumury-super-price-rank-setup').modal('hide');"
                                     @click="new_super_plag = 0;"
