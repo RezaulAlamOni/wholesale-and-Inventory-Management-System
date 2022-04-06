@@ -50,17 +50,18 @@
                         <!--                           style=" position: absolute; top: 5px; right:0px;padding: 5px 10px; font-size: 18px;"-->
                         <!--                        > 削除</a>-->
 
-<!--                        <button class="btn btn-info mr-1 " @click="showSuperAddForm()"-->
-<!--                                style="padding: 5px 10px; font-size: 22px; float: left;">-->
-<!--                            スーパー登録-->
-<!--                        </button>-->
+                        <!--                        <button class="btn btn-info mr-1 " @click="showSuperAddForm()"-->
+                        <!--                                style="padding: 5px 10px; font-size: 22px; float: left;">-->
+                        <!--                            スーパー登録-->
+                        <!--                        </button>-->
 
                         <div class=" col-centereds col-md-12 col-sm-12 col-sl-12 p-0 row mt-2"
                              @scroll="handleScroll"
                              style="height: calc(100vh - 115px);overflow: auto;">
                             <div id="stock_detail_by_jan_form" class="p_scn_form text-right">
                                 <div class="form-group row">
-                                    <span class="text-warning" style="width: 100%; text-align: center;margin-top: 20px;">
+                                    <span class="text-warning"
+                                          style="width: 100%; text-align: center;margin-top: 20px;">
                                         枠の中にクリックしてから <br> JANコードスキャンしてください
                                     </span>
                                     <div class="col-md-12">
@@ -100,11 +101,13 @@
                             </div>
                             <div class="col-sm-6 col-md-3 col-xl-3 image-div" v-for="(product,i) in products"
                                  :class="(productJans.indexOf(product)) > -1 ? 'active-img' : ''">
-                                <img :src="product.image.includes('public/backend') ? product.image.replace('public/storage//rv3_tonyav1/','') : product.image" :id="'img'+i"
-                                     class="img-thumbnail custom-img" :class="product.jan"
-                                     :alt="product.name" @click="viewInfoForImage(product,product.img)"
-                                     @dblclick="viewInfoForImage(product,product.img,1)"
-                                     style="cursor: pointer">
+                                <img
+                                    :src="product.image.includes('public/backend') ? product.image.replace('public/storage//rv3_tonyav1/','') : product.image"
+                                    :id="'img'+i"
+                                    class="img-thumbnail custom-img" :class="product.jan"
+                                    :alt="product.name" @click="viewInfoForImage(product,product.img)"
+                                    @dblclick="viewInfoForImage(product,product.img,1)"
+                                    style="cursor: pointer">
                                 <input class="form-check-input form-check-input_" type="checkbox"
                                        :id="'check_by_'+product.jan" v-model="productJans"
                                        :value="product">
@@ -338,6 +341,13 @@
                             <div class="detail-pro">
                                 {{ preview_product.created_at }}
                             </div>
+                            <div class="form-group" v-if="selectedSuper.length > 0">
+                                <label><h5 class="text-warning">ここにメッセージを書くことができます </h5></label>
+                                <textarea class="form-control" autofocus v-model="message"
+                                          style="border: 1px solid; background: beige;"
+                                          id="exampleFormControlTextarea1" rows="3">
+                                </textarea>
+                            </div>
                             <div class="mb-4" style="margin-bottom: 80px !important;">
                                 <table data-v-c9953dda="" class="table table-bordered physical_handy_tabls "
                                        style="margin-top: 30px;margin-bottom: 50px">
@@ -350,6 +360,7 @@
                                                    for="flexCheckChecked">
                                                 全て
                                             </label>
+                                            <span style="float: right;color: #007733;">スーパー名クリックすれば選択できるようになります</span>
                                         </th>
                                     </tr>
                                     </thead>
@@ -824,8 +835,7 @@
                                 <textarea class="form-control" autofocus v-model="message"
                                           style="border: 1px solid; background: beige;"
                                           id="exampleFormControlTextarea1" rows="3">
-
-                            </textarea>
+                                </textarea>
                             </div>
 
 
