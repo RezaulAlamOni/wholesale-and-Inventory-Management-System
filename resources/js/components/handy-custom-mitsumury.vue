@@ -105,9 +105,14 @@
                                     :src="product.image.includes('public/backend') ? product.image.replace('public/storage//rv3_tonyav1/','') : product.image"
                                     :id="'img'+i"
                                     class="img-thumbnail custom-img" :class="product.jan"
-                                    :alt="product.name+product.jan" @click="viewInfoForImage(product,product.img)"
-                                    @dblclick="viewInfoForImage(product,product.img,1)"
+                                    :alt="product.jan" @click="viewInfoForImage(product,product.img)"
+                                    @dblclick="viewInfoForImage(product,product.img,1)" @error="()=>{
+                                     product.error = 1
+                                    }"
                                     style="cursor: pointer">
+                                <div>
+                                    <span >{{ product.name }}</span>
+                                </div>
                                 <input class="form-check-input form-check-input_" type="checkbox"
                                        :id="'check_by_'+product.jan" v-model="productJans"
                                        :value="product">
