@@ -2731,7 +2731,7 @@ table thead tr th, table tbody tr td {
 @media screen and (max-width: 767px) {
     .image-div {
         width: 50%;
-        max-height: 130px;
+        /*max-height: 130px;*/
     }
 
     .custom-img {
