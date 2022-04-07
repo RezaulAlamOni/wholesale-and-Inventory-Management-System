@@ -105,7 +105,7 @@
                                     :src="product.image.includes('public/backend') ? product.image.replace('public/storage//rv3_tonyav1/','') : product.image"
                                     :id="'img'+i"
                                     class="img-thumbnail custom-img" :class="product.jan"
-                                    :alt="product.name+' '+product.jan" @click="viewInfoForImage(product,product.img)"
+                                    :alt="product.name+product.jan" @click="viewInfoForImage(product,product.img)"
                                     @dblclick="viewInfoForImage(product,product.img,1)"
                                     style="cursor: pointer">
                                 <input class="form-check-input form-check-input_" type="checkbox"
@@ -360,7 +360,8 @@
                                                    for="flexCheckChecked">
                                                 全て
                                             </label>
-                                            <span style="float: right;color: #007733;">スーパー名クリックすれば選択できるようになります</span>
+                                            <br>
+                                            <span style="float: right;color: #007733;">スーパー名クリックすると送信できるようになります</span>
                                         </th>
                                     </tr>
                                     </thead>
