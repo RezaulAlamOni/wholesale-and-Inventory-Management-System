@@ -1111,7 +1111,7 @@ function handy_page_popup(url_last_element = null, message = "No message", font_
 //oni
 $('.backtoHomeFromAndroid_nabi').click(function () {
     $('#handy-navi').show()
-    $('#handy-navi-body').html('<li>スマートフォンのホームボタンをクリックすると、スマートフォンのホーム画面に戻ることができます。</li>')
+    $('#handy-navi-body').html('<li>スマートフォンのホーム<br>ボタンをクリックすると、<br> スマートフォンのホーム画面に<br>戻ることができます。</li>')
 })
 
 function updateInventory(index, type = 0,case_ball_inputs_set = 0) {
