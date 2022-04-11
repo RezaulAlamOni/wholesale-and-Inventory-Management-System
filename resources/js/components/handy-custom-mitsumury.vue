@@ -40,11 +40,20 @@
                         <!--                            </label>-->
                         <!--                        </div>-->
                         <!--                        ;-->
-                        <button onclick="$('#mistumury-super-price-rank-setup').modal({backdrop : 'static'})"
-                                class="btn btn-success pull-right mr-1 " id="show-super-list"
-                                style="padding: 7px 10px; font-size: 18px;position: absolute; top: 5px; right: 0px;z-index:999">
-                            スーパー登録-・ランク
+
+                        <span style="width: 100%;color: green;"></span><br>
+                        <button @click="addProductModal(0)" v-if="productJans.length <= 0"
+                                class="btn btn-info pull-right mr-1 "
+                                style=" top: 5px; right: 115px;padding: 5px 10px; font-size: 22px;float: right;font-size: 20px;">
+                            メンテ
                         </button>
+                        または
+                        <button @click="addProductModal(1)" v-if="productJans.length <= 0"
+                                class="btn btn-primary pull-right mr-1 " id="show-super-list__"
+                                style="top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: left;font-size: 20px;">
+                            撮影
+                        </button>
+                        <br>を選んで下さい
                         <!--                        <a class="btn btn-danger float-right mr-" v-if="productJans.length > 0"-->
                         <!--                           @click="deleteMistunury(null)"-->
                         <!--                           style=" position: absolute; top: 5px; right:0px;padding: 5px 10px; font-size: 18px;"-->
@@ -59,9 +68,14 @@
                              @scroll="handleScroll"
                              style="height: calc(100vh - 115px);overflow: auto;">
                             <div id="stock_detail_by_jan_form" class="p_scn_form text-right">
-                                <div class="form-group row">
+                                <div class="form-group row mb-1">
                                     <span class="text-warning"
-                                          style="width: 100%; text-align: center;margin-top: 20px;">
+                                          style="width: 100%; text-align: center;">
+                                         <button type="button" @click="getBarCodeScan()"
+                                                 class="pr-0 ml-1 btn custom-btn btn-primary text-right show_inline search-button"
+                                                 style="padding: 0px 11px;;float: left;width: 60px !important;height: 40px !important;">
+                                        <i class="fa fa-barcode" style="font-size: 40px"></i>
+                                    </button>
                                         枠の中にクリックしてから <br> JANコードスキャンしてください
                                     </span>
                                     <div class="col-md-12">
@@ -86,10 +100,12 @@
                                     <!--                                                      @getSearchData="getSearchData"-->
                                     <!--                                                      @clearInput="clearInput"></text-recognition>-->
 
-                                    <button type="button" @click="getBarCodeScan()"
-                                            class="pr-0 ml-1 btn custom-btn btn-primary text-right show_inline search-button"
-                                            style="padding:0;float: left;width: 70px !important;">
-                                        <i class="fa fa-barcode" style="font-size: 40px"></i>
+
+
+                                    <button onclick="$('#mistumury-super-price-rank-setup').modal({backdrop : 'static'})"
+                                            class="btn btn-success pull-right float-right mr-1 " id="show-super-list"
+                                            style="padding: 7px 10px; font-size: 18px;z-index:999">
+                                        スーパー登録-・ランク
                                     </button>
                                     <!--                                    <button type="button" v-on:click="getOrderDataByJan()"-->
                                     <!--                                            style="margin: 0px;width: 80px !important;"-->
@@ -1190,18 +1206,18 @@
                     <div class="card-body" style="text-align: center;font-size: 16px">
                         <template v-if="navi_button == 1">
                             <span style="width: 100%;color: green;">{{ success_navi }}</span><br>
-                            <button @click="addProductModal(0)" v-if="productJans.length <= 0"
-                                    class="btn btn-info pull-right mr-1 "
-                                    style=" top: 5px; right: 115px;padding: 5px 10px; font-size: 22px;float: right;font-size: 20px;">
-                                メンテ
-                            </button>
-                            または
-                            <button @click="addProductModal(1)" v-if="productJans.length <= 0"
-                                    class="btn btn-primary pull-right mr-1 " id="show-super-list__"
-                                    style="top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: left;font-size: 20px;">
-                                撮影
-                            </button>
-                            <br>を選んで下さい
+<!--                            <button @click="addProductModal(0)" v-if="productJans.length <= 0"-->
+<!--                                    class="btn btn-info pull-right mr-1 "-->
+<!--                                    style=" top: 5px; right: 115px;padding: 5px 10px; font-size: 22px;float: right;font-size: 20px;">-->
+<!--                                メンテ-->
+<!--                            </button>-->
+<!--                            または-->
+<!--                            <button @click="addProductModal(1)" v-if="productJans.length <= 0"-->
+<!--                                    class="btn btn-primary pull-right mr-1 " id="show-super-list__"-->
+<!--                                    style="top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: left;font-size: 20px;">-->
+<!--                                撮影-->
+<!--                            </button>-->
+<!--                            <br>を選んで下さい-->
 
                         </template>
                         <template v-else-if="navi_button == 2">
