@@ -44,18 +44,17 @@
                         <span style="width: 100%;color: green;"></span><br>
                         <button @click="addProductModal(0)" v-if="productJans.length <= 0"
                                 class="btn btn-info pull-right mr-1 "
-                                style=" top: 5px; right: 115px;padding: 5px 10px; font-size: 22px;float: right;font-size: 20px;">
+                                style="margin-right: 35px !important;padding: 5px 10px; font-size: 22px;float: right;font-size: 20px;">
                             メンテ
                         </button>
 
                         <button @click="addProductModal(1)" v-if="productJans.length <= 0"
-                                class="btn btn-primary pull-right mr-1 " id="show-super-list__"
-                                style="top: 5px; right: 0px;padding: 5px 10px; font-size: 22px; float: left;font-size: 20px;">
+                                class="btn btn-primary mr-1 " id="show-super-list__"
+                                style=" margin-left: 40px;padding: 5px 10px; font-size: 22px; float: left;font-size: 20px;">
                             撮影
                         </button>
                         <span style="width: 100%;text-align: center">
-                        または
-                             を選んで下さい</span>
+                        または<br>を選んで下さい</span>
                         <!--                        <a class="btn btn-danger float-right mr-" v-if="productJans.length > 0"-->
                         <!--                           @click="deleteMistunury(null)"-->
                         <!--                           style=" position: absolute; top: 5px; right:0px;padding: 5px 10px; font-size: 18px;"-->
