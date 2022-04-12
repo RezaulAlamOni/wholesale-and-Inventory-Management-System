@@ -412,6 +412,12 @@
                             <div class="detail-pro">
                                 {{ preview_product.created_at }}
                             </div>
+<!--                            @click="addProductModal(0)"-->
+                            <button
+                                    class="btn btn-info pull-right mr-1 my-1"
+                                    style="margin-right: 5px !important; padding: 5px 10px;float: right;font-size: 20px;">
+                                メンテ
+                            </button>
                             <div class="form-group" v-if="selectedSuper.length > 0">
                                 <label><h5 class="text-warning">ここにメッセージを書くことができます </h5></label>
                                 <textarea class="form-control" autofocus v-model="message"
