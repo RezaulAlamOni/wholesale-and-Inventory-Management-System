@@ -41,20 +41,26 @@
                         <!--                        </div>-->
                         <!--                        ;-->
 
-                        <span style="width: 100%;color: green;"></span><br>
-                        <button @click="addProductModal(0)" v-if="productJans.length <= 0"
-                                class="btn btn-info pull-right mr-1 "
-                                style="margin-right: 35px !important;padding: 5px 10px; font-size: 22px;float: right;font-size: 20px;">
-                            メンテ
-                        </button>
+<!--                        <span style="width: 100%;color: green;"></span><br>-->
+<!--                        <button @click="addProductModal(0)" v-if="productJans.length <= 0"-->
+<!--                                class="btn btn-info pull-right mr-1 "-->
+<!--                                style="margin-right: 35px !important;padding: 5px 10px; font-size: 22px;float: right;font-size: 20px;">-->
+<!--                            メンテ-->
+<!--                        </button>-->
 
-                        <button @click="addProductModal(1)" v-if="productJans.length <= 0"
+                        <button @click="addProductModal(1)"
                                 class="btn btn-primary mr-1 " id="show-super-list__"
-                                style=" margin-left: 40px;padding: 5px 10px; font-size: 22px; float: left;font-size: 20px;">
+                                style="padding: 5px 10px; font-size: 24px; float: left;">
                             撮影
                         </button>
-                        <span style="width: 100%;text-align: center">
-                        または<br>を選んで下さい</span>
+                        <button type="button" @click="getBarCodeScan()"
+                                class="pr-0 ml-1 btn custom-btn btn-primary text-right show_inline search-button "
+                                style="padding: 0px;float: left;width: 60px !important;height: 40px !important;float: right">
+                            <i class="fa fa-barcode" style="font-size: 40px"></i>
+                        </button>
+
+<!--                        <span style="width: 100%;text-align: center">-->
+<!--                        または<br>を選んで下さい</span>-->
                         <!--                        <a class="btn btn-danger float-right mr-" v-if="productJans.length > 0"-->
                         <!--                           @click="deleteMistunury(null)"-->
                         <!--                           style=" position: absolute; top: 5px; right:0px;padding: 5px 10px; font-size: 18px;"-->
@@ -72,11 +78,6 @@
                                 <div class="form-group row mb-1">
                                     <span class="text-warning"
                                           style="width: 100%; text-align: center;">
-                                         <button type="button" @click="getBarCodeScan()"
-                                                 class="pr-0 ml-1 btn custom-btn btn-primary text-right show_inline search-button"
-                                                 style="padding: 0px 11px;;float: left;width: 60px !important;height: 40px !important;">
-                                        <i class="fa fa-barcode" style="font-size: 40px"></i>
-                                    </button>
                                         枠の中にクリックしてから <br> JANコードスキャンしてください
                                     </span>
                                     <div class="col-md-12">
@@ -103,11 +104,11 @@
 
 
 
-                                    <button onclick="$('#mistumury-super-price-rank-setup').modal({backdrop : 'static'})"
-                                            class="btn btn-success pull-right float-right mr-1 " id="show-super-list"
-                                            style="padding: 7px 10px; font-size: 18px;z-index:999">
-                                        スーパー登録-・ランク
-                                    </button>
+<!--                                    <button onclick="$('#mistumury-super-price-rank-setup').modal({backdrop : 'static'})"-->
+<!--                                            class="btn btn-success pull-right float-right mr-1 " id="show-super-list"-->
+<!--                                            style="padding: 7px 10px; font-size: 18px;z-index:999">-->
+<!--                                        スーパー登録-・ランク-->
+<!--                                    </button>-->
                                     <!--                                    <button type="button" v-on:click="getOrderDataByJan()"-->
                                     <!--                                            style="margin: 0px;width: 80px !important;"-->
                                     <!--                                            class="btn custom-btn btn-primary pull-right text-right show_inline">-->
@@ -149,6 +150,10 @@
                 <div class="modal-dialog modal-lg mt-0">
                     <div class="modal-content">
                         <div class="modal-header" style="padding: 5px;justify-content: right">
+                            <button class="btn btn-info mr-1 " @click="new_super_plag = 1"
+                                    style="padding: 4px 10px; font-size: 16px; float: left;">
+                                スーパー登録-
+                            </button>
                             <a class="btn btn-danger float-right mr-1" @click="deleteMistunury(preview_product)">削除</a>
                             <!--                            <a class="btn btn-success float-right mr-1" @click="naviShow()"> 保存</a>-->
                             <!--                        <a class="btn btn-success float-right mr-2">発注</a>-->
@@ -157,6 +162,9 @@
                         </div>
                         <div class="modal-body p-0" style="text-align: center"
                              onclick="$('#handy-camara-navi').show();">
+                            <div>
+
+                            </div>
                             <div
                                 style="font-size: 18px;text-align: left;padding: 5px 10px;background: #c3ff8f80;font-weight: bold;">
 
