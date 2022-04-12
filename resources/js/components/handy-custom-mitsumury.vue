@@ -54,8 +54,8 @@
                             撮影
                         </button>
                         <button type="button" @click="getBarCodeScan()"
-                                class="pr-0 ml-1 btn custom-btn btn-primary text-right show_inline search-button "
-                                style="padding: 0px;float: left;width: 60px !important;height: 40px !important;float: right">
+                                class="pr-0 mr-1 btn custom-btn btn-primary text-right show_inline search-button "
+                                style="padding: 0px;width: 60px !important;height: 40px !important;float: right;">
                             <i class="fa fa-barcode" style="font-size: 40px"></i>
                         </button>
 
@@ -162,9 +162,50 @@
                         </div>
                         <div class="modal-body p-0" style="text-align: center"
                              onclick="$('#handy-camara-navi').show();">
-                            <div>
+                            <div class="panel-body buyer_reg_body" style="padding: 10px 40px;margin-bottom: 30px" v-if="new_super_plag">
+                                <form>
+                                    <div class="form-group row">
+                                        <label for="customer_name" class="col-sm-4 col-form-label">販売先名</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control-plaintext" id="customer_name"
+                                                   name="customer_name" v-model="customer.name">
+                                        </div>
+                                    </div>
+                                    <input type="hidden" maxlength="6" class="form-control-plaintext"
+                                           name="customer_code"
+                                           id="customer_code" v-model="customer.code">
+                                    <input type="hidden" class="form-control-plaintext" id="customer_email"
+                                           name="customer_email" v-model="customer.email" required>
+
+                                    <!--                                    <div class="form-group row">-->
+                                    <!--                                        <label for="customer_code" class="col-sm-4 col-form-label">販売先コード</label>-->
+                                    <!--                                        <div class="col-sm-8">-->
+                                    <!--                                            <input type="tel" maxlength="6" class="form-control-plaintext"-->
+                                    <!--                                                   name="customer_code"-->
+                                    <!--                                                   id="customer_code" v-model="customer.code">-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+                                    <!--                                    <div class="form-group row">-->
+                                    <!--                                        <label for="customer_phone" class="col-sm-4 col-form-label">メイル</label>-->
+                                    <!--                                        <div class="col-sm-8">-->
+                                    <!--                                            <input type="email" class="form-control-plaintext" id="customer_email"-->
+                                    <!--                                                   name="customer_email" v-model="customer.email" required>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+                                    <div class="form-group row">
+                                        <label for="customer_phone" class="col-sm-4 col-form-label">電話番号</label>
+                                        <div class="col-sm-8">
+                                            <input type="number" class="form-control-plaintext" id="customer_phone"
+                                                   name="customer_phone" v-model="customer.phone" required>
+                                        </div>
+                                    </div>
+                                </form>
+                                <button type="button" class="btn btn-info float-right" @click="saveCustomer()">追加
+                                </button>
+
 
                             </div>
+
                             <div
                                 style="font-size: 18px;text-align: left;padding: 5px 10px;background: #c3ff8f80;font-weight: bold;">
 
@@ -1507,6 +1548,7 @@ export default {
             $('#' + type).modal('hide')
             if (type == 'mistumury-mage-preview' || type == 'mistumury-select-super') {
                 $('#handy-camara-navi').hide();
+                this.new_super_plag = 0;
                 setTimeout(function () {
                     $('#handy-camara-navi').hide();
                 }, 1000)
@@ -2453,9 +2495,9 @@ export default {
         },
         handiNaviShow() {
             if (this.productJans.length <= 0) {
-                $('#handy-camara-navi').show();
-                this.navi_button = 1;
-                this.confirmAndHide('mistumury-prodct-add-modal')
+                // $('#handy-camara-navi').show();
+                // this.navi_button = 1;
+                // this.confirmAndHide('mistumury-prodct-add-modal')
             }
 
         },
